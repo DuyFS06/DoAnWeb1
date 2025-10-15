@@ -406,27 +406,9 @@
                     }, 1000);
                 } else {
                     showAlert('Tên đăng nhập hoặc mật khẩu không đúng!', 'error');
-                    
-                    // Làm rung form khi sai
-                    const loginBox = document.querySelector('.login-box');
-                    loginBox.style.animation = 'shake 0.5s';
-                    setTimeout(() => {
-                        loginBox.style.animation = '';
-                    }, 500);
                 }
             }, 1500); // Giả lập thời gian xử lý
         });
-
-        // Animation shake
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes shake {
-                0%, 100% { transform: translateX(0); }
-                10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
-                20%, 40%, 60%, 80% { transform: translateX(10px); }
-            }
-        `;
-        document.head.appendChild(style);
 
         // Kiểm tra nếu đã đăng nhập
         window.addEventListener('DOMContentLoaded', function() {
