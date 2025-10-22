@@ -1,0 +1,47 @@
+body {
+    margin: 0;
+    font-family: Roboto, "Segoe UI", Arial, sans-serif;
+    background: #f8fafc;
+    color: #222;
+}
+
+.modal {
+    display: none;
+    /* ẩn mặc định */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* full chiều cao màn hình */
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+    /* nếu nội dung cao quá thì scroll */
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 900px;
+    /* rộng 900px */
+    max-width: 95%;
+    /* đảm bảo responsive trên màn hình nhỏ */
+    min-height: 100%;
+    /* full chiều cao modal */
+    box-sizing: border-box;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+}

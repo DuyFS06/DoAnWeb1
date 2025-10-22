@@ -1,0 +1,114 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+/* ===== NỀN TRANG ===== */
+body {
+  background-color: #f2f2f2;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ===== HỘP ĐĂNG NHẬP ===== */
+.login-login-box {
+  background: #fff;
+  width: 380px;
+  padding: 35px 40px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+}
+
+/* ===== TIÊU ĐỀ ===== */
+.login-login-box h2 {
+  text-align: center;
+  color: #222;
+  margin-bottom: 10px;
+}
+
+.sub {
+  text-align: center;
+  color: #777;
+  margin-bottom: 25px;
+  font-size: 14px;
+}
+
+/* ===== NHÓM INPUT ===== */
+.login-input-group {
+  margin-bottom: 18px;
+}
+
+.login-input-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.login-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.login-input:focus {
+  border-color: #0066cc;
+  box-shadow: 0 0 4px rgba(0, 102, 204, 0.4);
+}
+
+/* ===== GHI NHỚ ===== */
+.login-remember {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.login-remember label {
+  color: #333;
+  font-size: 14px;
+}
+
+/* ===== NÚT ĐĂNG NHẬP ===== */
+.login-button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  background-color: #0066cc;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.login-button:hover {
+  background-color: #004c99;
+}
+
+/* ===== LIÊN KẾT QUÊN MẬT KHẨU + ĐĂNG KÝ ===== */
+.login-forgot,
+.login-link {
+  text-align: center;
+  margin-top: 12px;
+}
+
+.login-forgot a,
+.login-link a {
+  color: #0066cc;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.login-forgot a:hover,
+.login-link a:hover {
+  text-decoration: underline;
+  color: #004c99;
+}
