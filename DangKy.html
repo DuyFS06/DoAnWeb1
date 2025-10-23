@@ -1,24 +1,55 @@
-    <!DOCTYPE html>
-    <html lang="vi">
-    <head>
-      <meta charset="utf-8">
-      <title>Đăng ký - Khách hàng mới</title>
-    </head>
-    <body>
+<!DOCTYPE html>
+<html lang="vi">
 
-<header>
-  <nav>
-    <a href="TrangChu.html">Trang chủ</a> |
-    <a href="TimKiem.html">Tìm kiếm</a> |
-    <a href="GioHang.html">Giỏ hàng</a> |
-    <a href="DangNhap.html">Đăng nhập</a>
-  </nav>
-</header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Đăng ký Khách hàng mới</title>
+  <link rel="stylesheet" href="./assets/css/register.css">
+  <link rel="stylesheet" href="./assets/css/header.css">
+  <script src="./assets/js/include.js" defer></script>
+  <script src="./assets/js/router.js"></script>
+</head>
 
-      <main>
-        <h1>Đăng ký - Khách hàng mới</h1>
-        <p>File: Đăng ký - Khách hàng mới</p>
-      </main>
-    <footer><p>© 2025 Website Bán Hàng - Mọi quyền được bảo lưu.</p></footer>
-    </body>
-    </html>
+<body>
+  <div id="header-html"></div>
+  <div class="main-content">
+    <div class="form-container">
+      <h2>ĐĂNG KÝ - KHÁCH HÀNG MỚI</h2>
+      <form action="DangNhap.html" method="post" class="form-login">
+        <div class="input-group">
+          <label for="fullname" class="required">Tên đăng nhập</label>
+          <input type="text" id="fullname" name="fullname" placeholder="Nhập họ và tên" required />
+        </div>
+        <div class="input-group">
+          <label for="email" class="required">Email</label>
+          <input type="email" id="email" name="email" placeholder="Nhập email" required />
+        </div>
+        <div class="input-group">
+          <label for="password" class="required">Mật khẩu</label>
+          <input type="password" id="password" name="password" placeholder="Nhập mật khẩu" required />
+        </div>
+        <div class="input-group">
+          <label for="confirm" class="required">Nhập lại mật khẩu</label>
+          <input type="password" id="confirm" name="confirm" placeholder="Nhập lại mật khẩu" required />
+        </div>
+        <div class="input-group">
+          <label for="address" class="required">Địa chỉ</label>
+          <textarea id="address" name="address" rows="3" placeholder="Nhập địa chỉ"></textarea>
+        </div>
+
+        <div class="input-group">
+          <button type="submit">ĐĂNG KÝ</button>
+        </div>
+
+        <div class="login-link">
+          Bạn đã có tài khoản? <a href="DangNhap.html">Đăng nhập</a>
+        </div>
+      </form>
+    </div>
+
+    <div class="image-side"></div>
+  </div>
+</body>
+
+</html>
