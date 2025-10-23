@@ -1,14 +1,13 @@
-/* BANNER - ĐÃ CHỈNH SỬA VÀ TỐI ƯU HÓA */
+/* BANNER  */
 .banner {
     position: relative;
-    width: 100%; /* Đảm bảo full chiều ngang */
+    width: 100%; 
     height: 600px;
     overflow: hidden;
     
-    /* SỬ DỤNG FLEXBOX ĐỂ CĂN GIỮA NỘI DUNG */
-    display: flex; /* Bật Flexbox */
-    justify-content: center; /* Căn giữa nội dung theo chiều ngang */
-    align-items: center; /* Căn giữa nội dung theo chiều dọc */
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
 }
 
 .banner-video {
@@ -28,17 +27,14 @@
     position: absolute;
     inset: 0;
     background: rgba(0, 0, 0, 0.4);
-    /* mờ để chữ nổi bật */
     z-index: 2;
 }
 
 .banner-content {
-    /* Đã được căn giữa bởi .banner (Flexbox) nên không cần top: 50% và transform: translateY(-50%) */
     position: relative;
     z-index: 3;
     color: white;
     text-align: center;
-    /* Dùng max-width để nội dung không bị quá dài trên màn hình lớn */
     max-width: 800px;
     padding: 0 20px;
 }
