@@ -1,94 +1,151 @@
+/* ========================================================================= */
+/* FOOTER STYLES (Đã chuẩn hóa) */
+/* ========================================================================= */
+
 footer {
-    background: #fff;
-    padding: 50px 20px;
-    font-family: Arial, sans-serif;
-    color: #333;
-    border-top: 1px solid #ddd;
+    /* Quan trọng: Loại bỏ padding ngang và padding dưới để footer-last dính sát */
+    background: #fcfcfc; 
+    padding: 60px 0 0; 
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #444; 
+    border-top: 1px solid #eee; 
+    line-height: 1.6;
+    margin-top: 50px; 
 }
 
 .footer-container {
+    /* Thẻ chứa các cột nội dung */
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     max-width: 1200px;
     margin: 0 auto;
+    /* Thêm padding ngang vào đây cho nội dung cột, padding dưới tạo khoảng cách với thanh đen */
+    padding: 0 20px 30px; 
 }
 
 .footer-col {
-    flex: 1 1 0;
-}
-
-
-.footer-col:nth-child(1) {
-    flex: 4;
-}
-
-
-.footer-col:nth-child(2) {
-    flex: 2;
-}
-
-
-.footer-col:nth-child(3) {
-    flex: 2;
-}
-
-.footer-col:nth-child(4) {
-    flex: 2;
-}
-
-.footer-col {
-    flex: 1;
-    min-width: 220px;
-    margin-bottom: 20px;
+    flex: 1; 
+    min-width: 200px; 
+    margin-bottom: 30px; 
+    padding-right: 20px; 
     text-align: left;
-    /* căn trái */
 }
+
+/* Tỷ lệ cột (Giả định màu chủ đạo: #4f46e5; Accent: #e11d48) */
+.footer-col:nth-child(1) { flex: 4; }
+.footer-col:nth-child(2),
+.footer-col:nth-child(3),
+.footer-col:nth-child(4) { flex: 2; }
 
 .footer-col h4 {
-    font-weight: bold;
-    border-bottom: 2px solid #000;
+    font-weight: 700; 
+    font-size: 16px;
+    color: #222; 
+    border-bottom: 2px solid #4f46e5; /* Màu chủ đạo */
     display: inline-block;
-    padding-bottom: 5px;
-    margin-bottom: 10px;
+    padding-bottom: 8px; 
+    margin-bottom: 18px; 
+    text-transform: uppercase; 
+    letter-spacing: 0.5px;
 }
 
 .footer-col ul {
     list-style: none;
     padding: 0;
     margin: 0;
-    line-height: 1.6;
 }
 
 .footer-col ul li {
-    margin-bottom: 5px;
+    margin-bottom: 10px; 
+    font-size: 15px;
+    color: #555;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.footer-col ul li:hover {
+    color: #4f46e5;
+}
+
+.footer-col:nth-child(1) ul li {
+    line-height: 1.4;
+    margin-bottom: 15px; 
+}
+
+.footer-col:nth-child(1) ul li span {
+    color: #e11d48; /* Màu accent cho SĐT */
+    font-weight: 600;
 }
 
 .footer-col p {
     font-size: 14px;
-    margin-top: 5px;
+    margin: 10px 0; 
+    color: #666;
 }
 
-.social-icons img,
-.logo-icons img,
 .payment-icons img {
+    height: 25px; 
+    width: auto;
     margin-right: 10px;
-    margin-top: 5px;
     vertical-align: middle;
 }
 
-.payment-icons img {
-    width: 40px;
-    margin-right: 5px;
+/* THANH ĐEN CUỐI CÙNG (Dính sát đáy và 2 bên, nội dung xếp dọc) */
+.footer-last {
+    background-color: #000; 
+    width: 100%; /* Dính sát hai bên */
+    
+    display: flex;
+    flex-direction: column; /* Xếp dọc (h3 trên, p dưới) */
+    justify-content: center; 
+    align-items: center; /* Căn giữa nội dung */
+    
+    padding: 15px 20px; 
+    
+    color: #fff; 
+    margin: 0; /* Dính sát đáy */
 }
+
+.footer-last h3 {
+    margin: 0 0 5px 0; /* Tạo khoảng cách dưới 5px */
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff; 
+}
+
+.footer-last p {
+    margin: 0; 
+    font-size: 14px;
+    color: #ccc; 
+}
+
+
+/* ========================================================================= */
+/* RESPONSIVE FOOTER */
+/* ========================================================================= */
 
 @media screen and (max-width: 992px) {
     .footer-container {
+        /* Chuyển thành cột trên tablet/mobile */
         flex-direction: column;
         align-items: flex-start;
+        padding: 0 15px 20px; /* Điều chỉnh padding ngang */
     }
 
     .footer-col {
         width: 100%;
+        min-width: unset;
+        margin-bottom: 30px; 
+        padding-right: 0;
+    }
+    
+    .footer-col:nth-child(1),
+    .footer-col:nth-child(2),
+    .footer-col:nth-child(3),
+    .footer-col:nth-child(4) { flex: unset; }
+    
+    .footer-last { 
+        padding: 15px 15px; 
     }
 }

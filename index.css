@@ -7,6 +7,7 @@
 
 html, body {
   height: 100%;
+  /* Giả định font 'Poppins' đã được import */
   font-family: 'Poppins', sans-serif;
 }
 
@@ -23,7 +24,7 @@ body {
   width: 100%;
   background: #ffffff;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  position: fixed;       /* cố định header */
+  position: fixed; /* cố định header */
   top: 0;
   left: 0;
   z-index: 1000;
@@ -32,7 +33,8 @@ body {
 /* MAIN - thêm khoảng trống tránh header đè */
 main {
   flex: 1;
-  padding: 100px 20px 20px; /* chừa chỗ cho header cao khoảng 80px */
+  /* Chừa chỗ cho header cao 80px */
+  padding: 100px 20px 20px; 
 }
 
 /* FOOTER - luôn ở dưới */
@@ -42,6 +44,7 @@ main {
   border-top: 1px solid #e0e0e0;
   padding: 20px 0;
   box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
+  margin-top: auto; /* Đảm bảo footer đẩy xuống dưới */
 }
 
 /* ------------------- HEADER CHI TIẾT ------------------- */
@@ -77,4 +80,63 @@ header .menu a {
 
 header .menu a:hover {
   color: #007bff;
+}
+
+/* ------------------- CSS CHO BANNER------------------- */
+.banner-section {
+  width: 100%; 
+  padding: 0 20px; 
+}
+
+.main-banner {
+  /* Màu sắc và hình ảnh nổi bật */
+  background-color: #007bff; 
+  background-image: linear-gradient(to right, #007bff, #0056b3);
+  color: white;
+  
+  /* Thiết lập kích thước banner */
+  height:400px; 
+  
+  /* Loại bỏ border-radius để dính sát mép màn hình */
+  border-radius: 0; 
+  overflow: hidden; 
+  
+  /* Bố cục nội dung bên trong banner */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Giữ shadow nhẹ */
+  margin-bottom: 40px; 
+}
+
+.main-banner h1 {
+  font-size: 48px;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.main-banner p {
+  font-size: 18px;
+  max-width: 600px; 
+  margin-bottom: 25px;
+}
+
+.main-banner button {
+  padding: 12px 30px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #007bff;
+  background-color: #ffffff;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.main-banner button:hover {
+  background-color: #e2e6ea;
+  transform: translateY(-2px);
 }

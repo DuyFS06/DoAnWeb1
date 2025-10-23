@@ -115,25 +115,25 @@ input.login-input:focus {
 
 .login-button:hover {
     background-color: #4338ca;
-    transform: translateY(-2px); /* Hiệu ứng nhấc nhẹ */
+    transform: translateY(-2px); 
     box-shadow: 0 4px 10px rgba(90, 120, 255, 0.3);
 }
 
 /* V. LIÊN KẾT */
 
 
-.login-forgot, .login-link {
+.login-forgot {
     margin-top: 15px;
     font-size: 14px;
 }
 
-.login-forgot a, .login-link a {
+.login-forgot a {
     color: #4f46e5;
     text-decoration: none;
     transition: color 0.2s;
 }
 
-.login-forgot a:hover, .login-link a:hover {
+.login-forgot a:hover {
     text-decoration: underline;
     color: #3333ff;
 }
