@@ -1,0 +1,145 @@
+body {
+    margin: 0;
+    font-family: Roboto, "Segoe UI", Arial, sans-serif;
+    background: #f8fafc;
+    color: #222;
+}
+
+/* HEADER */
+header {
+    background-color: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.top-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 60px;
+}
+
+.logo {
+    font-weight: 700;
+    font-size: 22px;
+    color: #111;
+    letter-spacing: 1px;
+}
+
+.search-box {
+    flex: 1;
+    margin: 0 40px;
+    position: relative;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 10px 40px 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: 15px;
+    outline: none;
+    transition: 0.2s;
+}
+
+.search-box input:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 5px rgba(79, 70, 229, 0.4);
+}
+
+.menu a {
+    margin-left: 25px;
+    text-decoration: none;
+    color: #111;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.menu a:hover {
+    color: #4f46e5;
+}
+
+/* DANH SÁCH SẢN PHẨM */
+.product-section {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 0 20px;
+}
+
+.product-section h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 24px;
+    color: #111;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+}
+
+.product-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    transition: transform 0.25s, box-shadow 0.25s;
+    padding-bottom: 10px;
+}
+
+.product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.product-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.product-card h3 {
+    font-size: 14px;
+    margin: 10px 12px 4px;
+    color: #333;
+    font-weight: 400;
+    /* không bold */
+}
+
+.price {
+    color: #e11d48;
+    font-weight: 500;
+    margin: 5px 12px 10px;
+    font-size: 14px;
+}
+
+/* Đánh giá sao */
+.rating {
+    margin: 5px 12px;
+    font-size: 13px;
+    color: #555;
+}
+
+.rating span {
+    color: #f59e0b;
+    font-size: 15px;
+    margin-right: 3px;
+}
+
+/* FOOTER */
+footer {
+    background: #111;
+    color: #ccc;
+    text-align: center;
+    padding: 25px 0;
+    margin-top: 40px;
+}
+
+footer p {
+    margin: 0;
+    font-size: 14px;
+}

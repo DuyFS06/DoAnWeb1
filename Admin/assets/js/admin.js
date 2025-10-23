@@ -1,296 +1,323 @@
 // Admin Dashboard JavaScript
-document.addEventListener('DOMContentLoaded', function() {
-    // Khởi tạo dashboard
-    initializeDashboard();
+document.addEventListener("DOMContentLoaded", function () {
+  // Khởi tạo dashboard
+  initializeDashboard();
 
-    // Cập nhật thông tin admin
-    updateAdminInfo();
+  // Cập nhật thông tin admin
+  updateAdminInfo();
 
-    // Khởi tạo các sự kiện
-    initializeEvents();
+  // Khởi tạo các sự kiện
+  initializeEvents();
 
-    // Khôi phục tab từ localStorage hoặc URL params
-    restoreCurrentTab();
+  // Khôi phục tab từ localStorage hoặc URL params
+  restoreCurrentTab();
 });
 
 // Khôi phục tab hiện tại
 async function restoreCurrentTab() {
-    // Thử lấy tab từ URL params
-    const urlParams = new URLSearchParams(window.location.search);
-    const urlTab = urlParams.get('tab');
+  // Thử lấy tab từ URL params
+  const urlParams = new URLSearchParams(window.location.search);
+  const urlTab = urlParams.get("tab");
 
-    // Hoặc từ localStorage
-    const savedTab = localStorage.getItem('adminCurrentTab');
+  // Hoặc từ localStorage
+  const savedTab = localStorage.getItem("adminCurrentTab");
 
-    // Ưu tiên tab trong URL, sau đó là savedTab
-    const tabToRestore = urlTab || savedTab || 'dashboard';
+  // Ưu tiên tab trong URL, sau đó là savedTab
+  const tabToRestore = urlTab || savedTab || "dashboard";
 
-    // Tìm link tương ứng với tab
-    const targetLink = document.querySelector(`.nav-link[data-tab="${tabToRestore}"]`);
-    if (targetLink) {
-        const pagePath = targetLink.getAttribute('data-page');
-        if (pagePath) {
-            console.debug('Restoring tab:', tabToRestore);
-            await changeTab(tabToRestore, pagePath);
-        }
+  // Tìm link tương ứng với tab
+  const targetLink = document.querySelector(
+    `.nav-link[data-tab="${tabToRestore}"]`
+  );
+  if (targetLink) {
+    const pagePath = targetLink.getAttribute("data-page");
+    if (pagePath) {
+      console.debug("Restoring tab:", tabToRestore);
+      await changeTab(tabToRestore, pagePath);
     }
+  }
 }
 
 // Khởi tạo dashboard
 function initializeDashboard() {
-    console.log('Admin Dashboard initialized');
+  console.log("Admin Dashboard initialized");
 
-    // Kiểm tra session
-    if (typeof adminSession !== 'undefined' && adminSession.isLoggedIn()) {
-        console.log('Admin is logged in');
-    } else {
-        console.log('Admin not logged in');
-    }
+  // Kiểm tra session
+  if (typeof adminSession !== "undefined" && adminSession.isLoggedIn()) {
+    console.log("Admin is logged in");
+  } else {
+    console.log("Admin not logged in");
+  }
 }
 
 // Cập nhật thông tin admin
 function updateAdminInfo() {
-    if (typeof adminSession !== 'undefined' && adminSession.isLoggedIn()) {
-        const adminInfo = adminSession.getCurrentAdmin();
-        if (adminInfo && adminInfo.username) {
-            const adminNameElement = document.getElementById('adminName');
-            if (adminNameElement) {
-                adminNameElement.textContent = adminInfo.username;
-            }
-        }
+  if (typeof adminSession !== "undefined" && adminSession.isLoggedIn()) {
+    const adminInfo = adminSession.getCurrentAdmin();
+    if (adminInfo && adminInfo.username) {
+      const adminNameElement = document.getElementById("adminName");
+      if (adminNameElement) {
+        adminNameElement.textContent = adminInfo.username;
+      }
     }
+  }
 }
 
 // Khởi tạo các sự kiện
 function initializeEvents() {
-    // Sự kiện cho sidebar
-    initializeSidebar();
+  // Sự kiện cho sidebar
+  initializeSidebar();
 
-    // Sự kiện cho responsive
-    initializeResponsive();
+  // Sự kiện cho responsive
+  initializeResponsive();
 
-    // Sự kiện cho stats cards
-    initializeStatsCards();
+  // Sự kiện cho stats cards
+  initializeStatsCards();
 }
 
 // State quản lý tab hiện tại
-let currentTab = 'dashboard';
+let currentTab = "dashboard";
 
 // Khởi tạo sidebar
 function initializeSidebar() {
-    const navLinks = document.querySelectorAll('.nav-link');
+  const navLinks = document.querySelectorAll(".nav-link");
 
-    navLinks.forEach(link => {
-        link.addEventListener('click', async function(e) {
-            e.preventDefault();
+  navLinks.forEach((link) => {
+    link.addEventListener("click", async function (e) {
+      e.preventDefault();
 
-            // Lấy thông tin tab và page
-            const newTab = this.getAttribute('data-tab');
-            const pagePath = this.getAttribute('data-page');
+      // Lấy thông tin tab và page
+      const newTab = this.getAttribute("data-tab");
+      const pagePath = this.getAttribute("data-page");
 
-            if (pagePath) {
-                await changeTab(newTab, pagePath);
-            }
-        });
+      if (pagePath) {
+        await changeTab(newTab, pagePath);
+      }
     });
+  });
 }
 
 // Hàm xử lý chuyển tab
 async function changeTab(newTab, pagePath) {
-    console.debug('Changing tab:', currentTab, '->', newTab);
+  console.debug("Changing tab:", currentTab, "->", newTab);
 
-    try {
-        // Cập nhật UI trước khi load content
-        updateTabUI(newTab);
+  try {
+    // Cập nhật UI trước khi load content
+    updateTabUI(newTab);
 
-        // Load content mới
-        if (pagePath) {
-            await loadContent(pagePath);
+    // Load content mới
+    if (pagePath) {
+      await loadContent(pagePath);
 
-            // Cập nhật state sau khi load thành công
-            currentTab = newTab;
+      // Cập nhật state sau khi load thành công
+      currentTab = newTab;
 
-            // Lưu tab hiện tại vào localStorage
-            localStorage.setItem('adminCurrentTab', newTab);
+      // Lưu tab hiện tại vào localStorage
+      localStorage.setItem("adminCurrentTab", newTab);
 
-            // Update URL mà không reload page
-            const newUrl = new URL(window.location.href);
-            newUrl.searchParams.set('tab', newTab);
-            window.history.pushState({ tab: newTab }, '', newUrl);
-        }
-    } catch (error) {
-        console.error('Error changing tab:', error);
-        showNotification('Không thể chuyển tab: ' + error.message, 'error');
+      // Update URL mà không reload page
+      const newUrl = new URL(window.location.href);
+      newUrl.searchParams.set("tab", newTab);
+      window.history.pushState({ tab: newTab }, "", newUrl);
     }
+  } catch (error) {
+    console.error("Error changing tab:", error);
+    showNotification("Không thể chuyển tab: " + error.message, "error");
+  }
 }
 
 // Hàm cập nhật UI khi chuyển tab
 function updateTabUI(newTab) {
-    // Xóa active class từ tất cả nav items
-    document.querySelectorAll('.nav-item').forEach(item => {
-        item.classList.remove('active');
-    });
+  // Xóa active class từ tất cả nav items
+  document.querySelectorAll(".nav-item").forEach((item) => {
+    item.classList.remove("active");
+  });
 
-    // Thêm active class cho tab mới
-    const newNavItem = document.querySelector(`.nav-link[data-tab="${newTab}"]`);
-    if (newNavItem) {
-        newNavItem.closest('.nav-item').classList.add('active');
-    }
+  // Thêm active class cho tab mới
+  const newNavItem = document.querySelector(`.nav-link[data-tab="${newTab}"]`);
+  if (newNavItem) {
+    newNavItem.closest(".nav-item").classList.add("active");
+  }
 
-    // Cập nhật tiêu đề trang nếu cần
-    updatePageTitle(newTab);
+  // Cập nhật tiêu đề trang nếu cần
+  updatePageTitle(newTab);
 }
 
 // Hàm cập nhật tiêu đề trang
 function updatePageTitle(tab) {
-    const titles = {
-        'dashboard': 'Dashboard - Admin',
-        'customers': 'Quản lý khách hàng - Admin',
-        'categories': 'Quản lý loại sản phẩm - Admin',
-        'products': 'Quản lý sản phẩm - Admin',
-        'orders': 'Quản lý đơn hàng - Admin',
-        'inventory': 'Quản lý tồn kho - Admin',
-        'pricing': 'Quản lý giá bán - Admin',
-        'reports': 'Báo cáo doanh thu - Admin'
-    };
+  const titles = {
+    dashboard: "Dashboard - Admin",
+    customers: "Quản lý khách hàng - Admin",
+    categories: "Quản lý loại sản phẩm - Admin",
+    products: "Quản lý sản phẩm - Admin",
+    orders: "Quản lý đơn hàng - Admin",
+    inventory: "Quản lý tồn kho - Admin",
+    pricing: "Quản lý giá bán - Admin",
+    reports: "Báo cáo doanh thu - Admin",
+  };
 
-    document.title = titles[tab] || 'Admin Dashboard';
+  document.title = titles[tab] || "Admin Dashboard";
 }
 
 // Hàm load nội dung vào container
+// Hàm load nội dung vào container
 async function loadContent(pagePath) {
-    try {
-        // Hiển thị loading
-        const contentContainer = document.getElementById('content-container');
-        showLoading(contentContainer);
+  try {
+    const contentContainer = document.getElementById("content-container");
+    showLoading(contentContainer);
 
-        // Debug log
-        console.debug('Loading content:', pagePath);
+    console.debug("Loading content:", pagePath);
 
-        if (pagePath === 'dashboard') {
-            // Lấy nội dung gốc từ biến global
-            contentContainer.innerHTML = window.originalDashboardContent ||
-                document.querySelector('main.admin-main').innerHTML;
-            hideLoading(contentContainer);
+    if (pagePath === "dashboard") {
+      // Lấy nội dung gốc
+      contentContainer.innerHTML =
+        window.originalDashboardContent ||
+        document.querySelector("main.admin-main").innerHTML;
 
-            // Thêm lại event listeners cho quick action cards
-            document.querySelectorAll('.action-card').forEach(card => {
-                card.addEventListener('click', async(e) => {
-                    e.preventDefault();
-                    const page = card.getAttribute('data-page');
-                    if (page) {
-                        await changeTab(page);
-                    }
-                });
-            });
-            return;
-        }
+      hideLoading(contentContainer);
 
-        // Load script tương ứng với trang
-        const scripts = getPageScripts(pagePath);
-        if (scripts.length > 0) {
-            console.debug('Loading page scripts:', scripts);
-            await Promise.all(scripts.map(src => ensureScriptLoaded(src)));
-        }
-
-        // Tải nội dung HTML tương ứng
-        switch (pagePath) {
-            case 'QuanLyKhachHang.html':
-                await loadCustomersContent(contentContainer);
-                break;
-            case 'QuanLyLoaiSanPham.html':
-                await loadCategoriesContent(contentContainer);
-                break;
-                // Thêm các case khác tương ứng với từng trang
-            default:
-                throw new Error('Không tìm thấy nội dung cho trang này');
-        }
-
-        // Ẩn loading và hiển thị thông báo
-        hideLoading(contentContainer);
-        showNotification('Tải trang thành công', 'success');
-
-    } catch (error) {
-        console.error('Error loading content:', error);
-        showNotification('Có lỗi khi tải trang: ' + error.message, 'error');
-        hideLoading(document.getElementById('content-container'));
+      // Gắn lại sự kiện cho thẻ action-card
+      document.querySelectorAll(".action-card").forEach((card) => {
+        card.addEventListener("click", async (e) => {
+          e.preventDefault();
+          const page = card.getAttribute("data-page");
+          if (page) {
+            await changeTab(page);
+          }
+        });
+      });
+      return;
     }
+
+    // Tải file HTML động
+    const response = await fetch(`./${pagePath}`);
+    if (!response.ok) throw new Error("Không thể tải nội dung trang");
+    const html = await response.text();
+    contentContainer.innerHTML = html;
+
+    // Tự động tải CSS và JS tương ứng
+    const baseName = pagePath.replace(".html", "");
+
+    await loadPageAssets(baseName);
+
+    hideLoading(contentContainer);
+    showNotification(`Đã tải ${pagePath} thành công`, "success");
+  } catch (error) {
+    console.error("Error loading content:", error);
+    showNotification("Lỗi khi tải trang: " + error.message, "error");
+    hideLoading(document.getElementById("content-container"));
+  }
+}
+
+// ===========================
+// Hỗ trợ load CSS & JS động
+// ===========================
+async function loadPageAssets(baseName) {
+  // Load CSS
+  const cssPath = `./assets/css/${baseName}.css`;
+  const cssExists = await fetch(cssPath, { method: "HEAD" }).then(
+    (res) => res.ok
+  );
+  if (cssExists) {
+    const oldCss = document.getElementById("pageCSS");
+    if (oldCss) oldCss.remove();
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = cssPath;
+    link.id = "pageCSS";
+    document.head.appendChild(link);
+  }
+
+  // Load JS
+  const jsPath = `./assets/js/${baseName}.js`;
+  const jsExists = await fetch(jsPath, { method: "HEAD" }).then(
+    (res) => res.ok
+  );
+  if (jsExists) {
+    const oldScript = document.getElementById("pageJS");
+    if (oldScript) oldScript.remove();
+    const script = document.createElement("script");
+    script.src = jsPath;
+    script.id = "pageJS";
+    document.body.appendChild(script);
+  }
 }
 
 // Lấy danh sách script cần load cho mỗi trang
 function getPageScripts(pagePath) {
-    const scripts = [];
-    switch (pagePath) {
-        case 'QuanLyKhachHang.html':
-            scripts.push('assets/js/quanlynguoidung.js');
-            break;
-        case 'QuanLyLoaiSanPham.html':
-            scripts.push('assets/js/quanlyloaisanpham.js');
-            break;
-            // Thêm các case khác cho từng trang
-    }
-    return scripts;
+  const scripts = [];
+  switch (pagePath) {
+    case "QuanLyKhachHang.html":
+      scripts.push("assets/js/quanlynguoidung.js");
+      break;
+    case "QuanLyLoaiSanPham.html":
+      scripts.push("assets/js/quanlyloaisanpham.js");
+      break;
+    // Thêm các case khác cho từng trang
+  }
+  return scripts;
 }
 
 // Load script nếu chưa được load
 function ensureScriptLoaded(src) {
-    return new Promise((resolve, reject) => {
-        if (document.querySelector(`script[src="${src}"]`)) {
-            resolve(); // Script đã load rồi
-            return;
-        }
+  return new Promise((resolve, reject) => {
+    if (document.querySelector(`script[src="${src}"]`)) {
+      resolve(); // Script đã load rồi
+      return;
+    }
 
-        const script = document.createElement('script');
-        script.src = src;
-        script.onload = () => resolve();
-        script.onerror = () => reject(new Error(`Failed to load script: ${src}`));
-        document.head.appendChild(script);
-    });
+    const script = document.createElement("script");
+    script.src = src;
+    script.onload = () => resolve();
+    script.onerror = () => reject(new Error(`Failed to load script: ${src}`));
+    document.head.appendChild(script);
+  });
 }
 
 // Khởi tạo khi trang load
-document.addEventListener('DOMContentLoaded', function() {
-    // Lưu nội dung dashboard gốc vào biến global
-    window.originalDashboardContent = document.querySelector('main.admin-main').innerHTML;
-    console.log('Saved original dashboard content');
+document.addEventListener("DOMContentLoaded", function () {
+  // Lưu nội dung dashboard gốc vào biến global
+  window.originalDashboardContent =
+    document.querySelector("main.admin-main").innerHTML;
+  console.log("Saved original dashboard content");
 
-    // Thêm event listener cho các link trong sidebar
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', async function(e) {
-            e.preventDefault();
-            const page = this.getAttribute('data-page');
-            if (page) {
-                console.log('Nav link clicked:', page);
-                await changeTab(page);
-            }
-        });
+  // Thêm event listener cho các link trong sidebar
+  document.querySelectorAll(".nav-link").forEach((link) => {
+    link.addEventListener("click", async function (e) {
+      e.preventDefault();
+      const page = this.getAttribute("data-page");
+      if (page) {
+        console.log("Nav link clicked:", page);
+        await changeTab(page);
+      }
     });
+  });
 
-    // Khôi phục tab từ URL nếu có
-    const params = new URLSearchParams(window.location.search);
-    const currentTab = params.get('tab') || 'dashboard';
-    console.log('Initial tab:', currentTab);
-    changeTab(currentTab);
+  // Khôi phục tab từ URL nếu có
+  const params = new URLSearchParams(window.location.search);
+  const currentTab = params.get("tab") || "dashboard";
+  console.log("Initial tab:", currentTab);
+  changeTab(currentTab);
 });
 
 // Hàm chuyển tab
 async function changeTab(page) {
-    // Cập nhật URL
-    const url = new URL(window.location.href);
-    url.searchParams.set('tab', page);
-    window.history.pushState({}, '', url);
+  // Cập nhật URL
+  const url = new URL(window.location.href);
+  url.searchParams.set("tab", page);
+  window.history.pushState({}, "", url);
 
-    // Cập nhật active state trong sidebar
-    document.querySelectorAll('.nav-link').forEach(link => {
-        if (link.dataset.page === page) {
-            link.parentElement.classList.add('active');
-        } else {
-            link.parentElement.classList.remove('active');
-        }
-    });
+  // Cập nhật active state trong sidebar
+  document.querySelectorAll(".nav-link").forEach((link) => {
+    if (link.dataset.page === page) {
+      link.parentElement.classList.add("active");
+    } else {
+      link.parentElement.classList.remove("active");
+    }
+  });
 
-    // Load nội dung
-    await loadContent(page);
+  // Load nội dung
+  await loadContent(page);
 }
 
 // Load nội dung trang Quản lý khách hàng
@@ -425,10 +452,9 @@ container.innerHTML = `
 // TODO: Initialize charts here if needed
 // initCharts();
 
-
 // Load nội dung trang Quản lý khách hàng
 async function loadCustomersContent(container) {
-    container.innerHTML = `
+  container.innerHTML = `
         <div class="page-header">
             <h1>Quản lý khách hàng</h1>
             <p>Quản lý tài khoản khách hàng, reset mật khẩu và khóa/mở khóa tài khoản</p>
@@ -490,7 +516,7 @@ async function loadCustomersContent(container) {
 
 // Load nội dung trang Quản lý loại sản phẩm
 async function loadCategoriesContent(container) {
-    container.innerHTML = `
+  container.innerHTML = `
         <div class="page-header">
             <h1>Quản lý loại sản phẩm</h1>
             <p>Quản lý danh mục loại sản phẩm, thêm/sửa/xóa/ẩn loại sản phẩm</p>
@@ -597,10 +623,10 @@ async function loadCategoriesContent(container) {
 
 // Khởi tạo responsive
 function initializeResponsive() {
-    // Toggle sidebar trên mobile
-    const sidebarToggle = document.createElement('button');
-    sidebarToggle.className = 'sidebar-toggle';
-    sidebarToggle.innerHTML = `
+  // Toggle sidebar trên mobile
+  const sidebarToggle = document.createElement("button");
+  sidebarToggle.className = "sidebar-toggle";
+  sidebarToggle.innerHTML = `
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <line x1="3" y1="6" x2="21" y2="6"></line>
             <line x1="3" y1="12" x2="21" y2="12"></line>
@@ -608,9 +634,9 @@ function initializeResponsive() {
         </svg>
     `;
 
-    // Thêm CSS cho toggle button
-    const style = document.createElement('style');
-    style.textContent = `
+  // Thêm CSS cho toggle button
+  const style = document.createElement("style");
+  style.textContent = `
         .sidebar-toggle {
             display: none;
             position: fixed;
@@ -632,92 +658,102 @@ function initializeResponsive() {
         }
     `;
 
-    document.head.appendChild(style);
-    document.body.appendChild(sidebarToggle);
+  document.head.appendChild(style);
+  document.body.appendChild(sidebarToggle);
 
-    sidebarToggle.addEventListener('click', function() {
-        const sidebar = document.querySelector('.admin-sidebar');
-        sidebar.classList.toggle('open');
-    });
+  sidebarToggle.addEventListener("click", function () {
+    const sidebar = document.querySelector(".admin-sidebar");
+    sidebar.classList.toggle("open");
+  });
 
-    // Đóng sidebar khi click bên ngoài
-    document.addEventListener('click', function(e) {
-        const sidebar = document.querySelector('.admin-sidebar');
-        const toggle = document.querySelector('.sidebar-toggle');
+  // Đóng sidebar khi click bên ngoài
+  document.addEventListener("click", function (e) {
+    const sidebar = document.querySelector(".admin-sidebar");
+    const toggle = document.querySelector(".sidebar-toggle");
 
-        if (window.innerWidth <= 768 &&
-            !sidebar.contains(e.target) &&
-            !toggle.contains(e.target)) {
-            sidebar.classList.remove('open');
-        }
-    });
+    if (
+      window.innerWidth <= 768 &&
+      !sidebar.contains(e.target) &&
+      !toggle.contains(e.target)
+    ) {
+      sidebar.classList.remove("open");
+    }
+  });
 }
 
 // Khởi tạo stats cards và quick actions
 function initializeStatsCards() {
-    // Stats cards hover effect
-    const statCards = document.querySelectorAll('.stat-card');
-    statCards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-4px)';
-        });
-
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0)';
-        });
+  // Stats cards hover effect
+  const statCards = document.querySelectorAll(".stat-card");
+  statCards.forEach((card) => {
+    card.addEventListener("mouseenter", function () {
+      this.style.transform = "translateY(-4px)";
     });
 
-    // Quick actions AJAX loading
-    const actionCards = document.querySelectorAll('.action-card[data-page]');
-    actionCards.forEach(card => {
-        card.addEventListener('click', async function(e) {
-            e.preventDefault();
-            const pagePath = this.getAttribute('data-page');
-            if (pagePath) {
-                await loadContent(pagePath);
-            }
-        });
+    card.addEventListener("mouseleave", function () {
+      this.style.transform = "translateY(0)";
     });
+  });
+
+  // Quick actions AJAX loading
+  const actionCards = document.querySelectorAll(".action-card[data-page]");
+  actionCards.forEach((card) => {
+    card.addEventListener("click", async function (e) {
+      e.preventDefault();
+      const pagePath = this.getAttribute("data-page");
+      if (pagePath) {
+        await loadContent(pagePath);
+      }
+    });
+  });
 }
 
 // Hàm utility để format số
 function formatNumber(num) {
-    return new Intl.NumberFormat('vi-VN').format(num);
+  return new Intl.NumberFormat("vi-VN").format(num);
 }
 
 // Hàm utility để format tiền tệ
 function formatCurrency(amount) {
-    return new Intl.NumberFormat('vi-VN', {
-        style: 'currency',
-        currency: 'VND'
-    }).format(amount);
+  return new Intl.NumberFormat("vi-VN", {
+    style: "currency",
+    currency: "VND",
+  }).format(amount);
 }
 
 // Hàm utility để format ngày
 function formatDate(date) {
-    return new Intl.DateTimeFormat('vi-VN', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    }).format(new Date(date));
+  return new Intl.DateTimeFormat("vi-VN", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }).format(new Date(date));
 }
 
 // Hàm hiển thị thông báo
-function showNotification(message, type = 'info') {
-    const notification = document.createElement('div');
-    notification.className = `notification notification-${type}`;
-    notification.innerHTML = `
+function showNotification(message, type = "info") {
+  const notification = document.createElement("div");
+  notification.className = `notification notification-${type}`;
+  notification.innerHTML = `
         <div class="notification-content">
             <div class="notification-icon">
-                ${type === 'success' ? '✓' : type === 'error' ? '✗' : type === 'warning' ? '⚠' : 'ℹ'}
+                ${
+                  type === "success"
+                    ? "✓"
+                    : type === "error"
+                    ? "✗"
+                    : type === "warning"
+                    ? "⚠"
+                    : "ℹ"
+                }
             </div>
             <div class="notification-message">${message}</div>
         </div>
     `;
 
-    // Thêm CSS cho notification
-    const style = document.createElement('style');
-    style.textContent = `
+  // Thêm CSS cho notification
+  const style = document.createElement("style");
+  style.textContent = `
         .notification {
             position: fixed;
             top: 80px;
@@ -786,46 +822,46 @@ function showNotification(message, type = 'info') {
         }
     `;
 
-    if (!document.querySelector('style[data-notification]')) {
-        style.setAttribute('data-notification', 'true');
-        document.head.appendChild(style);
-    }
+  if (!document.querySelector("style[data-notification]")) {
+    style.setAttribute("data-notification", "true");
+    document.head.appendChild(style);
+  }
 
-    document.body.appendChild(notification);
+  document.body.appendChild(notification);
 
-    // Tự động ẩn sau 5 giây
+  // Tự động ẩn sau 5 giây
+  setTimeout(() => {
+    notification.style.animation = "slideOutRight 0.3s ease";
     setTimeout(() => {
-        notification.style.animation = 'slideOutRight 0.3s ease';
-        setTimeout(() => {
-            if (notification.parentNode) {
-                notification.parentNode.removeChild(notification);
-            }
-        }, 300);
-    }, 5000);
+      if (notification.parentNode) {
+        notification.parentNode.removeChild(notification);
+      }
+    }, 300);
+  }, 5000);
 }
 
 // Hàm loading
 function showLoading(element) {
-    if (typeof element === 'string') {
-        element = document.querySelector(element);
-    }
+  if (typeof element === "string") {
+    element = document.querySelector(element);
+  }
 
-    if (element) {
-        element.style.position = 'relative';
-        element.style.pointerEvents = 'none';
+  if (element) {
+    element.style.position = "relative";
+    element.style.pointerEvents = "none";
 
-        const loader = document.createElement('div');
-        loader.className = 'loading-overlay';
-        loader.innerHTML = `
+    const loader = document.createElement("div");
+    loader.className = "loading-overlay";
+    loader.innerHTML = `
             <div class="loading-spinner">
                 <div class="spinner"></div>
                 <div class="loading-text">Đang tải...</div>
             </div>
         `;
 
-        // Thêm CSS cho loading
-        const style = document.createElement('style');
-        style.textContent = `
+    // Thêm CSS cho loading
+    const style = document.createElement("style");
+    style.textContent = `
             .loading-overlay {
                 position: absolute;
                 top: 0;
@@ -864,35 +900,35 @@ function showLoading(element) {
             }
         `;
 
-        if (!document.querySelector('style[data-loading]')) {
-            style.setAttribute('data-loading', 'true');
-            document.head.appendChild(style);
-        }
-
-        element.appendChild(loader);
+    if (!document.querySelector("style[data-loading]")) {
+      style.setAttribute("data-loading", "true");
+      document.head.appendChild(style);
     }
+
+    element.appendChild(loader);
+  }
 }
 
 function hideLoading(element) {
-    if (typeof element === 'string') {
-        element = document.querySelector(element);
-    }
+  if (typeof element === "string") {
+    element = document.querySelector(element);
+  }
 
-    if (element) {
-        const loader = element.querySelector('.loading-overlay');
-        if (loader) {
-            loader.remove();
-        }
-        element.style.pointerEvents = 'auto';
+  if (element) {
+    const loader = element.querySelector(".loading-overlay");
+    if (loader) {
+      loader.remove();
     }
+    element.style.pointerEvents = "auto";
+  }
 }
 
 // Export functions để sử dụng trong các file khác
 window.AdminDashboard = {
-    showNotification,
-    showLoading,
-    hideLoading,
-    formatNumber,
-    formatCurrency,
-    formatDate
+  showNotification,
+  showLoading,
+  hideLoading,
+  formatNumber,
+  formatCurrency,
+  formatDate,
 };

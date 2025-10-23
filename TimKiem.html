@@ -2,6 +2,7 @@
     <html lang="vi">
     <head>
       <meta charset="utf-8">
+      <link rel="stylesheet" href="assets/css/timkiem.css"> 
       <title>Tìm kiếm sản phẩm (cơ bản & nâng cao)</title>
     </head>
     <body>
@@ -16,8 +17,89 @@
 </header>
 
       <main>
-        <h1>Tìm kiếm sản phẩm (cơ bản & nâng cao)</h1>
-        <p>File: Tìm kiếm sản phẩm (cơ bản & nâng cao)</p>
+       <!-- Tìm kiếm cơ bản: theo tên sản phẩm -->
+        <div class="basic-search-section my-4 p-3 border rounded bg-white">
+            <h5 class="mb-3">Tìm kiếm sản phẩm</h5>
+            <div class="input-group">
+                <input type="text" id="basic-search-input" class="form-control" placeholder="Nhập tên sản phẩm..." aria-label="Tìm kiếm sản phẩm">
+                <button class="btn btn-primary" id="basic-search-button" type="button">Tìm kiếm</button>
+            </div>
+        </div>
+       <!-- Bộ lọc nâng cao: Chọn sản phẩm theo nhu cầu -->
+            <div class="filter-section my-4 p-3 border rounded bg-white">
+                <h5 class="mb-3">Chọn sản phẩm theo nhu cầu</h5>
+
+                <!-- Container sử dụng Flexbox -->
+                <div class="filter-container d-flex flex-wrap gap-3 mb-3">
+                    
+                    <!-- 1. Khoảng giá (Giá trị lọc cần thiết) -->
+                    <div class="filter-group flex-fill">
+                        <label for="filter-price" class="form-label small text-muted mb-1">Khoảng giá</label>
+                        <select class="form-select form-select-sm filter-select" id="filter-price">
+                            <option value="all" selected>Giá từ </option>
+                            <option value="1-5">Dưới 1.000.000đ</option>
+                            <option value="5-10">1.000.000đ - 2.000.000đ</option>
+                            <option value="10-20">2.000.000đ - 3.000.000đ</option>
+                            <option value="20-50">3.000.000đ - 5.000.000đ</option>
+                            <option value="10-up">Trên 5.000.000đ</option>
+                        </select>
+                    </div>
+
+                    <!-- 2. Màu sắc -->
+                    <div class="filter-group flex-fill">
+                        <label for="filter-color" class="form-label small text-muted mb-1">Màu sắc </label>
+                        <select class="form-select form-select-sm filter-select" id="filter-color">
+                            <option value="all" selected>Tất cả</option>
+                            <option value="black">Đen</option>
+                            <option value="gold">Vàng</option>
+                            <option value="rose gold">Hồng vàng</option>
+                            <option value="blue">Xanh dương</option> 
+                            <option value="red">Đỏ</option>
+                            <option value="black">Đen</option>
+                            <option value="green">Xanh lá</option>
+                            <option value="silver">Bạc</option>
+                        </select>
+                    </div>
+
+                    <!-- 3. Dây đeo -->
+                    <div class="filter-group flex-fill">
+                        <label for="filter-strap" class="form-label small text-muted mb-1">Dây đeo </label>
+                        <select class="form-select form-select-sm filter-select" id="filter-strap">
+                            <option value="all" selected>Tất cả</option>
+                            <option value="rubber">Cao su</option>
+                            <option value="steel">Thép</option>
+                            <option value="da">Da</option>
+                        </select>
+                    </div>
+                    <!-- 4. Chống nước -->
+                    <div class="filter-group flex-fill">
+                        <label for="filter-waterproof" class="form-label small text-muted mb-1">Chống nước </label>
+                        <select class="form-select form-select-sm filter-select" id="filter-waterproof">
+                            <option value="all" selected>Tất cả</option>
+                            <option value="30m">30m</option>
+                            <option value="50m">50m</option>
+                            <option value="100m">100m</option>
+                            <option value="200m">200m</option>
+                        </select>
+                    </div>
+
+                    <!-- 5. Giới Tính -->
+                    <div class="filter-group flex-fill">
+                        <label for="filter-gender" class="form-label small text-muted mb-1">Giới Tính </label>
+                        <select class="form-select form-select-sm filter-select" id="filter-gender">
+                            <option value="all" selected>Tất cả</option>
+                            <option value="male">Nam</option>
+                            <option value="female">Nữ</option>
+                            <option value="unisex">Unisex</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- 👉 Kết quả hiển thị tại đây -->
+                    <p id="filter-count" class="text-info mt-2">Hiện có 1993 sản phẩm.</p>
+            </div>  
+            <p>Đường dẫn file: <code>DanhSachSanPham.html</code></p>
+          </main>
+          <script src="assets/js/timkiem.js"></script>
       </main>
     <footer><p>© 2025 Website Bán Hàng - Mọi quyền được bảo lưu.</p></footer>
     </body>
