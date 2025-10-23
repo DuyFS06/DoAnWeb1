@@ -1,30 +1,134 @@
-        <!DOCTYPE html>
-        <html lang="vi">
-        <head>
-          <meta charset="UTF-8">
-          <title>Danh sách sản phẩm - Phân trang & phân loại</title>
-        </head>
-        <body>
-        <header>
-  <nav>
-    <a href="../TrangChu.html">Trang chủ</a> |
-    <a href="../DanhSachSanPham.html">Sản phẩm</a> |
-    <a href="../GioHang.html">Giỏ hàng</a> |
-    <a href="../DangNhap.html">Đăng nhập</a> |
-    <a href="../DangKy.html">Đăng ký</a> |
-    <a href="../LichSuMuaHang.html">Lịch sử</a> |
-    <a href="../QuanTri/TrangChu_Admin.html">Quản trị</a>
-  </nav>
-</header>
+<!DOCTYPE html>
+<html lang="vi">
 
-          <main>
-            <h1>Danh sách sản phẩm - Phân trang & phân loại</h1>
-            <p>Đây là trang mẫu: <strong>Danh sách sản phẩm - Phân trang & phân loại</strong>. Nội dung tĩnh để trình bày đồ án.</p>
-            <p>Đường dẫn file: <code>DanhSachSanPham.html</code></p>
-          </main>
-        <footer>
-  <p>© 2025 Website Bán Hàng - Mọi quyền được bảo lưu.</p>
-</footer>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trang chủ - Cửa hàng đồng hồ</title>
+  <link rel="stylesheet" href="./assets/css/products.css">
+  <link rel="stylesheet" href="./assets/css/footer.css">
+  <link rel="stylesheet" href="./assets/css/header.css">
+  <script src="./assets/js/include.js" defer></script>
+</head>
 
-        </body>
-        </html>
+<body>
+  <div id="header-html"></div>
+  <div class="main-wrapper">
+    <main>
+      <!-- SIDEBAR -->
+      <aside class="filter-sidebar">
+        <h3>Bộ lọc sản phẩm</h3>
+
+        <div class="filter-group">
+          <label>Khoảng giá</label>
+          <div class="price-range">
+            <input type="number" placeholder="Giá từ">
+            <input type="number" placeholder="Đến">
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <label>Màu sắc</label>
+          <select>
+            <option>Tất cả</option>
+            <option>Đen</option>
+            <option>Trắng</option>
+            <option>Vàng</option>
+            <option>Bạc</option>
+            <option>Hồng</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Mặt kính</label>
+          <select>
+            <option>Tất cả</option>
+            <option>Khoáng</option>
+            <option>Sapphire</option>
+            <option>Nhựa</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Dây đeo</label>
+          <select>
+            <option>Tất cả</option>
+            <option>Da</option>
+            <option>Kim loại</option>
+            <option>Nhựa</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Giới tính</label>
+          <select>
+            <option>Tất cả</option>
+            <option>Nam</option>
+            <option>Nữ</option>
+            <option>Cặp đôi</option>
+          </select>
+        </div>
+
+        <button>Lọc sản phẩm</button>
+      </aside>
+
+      <!-- PRODUCT LIST -->
+      <section class="product-section">
+        <div class="product-grid">
+          <div class="product-card">
+            <img src="assets/img/AQ-230EGL-9A.jpg" alt="Đồng hồ nam">
+            <h3>Đồng hồ Nam CASIO AQP-240</h3>
+            <div class="rating"><span>★★★★☆</span> (120 đánh giá)</div>
+            <p class="price">2.520.000₫</p>
+          </div>
+          <div class="product-card">
+            <img src="assets/img/AQ-230EL-1A.jpg" alt="Đồng hồ nữ">
+            <h3>Đồng hồ Nữ CASIO LX-800H</h3>
+            <div class="rating"><span>★★★★★</span> (86 đánh giá)</div>
+            <p class="price">1.315.000₫</p>
+          </div>
+          <div class="product-card">
+            <img src="assets/img/AQ-240E-3A.jpg" alt="Đồng hồ cặp đôi">
+            <h3>Đồng hồ Cặp Đôi CASIO MTP</h3>
+            <div class="rating"><span>★★★★☆</span> (64 đánh giá)</div>
+            <p class="price">3.107.000₫</p>
+          </div>
+          <div class="product-card">
+            <img src="assets/img/AQ-240E-7A.jpg" alt="Đồng hồ vàng">
+            <h3>Đồng hồ Vàng CASIO AQ-240EG</h3>
+            <div class="rating"><span>★★★★☆</span> (48 đánh giá)</div>
+            <p class="price">3.428.000₫</p>
+          </div>
+          <div class="product-card">
+            <img src="assets/img/AQ-240EG-9A.jpg" alt="Đồng hồ nam">
+            <h3>Đồng hồ Nam CASIO AQP-240</h3>
+            <div class="rating"><span>★★★★☆</span> (96 đánh giá)</div>
+            <p class="price">2.520.000₫</p>
+          </div>
+          <div class="product-card">
+            <img src="assets/img/MTP-B145SG-1AV.jpg" alt="Đồng hồ nữ">
+            <h3>Đồng hồ Nữ CASIO LX-800H</h3>
+            <div class="rating"><span>★★★★★</span> (77 đánh giá)</div>
+            <p class="price">1.315.000₫</p>
+          </div>
+          <div class="product-card">
+            <img src="assets/img/MTP-B145SG-7AV.jpg" alt="Đồng hồ cặp đôi">
+            <h3>Đồng hồ Cặp Đôi CASIO MTP</h3>
+            <div class="rating"><span>★★★★☆</span> (59 đánh giá)</div>
+            <p class="price">3.107.000₫</p>
+          </div>
+          <div class="product-card">
+            <img src="assets/img/MTP-M307D-1BV.jpg" alt="Đồng hồ vàng">
+            <h3>Đồng hồ Vàng CASIO AQ-240EG</h3>
+            <div class="rating"><span>★★★★★</span> (112 đánh giá)</div>
+            <p class="price">3.428.000₫</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="footer-html"></div>
+</body>
+
+</html>
