@@ -1,0 +1,132 @@
+body {
+    font-family: Roboto, "Segoe UI", Arial, sans-serif;
+    /* background: #f3f4f6; */
+    background: linear-gradient(135deg, #e0e7ff, #eef2ff);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.login-box {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 380px;
+    padding: 40px 35px;
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 8px;
+    font-size: 22px;
+    color: #111;
+}
+
+p.sub {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+.input-group {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: 600;
+    color: #333;
+    font-size: 14px;
+}
+
+input {
+    width: 93%;
+    padding: 10px 12px;
+    margin-top: 6px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    outline: none;
+    transition: all 0.2s;
+}
+
+input:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 4px #6366f1;
+}
+
+.remember {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 10px 0 25px;
+    font-size: 14px;
+    color: #444;
+}
+
+
+.remember input {
+    width: 25px;
+    /* margin-right: 6px; */
+    vertical-align: middle;
+}
+
+.remember input:focus,
+.remember label:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+
+button {
+    width: 100%;
+    background-color: #4f46e5;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+button:hover {
+    background-color: #4338ca;
+}
+
+.forgot {
+    margin-top: 18px;
+    font-size: 14px;
+}
+
+.forgot a {
+    color: #4f46e5;
+    text-decoration: none;
+}
+
+.forgot a:hover {
+    text-decoration: underline;
+}
+
+label.required::after {
+    content: " *";
+    color: red;
+    font-weight: 500;
+}
+
+.login-link {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.login-link a {
+    color: #4f46e5;
+    text-decoration: none;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}

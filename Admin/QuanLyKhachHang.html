@@ -1,22 +1,81 @@
-    <!DOCTYPE html>
-    <html lang="vi">
-    <head>
-      <meta charset="utf-8">
-      <title>Quản lý người dùng (thêm/sửa/khoá)</title>
-    </head>
-    <body>
+<!DOCTYPE html>
+<html lang="vi">
 
-<header>
-  <nav>
-    <a href="DangNhap_Admin.html">Đăng xuất</a> |
-    <a href="TrangChu_Admin.html">Dashboard</a>
-  </nav>
-</header>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý khách hàng - Admin</title>
+    <link rel="stylesheet" href="assets/css/admin.css">
+    <link rel="stylesheet" href="assets/css/DangNhap_Admin.css">
+</head>
 
-      <main>
-        <h1>Quản lý người dùng (thêm/sửa/khoá)</h1>
-        <p>File: Quản lý người dùng (thêm/sửa/khoá)</p>
-      </main>
-    <footer><p>© 2025 Website Bán Hàng - Mọi quyền được bảo lưu.</p></footer>
-    </body>
-    </html>
+<body>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+        <div class="page-header">
+            <h1>Quản lý khách hàng</h1>
+            <p>Quản lý tài khoản khách hàng, reset mật khẩu và khóa/mở khóa tài khoản</p>
+        </div>
+
+        <!-- Action Bar -->
+        <div class="action-bar">
+            <div class="action-left">
+                <button class="btn btn-secondary" onclick="exportCustomers()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7,10 12,15 17,10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        Xuất Excel
+                    </button>
+            </div>
+            <div class="action-right">
+                <div class="search-box">
+                    <input type="text" placeholder="Tìm kiếm khách hàng..." id="searchInput">
+                    <button onclick="searchCustomers()">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <path d="m21 21-4.35-4.35"></path>
+                            </svg>
+                        </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customer Table -->
+        <div class="table-container">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Họ tên</th>
+                        <th>Email</th>
+                        <th>Số điện thoại</th>
+                        <th>Trạng thái tài khoản</th>
+                        <th>Ngày tạo</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody id="customersTableBody">
+                    <!-- Dữ liệu sẽ được load bằng JavaScript -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <button class="btn btn-outline" onclick="previousPage()">Trước</button>
+            <span class="page-info">Trang 1 / 10</span>
+            <button class="btn btn-outline" onclick="nextPage()">Sau</button>
+        </div>
+    </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/admin-session.js"></script>
+    <script src="assets/js/admin.js"></script>
+    <script src="assets/js/quanlynguoidung.js"></script>
+</body>
+
+</html>
