@@ -4,16 +4,13 @@ function includeHTML(id, filePath) {
     fetch(filePath)
       .then(res => res.text())
       .then(data => placeholder.innerHTML = data)
-      .catch(err => console.error("Không tải được file:", err));
+      .catch(err => console.error("Không tải được file:", filePath, err));
   }
 }
 
-// Tự động include header và footer
+// Tự động include header, footer, banner
 document.addEventListener("DOMContentLoaded", () => {
-  // header
-  includeHTML("header-html", "../../includes/header/header.html");
-  // footer
-  includeHTML("footer-html", "../../includes/footer/footer.html");
-  //banner
-  includeHTML("banner-html", "../../includes/banner/banner.html");
+  includeHTML("header-html", "./includes/header/header.html");
+  includeHTML("footer-html", "./includes/footer/footer.html");
+  includeHTML("banner-html", "./includes/banner/banner.html");
 });

@@ -1,11 +1,9 @@
-/* ---------------------------------- */
 /* I. GLOBAL AND RESET */
-/* ---------------------------------- */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', 'Segoe UI', sans-serif; /* Thêm Poppins */
+  font-family: 'Poppins', 'Segoe UI', sans-serif; 
 }
 
 /* ===== NỀN TRANG VÀ CĂN GIỮA ===== */
@@ -18,24 +16,20 @@ body {
   align-items: center;
 }
 
-/* ---------------------------------- */
 /* II. HỘP ĐĂNG NHẬP (login-login-box) */
-/* ---------------------------------- */
 
 .login-login-box {
     background: #fff;
     border-radius: 16px;
-    /* Dùng box-shadow hiện đại hơn */
     box-shadow: 0 8px 30px rgba(90, 120, 255, 0.2); 
     width: 380px;
     padding: 40px 35px;
     text-align: center;
-    border: 1px solid rgba(90, 120, 255, 0.1); /* Viền nhẹ */
+    border: 1px solid rgba(90, 120, 255, 0.1); 
     transition: box-shadow 0.3s;
 }
 
 .login-login-box:hover {
-    /* Hiệu ứng hover tinh tế */
     box-shadow: 0 12px 40px rgba(90, 120, 255, 0.3);
 }
 
@@ -52,9 +46,9 @@ p.sub {
     margin-bottom: 25px;
 }
 
-/* ---------------------------------- */
+
 /* III. INPUT VÀ LABEL */
-/* ---------------------------------- */
+
 
 .login-input-group {
     text-align: left;
@@ -69,14 +63,13 @@ p.sub {
     margin-bottom: 6px;
 }
 
-/* Hiển thị dấu * màu đỏ */
+
 .login-input-group label.required::after {
     content: " *";
     color: red;
     font-weight: 500;
 }
 
-/* SỬA LỖI PADDING: Input chiếm toàn bộ chiều rộng */
 input.login-input {
     width: 100%; 
     padding: 12px;
@@ -93,14 +86,13 @@ input.login-input:focus {
     box-shadow: 0 0 4px rgba(99, 102, 241, 0.3);
 }
 
-/* ---------------------------------- */
 /* IV. CHECKBOX VÀ NÚT */
-/* ---------------------------------- */
+
 
 .login-remember {
     display: flex;
     align-items: center;
-    gap: 8px; /* Tăng gap cho khoảng cách dễ chịu hơn */
+    gap: 8px; 
     margin: 10px 0 25px;
     font-size: 14px;
     color: #444;
@@ -127,9 +119,8 @@ input.login-input:focus {
     box-shadow: 0 4px 10px rgba(90, 120, 255, 0.3);
 }
 
-/* ---------------------------------- */
 /* V. LIÊN KẾT */
-/* ---------------------------------- */
+
 
 .login-forgot, .login-link {
     margin-top: 15px;
