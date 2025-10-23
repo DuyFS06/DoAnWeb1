@@ -2,421 +2,707 @@
 
 const products = [
   {
-    id: "CASIO-AQ230EGL-9A",
-    name: "Đồng hồ Nam CASIO AQP-240",
-    gender: "Nam",
-    color: "Vàng",
-    glass: "Khoáng",
-    strap: "Da",
+     /*id: ,
+    name:Đồng hồ CASIO ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
     priceValue: 2520000,
-    price: "2.520.000₫",
+    price: 
     rating: "★★★★☆",
-    reviews: 120,
-    image: "assets/img/AQ-230EGL-9A.jpg"
+    reviews: 
+    */
+    image: "assets/img/Baby-G/BA-110AH-6A.jpg"
   },
   {
-    id: "CASIO-AQ230EL-1A",
-    name: "Đồng hồ Nữ CASIO LX-800H",
-    gender: "Nữ",
-    color: "Đen",
-    glass: "Sapphire",
-    strap: "Da",
-    priceValue: 1315000,
-    price: "1.315.000₫",
-    rating: "★★★★★",
-    reviews: 86,
-    image: "assets/img/AQ-230EL-1A.jpg"
-  },
-  {
-    id: "CASIO-AQ240E-3A",
-    name: "Đồng hồ Cặp Đôi CASIO MTP",
-    gender: "Cặp đôi",
-    color: "Bạc",
-    glass: "Khoáng",
-    strap: "Kim loại",
-    priceValue: 3107000,
-    price: "3.107.000₫",
-    rating: "★★★★☆",
-    reviews: 64,
-    image: "assets/img/AQ-240E-3A.jpg"
-  },
-  {
-    id: "CASIO-AQ240E-7A",
-    name: "Đồng hồ Vàng CASIO AQ-240EG",
-    gender: "Nam",
-    color: "Vàng",
-    glass: "Nhựa",
-    strap: "Kim loại",
-    priceValue: 3428000,
-    price: "3.428.000₫",
-    rating: "★★★★☆",
-    reviews: 48,
-    image: "assets/img/AQ-240E-7A.jpg"
-  },
-  {
-    id: "CASIO-AQ240EG-9A",
-    name: "Đồng hồ Nam CASIO AQP-240",
-    gender: "Nam",
-    color: "Đen",
-    glass: "Sapphire",
-    strap: "Da",
+    /*id: ,
+    name:Đồng hồ CASIO  ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
     priceValue: 2520000,
-    price: "2.520.000₫",
+    price: 
     rating: "★★★★☆",
-    reviews: 96,
-    image: "assets/img/AQ-240EG-9A.jpg"
+    reviews: 
+    */
+    image: "assets/img/Baby-G/BG-169U-3.jpg"
   },
   {
-    id: "CASIO-MTPB145SG-1AV",
-    name: "Đồng hồ Nữ CASIO LX-800H",
-    gender: "Nữ",
-    color: "Bạc",
-    glass: "Khoáng",
-    strap: "Kim loại",
-    priceValue: 1315000,
-    price: "1.315.000₫",
-    rating: "★★★★★",
-    reviews: 77,
-    image: "assets/img/MTP-B145SG-1AV.jpg"
+    /*id: ,
+    name:Đồng hồ CASIO ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
+    rating: "★★★★☆",
+    reviews: 
+    */
+    image: "assets/img/Baby-G/BGA-280TD-7A.jpg"
   },
   {
-    id: "CASIO-MTPB145SG-7AV",
-    name: "Đồng hồ Cặp Đôi CASIO MTP",
-    gender: "Cặp đôi",
-    color: "Vàng",
-    glass: "Sapphire",
-    strap: "Kim loại",
-    priceValue: 3107000,
-    price: "3.107.000₫",
+    /*id: ,
+    name:Đồng hồ CASIO  ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
     rating: "★★★★☆",
+    reviews: 
+    */
+    image: "assets/img/Baby-G/BGA-290-1A.png"
+  },
+  {
+    /*id: ,
+    name:Đồng hồ CASIO  ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
+    rating: "★★★★☆",
+    reviews: 
+    */
+    image: "assets/img/Baby-G/BGA-310C-1A.jpg"
+  },
+  {
+    /*id: ,
+    name:Đồng hồ CASIO  ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
+    rating: "★★★★☆",
+    reviews: 
+    */
+    image: "assets/img/Baby-G/BGD-560BC-3.png"
+  },
+  {
+    /*id: ,
+    name:Đồng hồ CASIO  ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
+    rating: "★★★★☆",
+    reviews: 
+    */
     reviews: 59,
-    image: "assets/img/MTP-B145SG-7AV.jpg"
+     image: "assets/img/Baby-G/BGD-570XG-8.png"
   },
   {
-    id: "CASIO-MTPM307D-1BV",
-    name: "Đồng hồ Vàng CASIO AQ-240EG",
-    gender: "Nam",
-    color: "Bạc",
-    glass: "Khoáng",
-    strap: "Nhựa",
-    priceValue: 3428000,
-    price: "3.428.000₫",
-    rating: "★★★★★",
-    reviews: 112,
-    image: "assets/img/MTP-M307D-1BV.jpg"
+     /*id: ,
+    name:Đồng hồ CASIO  ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
+    rating: "★★★★☆",
+    reviews: 
+    */
+     image: "assets/img/Baby-G/LOV-20A-7A-b.png"
     },
   {
-    id: "CASIO-AQ230EGL-9A",
-    name: "Đồng hồ Nam CASIO AQP-240",
-    gender: "Nam",
-    color: "Vàng",
-    glass: "Khoáng",
-    strap: "Da",
+     /*id: ,
+    name:Đồng hồ CASIO  ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
     priceValue: 2520000,
-    price: "2.520.000₫",
+    price: 
     rating: "★★★★☆",
-    reviews: 120,
-    image: "assets/img/AQ-230EGL-9A.jpg"
+    reviews: 
+    */
+     image: "assets/img/Baby-G/MSG-S500CD-7A.png"
   },
   {
-    id: "CASIO-AQ230EL-1A",
-    name: "Đồng hồ Nữ CASIO LX-800H",
-    gender: "Nữ",
-    color: "Đen",
-    glass: "Sapphire",
-    strap: "Da",
-    priceValue: 1315000,
-    price: "1.315.000₫",
-    rating: "★★★★★",
-    reviews: 86,
-    image: "assets/img/AQ-230EL-1A.jpg"
-  },
-  {
-    id: "CASIO-AQ240E-3A",
-    name: "Đồng hồ Cặp Đôi CASIO MTP",
-    gender: "Cặp đôi",
-    color: "Bạc",
-    glass: "Khoáng",
-    strap: "Kim loại",
-    priceValue: 3107000,
-    price: "3.107.000₫",
-    rating: "★★★★☆",
-    reviews: 64,
-    image: "assets/img/AQ-240E-3A.jpg"
-  },
-  {
-    id: "CASIO-AQ240E-7A",
-    name: "Đồng hồ Vàng CASIO AQ-240EG",
-    gender: "Nam",
-    color: "Vàng",
-    glass: "Nhựa",
-    strap: "Kim loại",
-    priceValue: 3428000,
-    price: "3.428.000₫",
-    rating: "★★★★☆",
-    reviews: 48,
-    image: "assets/img/AQ-240E-7A.jpg"
-  },
-  {
-    id: "CASIO-AQ240EG-9A",
-    name: "Đồng hồ Nam CASIO AQP-240",
-    gender: "Nam",
-    color: "Đen",
-    glass: "Sapphire",
-    strap: "Da",
+    /*id: ,
+    name:Đồng hồ CASIO  ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
     priceValue: 2520000,
-    price: "2.520.000₫",
+    price: 
     rating: "★★★★☆",
-    reviews: 96,
-    image: "assets/img/AQ-240EG-9A.jpg"
+    reviews: 
+    */
+  image: "assets/img/Baby-G/MSG-S200D-7A.png"
   },
   {
-    id: "CASIO-MTPB145SG-1AV",
-    name: "Đồng hồ Nữ CASIO LX-800H",
-    gender: "Nữ",
-    color: "Bạc",
-    glass: "Khoáng",
-    strap: "Kim loại",
-    priceValue: 1315000,
-    price: "1.315.000₫",
-    rating: "★★★★★",
-    reviews: 77,
-    image: "assets/img/MTP-B145SG-1AV.jpg"
-  },
-  {
-    id: "CASIO-MTPB145SG-7AV",
-    name: "Đồng hồ Cặp Đôi CASIO MTP",
-    gender: "Cặp đôi",
-    color: "Vàng",
-    glass: "Sapphire",
-    strap: "Kim loại",
-    priceValue: 3107000,
-    price: "3.107.000₫",
+   /*id: ,
+    name:Đồng hồ CASIO  ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
     rating: "★★★★☆",
-    reviews: 59,
-    image: "assets/img/MTP-B145SG-7AV.jpg"
+    reviews: 
+    */
+     image: "assets/img/Edifice/ECB-900DB-1B.png"
   },
   {
-    id: "CASIO-MTPM307D-1BV",
-    name: "Đồng hồ Vàng CASIO AQ-240EG",
-    gender: "Nam",
-    color: "Bạc",
-    glass: "Khoáng",
-    strap: "Nhựa",
-    priceValue: 3428000,
-    price: "3.428.000₫",
-    rating: "★★★★★",
-    reviews: 112,
-    image: "assets/img/MTP-M307D-1BV.jpg"
+    /*id: ,
+    name:Đồng hồ CASIO  ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
+    rating: "★★★★☆",
+    reviews: 
+    */
+   image: "assets/img/Edifice/ECB-2200HTR-1A.jpg"
+  },
+  {
+    /*id: ,
+    name:Đồng hồ CASIO  ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
+    rating: "★★★★☆",
+    reviews: 
+    */
+    image: "assets/img/Edifice/EFB-710D-7AV.jpg"
+  },
+  {
+    /*id: ,
+    name:Đồng hồ CASIO  ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
+    rating: "★★★★☆",
+    reviews: 
+    */
+ image: "assets/img/Edifice/EFB-730D-2BV.jpg"
+  },
+  {
+    /*id: ,
+    name:Đồng hồ CASIO  ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
+    rating: "★★★★☆",
+    reviews: 
+    */
+    image: "assets/img/Edifice/EFR-552GL-7AV.png"
+  },
+  {
+    /*id: ,
+    name:Đồng hồ CASIO  ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
+    rating: "★★★★☆",
+    reviews: 
+    */
+    image: "assets/img/Edifice/EFV-140L-1AV.png"
     },
   {
-    id: "CASIO-AQ230EGL-9A",
-    name: "Đồng hồ Nam CASIO AQP-240",
-    gender: "Nam",
-    color: "Vàng",
-    glass: "Khoáng",
-    strap: "Da",
+    /*id: ,
+    name:Đồng hồ CASIO  ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
     priceValue: 2520000,
-    price: "2.520.000₫",
+    price: 
     rating: "★★★★☆",
-    reviews: 120,
-    image: "assets/img/AQ-230EGL-9A.jpg"
+    reviews: 
+    */
+   image: "assets/img/Edifice/EFV-550L-2AV.png"
   },
   {
-    id: "CASIO-AQ230EL-1A",
-    name: "Đồng hồ Nữ CASIO LX-800H",
-    gender: "Nữ",
-    color: "Đen",
-    glass: "Sapphire",
-    strap: "Da",
-    priceValue: 1315000,
-    price: "1.315.000₫",
-    rating: "★★★★★",
-    reviews: 86,
-    image: "assets/img/AQ-230EL-1A.jpg"
-  },
-  {
-    id: "CASIO-AQ240E-3A",
-    name: "Đồng hồ Cặp Đôi CASIO MTP",
-    gender: "Cặp đôi",
-    color: "Bạc",
-    glass: "Khoáng",
-    strap: "Kim loại",
-    priceValue: 3107000,
-    price: "3.107.000₫",
-    rating: "★★★★☆",
-    reviews: 64,
-    image: "assets/img/AQ-240E-3A.jpg"
-  },
-  {
-    id: "CASIO-AQ240E-7A",
-    name: "Đồng hồ Vàng CASIO AQ-240EG",
-    gender: "Nam",
-    color: "Vàng",
-    glass: "Nhựa",
-    strap: "Kim loại",
-    priceValue: 3428000,
-    price: "3.428.000₫",
-    rating: "★★★★☆",
-    reviews: 48,
-    image: "assets/img/AQ-240E-7A.jpg"
-  },
-  {
-    id: "CASIO-AQ240EG-9A",
-    name: "Đồng hồ Nam CASIO AQP-240",
-    gender: "Nam",
-    color: "Đen",
-    glass: "Sapphire",
-    strap: "Da",
+   /*id: ,
+    name:Đồng hồ CASIO  ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
     priceValue: 2520000,
-    price: "2.520.000₫",
+    price: 
     rating: "★★★★☆",
-    reviews: 96,
-    image: "assets/img/AQ-240EG-9A.jpg"
+    reviews: 
+    */
+    image: "assets/img/Edifice/EFV-C120L-8A.jpg"
   },
   {
-    id: "CASIO-MTPB145SG-1AV",
-    name: "Đồng hồ Nữ CASIO LX-800H",
-    gender: "Nữ",
-    color: "Bạc",
-    glass: "Khoáng",
-    strap: "Kim loại",
-    priceValue: 1315000,
-    price: "1.315.000₫",
-    rating: "★★★★★",
-    reviews: 77,
-    image: "assets/img/MTP-B145SG-1AV.jpg"
-  },
-  {
-    id: "CASIO-MTPB145SG-7AV",
-    name: "Đồng hồ Cặp Đôi CASIO MTP",
-    gender: "Cặp đôi",
-    color: "Vàng",
-    glass: "Sapphire",
-    strap: "Kim loại",
-    priceValue: 3107000,
-    price: "3.107.000₫",
+   /*id: ,
+    name:Đồng hồ CASIO  ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
     rating: "★★★★☆",
-    reviews: 59,
-    image: "assets/img/MTP-B145SG-7AV.jpg"
+    reviews: 
+    */
+    image: "assets/img/Edifice/EQS-940NL-1AV.jpg"
   },
   {
-    id: "CASIO-MTPM307D-1BV",
-    name: "Đồng hồ Vàng CASIO AQ-240EG",
-    gender: "Nam",
-    color: "Bạc",
-    glass: "Khoáng",
-    strap: "Nhựa",
-    priceValue: 3428000,
-    price: "3.428.000₫",
-    rating: "★★★★★",
-    reviews: 112,
-    image: "assets/img/MTP-M307D-1BV.jpg"
+    /*id: ,
+    name: ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
+    rating: "★★★★☆",
+    reviews: 
+    */
+    image: "assets/img/Edifice/z6601521206340_236756e5f9ca3a45788b0f5b1b877f30.jpg"
+  },
+  {
+   /*id: ,
+    name: ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
+    rating: "★★★★☆",
+    reviews: 
+    */
+    image: "assets/img/G-Shock/G-SHOCK-GM-2110D-2B.jpg"
+  },
+  {
+    /*id: ,
+    name: ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
+    rating: "★★★★☆",
+    reviews: 
+    */
+    image: "assets/img/G-Shock/GA-700BBR-1A.jpg"
+  },
+  {
+    /*id: ,
+    name: ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
+    rating: "★★★★☆",
+    reviews: 
+    */
+    image: "assets/img/G-Shock/GM-2110D-2A.jpg"
+  },
+  {
+    /*id: ,
+    name: ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
+    rating: "★★★★☆",
+    reviews: 
+    */
+    image: "assets/img/G-Shock/GM-B2100SD-1A.jpg"
     },
   {
-    id: "CASIO-AQ230EGL-9A",
-    name: "Đồng hồ Nam CASIO AQP-240",
-    gender: "Nam",
-    color: "Vàng",
-    glass: "Khoáng",
-    strap: "Da",
+   /*id: ,
+    name: ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
     priceValue: 2520000,
-    price: "2.520.000₫",
+    price: 
     rating: "★★★★☆",
-    reviews: 120,
-    image: "assets/img/AQ-230EGL-9A.jpg"
+    reviews: 
+    */
+    image: "assets/img/G-Shock/GM-S2110B-8A.jpg"
   },
   {
-    id: "CASIO-AQ230EL-1A",
-    name: "Đồng hồ Nữ CASIO LX-800H",
-    gender: "Nữ",
-    color: "Đen",
-    glass: "Sapphire",
-    strap: "Da",
-    priceValue: 1315000,
-    price: "1.315.000₫",
-    rating: "★★★★★",
-    reviews: 86,
-    image: "assets/img/AQ-230EL-1A.jpg"
-  },
-  {
-    id: "CASIO-AQ240E-3A",
-    name: "Đồng hồ Cặp Đôi CASIO MTP",
-    gender: "Cặp đôi",
-    color: "Bạc",
-    glass: "Khoáng",
-    strap: "Kim loại",
-    priceValue: 3107000,
-    price: "3.107.000₫",
-    rating: "★★★★☆",
-    reviews: 64,
-    image: "assets/img/AQ-240E-3A.jpg"
-  },
-  {
-    id: "CASIO-AQ240E-7A",
-    name: "Đồng hồ Vàng CASIO AQ-240EG",
-    gender: "Nam",
-    color: "Vàng",
-    glass: "Nhựa",
-    strap: "Kim loại",
-    priceValue: 3428000,
-    price: "3.428.000₫",
-    rating: "★★★★☆",
-    reviews: 48,
-    image: "assets/img/AQ-240E-7A.jpg"
-  },
-  {
-    id: "CASIO-AQ240EG-9A",
-    name: "Đồng hồ Nam CASIO AQP-240",
-    gender: "Nam",
-    color: "Đen",
-    glass: "Sapphire",
-    strap: "Da",
+   /*id: ,
+    name: ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
     priceValue: 2520000,
-    price: "2.520.000₫",
+    price: 
     rating: "★★★★☆",
-    reviews: 96,
-    image: "assets/img/AQ-240EG-9A.jpg"
+    reviews: 
+    */
+    image: "assets/img/G-Shock/GMA-P2100PC-4A.jpg"
   },
   {
-    id: "CASIO-MTPB145SG-1AV",
-    name: "Đồng hồ Nữ CASIO LX-800H",
-    gender: "Nữ",
-    color: "Bạc",
-    glass: "Khoáng",
-    strap: "Kim loại",
-    priceValue: 1315000,
-    price: "1.315.000₫",
-    rating: "★★★★★",
-    reviews: 77,
-    image: "assets/img/MTP-B145SG-1AV.jpg"
-  },
-  {
-    id: "CASIO-MTPB145SG-7AV",
-    name: "Đồng hồ Cặp Đôi CASIO MTP",
-    gender: "Cặp đôi",
-    color: "Vàng",
-    glass: "Sapphire",
-    strap: "Kim loại",
-    priceValue: 3107000,
-    price: "3.107.000₫",
+   /*id: ,
+    name: ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
     rating: "★★★★☆",
-    reviews: 59,
-    image: "assets/img/MTP-B145SG-7AV.jpg"
+    reviews: 
+    */
+    image: "assets/img/G-Shock/GMA-P2125W-6A.jpg"
   },
   {
-    id: "CASIO-MTPM307D-1BV",
-    name: "Đồng hồ Vàng CASIO AQ-240EG",
-    gender: "Nam",
-    color: "Bạc",
-    glass: "Khoáng",
-    strap: "Nhựa",
-    priceValue: 3428000,
-    price: "3.428.000₫",
-    rating: "★★★★★",
-    reviews: 112,
-    image: "assets/img/MTP-M307D-1BV.jpg"
-  }
+   /*id: ,
+    name: ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
+    rating: "★★★★☆",
+    reviews: 
+    */
+    image: "assets/img/G-Shock/GMA-S120SA-7A2.jpg"
+  },
+  {
+    /*id: ,
+    name: ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
+    rating: "★★★★☆",
+    reviews: 
+    */
+    image: "assets/img/G-Shock/GMW-B5000SS-2.jpg"
+  },
+  {
+    /*id: ,
+    name: ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
+    rating: "★★★★☆",
+    reviews: 
+    */
+    image: "assets/img/G-Shock/GST-B600D-1A.jpg"
+  },
+  {
+    /*id: ,
+    name: ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
+    rating: "★★★★☆",
+    reviews: 
+    */
+    image: "assets/img/Pro-Trek/PRG-340L-5.jpg"
+  },
+  {
+    /*id: ,
+    name: ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
+    rating: "★★★★☆",
+    reviews: 
+    */
+    image: "assets/img/Pro-Trek/PRJ-B001B-1.jpg"
+  },
+  {
+    /*id: ,
+    name: ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
+    rating: "★★★★☆",
+    reviews: 
+    */
+    image: "assets/img/Pro-Trek/PRT-B50-4.png"
+  },
+  {
+    /*id: ,
+    name: ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
+    rating: "★★★★☆",
+    reviews: 
+    */
+    image: "assets/img/Pro-Trek/PRT-B70-2.png"
+  },
+  {
+    /*id: ,
+    name: ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
+    rating: "★★★★☆",
+    reviews: 
+    */
+    image: "assets/img/Pro-Trek/PRW-30Y-1B.png"
+  },
+  {
+    /*id: ,
+    name: ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
+    rating: "★★★★☆",
+    reviews: 
+    */
+    image: "assets/img/Pro-Trek/PRW-35-7.jpg"
+  },
+  {
+    /*id: ,
+    name: ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
+    rating: "★★★★☆",
+    reviews: 
+    */
+    image: "assets/img/Pro-Trek/PRW-50Y-1A.png"
+  },
+  {
+    /*id: ,
+    name: ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
+    rating: "★★★★☆",
+    reviews: 
+    */
+    image: "assets/img/Pro-Trek/PRW-3500SYT-1.jpg"
+  },
+  {
+    /*id: ,
+    name: ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
+    rating: "★★★★☆",
+    reviews: 
+    */
+    image: "assets/img/Pro-Trek/PRW-6000SC-7.jpg"
+  },
+  {
+    /*id: ,
+    name: ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
+    rating: "★★★★☆",
+    reviews: 
+    */
+    image: "assets/img/Pro-Trek/PRW-S3100-1.jpg"
+  },
+   {
+    /*id: ,
+    name: ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
+    rating: "★★★★☆",
+    reviews: 
+    */
+    image: "assets/img/Sheen/SHE-3517L-1A.jpg"
+  },
+  {
+    /*id: ,
+    name: ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
+    rating: "★★★★☆",
+    reviews: 
+    */
+    image: "assets/img/Sheen/SHE-4055PG-7A.png"
+  },
+  {
+    /*id: ,
+    name: ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
+    rating: "★★★★☆",
+    reviews: 
+    */
+    image: "assets/img/Sheen/SHE-4057PGL-7B.png"
+  },
+  {
+    /*id: ,
+    name: ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
+    rating: "★★★★☆",
+    reviews: 
+    */
+    image: "assets/img/Sheen/SHE-4532PG-1A.png"
+  },
+  {
+    /*id: ,
+    name: ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
+    rating: "★★★★☆",
+    reviews: 
+    */
+    image: "assets/img/Sheen/SHE-4538D-7A.png"
+  },
+  {
+    /*id: ,
+    name: ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
+    rating: "★★★★☆",
+    reviews: 
+    */
+    image: "assets/img/Sheen/SHE-4539BGM-1A.jpg"
+  },
+  {
+    /*id: ,
+    name: ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
+    rating: "★★★★☆",
+    reviews: 
+    */
+    image: "assets/img/Sheen/SHE-4540D-7A.jpg"
+  },
+  {
+    /*id: ,
+    name: ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
+    rating: "★★★★☆",
+    reviews: 
+    */
+    image: "assets/img/Sheen/SHE-4558G-9A.jpg"
+  },
+  {
+    /*id: ,
+    name: ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
+    rating: "★★★★☆",
+    reviews: 
+    */
+    image: "assets/img/Sheen/SHE-4562M-2A.jpg"
+  },
+  {
+    /*id: ,
+    name: ,
+    gender: ,
+    color: ",
+    glass: ,
+    strap: 
+    priceValue: 2520000,
+    price: 
+    rating: "★★★★☆",
+    reviews: 
+    */
+    image: "assets/img/Sheen/SHE-4562PGL-4A.jpg"
+  },
+
 ];
 
 const grid = document.getElementById("product-grid");
@@ -438,8 +724,8 @@ function renderProducts(list, limit = null) {
   });
 }
 
-// Hiển thị tối đa 20 sản phẩm đầu tiên
-renderProducts(products, 20);
+// Hiển thị tối đa 40 sản phẩm đầu tiên
+renderProducts(products, 40);
 
 // BỘ LỌC
 document.querySelector("aside button").addEventListener("click", () => {
