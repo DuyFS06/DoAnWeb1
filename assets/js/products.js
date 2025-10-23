@@ -29,8 +29,8 @@ const products = [
   },
   {
     id: "CASIO-AQ240E-3A",
-    name: "Đồng hồ Cặp Đôi CASIO MTP",
-    gender: "Cặp đôi",
+    name: "Đồng hồ Nam CASIO MTP",
+    gender: "Nam",
     color: "Bạc",
     glass: "Khoáng",
     strap: "Kim loại",
@@ -81,8 +81,8 @@ const products = [
   },
   {
     id: "CASIO-MTPB145SG-7AV",
-    name: "Đồng hồ Cặp Đôi CASIO MTP",
-    gender: "Cặp đôi",
+    name: "Đồng hồ Nam CASIO MTP",
+    gender: "Nam",
     color: "Vàng",
     glass: "Sapphire",
     strap: "Kim loại",
@@ -133,8 +133,8 @@ const products = [
   },
   {
     id: "CASIO-AQ240E-3A",
-    name: "Đồng hồ Cặp Đôi CASIO MTP",
-    gender: "Cặp đôi",
+    name: "Đồng hồ Nam CASIO MTP",
+    gender: "Nam",
     color: "Bạc",
     glass: "Khoáng",
     strap: "Kim loại",
@@ -185,8 +185,8 @@ const products = [
   },
   {
     id: "CASIO-MTPB145SG-7AV",
-    name: "Đồng hồ Cặp Đôi CASIO MTP",
-    gender: "Cặp đôi",
+    name: "Đồng hồ Nam CASIO MTP",
+    gender: "Nam",
     color: "Vàng",
     glass: "Sapphire",
     strap: "Kim loại",
@@ -237,8 +237,8 @@ const products = [
   },
   {
     id: "CASIO-AQ240E-3A",
-    name: "Đồng hồ Cặp Đôi CASIO MTP",
-    gender: "Cặp đôi",
+    name: "Đồng hồ Nam CASIO MTP",
+    gender: "Nam",
     color: "Bạc",
     glass: "Khoáng",
     strap: "Kim loại",
@@ -289,8 +289,8 @@ const products = [
   },
   {
     id: "CASIO-MTPB145SG-7AV",
-    name: "Đồng hồ Cặp Đôi CASIO MTP",
-    gender: "Cặp đôi",
+    name: "Đồng hồ Nam CASIO MTP",
+    gender: "Nam",
     color: "Vàng",
     glass: "Sapphire",
     strap: "Kim loại",
@@ -341,8 +341,8 @@ const products = [
   },
   {
     id: "CASIO-AQ240E-3A",
-    name: "Đồng hồ Cặp Đôi CASIO MTP",
-    gender: "Cặp đôi",
+    name: "Đồng hồ Nam CASIO MTP",
+    gender: "Nam",
     color: "Bạc",
     glass: "Khoáng",
     strap: "Kim loại",
@@ -393,8 +393,8 @@ const products = [
   },
   {
     id: "CASIO-MTPB145SG-7AV",
-    name: "Đồng hồ Cặp Đôi CASIO MTP",
-    gender: "Cặp đôi",
+    name: "Đồng hồ Nam CASIO MTP",
+    gender: "Nam",
     color: "Vàng",
     glass: "Sapphire",
     strap: "Kim loại",
@@ -419,6 +419,7 @@ const products = [
   }
 ];
 
+
 const grid = document.getElementById("product-grid");
 
 function renderProducts(list, limit = null) {
@@ -437,6 +438,7 @@ function renderProducts(list, limit = null) {
     grid.appendChild(card);
   });
 }
+
 
 // Hiển thị tối đa 20 sản phẩm đầu tiên
 renderProducts(products, 20);
@@ -457,7 +459,7 @@ document.querySelector("aside button").addEventListener("click", () => {
     const matchColor = color === "Tất cả" || p.color === color;
     const matchGlass = glass === "Tất cả" || p.glass === glass;
     const matchStrap = strap === "Tất cả" || p.strap === strap;
-    const matchGender = gender === "Tất cả" || p.gender === gender;
+    const matchGender = (gender === "Tất cả" || gender === "") ? true : p.gender === gender;
 
     return matchPrice && matchColor && matchGlass && matchStrap && matchGender;
   });
