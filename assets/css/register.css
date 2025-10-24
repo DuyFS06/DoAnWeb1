@@ -188,3 +188,34 @@ label.required::after {
         height: 200px;
     }
 }
+
+/* --- BỔ SUNG CSS CHO PHẢN HỒI LỖI TỪ JAVASCRIPT --- */
+
+/* Kiểu chữ cho thông báo lỗi */
+.error-message {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 5px;
+    display: block; /* Giữ block để chiếm chỗ, nhưng nội dung rỗng mặc định */
+    min-height: 18px; /* Đảm bảo khoảng trống không bị nhảy khi hiển thị lỗi */
+}
+
+/* Tô viền đỏ khi input/textarea có lỗi */
+.input-group input.input-error,
+.input-group textarea.input-error {
+    border: 2px solid red;
+    box-shadow: 0 0 4px rgba(255, 0, 0, 0.5);
+}
+
+/* Tô viền xanh khi input/textarea đã vượt qua kiểm tra (tùy chọn) */
+.input-group input.input-success,
+.input-group textarea.input-success {
+    border: 2px solid #4caf50;
+}
+
+/* Đảm bảo khi có lỗi, viền focus màu xanh mặc định không ghi đè viền đỏ */
+.input-group input.input-error:focus,
+.input-group textarea.input-error:focus {
+    border-color: red;
+    box-shadow: 0 0 4px rgba(255, 0, 0, 0.5);
+}
