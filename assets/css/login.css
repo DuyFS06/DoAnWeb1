@@ -116,17 +116,3 @@ label.required::after {
     color: red;
     font-weight: 500;
 }
-
-.login-link {
-    margin-top: 15px;
-    font-size: 14px;
-}
-
-.login-link a {
-    color: #4f46e5;
-    text-decoration: none;
-}
-
-.login-link a:hover {
-    text-decoration: underline;
-}
