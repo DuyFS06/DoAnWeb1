@@ -71,7 +71,7 @@ const products = [
   {
     id: "BGD-570BC-3",
     catalog: "BABY-G",
-    name: "BABY-G BGD-570BC-3",
+    name: "BABY-G BGD-560BC-3",
     gender: "Nữ",
     desc: "Đồng hồ Nữ chính hãng CASIO",
     color: "Xanh lá",
@@ -79,7 +79,7 @@ const products = [
     strap: "Nhựa",
     priceValue: 3850000,
     price: "3.850.000₫",
-    image: "assets/img/Baby-G/BGD-570BC-3.png"
+    image: "assets/img/Baby-G/BGD-560BC-3.png"
   },
   {
     id: "BGD-570XG-8",
