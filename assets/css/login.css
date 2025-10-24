@@ -1,13 +1,18 @@
 body {
     font-family: Roboto, "Segoe UI", Arial, sans-serif;
-    /* background: #f3f4f6; */
     background: linear-gradient(135deg, #e0e7ff, #eef2ff);
-
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Hiệu ứng xuất hiện mượt */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .login-box {
@@ -50,7 +55,7 @@ input {
     border-radius: 8px;
     font-size: 15px;
     outline: none;
-    transition: all 0.2s;
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 input:focus {
@@ -58,28 +63,22 @@ input:focus {
     box-shadow: 0 0 4px #6366f1;
 }
 
+/* Checkbox custom */
 .remember {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     margin: 10px 0 25px;
     font-size: 14px;
     color: #444;
 }
 
-
-.remember input {
-    width: 25px;
-    /* margin-right: 6px; */
-    vertical-align: middle;
+.remember input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #4f46e5;
+    cursor: pointer;
 }
-
-.remember input:focus,
-.remember label:focus {
-    outline: none;
-    box-shadow: none;
-}
-
 
 button {
     width: 100%;
@@ -90,7 +89,12 @@ button {
     padding: 12px;
     font-size: 16px;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: transform 0.15s, background-color 0.3s;
+}
+
+/* Hiệu ứng nhún khi ấn */
+button:active {
+    transform: scale(0.96);
 }
 
 button:hover {
@@ -115,18 +119,4 @@ label.required::after {
     content: " *";
     color: red;
     font-weight: 500;
-}
-
-.login-link {
-    margin-top: 15px;
-    font-size: 14px;
-}
-
-.login-link a {
-    color: #4f46e5;
-    text-decoration: none;
-}
-
-.login-link a:hover {
-    text-decoration: underline;
 }
