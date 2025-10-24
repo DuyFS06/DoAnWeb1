@@ -14,7 +14,6 @@ const products = [
     strap: "Nhựa",
     priceValue: 4420000,
     price: "4.420.000₫",
-    reviews: 150,
     image: "assets/img/Baby-G/BA-110AH-6A.jpg"
   },
   {
@@ -28,7 +27,6 @@ const products = [
     strap: "Nhựa",
     priceValue: 2620000,
     price: "2.620.000₫", 
-    reviews: 85,
     image: "assets/img/Baby-G/BG-169U-3.jpg"
   },
   {
@@ -42,7 +40,6 @@ const products = [
     strap: "Nhựa",
     priceValue: 3520000,
     price: "3.520.000₫",
-    reviews: 60,
     image: "assets/img/Baby-G/BGA-280TD-7A.jpg"
   },
   {
@@ -56,7 +53,6 @@ const products = [
     strap: "Nhựa",
     priceValue: 3150000,
     price: "3.150.000₫",
-    review: 75,
     image: "assets/img/Baby-G/BGA-290-1A.png"
   },
   {
@@ -70,22 +66,20 @@ const products = [
     strap: "Nhựa",
     priceValue: 4280000,
     price: "4.280.000₫",
-    reviews: 132,
     image: "assets/img/Baby-G/BGA-310C-1A.jpg"
   },
   {
-    id: "BGD-560BC-3",
+    id: "BGD-570BC-3",
     catalog: "BABY-G",
-    name: "BABY-G BGD-560BC-3",
+    name: "BABY-G BGD-570BC-3",
     gender: "Nữ",
     desc: "Đồng hồ Nữ chính hãng CASIO",
-    color: "Trắng",
-    glass: "Nhựa",
-    strap: "Kim loại",
+    color: "Xanh lá",
+    glass: "Khoáng",
+    strap: "Nhựa",
     priceValue: 3850000,
     price: "3.850.000₫",
-    reviews: 88,
-    image: "assets/img/Baby-G/BGD-560BC-3.png"
+    image: "assets/img/Baby-G/BGD-570BC-3.png"
   },
   {
     id: "BGD-570XG-8",
@@ -93,12 +87,11 @@ const products = [
     name: "BABY-G BGD-570XG-8",
     gender: "Nữ",
     desc: "Đồng hồ Nữ chính hãng CASIO",
-    color: "Bạc",
-    glass: "Sapphire",
-    strap: "Da",
+    color: "Đen",
+    glass: "Khoáng",
+    strap: "Nhựa",
     priceValue: 4970000,
     price: "4.970.000₫",
-    reviews: 174,
     image: "assets/img/Baby-G/BGD-570XG-8.png"
   },
   {
@@ -107,12 +100,11 @@ const products = [
     name: "BABY-G LOV-20A-7A-b",
     gender: "Nữ",
     desc: "Đồng hồ Nữ chính hãng CASIO",
-    color: "Hồng",
+    color: "Trắng",
     glass: "Khoáng",
     strap: "Nhựa",
     priceValue: 5520000,
     price: "5.520.000₫",
-    reviews: 201,
     image: "assets/img/Baby-G/LOV-20A-7A-b.png"
   },
   {
@@ -126,7 +118,6 @@ const products = [
     strap: "Kim loại",
     priceValue: 6250000,
     price: "6.250.000₫",
-    reviews: 143,
     image: "assets/img/Baby-G/MSG-S200D-7A.png"
   },
   {
@@ -135,12 +126,11 @@ const products = [
     name: "BABY-G MSG-S500CD-7A",
     gender: "Nữ",
     desc: "Đồng hồ Nữ chính hãng CASIO",
-    color: "Vàng",
-    glass: "Sapphire",
-    strap: "Da",
+    color: "Bạc",
+    glass: "Khoáng",
+    strap: "Kim loại",
     priceValue: 6980000,
     price: "6.980.000₫",
-    reviews: 120,
     image: "assets/img/Baby-G/MSG-S500CD-7A.png"
   },
 
@@ -156,7 +146,6 @@ const products = [
     strap: "Kim loại",
     priceValue: 3820000,
     price: "3.820.000₫",
-    reviews: 132,
     image: "assets/img/Edifice/EFV-650D-2BV.jpg"
   },
   {
@@ -166,11 +155,10 @@ const products = [
     gender: "Nam",
     desc: "Đồng hồ Nam chính hãng CASIO",
     color: "Đen",
-    glass: "Sapphire",
+    glass: "Khoáng",
     strap: "Da",
     priceValue: 5120000,
     price: "5.120.000₫",
-    reviews: 210,
     image: "assets/img/Edifice/EQS-940NL-1AV.jpg"
   },
   {
@@ -179,12 +167,11 @@ const products = [
     name: "EDIFICE EFV-C120L-8A",
     gender: "Nam",
     desc: "Đồng hồ Nam chính hãng CASIO",
-    color: "Trắng",
+    color: "Đen",
     glass: "Khoáng",
     strap: "Da",
     priceValue: 2980000,
     price: "2.980.000₫",
-    reviews: 165,
     image: "assets/img/Edifice/EFV-C120L-8A.jpg"
   },
   {
@@ -198,7 +185,6 @@ const products = [
     strap: "Da",
     priceValue: 3780000,
     price: "3.780.000₫",
-    reviews: 94,
     image: "assets/img/Edifice/EFV-550L-2AV.png"
   },
   {
@@ -208,11 +194,10 @@ const products = [
     gender: "Nam",
     desc: "Đồng hồ Nam chính hãng CASIO",
     color: "Đen",
-    glass: "Sapphire",
+    glass: "Khoáng",
     strap: "Da",
     priceValue: 4220000,
     price: "4.220.000₫",
-    reviews: 178,
     image: "assets/img/Edifice/EFV-140L-1AV.png"
   },
   {
@@ -221,12 +206,11 @@ const products = [
     name: "EDIFICE EFR-552GL-7AV",
     gender: "Nam",
     desc: "Đồng hồ Nam chính hãng CASIO",
-    color: "Vàng",
+    color: "Nâu",
     glass: "Khoáng",
-    strap: "Kim loại",
+    strap: "Da",
     priceValue: 5180000,
     price: "5.180.000₫",
-    reviews: 152,
     image: "assets/img/Edifice/EFR-552GL-7AV.png"
   },
   {
@@ -240,7 +224,6 @@ const products = [
     strap: "Kim loại",
     priceValue: 6280000,
     price: "6.280.000₫",
-    reviews: 199,
     image: "assets/img/Edifice/EFB-730D-2BV.jpg"
   },
   {
@@ -249,12 +232,11 @@ const products = [
     name: "EDIFICE EFB-710D-7AV",
     gender: "Nam",
     desc: "Đồng hồ Nam chính hãng CASIO",
-    color: "Trắng",
+    color: "Bạc",
     glass: "Sapphire",
     strap: "Kim loại",
     priceValue: 6120000,
     price: "6.120.000₫",
-    reviews: 187,
     image: "assets/img/Edifice/EFB-710D-7AV.jpg"
   },
   {
@@ -264,11 +246,10 @@ const products = [
     gender: "Nam",
     desc: "Đồng hồ Nam chính hãng CASIO",
     color: "Đen",
-    glass: "Khoáng",
-    strap: "Nhựa",
+    glass: "Sapphire",
+    strap: "Da",
     priceValue: 7150000,
     price: "7.150.000₫",
-    reviews: 243,
     image: "assets/img/Edifice/ECB-2200HTR-1A.jpg"
   },
   {
@@ -277,12 +258,11 @@ const products = [
     name: "EDIFICE ECB-900DB-1B",
     gender: "Nam",
     desc: "Đồng hồ Nam chính hãng CASIO",
-    color: "Đen",
-    glass: "Sapphire",
+    color: "Bạc",
+    glass: "Khoáng",
     strap: "Kim loại",
     priceValue: 9250000,
     price: "9.250.000₫",
-    reviews: 320,
     image: "assets/img/Edifice/ECB-900DB-1B.png"
   },
 
@@ -298,7 +278,6 @@ const products = [
     strap: "Kim loại",
     priceValue: 8250000,
     price: "8.250.000₫",
-    reviews: 210,
     image: "assets/img/G-Shock/GST-B600D-1A.jpg"
   },
   {
@@ -307,12 +286,11 @@ const products = [
     name: "G-SHOCK GMW-B5000SS-2",
     gender: "Nam",
     desc: "Đồng hồ Nam chính hãng CASIO",
-    color: "Xanh",
-    glass: "Sapphire",
+    color: "Xanh dương",
+    glass: "Khoáng",
     strap: "Kim loại",
     priceValue: 12900000,
     price: "12.900.000₫",
-    reviews: 185,
     image: "assets/img/G-Shock/GMW-B5000SS-2.jpg"
   },
   {
@@ -326,7 +304,6 @@ const products = [
     strap: "Nhựa",
     priceValue: 4200000,
     price: "4.200.000₫",
-    reviews: 155,
     image: "assets/img/G-Shock/GMA-S120SA-7A2.jpg"
   },
   {
@@ -335,12 +312,11 @@ const products = [
     name: "G-SHOCK GMA-P2125W-6A",
     gender: "Nữ",
     desc: "Đồng hồ Nữ chính hãng CASIO",
-    color: "Hồng",
+    color: "Tím",
     glass: "Khoáng",
     strap: "Nhựa",
     priceValue: 4150000,
     price: "4.150.000₫",
-    reviews: 130,
     image: "assets/img/G-Shock/GMA-P2125W-6A.jpg"
   },
   {
@@ -350,11 +326,10 @@ const products = [
     gender: "Nữ",
     desc: "Đồng hồ Nữ chính hãng CASIO",
     color: "Hồng",
-    glass: "Sapphire",
+    glass: "Khoáng",
     strap: "Nhựa",
     priceValue: 4350000,
     price: "4.350.000₫",
-    reviews: 180,
     image: "assets/img/G-Shock/GMA-P2100PC-4A.jpg"
   },
   {
@@ -363,12 +338,11 @@ const products = [
     name: "G-SHOCK GM-S2110B-8A",
     gender: "Nữ",
     desc: "Đồng hồ Nữ chính hãng CASIO",
-    color: "Bạc",
-    glass: "Sapphire",
-    strap: "Kim loại",
+    color: "Đen",
+    glass: "Khoáng",
+    strap: "Nhựa",
     priceValue: 6980000,
     price: "6.980.000₫",
-    reviews: 165,
     image: "assets/img/G-Shock/GM-S2110B-8A.jpg"
   },
   {
@@ -382,22 +356,20 @@ const products = [
     strap: "Kim loại",
     priceValue: 10400000,
     price: "10.400.000₫",
-    reviews: 240,
     image: "assets/img/G-Shock/GM-B2100SD-1A.jpg"
   },
   {
-    id: "GM-2110D-2B",
+    id: "GM-2110D-2A",
     catalog: "G-SHOCK",
     name: "G-SHOCK GM-2110D-2B",
     gender: "Nam",
     desc: "Đồng hồ Nam chính hãng CASIO",
-    color: "Xanh",
+    color: "Xanh dương",
     glass: "Khoáng",
     strap: "Kim loại",
     priceValue: 7850000,
     price: "7.850.000₫",
-    reviews: 175,
-    image: "assets/img/G-Shock/GM-2110D-2B.jpg"
+    image: "assets/img/G-Shock/GM-2110D-2A.jpg"
   },
   {
     id: "GA-700BBR-1A",
@@ -410,21 +382,19 @@ const products = [
     strap: "Nhựa",
     priceValue: 3980000,
     price: "3.980.000₫",
-    reviews: 260,
     image: "assets/img/G-Shock/GA-700BBR-1A.jpg"
   },
   {
-    id: "G-SHOCK-GM-2110D-2B",
+    id: "GM-2110D-2B",
     catalog: "G-SHOCK",
     name: "G-SHOCK GM-2110D-2B",
     gender: "Nữ",
     desc: "Đồng hồ Nữ chính hãng CASIO",
-    color: "Xanh",
+    color: "Xanh dương",
     glass: "Sapphire",
     strap: "Kim loại",
     priceValue: 8250000,
     price: "8.250.000₫",
-    reviews: 195,
     image: "assets/img/G-Shock/GM-2110D-2B.jpg"
   },
 // PRO-TREK
@@ -439,7 +409,6 @@ const products = [
     strap: "Da",
     priceValue: 9280000,
     price: "9.280.000₫",
-    reviews: 145,
     image: "assets/img/Pro-Trek/PRG-340L-5.jpg"
   },
   {
@@ -449,11 +418,10 @@ const products = [
     gender: "Nam",
     desc: "Đồng hồ Nam chính hãng CASIO",
     color: "Đen",
-    glass: "Sapphire",
-    strap: "Nhựa",
+    glass: "Khoáng",
+    strap: "Vải",
     priceValue: 10300000,
     price: "10.300.000₫",
-    reviews: 189,
     image: "assets/img/Pro-Trek/PRJ-B001B-1.jpg"
   },
   {
@@ -467,7 +435,6 @@ const products = [
     strap: "Nhựa",
     priceValue: 7800000,
     price: "7.800.000₫",
-    reviews: 172,
     image: "assets/img/Pro-Trek/PRT-B50-4.png"
   },
   {
@@ -476,12 +443,11 @@ const products = [
     name: "PRO-TREK PRT-B70-2",
     gender: "Nam",
     desc: "Đồng hồ Nam chính hãng CASIO",
-    color: "Xanh",
+    color: "Xanh dương",
     glass: "Khoáng",
     strap: "Nhựa",
     priceValue: 8100000,
     price: "8.100.000₫",
-    reviews: 210,
     image: "assets/img/Pro-Trek/PRT-B70-2.png"
   },
   {
@@ -491,11 +457,10 @@ const products = [
     gender: "Nam",
     desc: "Đồng hồ Nam chính hãng CASIO",
     color: "Đen",
-    glass: "Sapphire",
+    glass: "Khoáng",
     strap: "Nhựa",
     priceValue: 9500000,
     price: "9.500.000₫",
-    reviews: 220,
     image: "assets/img/Pro-Trek/PRW-30Y-1B.png"
   },
   {
@@ -509,7 +474,6 @@ const products = [
     strap: "Nhựa",
     priceValue: 8700000,
     price: "8.700.000₫",
-    reviews: 165,
     image: "assets/img/Pro-Trek/PRW-35-7.jpg"
   },
   {
@@ -519,11 +483,10 @@ const products = [
     gender: "Nam",
     desc: "Đồng hồ Nam chính hãng CASIO",
     color: "Đen",
-    glass: "Sapphire",
+    glass: "Khoáng",
     strap: "Nhựa",
     priceValue: 11200000,
     price: "11.200.000₫",
-    reviews: 235,
     image: "assets/img/Pro-Trek/PRW-50Y-1A.png"
   },
   {
@@ -532,12 +495,11 @@ const products = [
     name: "PRO-TREK PRW-3500SYT-1",
     gender: "Nam",
     desc: "Đồng hồ Nam chính hãng CASIO",
-    color: "Bạc",
+    color: "Đen",
     glass: "Sapphire",
-    strap: "Kim loại",
+    strap: "Nhựa",
     priceValue: 14500000,
     price: "14.500.000₫",
-    reviews: 190,
     image: "assets/img/Pro-Trek/PRW-3500SYT-1.jpg"
   },
   {
@@ -546,12 +508,11 @@ const products = [
     name: "PRO-TREK PRW-6000SC-7",
     gender: "Nam",
     desc: "Đồng hồ Nam chính hãng CASIO",
-    color: "Trắng",
+    color: "Đen",
     glass: "Khoáng",
     strap: "Nhựa",
     priceValue: 12500000,
     price: "12.500.000₫",
-    reviews: 260,
     image: "assets/img/Pro-Trek/PRW-6000SC-7.jpg"
   },
   {
@@ -565,7 +526,6 @@ const products = [
     strap: "Nhựa",
     priceValue: 9800000,
     price: "9.800.000₫",
-    reviews: 178,
     image: "assets/img/Pro-Trek/PRW-S3100-1.jpg"
   },
   
@@ -577,11 +537,10 @@ const products = [
     gender: "Nữ",
     desc: "Đồng hồ Nữ chính hãng CASIO",
     color: "Đen",
-    glass: "Khoáng",
+    glass: "Sapphire",
     strap: "Da",
     priceValue: 3450000,
     price: "3.450.000₫",
-    reviews: 120,
     image: "assets/img/Sheen/SHE-3517L-1A.jpg"
   },
 
@@ -592,11 +551,10 @@ const products = [
     gender: "Nữ",
     desc: "Đồng hồ Nữ chính hãng CASIO",
     color: "Vàng",
-    glass: "Sapphire",
+    glass: "Khoáng",
     strap: "Kim loại",
     priceValue: 4820000,
     price: "4.820.000₫",
-    reviews: 160,
     image: "assets/img/Sheen/SHE-4055PG-7A.png"
   },
 
@@ -606,12 +564,11 @@ const products = [
     name: "SHEEN SHE-4057PGL-7B",
     gender: "Nữ",
     desc: "Đồng hồ Nữ chính hãng CASIO",
-    color: "Trắng",
-    glass: "Sapphire",
+    color: "Vàng",
+    glass: "Khoáng",
     strap: "Da",
     priceValue: 3980000,
     price: "3.980.000₫",
-    reviews: 142,
     image: "assets/img/Sheen/SHE-4057PGL-7B.png"
   },
 
@@ -621,12 +578,11 @@ const products = [
     name: "SHEEN SHE-4532PG-1A",
     gender: "Nữ",
     desc: "Đồng hồ Nữ chính hãng CASIO",
-    color: "Đen",
-    glass: "Khoáng",
+    color: "Vàng",
+    glass: "Sapphire",
     strap: "Kim loại",
     priceValue: 5120000,
     price: "5.120.000₫",
-    reviews: 189,
     image: "assets/img/Sheen/SHE-4532PG-1A.png"
   },
 
@@ -636,12 +592,11 @@ const products = [
     name: "SHEEN SHE-4538D-7A",
     gender: "Nữ",
     desc: "Đồng hồ Nữ chính hãng CASIO",
-    color: "Trắng",
+    color: "Bạc",
     glass: "Sapphire",
     strap: "Kim loại",
     priceValue: 5780000,
     price: "5.780.000₫",
-    reviews: 215,
     image: "assets/img/Sheen/SHE-4538D-7A.png"
   },
 
@@ -656,7 +611,6 @@ const products = [
     strap: "Kim loại",
     priceValue: 6200000,
     price: "6.200.000₫",
-    reviews: 230,
     image: "assets/img/Sheen/SHE-4539BGM-1A.jpg"
   },
 
@@ -667,11 +621,10 @@ const products = [
     gender: "Nữ",
     desc: "Đồng hồ Nữ chính hãng CASIO",
     color: "Bạc",
-    glass: "Khoáng",
+    glass: "Sapphire",
     strap: "Kim loại",
     priceValue: 4980000,
     price: "4.980.000₫",
-    reviews: 175,
     image: "assets/img/Sheen/SHE-4540D-7A.jpg"
   },
 
@@ -686,7 +639,6 @@ const products = [
     strap: "Kim loại",
     priceValue: 6780000,
     price: "6.780.000₫",
-    reviews: 201,
     image: "assets/img/Sheen/SHE-4558G-9A.jpg"
   },
 
@@ -696,12 +648,11 @@ const products = [
     name: "SHEEN SHE-4562M-2A",
     gender: "Nữ",
     desc: "Đồng hồ Nữ chính hãng CASIO",
-    color: "Xanh",
-    glass: "Khoáng",
+    color: "Xanh dương",
+    glass: "Sapphire",
     strap: "Kim loại",
     priceValue: 5340000,
     price: "5.340.000₫",
-    reviews: 160,
     image: "assets/img/Sheen/SHE-4562M-2A.jpg"
   },
 
@@ -716,7 +667,6 @@ const products = [
     strap: "Da",
     priceValue: 5450000,
     price: "5.450.000₫",
-    reviews: 188,
     image: "assets/img/Sheen/SHE-4562PGL-4A.jpg"
   }
 
@@ -735,7 +685,6 @@ function renderProducts(list, limit = null) {
     card.innerHTML = `
       <img src="${p.image}" alt="${p.name}">
       <h3 class="desc">${p.desc} ${p.name}</h3> 
-      <div class=(${p.reviews} đánh giá)</div>
       <p class="price">${p.price}</p>
     `;
     grid.appendChild(card);
@@ -749,17 +698,45 @@ renderProducts(products, 100);
 
 // BỘ LỌC
 document.querySelector("aside button").addEventListener("click", () => {
-  const minPrice = parseInt(document.querySelector(".price-range input:nth-child(1)").value) || 0;
-  const maxPrice = parseInt(document.querySelector(".price-range input:nth-child(2)").value) || Infinity;
   const selects = document.querySelectorAll(".filter-group select");
 
-  const color = selects[0].value;
-  const glass = selects[1].value;
-  const strap = selects[2].value;
-  const gender = selects[3].value;
+  // Lấy giá trị các bộ lọc
+   const priceRange = selects[0].value;
+  const color = selects[1].value;
+  const glass = selects[2].value;
+  const strap = selects[3].value;
+  const gender = selects[4].value;
 
+  // Mặc định giá trị tối thiểu và tối đa
+  let minPrice = 0;
+  let maxPrice = Infinity;
+
+  // Xử lý theo từng lựa chọn khoảng giá
+  switch (priceRange) {
+    case "Dưới 3.000.000₫":
+      maxPrice = 3000000;
+      break;
+    case "3.000.000₫ - 5.000.000₫":
+      minPrice = 3000000;
+      maxPrice = 5000000;
+      break;
+    case "5.000.000₫ - 7.000.000₫":
+      minPrice = 5000000;
+      maxPrice = 7000000;
+      break;
+    case "7.000.000₫ - 10.000.000₫":
+      minPrice = 7000000;
+      maxPrice = 10000000;
+      break;
+    case "Trên 10.000.000₫":
+      minPrice = 10000000;
+      maxPrice = Infinity;
+      break;
+  }
+
+  // Lọc sản phẩm
   const filtered = products.filter(p => {
-    const matchPrice = p.priceValue >= minPrice && p.priceValue <= maxPrice;
+    const matchPrice = p.priceValue >= minPrice && p.priceValue <= maxPrice;    
     const matchColor = color === "Tất cả" || p.color === color;
     const matchGlass = glass === "Tất cả" || p.glass === glass;
     const matchStrap = strap === "Tất cả" || p.strap === strap;
@@ -771,7 +748,7 @@ document.querySelector("aside button").addEventListener("click", () => {
   if (filtered.length === 0) {
     grid.innerHTML = "<p>Không tìm thấy sản phẩm nào phù hợp.</p>";
   } else {
-    renderProducts(filtered, 20);
+    renderProducts(filtered, 100);
   }
 });
 
