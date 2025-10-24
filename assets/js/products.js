@@ -3,6 +3,7 @@
 const products = [
   //BABY-G
   {
+
     id: "BA-110AH-6A",
     catalog: "BABY-G",
     name: "BABY-G BA-110AH-6A",
@@ -721,7 +722,7 @@ const products = [
 
 ];
 
-//Hiển thị danh sách sản phẩm ra trang web
+
 const grid = document.getElementById("product-grid");
 
 function renderProducts(list, limit = null) {
@@ -742,7 +743,8 @@ function renderProducts(list, limit = null) {
 }
 
 
-// Hiển thị tối đa 20 sản phẩm đầu tiên
+
+// Hiển thị tối đa 100 sản phẩm 
 renderProducts(products, 100);
 
 // BỘ LỌC
@@ -761,7 +763,7 @@ document.querySelector("aside button").addEventListener("click", () => {
     const matchColor = color === "Tất cả" || p.color === color;
     const matchGlass = glass === "Tất cả" || p.glass === glass;
     const matchStrap = strap === "Tất cả" || p.strap === strap;
-    const matchGender = (gender === "Tất cả" || gender === "") ? true : p.gender === gender;
+    const matchGender = gender === "Tất cả" || p.gender === gender;
 
     return matchPrice && matchColor && matchGlass && matchStrap && matchGender;
   });

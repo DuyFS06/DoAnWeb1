@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ĐĂNG NHẬP</title>
   <link rel="stylesheet" href="./assets/css/login.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -13,15 +14,17 @@
     <h2>ĐĂNG NHẬP</h2>
     <p class="sub">Vui lòng nhập thông tin đăng nhập</p>
 
-    <form action="index.html" method="post">
+    <form action="index.html" method="post" id="login-form"> 
       <div class="input-group">
-        <label for="username" class="required">Tên đăng nhập</label>
-        <input type="text" id="username" name="username" required />
+        <label for="input-identifier" class="required">Tên đăng nhập / Email</label>
+        <input type="text" id="input-identifier" name="input-identifier" required /> 
+        <span class="error-message"></span>
       </div>
 
       <div class="input-group">
         <label for="password" class="required">Mật khẩu</label>
         <input type="password" id="password" name="password" required />
+        <span class="error-message"></span>
       </div>
 
       <div class="remember">
@@ -34,11 +37,9 @@
       <div class="forgot">
         <a href="#">Quên mật khẩu?</a>
       </div>
-      <div class="login-link">
-        Bạn chưa có có tài khoản? <a href="DangKy.html">Đăng ký ngay</a>
-      </div>
     </form>
   </div>
+  <script src="./assets/js/login.js"></script> 
 </body>
 
 </html>
