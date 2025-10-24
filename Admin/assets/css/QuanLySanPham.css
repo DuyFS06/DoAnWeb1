@@ -1,0 +1,245 @@
+.admin-main {
+  padding: 0;
+}
+#content-container {
+  height: 100vh;
+  width: 1000px;
+  background: #f9f9f9;
+}
+::-webkit-scrollbar {
+  width: 1px; /* độ rộng thanh cuộn dọc */
+  height: 10px; /* độ cao thanh cuộn ngang */
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* màu nền rãnh */
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #888; /* màu thanh cuộn */
+  border-radius: 10px; /* bo góc thanh cuộn */
+}
+/* CSS Bộ lọc */
+.boLoc {
+  margin: 2px;
+  width: 996px;
+  height: 50px;
+  background-color: white;
+}
+.boLoc select {
+  border-radius: 5px;
+  height: 30px;
+  margin: 10px 5px;
+}
+.boLoc input[type="text"] {
+  border-radius: 5px;
+  border: 1px solid black;
+  height: 26px;
+  margin: 10px 5px;
+  margin-left: 0;
+}
+
+.boLoc input[type="button"] {
+  margin: 10px 5px;
+  border: 1px solid black;
+  border-radius: 5px;
+  height: 26px;
+  background-color: #fff;
+}
+.boLoc input:nth-child(5) {
+  float: right;
+  margin-top: 7.5px;
+  margin-right: 20px;
+  background-color: #5062b5;
+  height: 35px;
+}
+
+/* Tiêu đề */
+.table-header {
+  width: 1000px;
+  border-collapse: collapse;
+  border: 1px solid #ccc;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  background-color: #fff;
+}
+
+.table-header th {
+  border: 1px solid #ccc;
+  padding: 6px 8px;
+  text-align: center;
+  font-weight: 600;
+  color: #333;
+  background-color: #f9f9f9;
+  white-space: nowrap;
+}
+
+/* ==================Thân bảng============== */
+.admin-table {
+  width: 1000px;
+  border-collapse: collapse;
+  border: 1px solid #ccc;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  background-color: #fff;
+}
+
+.admin-table td {
+  border: 1px solid #ddd;
+  padding: 6px 8px;
+  text-align: center;
+}
+
+.admin-table thead tr {
+  background-color: #f9f9f9;
+  font-weight: bold;
+}
+
+.admin-table tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+.admin-table img {
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+.btn-sua,
+.btn-xoa {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 3px 6px;
+  font-size: 12px;
+  cursor: pointer;
+  background-color: #fff;
+}
+
+.btn-sua:hover {
+  background-color: #d0e3ff;
+}
+
+.btn-xoa:hover {
+  background-color: #ffd6d6;
+}
+
+.admin-table td:first-child {
+  width: 5%;
+}
+.admin-table td:nth-child(2) {
+  width: 10%;
+}
+.admin-table td:nth-child(3) {
+  width: 15%;
+}
+.admin-table td:nth-child(4) {
+  width: 15%;
+}
+.admin-table td:nth-child(5) {
+  width: 20%;
+}
+.admin-table td:nth-child(6) {
+  width: 10%;
+}
+.admin-table td:nth-child(7) {
+  width: 10%;
+}
+.admin-table td:nth-child(8) {
+  width: 7%;
+}
+.admin-table td:nth-child(9) {
+  width: 8%;
+}
+
+/* ===== Modal thêm sản phẩm ===== */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  width: 420px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-btn {
+  cursor: pointer;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.modal-content label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.modal-content input,
+.modal-content textarea {
+  width: 100%;
+  margin-top: 5px;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.modal-buttons button {
+  flex: 1;
+  margin: 5px;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  color: white;
+  background-color: #5062b5;
+  cursor: pointer;
+}
+
+.modal-buttons button:hover {
+  background-color: #3948a5;
+}
+
+.preview-image img {
+  width: 100%;
+  max-height: 200px;
+  border-radius: 6px;
+  margin-top: 8px;
+  object-fit: cover;
+}
+/* ===== Modal sửa sản phẩm ===== */
+#modalSuaSP.modal {
+  display: none; /* mặc định ẩn */
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
