@@ -65,6 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
         if (user && user.password === password) {
+            localStorage.setItem("currentUser", JSON.stringify(user));
             return user; // Đăng nhập thành công
         }
         return null; // Thất bại
@@ -116,9 +117,9 @@ document.addEventListener("DOMContentLoaded", () => {
             form.reset(); 
         } else {
             // Hiển thị lỗi chung cho cả 2 trường
-            const errorMessage = "Tên đăng nhập/Email hoặc mật khẩu không đúng.";
-            showError(identifierInput, errorMessage);
-            showError(passwordInput, errorMessage);
+            // const errorMessage = "Tên đăng nhập/Email hoặc mật khẩu không đúng.";
+            // showError(identifierInput, errorMessage);
+            // showError(passwordInput, errorMessage);
 
             showPopup("error", "Đăng nhập thất bại!", "Vui lòng kiểm tra lại thông tin.");
         }

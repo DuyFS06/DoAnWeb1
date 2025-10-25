@@ -696,10 +696,14 @@ function renderProducts(list, limit = null) {
 // Hiển thị tối đa 100 sản phẩm 
 renderProducts(products, 100);
 
-// BỘ LỌC
+document.addEventListener("DOMContentLoaded", () => {
+  const filterButton = document.querySelector("aside button");
+  if (!filterButton) return; // Nếu không có nút lọc thì dừng luôn, tránh lỗi
+
+ // BỘ LỌC
 document.querySelector("aside button").addEventListener("click", () => {
   const selects = document.querySelectorAll(".filter-group select");
-
+    if (selects.length < 5) return; // tránh lỗi nếu thiếu select
   // Lấy giá trị các bộ lọc
    const priceRange = selects[0].value;
   const color = selects[1].value;
@@ -751,4 +755,6 @@ document.querySelector("aside button").addEventListener("click", () => {
     renderProducts(filtered, 100);
   }
 });
+});
+
 

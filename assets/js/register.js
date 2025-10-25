@@ -21,44 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
         address: document.getElementById("address-error"),
     };
 
-        const defaultUsers = [
-    {
-        userName: "admin",
-        email: "admin@example.com",
-        password: "Admin123",
-        address: "Hà Nội",
-        isLoggedIn: false,
-    },
-    {
-        userName: "demo",
-        email: "demo@example.com",
-        password: "Demo1234",
-        address: "TP. Hồ Chí Minh",
-        isLoggedIn: false,
-    },
-    {
-        userName: "john",
-        email: "john@example.com",
-        password: "John1234",
-        address: "Đà Nẵng",
-        isLoggedIn: false,
-    },
-    ];
-
     let userList = JSON.parse(localStorage.getItem("userList")) || [];
-
-    // Thêm các user mặc định nếu chưa có
-    defaultUsers.forEach((du) => {
-    const exists = userList.some(
-        (u) => u.email.toLowerCase() === du.email.toLowerCase()
-    );
-    if (!exists) {
-        userList.push(du);
-    }
-    });
-
-    // Lưu lại
-    localStorage.setItem("userList", JSON.stringify(userList));
     
     // Hàm hiển thị pop-up SweetAlert2
     const showPopup = (icon, title, text, callback = null) => {
