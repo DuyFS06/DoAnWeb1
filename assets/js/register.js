@@ -5,6 +5,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const passwordInput = document.getElementById("password");
     const confirmInput = document.getElementById("confirmPassword");
     const addressInput = document.getElementById("address");
+    const ruleLength = document.getElementById("rule-length");
+    const ruleLower = document.getElementById("rule-lower");
+    const ruleUpper = document.getElementById("rule-upper");
+    const ruleNumber = document.getElementById("rule-number");
+    const passwordRules = document.getElementById("password-rules");
+
 
     // Lấy tất cả các thẻ span hiển thị lỗi
     const errorSpans = {
@@ -15,10 +21,45 @@ document.addEventListener("DOMContentLoaded", () => {
         address: document.getElementById("address-error"),
     };
 
+        const defaultUsers = [
+    {
+        userName: "admin",
+        email: "admin@example.com",
+        password: "Admin123",
+        address: "Hà Nội",
+        isLoggedIn: false,
+    },
+    {
+        userName: "demo",
+        email: "demo@example.com",
+        password: "Demo1234",
+        address: "TP. Hồ Chí Minh",
+        isLoggedIn: false,
+    },
+    {
+        userName: "john",
+        email: "john@example.com",
+        password: "John1234",
+        address: "Đà Nẵng",
+        isLoggedIn: false,
+    },
+    ];
+
     let userList = JSON.parse(localStorage.getItem("userList")) || [];
 
-   
+    // Thêm các user mặc định nếu chưa có
+    defaultUsers.forEach((du) => {
+    const exists = userList.some(
+        (u) => u.email.toLowerCase() === du.email.toLowerCase()
+    );
+    if (!exists) {
+        userList.push(du);
+    }
+    });
 
+    // Lưu lại
+    localStorage.setItem("userList", JSON.stringify(userList));
+    
     // Hàm hiển thị pop-up SweetAlert2
     const showPopup = (icon, title, text, callback = null) => {
         Swal.fire({
@@ -70,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return null;
     };
 
-    // Kiểm tra mật khẩu (độ mạnh)
+    // Kiểm tra mật khẩu (độ mạnh) - Bỏ phần này thay bằng ở dưới
     const validatePassword = (password) => {
         if (!password) return "Mật khẩu không được để trống.";
         if (password.length < 8) return "Mật khẩu phải có ít nhất 8 ký tự.";
@@ -174,5 +215,79 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         
         form.reset(); // Xóa form sau khi đăng ký thành công
+    });
+
+    //Xử lý hiện thông báo yêu cầu của mật khẩu đăng nhập
+    // Khi nhập mật khẩu
+    passwordInput.addEventListener("input", () => {
+    const password = passwordInput.value;
+
+    // Nếu chưa nhập gì → ẩn danh sách
+    if (password === "") {
+        passwordRules.style.display = "none";
+        return;
+    }
+
+    // Hiện danh sách nếu người dùng bắt đầu nhập
+    passwordRules.style.display = "block";
+
+    const conditions = [
+        { valid: password.length >= 8, element: ruleLength },
+        { valid: /[a-z]/.test(password), element: ruleLower },
+        { valid: /[A-Z]/.test(password), element: ruleUpper },
+        { valid: /[0-9]/.test(password), element: ruleNumber },
+    ];
+
+    conditions.forEach(({ valid, element }) => {
+        const text = element.textContent.replace("✅ ", "").replace("❌ ", "");
+        element.textContent = (valid ? "✅ " : "❌ ") + text;
+        element.classList.toggle("valid", valid);
+    });
+    });
+
+    // Khi rời khỏi ô, nếu chưa nhập gì thì ẩn luôn
+    passwordInput.addEventListener("blur", () => {
+    if (passwordInput.value.trim() === "") {
+        passwordRules.style.display = "none";
+    }
+    });
+    
+    // Ngăn không cho nhập Confirm nếu mật khẩu trống
+    confirmInput.addEventListener("focus", () => {
+    if (passwordInput.value.trim() === "") {
+        displayError(confirmInput, errorSpans.confirmPassword, "Vui lòng nhập mật khẩu trước.");
+        confirmInput.blur(); // tự động rời khỏi ô
+    }
+    });
+
+    // Kiểm tra khớp mật khẩu khi người dùng nhập lại
+    confirmInput.addEventListener("input", () => {
+    const password = passwordInput.value.trim();
+    const confirmPassword = confirmInput.value.trim();
+
+    // Nếu mật khẩu chính chưa có thì không kiểm tra gì
+    if (password === "") return;
+
+    if (confirmPassword === "") {
+        errorSpans.confirmPassword.style.display = "none";
+        confirmInput.classList.remove("input-error", "input-success");
+        return;
+    }
+
+    // Nếu khớp
+    if (password === confirmPassword) {
+        errorSpans.confirmPassword.style.display = "block";
+        errorSpans.confirmPassword.textContent = "✅ Mật khẩu khớp!";
+        errorSpans.confirmPassword.style.color = "green";
+        confirmInput.classList.remove("input-error");
+        confirmInput.classList.add("input-success");
+    } else {
+        // Không khớp
+        errorSpans.confirmPassword.style.display = "block";
+        errorSpans.confirmPassword.textContent = "Mật khẩu nhập lại không khớp.";
+        errorSpans.confirmPassword.style.color = "red";
+        confirmInput.classList.add("input-error");
+        confirmInput.classList.remove("input-success");
+    }
     });
 });
