@@ -14,7 +14,8 @@ document.addEventListener("DOMContentLoaded", () => {
     clearInterval(waitForHeader);
 
     // 👉 Ảnh mặc định
-    const DEFAULT_AVATAR = "../assets/img/Avatar/ava4.jpg";
+    const DEFAULT_AVATAR = "/DoAnWeb1/assets/img/Avatar/avtuser.jpg";
+
     const avatarImg = userAvatar.querySelector("img"); 
 
     if (currentUser) {
@@ -25,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
       userAvatar.style.display = "inline-block";
       usernameDisplay.textContent = currentUser.userName;
 
-      // ✅ Cập nhật avatar theo user hoặc dùng mặc định
+      //  Cập nhật avatar theo user hoặc dùng mặc định
       avatarImg.src = currentUser.avatar || DEFAULT_AVATAR;
 
       // Toggle dropdown
