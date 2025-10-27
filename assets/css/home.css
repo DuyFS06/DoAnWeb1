@@ -3,62 +3,7 @@ body {
     font-family: Roboto, "Segoe UI", Arial, sans-serif;
     background: #f8fafc;
     color: #222;
-}
-
-/* HEADER */
-header {
-    background-color: #fff;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
-
-.top-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 60px;
-}
-
-.logo {
-    font-weight: 700;
-    font-size: 22px;
-    color: #111;
-    letter-spacing: 1px;
-}
-
-.search-box {
-    flex: 1;
-    margin: 0 40px;
-    position: relative;
-}
-
-.search-box input {
-    width: 100%;
-    padding: 10px 40px 10px 15px;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    font-size: 15px;
-    outline: none;
-    transition: 0.2s;
-}
-
-.search-box input:focus {
-    border-color: #4f46e5;
-    box-shadow: 0 0 5px rgba(79, 70, 229, 0.4);
-}
-
-.menu a {
-    margin-left: 25px;
-    text-decoration: none;
-    color: #111;
-    font-weight: 500;
-    transition: color 0.2s;
-}
-
-.menu a:hover {
-    color: #4f46e5;
+    padding-top: 75px; /* Quan trọng để tránh header che nội dung */
 }
 
 /* DANH SÁCH SẢN PHẨM */
@@ -107,7 +52,6 @@ header {
     margin: 10px 12px 4px;
     color: #333;
     font-weight: 400;
-    /* không bold */
 }
 
 .price {

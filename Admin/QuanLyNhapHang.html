@@ -1,0 +1,70 @@
+<!-- Admin/assets/pages/QuanLySanPham.html -->
+<main class="product-page">
+  <div class="sanpham">
+    <div class="boLoc">
+      <select name="kieuTimSanPham">
+        <option>Tìm theo</option>
+        <option value="ma">Tìm theo mã</option>
+        <option value="ten">Tìm theo tên</option>
+      </select>
+      <input type="text" placeholder="Tìm kiếm..." />
+      <input type="button" value="OK" />
+      <input type="button" value="Xóa" />
+      <input type="button" value="Thêm phiếu nhập hàng" id="btnThemMoiSP" />
+    </div>
+
+    <div class="table-header">
+      <table class="table-header">
+        <tr>
+          <th style="width: 5%">Stt</th>
+          <th style="width: 10%">Mã</th>
+          <th style="width: 15%">Ngày nhập</th>
+          <th style="width: 10%">Tổng giá</th>
+          <th style="width: 7%">Chi tiết phiếu nhập</th>
+          <th style="width: 8%">Tác vụ</th>
+        </tr>
+      </table>
+    </div>
+
+    <div class="table-content"></div>
+
+    <!-- Modal Thêm -->
+    <div class="modal" id="modalThemSP">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Thông tin chung</h3>
+          <span class="close-btn" id="btnCloseModal">&times;</span>
+        </div>
+        <hr />
+        <label>Tên sản phẩm:</label>
+        <input type="text" id="tenSPThem" placeholder="Nhập tên sản phẩm..." />
+
+        <label>Mã sản phẩm:</label>
+        <input type="text" id="maSPThem" placeholder="VD: SP01" />
+
+        <label>Mô tả:</label>
+        <textarea id="moTaSPThem" placeholder="Nhập mô tả..."></textarea>
+
+        <label>Danh mục:</label>
+        <input type="text" id="danhMucSPThem" placeholder="VD: Đồng hồ" />
+
+        <label>Giá:</label>
+        <input type="number" id="giaSPThem" placeholder="VD: 1000000" />
+
+        <label>Link hình ảnh:</label>
+        <input
+          type="text"
+          id="anhSPThem"
+          placeholder="Dán link ảnh tại đây..."
+        />
+
+        <div class="preview-image" id="previewImage"></div>
+
+        <div class="modal-buttons">
+          <button id="btnLuuSP">Lưu</button>
+          <button id="btnHuySP">Hủy</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
