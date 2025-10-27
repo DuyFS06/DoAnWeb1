@@ -71,7 +71,7 @@ const products = [
   {
     id: "BGD-570BC-3",
     catalog: "BABY-G",
-    name: "BABY-G BGD-560BC-3",
+    name: "BABY-G BGD-570BC-3",
     gender: "Nữ",
     desc: "Đồng hồ Nữ chính hãng CASIO",
     color: "Xanh lá",
@@ -79,7 +79,7 @@ const products = [
     strap: "Nhựa",
     priceValue: 3850000,
     price: "3.850.000₫",
-    image: "assets/img/Baby-G/BGD-560BC-3.png"
+    image: "assets/img/Baby-G/BGD-570BC-3.png"
   },
   {
     id: "BGD-570XG-8",
@@ -751,4 +751,51 @@ document.querySelector("aside button").addEventListener("click", () => {
     renderProducts(filtered, 100);
   }
 });
+
+// Chọn danh sách các li trong "Danh mục sản phẩm"
+const catalogItems = document.querySelectorAll("#catalog-list li");
+
+// Gắn sự kiện click cho từng loại
+function attachCatalogEvents() {
+  const catalogItems = document.querySelectorAll("#catalog-list li");
+  if (catalogItems.length === 0) return; // chưa có footer thì thoát
+
+  catalogItems.forEach(item => {
+    item.addEventListener("click", () => {
+      catalogItems.forEach(i => i.classList.remove("active"));
+      item.classList.add("active");
+
+      const selectedCatalog = item.dataset.catalog;
+      const filtered = products.filter(p => p.catalog === selectedCatalog);
+
+      if (filtered.length === 0) {
+        grid.innerHTML = "<p>Không có sản phẩm nào thuộc loại này.</p>";
+      } else {
+        renderProducts(filtered, 100);
+      }
+
+          // Cuộn lên đầu trang khi hiển thị sản phẩm mới
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  });
+}
+
+catalogItems.forEach(item => {
+  item.addEventListener("click", () => {
+    // Bỏ active ở các loại khác
+    catalogItems.forEach(i => i.classList.remove("active"));
+    // Thêm active cho loại được click
+    item.classList.add("active");
+
+    const selectedCatalog = item.dataset.catalog;
+    const filtered = products.filter(p => p.catalog === selectedCatalog);
+    if (filtered.length === 0) {
+      grid.innerHTML = "<p>Không có sản phẩm nào thuộc loại này.</p>";
+    } else {
+      renderProducts(filtered, 100);
+    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+});
+
 
