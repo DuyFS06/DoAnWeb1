@@ -258,7 +258,7 @@ const products = [
     name: "EDIFICE ECB-900DB-1B",
     gender: "Nam",
     desc: "Đồng hồ Nam chính hãng CASIO",
-    color: "Bạc",
+    color: "Đen",
     glass: "Khoáng",
     strap: "Kim loại",
     priceValue: 9250000,
@@ -273,7 +273,7 @@ const products = [
     name: "G-SHOCK GST-B600D-1A",
     gender: "Nam",
     desc: "Đồng hồ Nam chính hãng CASIO",
-    color: "Bạc",
+    color: "Đen",
     glass: "Khoáng",
     strap: "Kim loại",
     priceValue: 8250000,
@@ -469,7 +469,7 @@ const products = [
     name: "PRO-TREK PRW-35-7",
     gender: "Nam",
     desc: "Đồng hồ Nam chính hãng CASIO",
-    color: "Trắng",
+    color: "Đen",
     glass: "Khoáng",
     strap: "Nhựa",
     priceValue: 8700000,
@@ -687,6 +687,10 @@ function renderProducts(list, limit = null) {
       <h3 class="desc">${p.desc} ${p.name}</h3> 
       <p class="price">${p.price}</p>
     `;
+    // Thêm đoạn này để chuyển sang trang chi tiết
+    card.addEventListener("click", () => {
+      window.location.href = `chitietsanpham.html?id=${encodeURIComponent(p.id)}`;
+    });
     grid.appendChild(card);
   });
 }

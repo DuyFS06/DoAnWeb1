@@ -1,1 +1,50 @@
-/* chitiet */
+.detail-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+}
+
+.product-info {
+  display: flex;
+  max-width: 900px;
+  gap: 40px;
+}
+
+.product-info .left img {
+  width: 400px;
+  border-radius: 10px;
+}
+
+.product-info .right {
+  flex: 1;
+}
+
+.product-info .price {
+  font-size: 1.6rem;
+  color: #e60000;
+  font-weight: bold;
+}
+
+.actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+}
+
+.actions button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+#add-to-cart {
+  background-color: #333;
+  color: white;
+}
+
+#buy-now {
+  background-color: #e60000;
+  color: white;
+}

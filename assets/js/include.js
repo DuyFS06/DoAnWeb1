@@ -6,7 +6,7 @@ function includeHTML(id, filePath) {
       .then(data => {
         placeholder.innerHTML = data;
 
-        // ✅ Khi include footer xong, gắn sự kiện click danh mục
+        // Khi include footer xong, gắn sự kiện click danh mục
         if (id === "footer-html") {
           attachCatalogEvents(); // gọi hàm từ products.js
         }
