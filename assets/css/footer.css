@@ -92,3 +92,14 @@ footer {
         width: 100%;
     }
 }
+#catalog-list li {
+  cursor: pointer;
+  padding: 4px 0;
+}
+#catalog-list li:hover {
+  color: #ff3366;
+}
+#catalog-list li.active {
+  font-weight: bold;
+  color: #ff3366;
+}
