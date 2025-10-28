@@ -1,5 +1,4 @@
-
-
+// database/products.js
 const products = [
   //BABY-G
   {
@@ -124,7 +123,7 @@ const products = [
     id: "MSG-S500CD-7A",
     catalog: "BABY-G",
     name: "BABY-G MSG-S500CD-7A",
-    gender: "Nữ",
+gender: "Nữ",
     desc: "Đồng hồ Nữ chính hãng CASIO",
     color: "Bạc",
     glass: "Khoáng",
@@ -245,7 +244,7 @@ const products = [
     name: "EDIFICE ECB-2200HTR-1A",
     gender: "Nam",
     desc: "Đồng hồ Nam chính hãng CASIO",
-    color: "Đen",
+color: "Đen",
     glass: "Sapphire",
     strap: "Da",
     priceValue: 7150000,
@@ -366,7 +365,7 @@ const products = [
     desc: "Đồng hồ Nam chính hãng CASIO",
     color: "Xanh dương",
     glass: "Khoáng",
-    strap: "Kim loại",
+strap: "Kim loại",
     priceValue: 7850000,
     price: "7.850.000₫",
     image: "assets/img/G-Shock/GM-2110D-2A.jpg"
@@ -487,7 +486,7 @@ const products = [
     strap: "Nhựa",
     priceValue: 11200000,
     price: "11.200.000₫",
-    image: "assets/img/Pro-Trek/PRW-50Y-1A.png"
+image: "assets/img/Pro-Trek/PRW-50Y-1A.png"
   },
   {
     id: "PRW-3500SYT-1",
@@ -616,7 +615,7 @@ const products = [
 
   {
     id: "SHE-4540D-7A",
-    catalog: "SHEEN",
+catalog: "SHEEN",
     name: "SHEEN SHE-4540D-7A",
     gender: "Nữ",
     desc: "Đồng hồ Nữ chính hãng CASIO",
@@ -673,13 +672,14 @@ const products = [
 ];
 
 
-const grid = document.getElementById("product-grid");
+const MAX_DISPLAY = 25; 
 
-function renderProducts(list, limit = null) {
-    grid.innerHTML = ""; // Xóa sản phẩm cũ
-    const toRender = limit ? list.slice(0, limit) : list; // chỉ lấy tối đa "limit" sản phẩm
-
-  toRender.forEach((p) => {
+// --- RENDER SẢN PHẨM ---
+function renderProducts(list) {
+  const grid = document.getElementById("product-grid");
+  grid.innerHTML = "";
+  const toRenner = list.slice(0, MAX_DISPLAY);
+  toRenner.forEach(p => {
     const card = document.createElement("div");
     card.classList.add("product-card");
     card.innerHTML = `
@@ -692,63 +692,37 @@ function renderProducts(list, limit = null) {
 }
 
 
+renderProducts(products, 25);
 
-// Hiển thị tối đa 100 sản phẩm 
-renderProducts(products, 100);
+// --- LỌC SẢN PHẨM ---
+function filterProducts() {
+  const priceValue = document.getElementById("priceFilter").value;
+  const colorValue = document.getElementById("colorFilter").value.toLowerCase();
+  const glassValue = document.getElementById("glassFilter").value.toLowerCase();
+  const strapValue = document.getElementById("strapFilter").value.toLowerCase();
+  const genderValue = document.getElementById("genderFilter").value.toLowerCase();
 
-// BỘ LỌC
-document.querySelector("aside button").addEventListener("click", () => {
-  const selects = document.querySelectorAll(".filter-group select");
+  const filtered = products.filter(function(p) {
+    // Giá
+    let matchPrice = true;
+    if (priceValue) {
+      if (priceValue === "duoi3") matchPrice = p.priceValue < 3000000;
+      else if (priceValue === "tren10") matchPrice = p.priceValue > 10000000;
+      else {
+        const parts = priceValue.split("-");
+        const min = Number(parts[0]) * 1000000;
+        const max = Number(parts[1]) * 1000000;
+        matchPrice = p.priceValue >= min && p.priceValue <= max;
+      }
+    }
 
-  // Lấy giá trị các bộ lọc
-   const priceRange = selects[0].value;
-  const color = selects[1].value;
-  const glass = selects[2].value;
-  const strap = selects[3].value;
-  const gender = selects[4].value;
-
-  // Mặc định giá trị tối thiểu và tối đa
-  let minPrice = 0;
-  let maxPrice = Infinity;
-
-  // Xử lý theo từng lựa chọn khoảng giá
-  switch (priceRange) {
-    case "Dưới 3.000.000₫":
-      maxPrice = 3000000;
-      break;
-    case "3.000.000₫ - 5.000.000₫":
-      minPrice = 3000000;
-      maxPrice = 5000000;
-      break;
-    case "5.000.000₫ - 7.000.000₫":
-      minPrice = 5000000;
-      maxPrice = 7000000;
-      break;
-    case "7.000.000₫ - 10.000.000₫":
-      minPrice = 7000000;
-      maxPrice = 10000000;
-      break;
-    case "Trên 10.000.000₫":
-      minPrice = 10000000;
-      maxPrice = Infinity;
-      break;
-  }
-
-  // Lọc sản phẩm
-  const filtered = products.filter(p => {
-    const matchPrice = p.priceValue >= minPrice && p.priceValue <= maxPrice;    
-    const matchColor = color === "Tất cả" || p.color === color;
-    const matchGlass = glass === "Tất cả" || p.glass === glass;
-    const matchStrap = strap === "Tất cả" || p.strap === strap;
-    const matchGender = gender === "Tất cả" || p.gender === gender;
+    let matchColor = !colorValue || p.color.toLowerCase() === colorValue;
+    let matchGlass = !glassValue || p.glass.toLowerCase() === glassValue;
+    let matchStrap = !strapValue || p.strap.toLowerCase() === strapValue;
+let matchGender = !genderValue || p.gender.toLowerCase() === genderValue;
 
     return matchPrice && matchColor && matchGlass && matchStrap && matchGender;
   });
 
-  if (filtered.length === 0) {
-    grid.innerHTML = "<p>Không tìm thấy sản phẩm nào phù hợp.</p>";
-  } else {
-    renderProducts(filtered, 100);
-  }
-});
-
+  renderProducts(filtered);
+}
