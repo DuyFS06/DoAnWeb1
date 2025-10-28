@@ -78,7 +78,7 @@ const products = [
     strap: "Nhựa",
     priceValue: 3850000,
     price: "3.850.000₫",
-    image: "assets/img/Baby-G/BGD-560BC-3.png"
+    image: "assets/img/Baby-G/BGD-570BC-3.png"
   },
   {
     id: "BGD-570XG-8",
