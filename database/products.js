@@ -157,7 +157,7 @@ const products = [
     name: "EDIFICE EFV-650D-2BV",
     gender: "Nam",
     desc: "Đồng hồ Nam chính hãng CASIO",
-    color: "Bạc",
+    color: "Xanh dương",
     glass: "Khoáng",
     strap: "Kim loại",
     priceValue: 3820000,
