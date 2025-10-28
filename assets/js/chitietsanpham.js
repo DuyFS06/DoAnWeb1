@@ -8,10 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const container = document.getElementById("product-detail");
 
-  if (!product) {
-    container.innerHTML = "<p>Không tìm thấy sản phẩm.</p>";
-    return;
-  }
 
   // Hiển thị thông tin chi tiết
   container.innerHTML = `
