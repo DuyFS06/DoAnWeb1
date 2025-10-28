@@ -3,10 +3,18 @@ function includeHTML(id, filePath) {
   if (placeholder) {
     fetch(filePath)
       .then(res => res.text())
-      .then(data => placeholder.innerHTML = data)
+      .then(data => {
+        placeholder.innerHTML = data;
+
+        // Khi include footer xong, gắn sự kiện click danh mục
+        if (id === "footer-html") {
+          attachCatalogEvents(); // gọi hàm từ products.js
+        }
+      })
       .catch(err => console.error("Không tải được file:", err));
   }
 }
+
 
 // Tự động include header và footer
 document.addEventListener("DOMContentLoaded", () => {
