@@ -162,20 +162,24 @@ function formatDate(date) {
 // Hàm hiển thị thông báo
 function showNotification(message, type = 'info') {
     const notification = document.createElement('div');
-    notification.className = `notification notification-${type}`;
+    notification.className = `admin-notification admin-notification-${type}`;
     notification.innerHTML = `
-        <div class="notification-content">
-            <div class="notification-icon">
+            <div class="admin-notification-content">
+            <div class="admin-notification-icon">
                 ${type === 'success' ? '✓' : type === 'error' ? '✗' : type === 'warning' ? '⚠' : 'ℹ'}
             </div>
-            <div class="notification-message">${message}</div>
-        </div>
-    `;
-
-    // Thêm CSS cho notification
+            <div class="admin-notification-message">${message}</div>
+            <button class="admin-notification-close" aria-label="Đóng">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            </div>
+    `; // Thêm CSS cho notification
     const style = document.createElement('style');
     style.textContent = `
-        .notification {
+        .admin-notification {
             position: fixed;
             top: 80px;
             right: 20px;
@@ -187,14 +191,14 @@ function showNotification(message, type = 'info') {
             max-width: 400px;
         }
         
-        .notification-content {
+        .admin-notification-content {
             display: flex;
             align-items: center;
             gap: 12px;
             padding: 16px 20px;
         }
         
-        .notification-icon {
+        .admin-notification-icon {
             width: 24px;
             height: 24px;
             border-radius: 50%;
@@ -205,30 +209,51 @@ function showNotification(message, type = 'info') {
             font-size: 14px;
         }
         
-        .notification-success .notification-icon {
+        .admin-notification-success .admin-notification-icon {
             background: #d4edda;
             color: #155724;
         }
         
-        .notification-error .notification-icon {
+        .admin-notification-error .admin-notification-icon {
             background: #f8d7da;
             color: #721c24;
         }
         
-        .notification-warning .notification-icon {
+        .admin-notification-warning .admin-notification-icon {
             background: #fff3cd;
             color: #856404;
         }
         
-        .notification-info .notification-icon {
+        .admin-notification-info .admin-notification-icon {
             background: #d1ecf1;
             color: #0c5460;
         }
         
-        .notification-message {
+        .admin-notification-message {
             flex: 1;
             font-size: 14px;
             color: #333;
+            padding-right: 24px;
+        }
+
+        .admin-notification-close {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            padding: 4px;
+            cursor: pointer;
+            color: #666;
+            opacity: 0.7;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .admin-notification-close:hover {
+            opacity: 1;
+            background: rgba(0,0,0,0.05);
         }
         
         @keyframes slideInRight {
@@ -241,6 +266,17 @@ function showNotification(message, type = 'info') {
                 transform: translateX(0);
             }
         }
+
+        @keyframes slideOutRight {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+        }
     `;
 
     if (!document.querySelector('style[data-notification]')) {
@@ -248,17 +284,26 @@ function showNotification(message, type = 'info') {
         document.head.appendChild(style);
     }
 
+    // Remove any existing notifications
+    const existingNotification = document.querySelector('.admin-notification');
+    if (existingNotification) {
+        existingNotification.remove();
+    }
+
     document.body.appendChild(notification);
 
-    // Tự động ẩn sau 5 giây
-    setTimeout(() => {
-        notification.style.animation = 'slideOutRight 0.3s ease';
-        setTimeout(() => {
-            if (notification.parentNode) {
-                notification.parentNode.removeChild(notification);
-            }
-        }, 300);
-    }, 5000);
+    // Add close button handler
+    const closeBtn = notification.querySelector('.admin-notification-close');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            notification.style.animation = 'slideOutRight 0.3s ease';
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 300);
+        });
+    }
 }
 
 // Hàm loading
