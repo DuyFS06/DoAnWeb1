@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Hồ Sơ</title>
+
+  <link rel="stylesheet" href="../../assets/css/header.css">
+  <link rel="stylesheet" href="../../assets/css/profile.css">
+  <link rel="stylesheet" href="../../assets/css/footer.css">
+
+  <script src="../../assets/js/taikhoan.js"></script>
+  <script src="../../assets/js/include.js" defer></script>
+  <script src="../../assets/js/header.js" defer></script>
+  <script src="../../assets/js/Hoso.js" defer></script>
+</head>
+<body>
+  <div id="header-html"></div>
+
+  <div class="profile-layout">
+    <aside class="profile-sidebar">
+      <div class="user-info">
+        <img id="sideAvatar" src="../../assets/img/Avatar/avtuser.jpg" alt="avatar">
+        <h4 id="sideUsername">Người dùng</h4>
+      </div>
+      <ul class="sidebar-menu">
+        <li class="active"><a href="./HoSo.html">Hồ Sơ</a></li>
+        <li><a href="./DiaChiGiaoHang.html">Địa Chỉ Giao Hàng</a></li>
+        <li><a href="./ThongTinCaNhan.html">Thông Tin Cá Nhân</a></li>
+        <li><a href="./DoiMatKhau.html">Đổi Mật Khẩu</a></li>
+      </ul>
+    </aside>
+
+    <section class="profile-content single-column">
+      <h2>Thông tin tài khoản của tôi</h2>
+      <div class="info-box">
+        <div class="info-row"><label>Tên đăng nhập:</label> <span id="usernameDisplay"></span></div>
+        <div class="info-row"><label>Email:</label> <span id="emailDisplay"></span></div>
+        <div class="info-row"><label>Địa chỉ hiện tại:</label> <span id="addressDisplay"></span></div>
+      </div>
+    </section>
+  </div>
+
+  <div id="footer-html"></div>
+</body>
+</html>

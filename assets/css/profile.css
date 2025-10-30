@@ -1,0 +1,207 @@
+/* CASIO PRO SILVER UI THEME */
+
+/* Background */
+body {
+  background: linear-gradient(135deg, #f7f9fb, #e6ebee);
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  color: #111;
+}
+
+/* Layout */
+.profile-layout {
+  width: 90%;
+  margin: 95px auto;
+  display: flex;
+  gap: 28px;
+  min-height: 72vh;
+}
+
+/* Sidebar */
+.profile-sidebar {
+  width: 240px;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 16px;
+  border: 2px solid #d0d3d6;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.user-info img {
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  border: 2px solid #0073e6; 
+  object-fit: cover;
+}
+
+.user-info h4 {
+  margin-top: 10px;
+  font-size: 15px;
+  color: #111;
+  font-weight: 600;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin-top: 22px;
+}
+
+.sidebar-menu li {
+  padding: 12px 10px;
+  border-radius: 10px;
+  margin-bottom: 6px;
+  transition: 0.2s;
+}
+
+.sidebar-menu li a {
+  color: #333;
+  font-weight: 500;
+  text-decoration: none;
+  display: block;
+}
+
+.sidebar-menu li.active,
+.sidebar-menu li:hover {
+  background: #e6f2ff;
+  border-left: 4px solid #0073e6;
+}
+
+/* Nội dung */
+.profile-content {
+  flex: 1;
+  background: #ffffff;
+  padding: 26px;
+  border-radius: 14px;
+  border: 2px solid #d6d9dc;
+  box-shadow: 0 6px 32px rgba(0,0,0,0.08);
+  display: grid;
+  grid-template-columns: 1fr 260px;
+  gap: 24px;
+}
+
+.profile-content.single-column {
+  grid-template-columns: 1fr;
+}
+
+.profile-content h2 {
+  grid-column: span 2;
+  color: #0073e6;
+  font-size: 21px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* Sub-title */
+.subtitle {
+  grid-column: span 2;
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+/* Thông tin */
+.info-box {
+  grid-column: span 2;
+  background: #f7fafe;
+  border: 2px solid #d6e4f0;
+  border-radius: 12px;
+  padding: 18px 20px;
+}
+
+.info-row {
+  display: flex;
+  gap: 20px;
+  padding: 12px 0;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.info-row label {
+  width: 170px;
+  font-weight: 600;
+  color: #0056b3;
+}
+
+.info-row span {
+  flex: 1;
+  color: #333;
+  font-size: 15px;
+}
+
+/* Input chỉnh sửa */
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px 12px;
+  background: #ffffff;
+  border: 1.5px solid #b8c2cc;
+  color: #111;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: 0.25s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #0073e6;
+  box-shadow: 0 0 8px rgba(0,115,230,0.3);
+}
+
+/* Avatar */
+.avatar-box img {
+  width: 115px;
+  height: 115px;
+  border-radius: 50%;
+  border: 2px solid #0073e6;
+  object-fit: cover;
+}
+
+/* Buttons */
+.save-btn,
+.add-btn {
+  background: #0073e6;
+  color: #fff;
+  border: none;
+  padding: 11px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: 0.15s ease;
+}
+
+.save-btn:hover,
+.add-btn:hover {
+  background: #005bb5;
+  transform: translateY(-2px);
+}
+
+.cancel-btn {
+  border: 1px solid #b8c2cc;
+  color: #0056b3;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: #e9f3ff;
+}
+
+.cancel-btn:hover {
+  background: #d6eaff;
+}
+
+/* Address badge */
+.addr-badge {
+  background: #e6f2ff;
+  border: 1px solid #bcd8f4;
+  color: #0056b3;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+/* Responsive */
+@media(max-width: 900px) {
+  .profile-layout { display: block; }
+  .profile-content { grid-template-columns: 1fr; }
+}

@@ -1,30 +1,72 @@
-        <!DOCTYPE html>
-        <html lang="vi">
-        <head>
-          <meta charset="UTF-8">
-          <title>Thông tin cá nhân</title>
-        </head>
-        <body>
-        <header>
-  <nav>
-    <a href="../../index.html">Trang chủ</a> |
-    <a href="../DanhSachSanPham.html">Sản phẩm</a> |
-    <a href="../GioHang.html">Giỏ hàng</a> |
-    <a href="../DangNhap.html">Đăng nhập</a> |
-    <a href="../DangKy.html">Đăng ký</a> |
-    <a href="../LichSuMuaHang.html">Lịch sử</a> |
-    <a href="../QuanTri/TrangChu_Admin.html">Quản trị</a>
-  </nav>
-</header>
+<!-- DoAnWeb1/pages/ThongTinCaNhan.html -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Thông Tin Cá Nhân</title>
 
-          <main>
-            <h1>Thông tin cá nhân</h1>
-            <p>Đây là trang mẫu: <strong>Thông tin cá nhân</strong>. Nội dung tĩnh để trình bày đồ án.</p>
-            <p>Đường dẫn file: <code>pages/user/ThongTinCaNhan.html</code></p>
-          </main>
-        <footer>
-  <p>© 2025 Website Bán Hàng - Mọi quyền được bảo lưu.</p>
-</footer>
+  <!-- Đường dẫn tương đối mới đúng 100% -->
+  <link rel="stylesheet" href="/DoAnWeb1/assets/css/header.css">
+  <link rel="stylesheet" href="../../assets/css/profile.css">
+  <link rel="stylesheet" href="/DoAnWeb1/assets/css/footer.css">
 
-        </body>
-        </html>
+  <script src="../../assets/js/include.js" defer></script>
+  <script src="../../assets/js/header.js" defer></script>
+  <script src="../../assets/js/thongtincanhan.js" defer></script>
+</head>
+
+<body>
+  <div id="header-html"></div>
+
+  <div class="profile-layout">
+    
+    <aside class="profile-sidebar">
+      <div class="user-info">
+        <img id="sideAvatar" src="/DoAnWeb1/assets/img/Avatar/avtuser.jpg" alt="avatar">
+        <h4 id="sideUsername">Người dùng</h4>
+      </div>
+
+      <ul class="sidebar-menu">
+        <li><a href="./HoSo.html">Hồ Sơ</a></li>
+        <li><a href="./DiaChiGiaoHang.html">Địa Chỉ</a></li>
+        <li class="active"><a href="./ThongTinCaNhan.html">Thông Tin Cá Nhân</a></li>
+        <li><a href="./DoiMatKhau.html">Đổi Mật Khẩu</a></li>
+      </ul>
+    </aside>
+
+    <section class="profile-content single-column">
+      <h2>Thông Tin Cá Nhân</h2>
+      <p class="subtitle">Bạn có thể thay đổi tên, số điện thoại, địa chỉ</p>
+
+      <form id="profileForm" class="profile-form">
+
+        <div class="form-group">
+          <label>Tên hiển thị</label>
+          <input type="text" id="nameInput" required>
+        </div>
+
+        <div class="form-group">
+          <label>Số điện thoại</label>
+          <input type="text" id="phoneInput" placeholder="Nhập số điện thoại">
+        </div>
+
+        <div class="form-group">
+          <label>Địa chỉ</label>
+          <input type="text" id="addressInput" placeholder="Số nhà, đường, phường, thành phố">
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="save-btn">Lưu thay đổi</button>
+        </div>
+
+      </form>
+
+    </section>
+
+  </div>
+
+  <div id="footer-html"></div>
+
+</body>
+</html>
