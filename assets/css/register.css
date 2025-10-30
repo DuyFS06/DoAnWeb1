@@ -47,12 +47,12 @@ nav a:hover::after {
     width: 100%;
 }
 
-.top-nav,
+/* .top-nav,
 .logo,
 .search-box,
 .menu a{
     color: #fff !important;
-}
+} */
 /* header {
       background: #4f46e5;
       color: white;
@@ -76,7 +76,7 @@ nav a:hover::after {
     justify-content: center;
     align-items: stretch;
     max-width: 1200px;
-    margin: 40px auto;
+    margin: 80px auto;
     background: white;
     border-radius: 16px;
     overflow: hidden;
@@ -189,18 +189,18 @@ label.required::after {
     }
 }
 
-/* --- BỔ SUNG CSS CHO PHẢN HỒI LỖI TỪ JAVASCRIPT --- */
+
 
 /* Kiểu chữ cho thông báo lỗi */
 .error-message {
     color: red;
     font-size: 0.9em;
     margin-top: 5px;
-    display: block; /* Giữ block để chiếm chỗ, nhưng nội dung rỗng mặc định */
-    min-height: 18px; /* Đảm bảo khoảng trống không bị nhảy khi hiển thị lỗi */
+    display: block; 
+    min-height: 18px; 
 }
 
-/* Tô viền đỏ khi input/textarea có lỗi */
+
 .input-group input.input-error,
 .input-group textarea.input-error {
     border: 2px solid red;
@@ -218,4 +218,18 @@ label.required::after {
 .input-group textarea.input-error:focus {
     border-color: red;
     box-shadow: 0 0 4px rgba(255, 0, 0, 0.5);
+}
+.password-rules {
+    display: none;
+    /* Ẩn toàn bộ khi trang vừa load */
+    list-style: none;
+    padding-left: 10px;
+    margin: 6px 0;
+    font-size: 13px;
+    color: #dc2626;
+    transition: all 0.3s ease;
+}
+
+.password-rules li.valid {
+    color: #16a34a;
 }
