@@ -101,20 +101,6 @@ button:hover {
     background-color: #4338ca;
 }
 
-.forgot {
-    margin-top: 18px;
-    font-size: 14px;
-}
-
-.forgot a {
-    color: #4f46e5;
-    text-decoration: none;
-}
-
-.forgot a:hover {
-    text-decoration: underline;
-}
-
 label.required::after {
     content: " *";
     color: red;
