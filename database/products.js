@@ -468,7 +468,7 @@ strap: "Kim loại",
     name: "PRO-TREK PRW-35-7",
     gender: "Nam",
     desc: "Đồng hồ Nam chính hãng CASIO",
-    color: "Trắng",
+    color: "Đen",
     glass: "Khoáng",
     strap: "Nhựa",
     priceValue: 8700000,
@@ -687,6 +687,10 @@ function renderProducts(list) {
       <h3 class="desc">${p.desc} ${p.name}</h3> 
       <p class="price">${p.price}</p>
     `;
+     // 👉 Thêm sự kiện click để chuyển sang trang chi tiết
+    card.addEventListener("click", () => {
+      window.location.href = `chitietsanpham.html?id=${p.id}`;
+    });
     grid.appendChild(card);
   });
 }
@@ -726,3 +730,31 @@ let matchGender = !genderValue || p.gender.toLowerCase() === genderValue;
 
   renderProducts(filtered);
 }
+
+//Danh mục sản phẩm
+function attachCatalogEvents() {
+  const items = document.querySelectorAll("#catalog-list li");
+
+  items.forEach(item => {
+    item.addEventListener("click", () => {
+      const category = item.dataset.catalog;
+      // Lưu loại sản phẩm được chọn
+      localStorage.setItem("selectedCategory", category);
+      // Chuyển sang trang sản phẩm
+      window.location.href = "DanhSachSanPham.html";
+    });
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const selectedCategory = localStorage.getItem("selectedCategory");
+
+  if (selectedCategory) {
+    // Lọc sản phẩm theo loại đã chọn
+    const filtered = products.filter(p => p.catalog === selectedCategory);
+    renderProducts(filtered);
+  } else {
+    // Nếu chưa chọn danh mục nào, hiển thị toàn bộ
+    renderProducts(products);
+  }
+});
