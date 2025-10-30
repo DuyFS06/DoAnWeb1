@@ -10,8 +10,8 @@
   const sideAvatar = document.getElementById("sideAvatar");
   const sideUsername = document.getElementById("sideUsername");
     
-  // SỬA LỖI ĐƯỜNG DẪN AVATAR
-  sideAvatar.src = user.avatar || "../../assets/img/Avatar/avtuser.jpg";
+
+  sideAvatar.src = user.avatar || "/DoAnWeb1/assets/img/Avatar/avtuser.ipg";
   sideUsername.textContent = user.userName || "Người dùng";
 
   // Nội dung trang
@@ -34,8 +34,8 @@
     if (!navCart || !logoutBtn) return; // Header chưa load -> chờ tiếp
     clearInterval(waitForHeader);
 
-    // 👉 Ảnh mặc định
-    const DEFAULT_AVATAR = "/DoAnWeb1/assets/img/Avatar/avtuser.jpg";
+ 
+    const DEFAULT_AVATAR = "./assets/img/Avatar/avtuser.jpg";
 
     const avatarImg = userAvatar.querySelector("img"); 
 

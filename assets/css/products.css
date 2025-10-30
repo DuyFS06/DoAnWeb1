@@ -61,39 +61,6 @@ header {
     color: #4f46e5;
 }
 
-/* BANNER */
-.banner {
-    background: url('assets/img/pexels-ferarcosn-190819.jpg') center/cover no-repeat;
-    height: 400px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    text-align: center;
-    position: relative;
-}
-
-.banner::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.35);
-}
-
-.banner-content {
-    position: relative;
-    z-index: 1;
-}
-
-.banner h1 {
-    font-size: 36px;
-    margin-bottom: 10px;
-}
-
-.banner p {
-    font-size: 18px;
-    opacity: 0.9;
-}
 
 /* MAIN WRAPPER */
 .main-wrapper {

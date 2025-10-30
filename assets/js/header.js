@@ -1,32 +1,31 @@
 document.addEventListener("DOMContentLoaded", () => {
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const DEFAULT_AVATAR = "./assets/img/Avatar/avtuser.jpg";
 
+  // Chờ đến khi header được include xong
   const waitForHeader = setInterval(() => {
+    const navLogin = document.querySelector(".nav-login");
     const navCart = document.querySelector(".nav-cart");
     const navHistory = document.querySelector(".nav-history");
-    const navLogin = document.querySelector(".nav-login");
     const userAvatar = document.getElementById("userAvatar");
     const usernameDisplay = document.getElementById("usernameDisplay");
     const avatarDropdown = document.getElementById("avatarDropdown");
     const logoutBtn = document.getElementById("logoutBtn");
 
-    if (!navCart || !logoutBtn) return; // Header chưa load -> chờ tiếp
-    clearInterval(waitForHeader);
+    // Nếu header chưa gắn vào DOM thì tiếp tục chờ
+    if (!userAvatar || !navLogin || !logoutBtn) return;
 
-    // 👉 Ảnh mặc định
-    const DEFAULT_AVATAR = "/DoAnWeb1/assets/img/Avatar/avtuser.jpg";
+    clearInterval(waitForHeader); // header đã load
 
-    const avatarImg = userAvatar.querySelector("img"); 
+    const avatarImg = userAvatar.querySelector("img");
 
     if (currentUser) {
-      // --- Khi đã đăng nhập ---
+      // --- Đã đăng nhập ---
+      navLogin.style.display = "none";
       navCart.style.display = "inline-block";
       navHistory.style.display = "inline-block";
-      navLogin.style.display = "none";
-      userAvatar.style.display = "inline-block";
+      userAvatar.style.display = "inline-flex";
       usernameDisplay.textContent = currentUser.userName;
-
-      //  Cập nhật avatar theo user hoặc dùng mặc định
       avatarImg.src = currentUser.avatar || DEFAULT_AVATAR;
 
       // Toggle dropdown
@@ -39,13 +38,12 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.removeItem("currentUser");
         window.location.href = "./index.html";
       });
-
     } else {
-      // --- Khi chưa đăng nhập ---
+      // --- Chưa đăng nhập ---
+      navLogin.style.display = "inline-block";
       navCart.style.display = "none";
       navHistory.style.display = "none";
-      navLogin.style.display = "inline-block";
       userAvatar.style.display = "none";
     }
-  }, 100);
+  }, 120);
 });
