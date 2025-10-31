@@ -29,6 +29,9 @@ document.addEventListener("DOMContentLoaded", () => {
           <button id="buy-now">⚡ Mua ngay</button>
         </div>
       </div>
+      <div class="mô tả sản phẩm">
+        
+      </div>
     </div>
   `;
 
