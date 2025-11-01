@@ -19,9 +19,9 @@ function includeHTML(id, filePath) {
 // Tự động include header và footer
 document.addEventListener("DOMContentLoaded", () => {
   // header
-  includeHTML("header-html", "../includes/header.html");
+  includeHTML("header-html", "../../includes/header.html");
   // footer
-  includeHTML("footer-html", "../includes/footer.html");
+  includeHTML("footer-html", "../../includes/footer.html");
   //banner
-  includeHTML("banner-html", "../includes/banner.html");
+  includeHTML("banner-html", "../../includes/banner.html");
 });
