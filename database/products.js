@@ -1,3 +1,20 @@
+// ======== HÀM LOCAL STORAGE =========
+//Cách đúng để đồng bộ sản phẩm giữa các file
+//Chỉ cần đảm bảo mọi file đều gọi cùng một hàm getLocalProducts() khi cần.
+function getLocalProducts() {
+  const data = localStorage.getItem("productsLocal");
+  if (data) return JSON.parse(data);
+  // Nếu chưa có thì lưu dữ liệu gốc từ file products.js
+  localStorage.setItem("productsLocal", JSON.stringify(products));
+  return products;
+}
+function saveLocalProducts(data) {
+  localStorage.setItem("productsLocal", JSON.stringify(data));
+}
+function removeLocalProducts() {
+  localStorage.removeItem("productsLocal");
+}
+
 const products = [
   // BABY-G
   {
@@ -767,7 +784,7 @@ function renderProducts(list, limit = null) {
     card.classList.add("product-card");
     card.innerHTML = `
       <img src="${p.image}" alt="${p.name}">
-      <h3 class="desc">${p.desc} ${p.name}</h3> 
+      <h3 class="desc">${p.desc} ${p.name}</h3>
       <p class="price">${p.price}</p>
     `;
     grid.appendChild(card);
