@@ -30,6 +30,7 @@ const products = [
     priceValue: 4420000,
     price: "4.420.000₫",
     image: "assets/img/Baby-G/BA-110AH-6A.jpg",
+    visibility: "visible",
     description: `
       Mềm mại và tinh tế, nhưng vẫn táo bạo và phong cách. Chúng tôi bắt đầu với chiếc BA-110 đặc trưng 
       và tô điểm cho sự kết hợp tinh tế giữa mặt số, vạch chỉ giờ và các bộ phận khác bằng tông màu pastel 
@@ -58,6 +59,7 @@ const products = [
     priceValue: 2620000,
     price: "2.620.000₫",
     image: "assets/img/Baby-G/BG-169U-3.jpg",
+    visibility: "visible",
     description: `
       Dòng BG-169 được trang bị với gờ bảo vệ phía trước dạng tròn tăng khả năng chống va đập. 
       Mẫu đồng hồ được trang bị đầy đủ các tính năng tiện lợi như chống nước ở độ sâu 200 mét.
@@ -82,6 +84,7 @@ const products = [
     priceValue: 3520000,
     price: "3.520.000₫",
     image: "assets/img/Baby-G/BGA-280TD-7A.jpg",
+    visibility: "visible",
     description: `
       Mang đến nét vui tươi cho phong cách của bạn, với BABY-G có kiểu nhuộm loang nhẹ nhàng. 
       Chúng tôi bắt đầu với thiết kế mặt tròn của BGA-280, mặt số mặt đồng hồ xếp lớp để tạo ra họa tiết 
@@ -110,6 +113,7 @@ const products = [
     priceValue: 3150000,
     price: "3.150.000₫",
     image: "assets/img/Baby-G/BGA-290-1A.png",
+    visibility: "visible",
     description: `
       Chiếc đồng hồ công phu bằng kim loại vừa tinh tế lại nổi bật tạo cho bạn một vẻ ngoài đầy phong cách.
       Chiếc đồng hồ BABY-G này có độ bền chắc như bạn mong đợi với phong cách thiết kế mỏng, nhẹ, có vỏ tròn, 
@@ -139,6 +143,7 @@ const products = [
     priceValue: 4280000,
     price: "4.280.000₫",
     image: "assets/img/Baby-G/BGA-310C-1A.jpg",
+    visibility: "visible",
     description: `
       Thỏa sức ngao du ngoài trời với mẫu đồng hồ BGA-310 sành điệu và 
       mạnh mẽ. Đồng hồ BABY-G có nhiều chất liệu khác nhau giúp bạn thể hiện tình yêu 
@@ -168,6 +173,7 @@ const products = [
     priceValue: 3850000,
     price: "3.850.000₫",
     image: "assets/img/Baby-G/BGD-570BC-3.png",
+    visibility: "visible",
     description: `
       Chiếc BGD-570 tiêu chuẩn với màu xanh pastel và hồng pastel. 
       Các màu này vốn được ưa chuộng vào những năm 1980 và thể hiện tinh thần tự do thời bấy giờ. 
@@ -195,6 +201,7 @@ const products = [
     priceValue: 4970000,
     price: "4.970.000₫",
     image: "assets/img/Baby-G/BGD-570XG-8.png",
+    visibility: "visible",
     description: `
       Đặc điểm nổi bật của mẫu này là họa tiết ngựa vằn trên chất liệu nhựa màu đen 
       bán trong suốt. Ngựa vằn là họa tiết phổ biến trong những năm 90, là lựa chọn hoàn hảo 
@@ -222,6 +229,7 @@ const products = [
     priceValue: 5520000,
     price: "5.520.000₫",
     image: "assets/img/Baby-G/LOV-20A-7A-b.png",
+    visibility: "visible",
     description: `
       Các mẫu đôi trong bộ sưu tập G PRESENTS LOVER 2020 với motif hoa hồng 
       tượng trưng cho tình yêu vĩnh cửu.
@@ -234,7 +242,7 @@ const products = [
     movement: "Pin / Quartz",
     size: "44.4mm",
     thickness: "16.1mm",
- git   weight: "45g",
+    weight: "45g",
     origin: "Nhật Bản",
     shape: "Mặt tròn",
     waterRes: "200M",
@@ -251,6 +259,7 @@ const products = [
     priceValue: 6250000,
     price: "6.250.000₫",
     image: "assets/img/Baby-G/MSG-S200D-7A.png",
+    visibility: "visible",
     description: `
       Từ dòng đồng hồ BABY-G G-MS dành cho phái nữ hiện đại năng động và tinh tế ngày nay, 
       một bộ sưu tập mẫu đồng hồ sành điệu mới sở hữu thiết kế kim loại nhỏ gọn dựa trên mẫu đồng hồ 
@@ -278,6 +287,7 @@ const products = [
     priceValue: 6980000,
     price: "6.980.000₫",
     image: "assets/img/Baby-G/MSG-S500CD-7A.png",
+    visibility: "visible",
     description: `
       Phần viền mỏng và sắc nét, vạch chỉ giờ hình tam giác, nút điều chỉnh bát giác cùng nhiều chi tiết 
       khác, tất cả đã tạo nên một kiệt tác hiện đại không thể cưỡng lại. Dây đeo được làm từ chất liệu kim loại 
@@ -307,6 +317,7 @@ const products = [
     priceValue: 3820000,
     price: "3.820.000₫",
     image: "assets/img/Edifice/EFV-650D-2BV.jpg",
+    visibility: "visible",
     description: `
       Đánh đúng nhịp với đồng hồ ghi thời gian EDIFICE cổ điển cỡ trung. 
       Sự kết hợp tinh tế giữa chi tiết tinh xảo và thiết kế nổi bật với gờ mỏng tạo điểm nhấn bằng 
@@ -332,6 +343,7 @@ const products = [
     priceValue: 5120000,
     price: "5.120.000₫",
     image: "assets/img/Edifice/EQS-940NL-1AV.jpg",
+    visibility: "visible",
     description: `
       chiếc đồng hồ EDIFICE được thiết kế để nắm bắt cảm giác lái xe vào ban đêm,
       được thiết kế phù hợp cho những người đam mê ô tô. Cảm giác hào hứng khi lái xe 
@@ -360,6 +372,7 @@ const products = [
     priceValue: 2980000,
     price: "2.980.000₫",
     image: "assets/img/Edifice/EFV-C120L-8A.jpg",
+    visibility: "visible",
     description: `
       Giải phóng bản thân để tập trung tận hưởng cuộc sống. 
       Sở hữu chiếc đồng hồ kết hợp kim-số EFV-C120 có tuổi thọ pin đến 10 năm phù hợp cho mọi độ tuổi.
@@ -386,6 +399,7 @@ const products = [
     priceValue: 3780000,
     price: "3.780.000₫",
     image: "assets/img/Edifice/EFV-550L-2AV.png",
+    visibility: "visible",
     description: `
       Bạn sẽ thích nhiều chức năng khác nhau, bao gồm giờ thế giới, đồng hồ bấm giờ, báo giờ, 
       đồng hồ đếm ngược và khả năng chống nước ở độ sâu tới 200 mét. 
@@ -410,6 +424,7 @@ const products = [
     priceValue: 4220000,
     price: "4.220.000₫",
     image: "assets/img/Edifice/EFV-140L-1AV.png",
+    visibility: "visible",
     description: `
       Chào mừng bạn đến với EDIFICE EFV-140 – một chiếc đồng hồ thể thao và 
       đơn giản nhưng đầy màu sắc mang trên mình chiếc đồng hồ analog cổ điển với kim giây. 
@@ -434,6 +449,7 @@ const products = [
     priceValue: 5180000,
     price: "5.180.000₫",
     image: "assets/img/Edifice/EFR-552GL-7AV.png",
+    visibility: "visible",
     description: `
        Khả năng chống nước ở độ sâu 100 mét, Đồng hồ bấm giờ 
        Kim phút quay ngược để có thể sử dụng chức năng đồng hồ bấm giờ.
@@ -459,6 +475,7 @@ const products = [
     priceValue: 6280000,
     price: "6.280.000₫",
     image: "assets/img/Edifice/EFB-730D-2BV.jpg",
+    visibility: "visible",
     description: `
       Giới thiệu mẫu đồng hồ thể thao bấm giờ EDIFICE lấy cảm hứng từ chiếc xe thể thao cổ điển. 
       Kim chỉ số nổi bật kết hợp bố cục mặt số 3-6-9 huyền thoại trong một thiết kế thể thao vượt thời gian. 
@@ -485,6 +502,7 @@ const products = [
     priceValue: 6120000,
     price: "6.120.000₫",
     image: "assets/img/Edifice/EFB-710D-7AV.jpg",
+    visibility: "visible",
     description: `
       Mẫu đồng hồ công phu, táo bạo có vẻ ngoài gợi lại cảm giác và diện mạo sang trọng
       của mẫu đồng hồ EDIFICE thể thao cổ điển. Dây đeo kim loại chắc chắn, 
@@ -512,6 +530,7 @@ const products = [
     priceValue: 7150000,
     price: "7.150.000₫",
     image: "assets/img/Edifice/ECB-2200HTR-1A.jpg",
+    visibility: "visible",
     description: `
       Chuyển sang “cảm giác” đua xe, chiếc đồng hồ này cho bạn cảm giác gần giống
       như đang “đeo” một chiếc xe Honda TYPE R trên cổ tay. Thiết kế này chứa đầy 
@@ -541,6 +560,7 @@ const products = [
     priceValue: 9250000,
     price: "9.250.000₫",
     image: "assets/img/Edifice/ECB-900DB-1B.png",
+    visibility: "visible",
     description: `
       Những chiếc đồng hồ này cũng có Đèn chiếu sáng cực mạnh sử dụng chiếu sáng 
       bằng đèn LED có độ sáng cao tự động chiếu sáng mặt đồng hồ kim và màn hình 
@@ -572,6 +592,7 @@ const products = [
     priceValue: 8250000,
     price: "8.250.000₫",
     image: "assets/img/G-Shock/GST-B600D-1A.jpg",
+    visibility: "visible",
     description: `
       Xin giới thiệu GST-B600 — chiếc đồng hồ G-SHOCK nhỏ gọn hơn nữa 
       đồng thời là chiếc G-STEEL bằng nhựa kim loại mỏng nhất từ trước đến nay. 
@@ -599,6 +620,7 @@ const products = [
     priceValue: 12900000,
     price: "12.900.000₫",
     image: "assets/img/G-Shock/GMW-B5000SS-2.jpg",
+    visibility: "visible",
     description: `
       Giới thiệu chiếc đồng hồ kỷ niệm 50 năm thành lập đồng hồ Casio 
       có thiết kế dựa trên GMW-B5000, mẫu tái tạo hình dáng biểu tượng của
@@ -628,6 +650,7 @@ const products = [
     priceValue: 4200000,
     price: "4.200.000₫",
     image: "assets/img/G-Shock/GMA-S120SA-7A2.jpg",
+    visibility: "visible",
     description: `
       Biến phong cách của bạn trở nên sành điệu, hiện đại và thể thao, 
       với màu sắc nổi bật sống động. Với GMA-S120SA, chúng tôi bắt đầu với
@@ -655,6 +678,7 @@ const products = [
     priceValue: 4150000,
     price: "4.150.000₫",
     image: "assets/img/G-Shock/GMA-P2125W-6A.jpg",
+    visibility: "visible",
     description: `
       Chiếc đồng hồ đáng nhớ này có màu tím nhạt dễ thương, 
       tượng trưng cho công lý và phẩm giá, ở mặt trước và trung tâm, 
@@ -684,6 +708,7 @@ const products = [
     priceValue: 4350000,
     price: "4.350.000₫",
     image: "assets/img/G-Shock/GMA-P2100PC-4A.jpg",
+    visibility: "visible",
     description: `
       Làm bừng sáng phong cách năng động của bạn với đồng hồ GMA-P2100 có mặt số màu phân cực. 
       Chiếc đồng hồ nhỏ gọn sang trọng này tỏa sáng rực rỡ từ mọi góc độ, 
@@ -711,6 +736,7 @@ const products = [
     priceValue: 6980000,
     price: "6.980.000₫",
     image: "assets/img/G-Shock/GM-S2110B-8A.jpg",
+    visibility: "visible",
     description: `
       Mạnh mẽ, cứng cáp, sành điệu — Phủ kim loại, giờ đây có những sắc thái rực rỡ với màu sắc trang nhã. Chiếc GM-S2110 hình bát giác 
       có ba màu mới — vàng hồng và đen, vàng hồng và hồng be, và xám đậm.
@@ -737,6 +763,7 @@ const products = [
     priceValue: 10400000,
     price: "10.400.000₫",
     image: "assets/img/G-Shock/GM-B2100SD-1A.jpg",
+    visibility: "visible",
     description: `
       Xin giới thiệu chiếc đồng hồ hoàn toàn bằng kim loại mới nhất 
       trong dòng đồng hồ 2100 không ngừng cải tiến, 
@@ -768,6 +795,7 @@ const products = [
     priceValue: 7850000,
     price: "7.850.000₫",
     image: "assets/img/G-Shock/GM-2110D-2A.jpg",
+    visibility: "visible",
     description: `
       Xin giới thiệu GM-2110D — mẫu đồng hồ G-STEEL kết hợp kim-số 
       dựa trên GA-2100, giờ đây được cập nhật đường gờ và dây đeo bằng kim loại đầy phong cách. 
@@ -794,6 +822,7 @@ const products = [
     priceValue: 3980000,
     price: "3.980.000₫",
     image: "assets/img/G-Shock/GA-700BBR-1A.jpg",
+    visibility: "visible",
     description: `
       Trở nên táo bạo, bền bỉ và mãnh liệt với bộ sưu tập đen và đỏ của G-SHOCK.
       Kích hoạt đèn nền để chiếu sáng màn hình kỹ thuật số để có khả năng hiển thị tốt hơn nữa. 
@@ -819,6 +848,7 @@ const products = [
     priceValue: 8250000,
     price: "8.250.000₫",
     image: "assets/img/G-Shock/GM-2110D-2B.jpg",
+    visibility: "visible",
     description: `
       Xin giới thiệu GM-2110D — mẫu đồng hồ G-STEEL kết hợp kim-số dựa trên GA-2100, 
       giờ đây được cập nhật đường gờ và dây đeo bằng kim loại đầy phong cách. 
@@ -848,6 +878,7 @@ const products = [
     priceValue: 9280000,
     price: "9.280.000₫",
     image: "assets/img/Pro-Trek/PRG-340L-5.jpg",
+    visibility: "visible",
     description: `
       Thiết bị hoạt động ngoài trời thông thường-sành điệu dành cho 
       những người yêu thiên nhiên mong muốn thoát khỏi con đường quen thuộc!
@@ -879,6 +910,7 @@ const products = [
     priceValue: 10300000,
     price: "10.300.000₫",
     image: "assets/img/Pro-Trek/PRJ-B001B-1.jpg",
+    visibility: "visible",
     description: `
       Hãy bước ra khỏi con đường mòn và tiến xa hơn nữa với PRO TREK nhẹ nhất*, người bạn đồng hành hoàn hảo 
       cho những con đường mòn dài và những chuyến đi bộ đường dài siêu nhẹ.
@@ -907,6 +939,7 @@ const products = [
     priceValue: 7800000,
     price: "7.800.000₫",
     image: "assets/img/Pro-Trek/PRT-B50-4.png",
+    visibility: "visible",
     description: `
       PRO TREK với khả năng kết hợp những thành tựu công nghệ xuất sắc nhất 
       cùng thiết kế sáng tạo đã trở thành lựa chọn đồng hồ cho người leo núi, đi bộ đường dài, 
@@ -934,6 +967,7 @@ const products = [
     priceValue: 8100000,
     price: "8.100.000₫",
     image: "assets/img/Pro-Trek/PRT-B70-2.png",
+    visibility: "visible",
     description: `
       Bluetooth® cho phép bạn liên kết với ứng dụng PRO TREK Connected trên điện thoại để 
       truy cập các tính năng và chức năng được thiết kế đặc biệt để câu cá.
@@ -962,6 +996,7 @@ const products = [
     priceValue: 9500000,
     price: "9.500.000₫",
     image: "assets/img/Pro-Trek/PRW-30Y-1B.png",
+    visibility: "visible",
     description: `
       Với PRW-30, một dãy các nút kim loại lớn ở bên phải cung cấp khả năng truy cập một chạm vào la bàn, 
       các thông số áp suất không khí/độ cao và nhiệt độ xuất hiện trên màn hình LCD.
@@ -989,6 +1024,7 @@ const products = [
     priceValue: 8700000,
     price: "8.700.000₫",
     image: "assets/img/Pro-Trek/PRW-35-7.jpg",
+    visibility: "visible",
     description: `
       Chiếc đồng hồ này thực sự là sản phẩm hoàn thiện nhất với các chức năng ngoài trời 
       thuận tiện cùng vật liệu được kỳ vọng sẽ giúp làm giảm tác động đến môi trường. 
@@ -1019,6 +1055,7 @@ const products = [
     priceValue: 11200000,
     price: "11.200.000₫",
     image: "assets/img/Pro-Trek/PRW-50Y-1A.png",
+    visibility: "visible",
     description: `
       Thiết kế kim giờ, phút và giây rất dễ nhìn, mặt số không bóng giúp 
       giảm lóa và số Ả Rập lõm vào được nhúng chất liệu phát sáng mang đến 
@@ -1049,6 +1086,7 @@ const products = [
     priceValue: 14500000,
     price: "14.500.000₫",
     image: "assets/img/Pro-Trek/PRW-3500SYT-1.jpg",
+    visibility: "visible",
     description: `
       Những mẫu này là mẫu bổ sung mới nhất vào dòng đồng hồ PRW Climber Line 
       tập trung cải thiện thao tác sao cho thân thiện với người dùng đồng thời thu nhỏ kích thước tổng thể.
@@ -1075,6 +1113,7 @@ const products = [
     priceValue: 12500000,
     price: "12.500.000₫",
     image: "assets/img/Pro-Trek/PRW-6000SC-7.jpg",
+    visibility: "visible",
     description: `
       Khoáng thủy tinh
       Con trỏ sơn dạ quang Neobrite
@@ -1105,6 +1144,7 @@ const products = [
     priceValue: 9800000,
     price: "9.800.000₫",
     image: "assets/img/Pro-Trek/PRW-S3100-1.jpg",
+    visibility: "visible",
     description: `
       Chức năng tiếp nhận sóng vô tuyến: nhận tín hiệu tự động (tối đa 6 lần một ngày 
       và không tiếp nhận sau khi nhận thành công;
@@ -1132,6 +1172,7 @@ const products = [
     priceValue: 3450000,
     price: "3.450.000₫",
     image: "assets/img/Sheen/SHE-3517L-1A.jpg",
+    visibility: "visible",
     description: `
       Chiếc đồng hồ thanh lịch, bóng bẩy và lung linh với thiết kế màn hình
        kim, đa mặt số tạo nên hệ thống chức năng vô cùng tinh vi. 
@@ -1160,6 +1201,7 @@ const products = [
     priceValue: 4820000,
     price: "4.820.000₫",
     image: "assets/img/Sheen/SHE-4055PG-7A.png",
+    visibility: "visible",
     description: `
       Vạch giờ Swarovski® Crystals lấp lánh
       Bộ phận quý giá này có thể nhận dạng được bằng nhãn 
@@ -1187,6 +1229,7 @@ const products = [
     priceValue: 3980000,
     price: "3.980.000₫",
     image: "assets/img/Sheen/SHE-4057PGL-7B.png",
+    visibility: "visible",
     description: `
       Dây đeo bằng da thật
       Vỏ mạ ion màu vàng hồng
@@ -1216,6 +1259,7 @@ const products = [
     priceValue: 5120000,
     price: "5.120.000₫",
     image: "assets/img/Sheen/SHE-4532PG-1A.png",
+    visibility: "visible",
     description: `
       Vành bezel bằng Pha lê Swarovski® lấp lánh
       Bộ phận quý giá này có thể nhận dạng được bằng nhãn “Được trang trí bằng 
@@ -1244,6 +1288,7 @@ const products = [
     priceValue: 5780000,
     price: "5.780.000₫",
     image: "assets/img/Sheen/SHE-4538D-7A.png",
+    visibility: "visible",
     description: `
       Vỏ mỏng, Chốt gập 3 chỉ với một lần bấm
       Mặt kính saphia với lớp phủ không phản quang
@@ -1271,6 +1316,7 @@ const products = [
     priceValue: 6200000,
     price: "6.200.000₫",
     image: "assets/img/Sheen/SHE-4539BGM-1A.jpg",
+    visibility: "visible",
     description: `
       Tạo phong cách trang nhã với tông màu đen và vàng nhạt tuyệt đẹp. 
       Bạn sẽ thích thú với dây đeo dạng lưới. Dây đeo tạo cảm giác mềm mại 
@@ -1299,6 +1345,7 @@ const products = [
     priceValue: 4980000,
     price: "4.980.000₫",
     image: "assets/img/Sheen/SHE-4540D-7A.jpg",
+    visibility: "visible",
     description: `
       Thể hiện bản thân bằng sự sang trọng thanh lịch của chiếc đồng hồ 
       có vạch chỉ giờ bằng pha lê ở các vị trí 3, 6 và 9 giờ. 
@@ -1327,6 +1374,7 @@ const products = [
     priceValue: 6780000,
     price: "6.780.000₫",
     image: "assets/img/Sheen/SHE-4558G-9A.jpg",
+    visibility: "visible",
     description: `
       Mang đến chút ánh sáng cho đời với mẫu đồng hồ kim loại lấy cảm hứng 
       từ tia nắng. Họa tiết hình học sáng bóng lấp lánh theo nhiều 
@@ -1355,6 +1403,7 @@ const products = [
     priceValue: 5340000,
     price: "5.340.000₫",
     image: "assets/img/Sheen/SHE-4562M-2A.jpg",
+    visibility: "visible",
     description: `
       Đồng hồ kim thời trang có mặt số với màu sắc hiện đại và 
       dây đeo bằng kim loại.Tinh thể sapphire chống trầy xước mang lại 
@@ -1382,6 +1431,7 @@ const products = [
     priceValue: 5450000,
     price: "5.450.000₫",
     image: "assets/img/Sheen/SHE-4562PGL-4A.jpg",
+    visibility: "visible",
     description: `
       Đồng hồ kim thời trang có mặt số với màu sắc hiện đại và 
       dây đeo bằng kim loại.Tinh thể sapphire chống trầy xước mang lại 
