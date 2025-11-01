@@ -1,93 +1,89 @@
 <!DOCTYPE html>
 <html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trang chủ - Cửa hàng đồng hồ</title>
+    <link rel="stylesheet" href="./assets/css/home.css">
+    <link rel="stylesheet" href="./assets/css/products.css" />
+    <link rel="stylesheet" href="./assets/css/footer.css" />
+    <link rel="stylesheet" href="./assets/css/header.css" />
+    <script src="./assets/js/taikhoan.js" defer></script>
+    <script src="./assets/js/header.js" defer></script>
+    <script src="./assets/js/include.js" defer></script>
+    <script src="database/products.js" defer></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Trang chủ - Cửa hàng đồng hồ</title>
-  <link rel="stylesheet" href="./assets/css/products.css">
-  <link rel="stylesheet" href="./assets/css/footer.css">
-  <link rel="stylesheet" href="./assets/css/header.css">
-  <script src="./assets/js/include.js" defer></script>
-  <script src="database/products.js" defer></script>
+  <body>
+    <div id="header-html"></div>
+    <div class="main-wrapper">
+      <main>
+        <!-- SIDEBAR -->
+       <aside class="filter-sidebar">
+  <h3>Chọn sản phẩm theo yêu cầu</h3>
 
-</head>
+  <div class="filter-group">
+    <label>Khoảng giá</label>
+    <select id="priceFilter" onchange="filterProducts()">
+      <option value="">Tất cả</option>
+      <option value="duoi3">Dưới 3.000.000₫</option>
+      <option value="3-5">3.000.000₫ - 5.000.000₫</option>
+      <option value="5-7">5.000.000₫ - 7.000.000₫</option>
+      <option value="7-10">7.000.000₫ - 10.000.000₫</option>
+      <option value="tren10">Trên 10.000.000₫</option>
+    </select>
+  </div>
 
-<body>
-  <div id="header-html"></div>
-  <div class="main-wrapper">
-    <main>
-      <!-- SIDEBAR -->
-      <aside class="filter-sidebar">
-        <h3>Bộ lọc sản phẩm</h3>
+  <div class="filter-group">
+    <label>Màu sắc</label>
+    <select id="colorFilter" onchange="filterProducts()">
+      <option value="">Tất cả</option>
+      <option value="đen">Đen</option>
+      <option value="trắng">Trắng</option>
+      <option value="vàng">Vàng</option>
+      <option value="bạc">Bạc</option>
+      <option value="hồng">Hồng</option>
+      <option value="xanh lá">Xanh lá</option>
+      <option value="xanh dương">Xanh dương</option>
+    </select>
+  </div>
 
-        <div class="filter-group">
-          <label>Khoảng giá</label>
-          <select >
-            <option>Tất cả </option>
-            <option>Dưới 3.000.000₫ </option>
-            <option>3.000.000₫ - 5.000.000₫ </option>
-            <option>5.000.000₫ - 7.000.000₫ </option>
-            <option>7.000.000₫ - 10.000.000₫ </option>
-            <option>Trên 10.000.000₫</option>
-          </select>
-        </div>
+  <div class="filter-group">
+    <label>Mặt kính</label>
+    <select id="glassFilter" onchange="filterProducts()">
+      <option value="">Tất cả</option>
+      <option value="khoáng">Khoáng</option>
+      <option value="sapphire">Sapphire</option>
+    </select>
+  </div>
 
-        <div class="filter-group">
-          <label>Màu sắc</label>
-          <select>
-            <option>Tất cả</option>
-            <option>Đen</option>
-            <option>Trắng</option>
-            <option>Vàng</option>
-            <option>Bạc</option>
-            <option>Hồng</option>
-            <option>Xanh lá</option>
-            <option>Xanh dương</option>
-          </select>
-        </div>
+  <div class="filter-group">
+    <label>Dây đeo</label>
+    <select id="strapFilter" onchange="filterProducts()">
+      <option value="">Tất cả</option>
+      <option value="da">Da</option>
+      <option value="kim loại">Kim loại</option>
+      <option value="nhựa">Nhựa</option>
+      <option value="vải">Vải</option>
+    </select>
+  </div>
 
-        <div class="filter-group">
-          <label>Mặt kính</label>
-          <select>
-            <option>Tất cả</option>
-            <option>Khoáng</option>
-            <option>Sapphire</option>
-          </select>
-        </div>
-
-        <div class="filter-group">
-          <label>Dây đeo</label>
-          <select>
-            <option>Tất cả</option>
-            <option>Da</option>
-            <option>Kim loại</option>
-            <option>Nhựa</option>
-            <option>Vải</option>
-          </select>
-        </div>
-
-        <div class="filter-group">
-          <label>Giới tính</label>
-          <select>
-            <option>Tất cả</option>
-            <option>Nam</option>
-            <option>Nữ</option>
-          </select>
-        </div>
-        <button>Lọc sản phẩm</button>
-      </aside>
- 
-      <!-- PRODUCT LIST -->
+  <div class="filter-group">
+    <label>Giới tính</label>
+    <select id="genderFilter" onchange="filterProducts()">
+      <option value="">Tất cả</option>
+      <option value="nam">Nam</option>
+      <option value="nữ">Nữ</option>
+    </select>
+  </div>
+</aside>
+        <!-- PRODUCT LIST -->
         <section class="product-section">
           <div class="product-grid" id="product-grid">
             <!-- Sản phẩm sẽ được JS thêm vào đây -->
           </div>
-        </section>
-    </main>
-  </div>
-
-  <div id="footer-html"></div>
-</body>
-
-</html>
+        </section>      
+      </main>
+    </div>
+<div id="footer-html"></div>
+  </body></html>

@@ -100,20 +100,19 @@ document.addEventListener("DOMContentLoaded", () => {
         // 2. Xác thực người dùng
         const user = authenticateUser(emailOrUsername, password);
 
-        if (user) {
-            // Giả lập lưu trạng thái đăng nhập
-            sessionStorage.setItem("loggedInUser", JSON.stringify({
-                userName: user.userName,
-                email: user.email,
-            }));
+      if (user) {
+    // Lưu thông tin đăng nhập
+    localStorage.setItem("currentUser", JSON.stringify({
+        userName: user.userName,
+        email: user.email,
+        avatar: user.avatar || "./assets/img/Avatar/avtuser.jpg"
+    }));
 
-            // BÁO CÁO THÀNH CÔNG bằng SweetAlert2
-            showPopup("success", "Đăng nhập thành công!", "Chào mừng " + user.userName + "...", () => {
-                // Chuyển hướng sau khi pop-up đóng(sang trang chủ)
-                window.location.href = form.action; 
-            });
-            
-            form.reset(); 
+    showPopup("success", "Đăng nhập thành công!", "Chào mừng " + user.userName + "...", () => {
+        window.location.href = form.action; // về trang chủ
+    });
+
+    form.reset();
         } else {
             // Hiển thị lỗi chung cho cả 2 trường
             const errorMessage = "Tên đăng nhập/Email hoặc mật khẩu không đúng.";

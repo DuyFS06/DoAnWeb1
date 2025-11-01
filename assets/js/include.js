@@ -6,9 +6,9 @@ function includeHTML(id, filePath) {
       .then(data => {
         placeholder.innerHTML = data;
 
-        // ✅ Khi include footer xong, gắn sự kiện click danh mục
-        if (id === "footer-html") {
-          attachCatalogEvents(); // gọi hàm từ products.js
+        // Gọi hàm xử lý click sau khi footer đã load xong
+        if (id === "footer-html" && typeof attachCatalogEvents === "function") {
+          attachCatalogEvents();
         }
       })
       .catch(err => console.error("Không tải được file:", err));
@@ -19,9 +19,9 @@ function includeHTML(id, filePath) {
 // Tự động include header và footer
 document.addEventListener("DOMContentLoaded", () => {
   // header
-  includeHTML("header-html", "includes/header.html");
+  includeHTML("header-html", "../../includes/header.html");
   // footer
-  includeHTML("footer-html", "includes/footer.html");
+  includeHTML("footer-html", "../../includes/footer.html");
   //banner
-  includeHTML("banner-html", "includes/banner.html");
+  includeHTML("banner-html", "../../includes/banner.html");
 });

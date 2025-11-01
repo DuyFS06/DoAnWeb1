@@ -61,19 +61,6 @@ body {
     font-size: 14px;
 }
 
-/* Đánh giá sao */
-.rating {
-    margin: 5px 12px;
-    font-size: 13px;
-    color: #555;
-}
-
-.rating span {
-    color: #f59e0b;
-    font-size: 15px;
-    margin-right: 3px;
-}
-
 /* FOOTER */
 footer {
     background: #111;

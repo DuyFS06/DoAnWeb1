@@ -64,6 +64,15 @@ class AdminSession {
         return true;
     }
 
+    // Ẩn thông báo yêu cầu đăng nhập
+    hideLoginRequired() {
+        const notification = document.querySelector('.login-required-notification');
+        if (notification) {
+            document.body.classList.remove('no-scroll');
+            notification.remove();
+        }
+    }
+
     // Hiển thị thông báo yêu cầu đăng nhập
     showLoginRequired() {
         const notification = document.createElement('div');
@@ -82,8 +91,8 @@ class AdminSession {
                 <h2>Yêu cầu đăng nhập</h2>
                 <p>Bạn cần đăng nhập để truy cập chức năng này.</p>
                 <div class="notification-actions">
-                    <button onclick="window.location.href='DangNhap_Admin.html'" class="btn-login">Đăng nhập</button>
-                    <button onclick="window.location.href='TrangChu_Admin.html'" class="btn-cancel">Về trang chủ</button>
+                    <button class="btn-login">Đăng nhập</button>
+                    <button class="btn-cancel">Về trang chủ</button>
                 </div>
             </div>
         `;
@@ -183,10 +192,37 @@ class AdminSession {
                     transform: translateY(0);
                 }
             }
+
+            /* Disable background scroll when notification is visible */
+            .no-scroll {
+                overflow: hidden !important;
+                height: 100vh !important;
+            }
         `;
 
         document.head.appendChild(style);
         document.body.appendChild(notification);
+
+        // Prevent background scrolling / scrollbar interaction while notification is visible
+        document.body.classList.add('no-scroll');
+
+        // Attach handlers to buttons so we remove the no-scroll class before navigating
+        const loginBtn = notification.querySelector('.btn-login');
+        const cancelBtn = notification.querySelector('.btn-cancel');
+
+        if (loginBtn) {
+            loginBtn.addEventListener('click', () => {
+                document.body.classList.remove('no-scroll');
+                window.location.href = 'DangNhap_Admin.html';
+            });
+        }
+
+        if (cancelBtn) {
+            cancelBtn.addEventListener('click', () => {
+                document.body.classList.remove('no-scroll');
+                window.location.href = 'TrangChu_Admin.html';
+            });
+        }
     }
 }
 
