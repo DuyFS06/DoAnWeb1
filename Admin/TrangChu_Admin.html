@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="assets/css/admin.css">
     <link rel="stylesheet" href="assets/css/DangNhap_Admin.css">
+    <link rel="stylesheet" href="assets/css/admin-spa.css">
 </head>
 
 <body>
@@ -27,9 +28,9 @@
                     </div>
                 </div>
                 <button class="logout-btn" onclick="adminSession.logout(); adminSession.redirectToLogin();">
-                        <i class="fa-solid fa-right-from-bracket"></i>
-                        Đăng xuất
-                    </button>
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Đăng xuất
+                </button>
             </div>
         </div>
     </header>
@@ -41,8 +42,8 @@
                 <div class="nav-section">
                     <h3>Tổng quan</h3>
                     <ul>
-                        <li class="nav-item active">
-                            <a href="TrangChu_Admin.html" class="nav-link">
+                        <li class="menu-item active">
+                            <a href="#" data-route="/" class="nav-link">
                                 <i class="fa-solid fa-house"></i> Dashboard
                             </a>
                         </li>
@@ -52,8 +53,8 @@
                 <div class="nav-section">
                     <h3>Quản lý khách hàng</h3>
                     <ul>
-                        <li class="nav-item">
-                            <a href="QuanLyKhachHang.html" class="nav-link">
+                        <li class="menu-item">
+                            <a href="#" data-route="/customers" class="nav-link">
                                 <i class="fa-solid fa-users"></i> Quản lý khách hàng
                             </a>
                         </li>
@@ -63,28 +64,28 @@
                 <div class="nav-section">
                     <h3>Quản lý sản phẩm</h3>
                     <ul>
-                        <li class="nav-item">
-                            <a href="QuanLyLoaiSanPham.html" class="nav-link">
+                        <li class="menu-item">
+                            <a href="#" data-route="/categories" class="nav-link">
                                 <i class="fa-solid fa-tags"></i> Quản lý loại sản phẩm
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="QuanLySanPham.html" class="nav-link">
+                        <li class="menu-item">
+                            <a href="#" data-route="/products" class="nav-link">
                                 <i class="fa-solid fa-box"></i> Quản lý sản phẩm
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="QuanLyNhapHang.html" class="nav-link">
+                        <li class="menu-item">
+                            <a href="#" data-route="/import" class="nav-link">
                                 <i class="fa-solid fa-file-import"></i> Quản lý nhập hàng
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="TonKho.html" class="nav-link">
+                        <li class="menu-item">
+                            <a href="#" data-route="/inventory" class="nav-link">
                                 <i class="fa-solid fa-warehouse"></i> Quản lý tồn kho
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="QuanLyGiaBan.html" class="nav-link">
+                        <li class="menu-item">
+                            <a href="#" data-route="/prices" class="nav-link">
                                 <i class="fa-solid fa-tags"></i> Quản lý giá bán
                             </a>
                         </li>
@@ -94,8 +95,8 @@
                 <div class="nav-section">
                     <h3>Quản lý đơn hàng</h3>
                     <ul>
-                        <li class="nav-item">
-                            <a href="QuanLyDonHang.html" class="nav-link">
+                        <li class="menu-item">
+                            <a href="#" data-route="/orders" class="nav-link">
                                 <i class="fa-solid fa-clipboard-list"></i> Quản lý đơn hàng
                             </a>
                         </li>
@@ -105,8 +106,8 @@
                 <div class="nav-section">
                     <h3>Báo cáo</h3>
                     <ul>
-                        <li class="nav-item">
-                            <a href="BaoCaoDoanhThu.html" class="nav-link">
+                        <li class="menu-item">
+                            <a href="#" data-route="/reports" class="nav-link">
                                 <i class="fa-solid fa-chart-bar"></i> Báo cáo doanh thu
                             </a>
                         </li>
@@ -117,97 +118,290 @@
 
         <!-- Main Content -->
         <main class="admin-main">
-            <div class="dashboard-header">
-                <h1>Dashboard</h1>
-                <p>Chào mừng bạn đến với hệ thống quản trị</p>
-            </div>
+            <div id="content">
+                <!-- Embedded admin pages as SPA sections -->
 
-            <!-- Stats Cards -->
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon customers">
-                        <i class="fa-solid fa-users"></i>
+                <section id="page-dashboard" class="spa-page">
+                    <div class="dashboard-header">
+                        <h1>Dashboard</h1>
+                        <p>Chào mừng bạn đến với hệ thống quản trị</p>
                     </div>
-                    <div class="stat-content">
-                        <h3>1,234</h3>
-                        <p>Khách hàng</p>
-                    </div>
-                </div>
 
-                <div class="stat-card">
-                    <div class="stat-icon products">
-                        <i class="fa-solid fa-box"></i>
-                    </div>
-                    <div class="stat-content">
-                        <h3>567</h3>
-                        <p>Sản phẩm</p>
-                    </div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-icon orders">
-                        <i class="fa-solid fa-clipboard-list"></i>
-                    </div>
-                    <div class="stat-content">
-                        <h3>89</h3>
-                        <p>Đơn hàng</p>
-                    </div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-icon revenue">
-                        <i class="fa-solid fa-money-bill"></i>
-                    </div>
-                    <div class="stat-content">
-                        <h3>₫12.5M</h3>
-                        <p>Doanh thu</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Quick Actions -->
-            <div class="quick-actions">
-                <h2>Thao tác nhanh</h2>
-                <div class="actions-grid">
-                    <a href="QuanLyKhachHang.html" class="action-card">
-                        <div class="action-icon">
-                            <i class="fa-solid fa-users fa-2x"></i>
+                    <!-- Stats Cards -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon customers">
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3>1,234</h3>
+                                <p>Khách hàng</p>
+                            </div>
                         </div>
-                        <h3>Quản lý khách hàng</h3>
-                        <p>Xem và quản lý thông tin khách hàng</p>
-                    </a>
 
-                    <a href="QuanLySanPham.html" class="action-card">
-                        <div class="action-icon">
-                            <i class="fa-solid fa-box fa-2x"></i>
+                        <div class="stat-card">
+                            <div class="stat-icon products">
+                                <i class="fa-solid fa-box"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3>567</h3>
+                                <p>Sản phẩm</p>
+                            </div>
                         </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon orders">
+                                <i class="fa-solid fa-clipboard-list"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3>89</h3>
+                                <p>Đơn hàng</p>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon revenue">
+                                <i class="fa-solid fa-money-bill"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3>₫12.5M</h3>
+                                <p>Doanh thu</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="quick-actions">
+                        <h2>Thao tác nhanh</h2>
+                        <div class="actions-grid">
+                            <a href="#" data-route="/customers" class="action-card">
+                                <div class="action-icon">
+                                    <i class="fa-solid fa-users fa-2x"></i>
+                                </div>
+                                <h3>Quản lý khách hàng</h3>
+                                <p>Xem và quản lý thông tin khách hàng</p>
+                            </a>
+
+                            <a href="#" data-route="/products" class="action-card">
+                                <div class="action-icon">
+                                    <i class="fa-solid fa-box fa-2x"></i>
+                                </div>
+                                <h3>Quản lý sản phẩm</h3>
+                                <p>Thêm, sửa, xóa sản phẩm</p>
+                            </a>
+
+                            <a href="#" data-route="/orders" class="action-card">
+                                <div class="action-icon">
+                                    <i class="fa-solid fa-clipboard-list fa-2x"></i>
+                                </div>
+                                <h3>Quản lý đơn hàng</h3>
+                                <p>Xử lý và theo dõi đơn hàng</p>
+                            </a>
+
+                            <a href="#" data-route="/reports" class="action-card">
+                                <div class="action-icon">
+                                    <i class="fa-solid fa-chart-bar fa-2x"></i>
+                                </div>
+                                <h3>Báo cáo doanh thu</h3>
+                                <p>Xem báo cáo và thống kê</p>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="page-customers" class="spa-page">
+                    <!-- Content from QuanLyKhachHang.html (main) -->
+                    <div class="page-header">
+                        <h1>Quản lý khách hàng</h1>
+                        <p>Quản lý tài khoản khách hàng, reset mật khẩu và khóa/mở khóa tài khoản</p>
+                    </div>
+                    <div class="action-bar">
+                        <div class="action-right">
+                            <div class="search-box">
+                                <input type="text" placeholder="Tìm kiếm khách hàng..." id="searchInput" />
+                                <button onclick="searchCustomers()"><i class="fa-solid fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="page-categories" class="spa-page">
+                    <!-- Content from QuanLyLoaiSanPham.html (main) -->
+                    <div class="page-header">
+                        <h1>Quản lý loại sản phẩm</h1>
+                        <p>Quản lý danh mục loại sản phẩm, thêm/sửa/xóa/ẩn loại sản phẩm</p>
+                    </div>
+                    <div class="action-bar">
+                        <div class="action-left">
+                            <button class="btn btn-primary" onclick="showAddCategoryModal()">Thêm loại sản phẩm</button>
+                        </div>
+                        <div class="action-right">
+                            <div class="search-box">
+                                <input type="text" placeholder="Tìm kiếm loại sản phẩm..." id="searchInput">
+                                <button><i class="fa-solid fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal thêm/sửa loại sản phẩm -->
+                    <div id="categoryModal" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h2 id="modalTitle">Thêm loại sản phẩm</h2>
+                                <button class="close-btn" onclick="closeCategoryModal()">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="categoryForm">
+                                    <div class="form-group">
+                                        <label for="categoryName">Tên loại sản phẩm</label>
+                                        <input type="text" id="categoryName" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="categoryDescription">Mô tả</label>
+                                        <textarea id="categoryDescription" rows="3"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="categoryStatus">Trạng thái</label>
+                                        <select id="categoryStatus">
+                                            <option value="active">Hiển thị</option>
+                                            <option value="hidden">Ẩn</option>
+                                        </select>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" onclick="closeCategoryModal()">Hủy</button>
+                                <button class="btn btn-primary" onclick="saveCategory()">Lưu</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bảng danh sách loại sản phẩm -->
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Tên loại</th>
+                                    <th>Mô tả</th>
+                                    <th>Số sản phẩm</th>
+                                    <th>Trạng thái</th>
+                                    <th>Ngày tạo</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="categoriesTableBody">
+                                <!-- Dữ liệu sẽ được thêm qua JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section id="page-products" class="spa-page">
+                    <!-- Content from QuanLySanPham.html (main) -->
+                    <div class="page-header">
                         <h3>Quản lý sản phẩm</h3>
-                        <p>Thêm, sửa, xóa sản phẩm</p>
-                    </a>
+                        <p>Quản lý danh mục sản phẩm, thêm/sửa/xóa sản phẩm</p>
+                    </div>
+                    <div class="boLoc">
+                        <select id="locDanhMuc">
+                        <option value="all">Tất cả</option>
+                      </select>
+                        <input type="text" id="timId" placeholder="Tìm kiếm theo id..." />
+                        <button id="btnThemMoiSP">Thêm mới sản phẩm</button>
+                    </div>
+                </section>
 
-                    <a href="QuanLyDonHang.html" class="action-card">
-                        <div class="action-icon">
-                            <i class="fa-solid fa-clipboard-list fa-2x"></i>
-                        </div>
-                        <h3>Quản lý đơn hàng</h3>
-                        <p>Xử lý và theo dõi đơn hàng</p>
-                    </a>
+                <section id="page-import" class="spa-page">
+                    <!-- Content from QuanLyNhapHang.html (main) -->
+                    <div class="page-header">
+                        <h3>Quản lý nhập sản phẩm</h3>
+                        <p>Quản lý nhập sản phẩm: Hiển thị / Tìm kiếm / Thêm / Sửa / Hoàn thành phiếu nhập hàng</p>
+                    </div>
+                    <div class="boLoc">
+                        <select id="locTrangThai">
+                        <option value="all">Tất cả</option>
+                      </select>
+                        <input type="text" id="timKiemPhieu" placeholder="Tìm kiếm theo id..." />
+                        <button id="btnThemMoiPhieuNhap">Thêm phiếu mới</button>
+                    </div>
+                </section>
 
-                    <a href="BaoCaoDoanhThu.html" class="action-card">
-                        <div class="action-icon">
-                            <i class="fa-solid fa-chart-bar fa-2x"></i>
-                        </div>
-                        <h3>Báo cáo doanh thu</h3>
-                        <p>Xem báo cáo và thống kê</p>
-                    </a>
-                </div>
+                <section id="page-inventory" class="spa-page">
+                    <!-- Content from TonKho.html (main) -->
+                    <div class="page-header">
+                        <h3>Quản lý tồn kho</h3>
+                        <p>Theo dõi tình trạng hàng hóa, số lượng tồn và giá trị tồn kho</p>
+                    </div>
+                </section>
+
+                <section id="page-prices" class="spa-page">
+                    <!-- Placeholder for QuanLyGiaBan (empty file) -->
+                    <div class="page-header">
+                        <h1>Quản lý giá bán</h1>
+                        <p>Nội dung quản lý giá bán sẽ được đưa vào đây.</p>
+                    </div>
+                </section>
+
+                <section id="page-orders" class="spa-page">
+                    <!-- Content from QuanLyDonHang.html (main) -->
+                    <div class="page-header">
+                        <h1>Quản lý đơn hàng</h1>
+                        <p>Quản lý đơn hàng (đánh dấu/trạng thái/lọc)</p>
+                    </div>
+                </section>
+
+                <section id="page-reports" class="spa-page">
+                    <!-- Content from BaoCaoDoanhThu.html (main) -->
+                    <main>
+                        <h1>Báo cáo tổng thu &amp; mặt hàng bán chạy</h1>
+                        <p>File: Báo cáo tổng thu &amp; mặt hàng bán chạy</p>
+                    </main>
+                </section>
+
+                <section id="page-order-detail" class="spa-page">
+                    <!-- Content from ChiTietDonHang.html (main) -->
+                    <main>
+                        <h1>Chi tiết đơn hàng (Admin)</h1>
+                        <p>File: Chi tiết đơn hàng (Admin)</p>
+                    </main>
+                </section>
+
+                <section id="page-orders-list" class="spa-page">
+                    <!-- Content from DanhSachDonHang.html (main) -->
+                    <main>
+                        <h1>Danh sách đơn hàng (Admin)</h1>
+                        <p>Đây là trang mẫu: Danh sách đơn hàng (Admin)</p>
+                    </main>
+                </section>
+
+                <section id="page-customers-list" class="spa-page">
+                    <!-- Content from DanhSachKhachHang.html (main) -->
+                    <main>
+                        <h1>Thống kê theo khách hàng</h1>
+                        <p>File: Thống kê theo khách hàng</p>
+                    </main>
+                </section>
+
             </div>
         </main>
     </div>
 
-    <!-- Scripts -->
+    <!-- Load core admin scripts (no API calls) -->
     <script src="assets/js/admin-session.js"></script>
     <script src="assets/js/admin.js"></script>
+
+    <!-- Per-page scripts (kept client-side, no API) -->
+    <script src="assets/js/doanhthu.js"></script>
+    <script src="assets/js/quanlydonhang.js"></script>
+    <script src="assets/js/quanlyloaisanpham.js"></script>
+    <script src="assets/js/quanlynguoidung.js"></script>
+    <script src="assets/js/QuanLyNhapHang.js"></script>
+    <script src="assets/js/QuanLySanPham.js"></script>
+    <script src="assets/js/TonKho.js"></script>
+
+    <!-- SPA navigation (hash/query-based; works with file:// and http://) -->
+    <script src="assets/js/admin-spa-nav.js"></script>
 </body>
 
 </html>

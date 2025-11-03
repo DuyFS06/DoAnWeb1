@@ -215,12 +215,7 @@ function generateRandomPassword() {
     return password;
 }
 
-// Xuất Excel
-function exportCustomers() {
-    if (typeof AdminDashboard !== 'undefined') {
-        AdminDashboard.showNotification('Chức năng xuất Excel đang được phát triển', 'info');
-    }
-}
+
 
 // Phân trang
 function previousPage() {

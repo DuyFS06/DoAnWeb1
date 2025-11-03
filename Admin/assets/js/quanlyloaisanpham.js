@@ -296,12 +296,7 @@ function deleteCategory(id) {
     }
 }
 
-// Xuất Excel
-function exportCategories() {
-    if (typeof AdminDashboard !== 'undefined') {
-        AdminDashboard.showNotification('Chức năng xuất Excel đang được phát triển', 'info');
-    }
-}
+
 
 // Phân trang
 function previousPage() {
