@@ -3,19 +3,19 @@
 // --- Cấu hình ---
 const itemsPerPage = 10;
 let currentPage = 1;
-let productsLocal = []; // Dữ liệu từ localStorage
-let mangDaLoc = []; // Mảng tạm sau khi lọc
+let TK_productsLocal = []; // Dữ liệu từ localStorage
+let TK_mangDaLoc = []; // Mảng tạm sau khi lọc
 
 document.addEventListener("DOMContentLoaded", function () {
-  khoiTaoTrang();
-  productsLocal = getLocalProducts();
-  mangDaLoc = productsLocal;
-  ganSuKien();
-  veBangTonKho(mangDaLoc);
+  TK_productsLocal = getLocalProducts();
+  TK_mangDaLoc = TK_productsLocal;
+  TK_khoiTaoTrang();
+  TK_ganSuKien();
+  TK_veBangTonKho(TK_mangDaLoc);
 });
 
 // ======== HÀM KHỞI TẠO =========
-function khoiTaoTrang() {
+function TK_khoiTaoTrang() {
   console.log("Category Management initialized");
 
   // Cập nhật thông tin admin
@@ -30,8 +30,8 @@ function khoiTaoTrang() {
   }
 }
 // --- Hàm render bảng ---
-function veBangTonKho(data) {
-  const tbody = document.getElementById("table-content");
+function TK_veBangTonKho(data) {
+  const tbody = document.getElementById("TK_table-content");
   tbody.innerHTML = "";
 
   const start = (currentPage - 1) * itemsPerPage;
@@ -64,13 +64,13 @@ function veBangTonKho(data) {
     const giaTriTon = sp.priceValue * sp.quantity;
 
     // Trạng thái
-    let statusClass = "status-normal";
+    let statusClass = "TK_status-normal";
     let statusText = "Bình thường";
     if (sp.quantity === 0) {
-      statusClass = "status-out";
+      statusClass = "TK_status-out";
       statusText = "Hết hàng";
     } else if (sp.quantity < 10) {
-      statusClass = "status-low";
+      statusClass = "TK_status-low";
       statusText = "Sắp hết hàng";
     }
 
@@ -79,7 +79,7 @@ function veBangTonKho(data) {
       <td>${stt}</td>
       <td>${
         sp.id
-      }<br><span class="status-tag ${statusClass}">${statusText}</span></td>
+      }<br><span class="TK_status-tag ${statusClass}">${statusText}</span></td>
       <td><img src="${
         sp.image.startsWith("http") ? sp.image : "../" + sp.image
       }" 
@@ -99,98 +99,98 @@ function veBangTonKho(data) {
   // Cập nhật phân trang
   const totalPages = Math.ceil(data.length / itemsPerPage) || 1;
   document.getElementById(
-    "pageInfo"
+    "TK_pageInfo"
   ).textContent = `Trang ${currentPage} / ${totalPages}`;
-  document.getElementById("prevPage").disabled = currentPage === 1;
-  document.getElementById("nextPage").disabled = currentPage === totalPages;
+  document.getElementById("TK_prevPage").disabled = currentPage === 1;
+  document.getElementById("TK_nextPage").disabled = currentPage === totalPages;
 }
 
 // --- Chuyển trang ---
 function nextPage() {
-  const totalPages = Math.ceil(mangDaLoc.length / itemsPerPage);
+  const totalPages = Math.ceil(TK_mangDaLoc.length / itemsPerPage);
   if (currentPage < totalPages) {
     currentPage++;
-    veBangTonKho(mangDaLoc);
+    TK_veBangTonKho(TK_mangDaLoc);
   }
 }
 function prevPage() {
   if (currentPage > 1) {
     currentPage--;
-    veBangTonKho(mangDaLoc);
+    TK_veBangTonKho(TK_mangDaLoc);
   }
 }
 
 // --- Gán sự kiện ---
-function ganSuKien() {
-  document.getElementById("prevPage").addEventListener("click", prevPage);
-  document.getElementById("nextPage").addEventListener("click", nextPage);
+function TK_ganSuKien() {
+  document.getElementById("TK_prevPage").addEventListener("click", prevPage);
+  document.getElementById("TK_nextPage").addEventListener("click", nextPage);
 
   // Lọc danh mục
   document
-    .getElementById("locDanhMuc")
-    .addEventListener("change", locTheoDanhMuc);
+    .getElementById("TK_locDanhMuc")
+    .addEventListener("change", TK_locTheoDanhMuc);
   // Tìm kiếm theo mã khi nhấn Enter
-  const timInput = document.querySelector(".boLoc input[type='text']");
+  const timInput = document.querySelector(".TK_boLoc input[type='text']");
   timInput.addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
-      timTheoMa();
+      TK_timTheoMa();
       this.value = ""; // reset sau khi tìm
     }
   });
   // Tab trạng thái
-  document.querySelectorAll(".tab-status button").forEach((btn) => {
+  document.querySelectorAll(".TK_tab-status button").forEach((btn) => {
     btn.addEventListener("click", function () {
       document
-        .querySelectorAll(".tab-status button")
-        .forEach((b) => b.classList.remove("active"));
-      this.classList.add("active");
-      locTheoTrangThai(this.getAttribute("data-type"));
+        .querySelectorAll(".TK_tab-status button")
+        .forEach((b) => b.classList.remove("TK_active"));
+      this.classList.add("TK_active");
+      TK_locTheoTrangThai(this.getAttribute("data-type"));
     });
   });
 }
 
 // --- Lọc theo danh mục ---
-function locTheoDanhMuc() {
-  const selected = document.getElementById("locDanhMuc").value;
+function TK_locTheoDanhMuc() {
+  const selected = document.getElementById("TK_locDanhMuc").value;
   if (selected === "all" || selected === "Danh mục") {
-    mangDaLoc = productsLocal;
+    TK_mangDaLoc = TK_productsLocal;
   } else {
-    mangDaLoc = productsLocal.filter(
+    TK_mangDaLoc = TK_productsLocal.filter(
       (sp) => sp.catalog.toUpperCase() === selected.toUpperCase()
     );
   }
   currentPage = 1;
-  veBangTonKho(mangDaLoc);
+  TK_veBangTonKho(TK_mangDaLoc);
 }
 
 // --- Lọc theo trạng thái ---
-function locTheoTrangThai(type) {
+function TK_locTheoTrangThai(type) {
   switch (type) {
     case "sapHetHang":
-      mangDaLoc = productsLocal.filter(
+      TK_mangDaLoc = TK_productsLocal.filter(
         (sp) => sp.quantity > 0 && sp.quantity < 10
       );
       break;
     case "hetHang":
-      mangDaLoc = productsLocal.filter((sp) => sp.quantity === 0);
+      TK_mangDaLoc = TK_productsLocal.filter((sp) => sp.quantity === 0);
       break;
     case "binhThuong":
-      mangDaLoc = productsLocal.filter((sp) => sp.quantity >= 10);
+      TK_mangDaLoc = TK_productsLocal.filter((sp) => sp.quantity >= 10);
       break;
     default:
-      mangDaLoc = productsLocal;
+      TK_mangDaLoc = TK_productsLocal;
   }
   currentPage = 1;
-  veBangTonKho(mangDaLoc);
+  TK_veBangTonKho(TK_mangDaLoc);
 }
 
 //Tìm theo mã
-function timTheoMa() {
-  const searchInput = document.querySelector(".boLoc input[type='text']");
+function TK_timTheoMa() {
+  const searchInput = document.querySelector(".TK_boLoc input[type='text']");
   const searchValue = searchInput.value.trim().toLowerCase();
-  const selectedCatalog = document.getElementById("locDanhMuc").value;
+  const selectedCatalog = document.getElementById("TK_locDanhMuc").value;
 
-  mangDaLoc = productsLocal.filter((sp) => {
+  TK_mangDaLoc = TK_productsLocal.filter((sp) => {
     const matchId = sp.id.toLowerCase().includes(searchValue);
     const matchCatalog =
       selectedCatalog === "all" ||
@@ -200,6 +200,6 @@ function timTheoMa() {
   });
 
   currentPage = 1;
-  veBangTonKho(mangDaLoc);
+  TK_veBangTonKho(TK_mangDaLoc);
   searchInput.focus();
 }

@@ -1,7 +1,30 @@
 /* ============ QUẢN LÝ TỒN KHO ============ */
+.admin-main {
+  position: relative;
+  padding: 30px 40px;
+  background-color: #f6f7fb;
+  min-height: calc(100vh - 60px);
+  box-sizing: border-box;
+}
+/* =================== HEADER =================== */
+.TK_page-header {
+  margin-bottom: 20px;
+}
+.TK_page-header h3 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #2e3a59;
+  margin-bottom: 6px;
+}
+
+.TK_page-header p {
+  color: #666;
+  font-size: 14px;
+  margin: 0;
+}
 
 /* Bộ lọc */
-.boLoc {
+.TK_boLoc {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -14,9 +37,9 @@
   max-width: 1050px;
 }
 
-.boLoc select,
-.boLoc input[type="text"],
-.boLoc input[type="button"] {
+.TK_boLoc select,
+.TK_boLoc input[type="text"],
+.TK_boLoc input[type="button"] {
   border: 1px solid #ccc;
   border-radius: 6px;
   height: 34px;
@@ -24,7 +47,7 @@
   font-size: 14px;
 }
 
-.boLoc input[type="button"] {
+.TK_boLoc input[type="button"] {
   cursor: pointer;
   background-color: #5062b5;
   color: white;
@@ -32,12 +55,12 @@
   transition: 0.2s;
 }
 
-.boLoc input[type="button"]:hover {
+.TK_boLoc input[type="button"]:hover {
   background-color: #3c4aa3;
 }
 
 /* Thanh tab trạng thái */
-.tab-status {
+.TK_tab-status {
   display: flex;
   gap: 15px;
   margin-bottom: 20px;
@@ -45,7 +68,7 @@
   max-width: 1050px;
 }
 
-.tab-status button {
+.TK_tab-status button {
   border: none;
   background: none;
   font-size: 14px;
@@ -56,11 +79,11 @@
   transition: color 0.2s;
 }
 
-.tab-status button.active {
+.TK_tab-status button.active {
   color: #5062b5;
 }
 
-.tab-status button.active::after {
+.TK_tab-status button.active::after {
   content: "";
   position: absolute;
   bottom: -5px;
@@ -72,7 +95,7 @@
 }
 
 /* Bảng tồn kho */
-.admin-table {
+.TK_admin-table {
   width: 100%;
   border-collapse: collapse;
   background-color: #fff;
@@ -81,7 +104,7 @@
   overflow: hidden;
 }
 
-.admin-table th {
+.TK_admin-table th {
   background-color: #f0f2f8;
   color: #333;
   font-weight: 600;
@@ -90,7 +113,7 @@
   font-size: 14px;
 }
 
-.admin-table td {
+.TK_admin-table td {
   border-top: 1px solid #eee;
   padding: 10px 8px;
   text-align: center;
@@ -98,12 +121,12 @@
   font-size: 13px;
 }
 
-.admin-table tbody tr:hover {
+.TK_admin-table tbody tr:hover {
   background-color: #f9faff;
 }
 
 /* Ảnh sản phẩm */
-.admin-table img {
+.TK_admin-table img {
   width: 50px;
   height: 50px;
   object-fit: contain;
@@ -113,7 +136,7 @@
 }
 
 /* ===== Trạng thái tồn kho (phiên bản dịu, đồng bộ với toàn trang) ===== */
-.status-tag {
+.TK_status-tag {
   display: inline-block;
   padding: 4px 10px;
   border-radius: 8px;
@@ -126,32 +149,32 @@
 }
 
 /* Bình thường - xanh pastel */
-.status-normal {
+.TK_status-normal {
   background-color: #e3f2fd;
   color: #2b5797;
   border-color: #bbdefb;
 }
 
 /* Sắp hết hàng - vàng nhạt */
-.status-low {
+.TK_status-low {
   background-color: #fff8e1;
   color: #b37400;
   border-color: #ffe082;
 }
 
 /* Hết hàng - đỏ nhạt */
-.status-out {
+.TK_status-out {
   background-color: #fdecea;
   color: #c0392b;
   border-color: #f5b7b1;
 }
 
-.status-tag:hover {
+.TK_status-tag:hover {
   transform: translateY(-1px);
   filter: brightness(1.05);
 }
 /* ================== THANH LỌC TRẠNG THÁI ================== */
-.tab-status {
+.TK_tab-status {
   display: flex;
   gap: 25px;
   margin: 20px 0 25px;
@@ -161,7 +184,7 @@
 }
 
 /* Nút mặc định */
-.tab-status button {
+.TK_tab-status button {
   background: none;
   border: none;
   outline: none;
@@ -175,50 +198,45 @@
 }
 
 /* Hover chung */
-.tab-status button:hover {
+.TK_tab-status button:hover {
   transform: translateY(-1px);
 }
 
 /* ========== MÀU RIÊNG CHO TỪNG LOẠI ========== */
 
 /* Tất cả */
-.tab-status button[data-type="all"]:hover,
-.tab-status button[data-type="all"].active {
+.TK_tab-status button[data-type="all"]:hover,
+.TK_tab-status button[data-type="all"].active {
   color: #5062b5;
 }
-.tab-status button[data-type="all"].active::after {
-  background-color: #a6b2ec;
-}
-
-/* Bình thường */
-.tab-status button[data-type="binhThuong"]:hover,
-.tab-status button[data-type="binhThuong"].active {
+.TK_tab-status button[data-type="binhThuong"]:hover,
+.TK_tab-status button[data-type="binhThuong"].active {
   color: #2f9e44; /* xanh lá đồng bộ */
 }
-.tab-status button[data-type="binhThuong"].active::after {
+.TK_tab-status button[data-type="binhThuong"].active::after {
   background-color: #a9e6ba; /* xanh lá nhạt pastel */
 }
 
 /* Sắp hết hàng */
-.tab-status button[data-type="sapHetHang"]:hover,
-.tab-status button[data-type="sapHetHang"].active {
+.TK_tab-status button[data-type="sapHetHang"]:hover,
+.TK_tab-status button[data-type="sapHetHang"].active {
   color: #f6b73c; /* vàng cam */
 }
-.tab-status button[data-type="sapHetHang"].active::after {
+.TK_tab-status button[data-type="sapHetHang"].active::after {
   background-color: #ffe6a3; /* cam nhạt pastel */
 }
 
 /* Hết hàng */
-.tab-status button[data-type="hetHang"]:hover,
-.tab-status button[data-type="hetHang"].active {
+.TK_tab-status button[data-type="hetHang"]:hover,
+.TK_tab-status button[data-type="hetHang"].active {
   color: #e03131; /* đỏ tươi */
 }
-.tab-status button[data-type="hetHang"].active::after {
+.TK_tab-status button[data-type="hetHang"].active::after {
   background-color: #ffc9c9; /* đỏ nhạt pastel */
 }
 
 /* Gạch chân hiệu ứng */
-.tab-status button.active::after {
+.TK_tab-status button.active::after {
   content: "";
   position: absolute;
   bottom: 0;
@@ -230,7 +248,7 @@
   transition: width 0.3s ease, background-color 0.3s ease;
 }
 /* ===== PHÂN TRANG ===== */
-.pagi {
+.TK_pagi {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -247,11 +265,11 @@
   transition: box-shadow 0.3s ease;
 }
 
-.pagi:hover {
+.TK_pagi:hover {
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
 }
 
-.pagination-btn {
+.TK_pagination-btn {
   border: 1px solid #5062b5;
   border-radius: 6px;
   background-color: #ffffff;
@@ -263,20 +281,20 @@
   transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
 }
 
-.pagination-btn:hover {
+.TK_pagination-btn:hover {
   background-color: #5062b5;
   color: #ffffff;
   transform: translateY(-1px);
 }
 
-.pagination-btn:disabled {
+.TK_pagination-btn:disabled {
   border-color: #cbd5e1;
   color: #cbd5e1;
   cursor: not-allowed;
   background-color: #f8fafc;
 }
 
-.pagi span {
+.TK_pagi span {
   color: #1e293b;
   font-weight: 600;
   font-size: 14px;
@@ -285,13 +303,13 @@
 
 /* Responsive Design cho phân trang */
 @media (max-width: 768px) {
-  .pagi {
+  .TK_pagi {
     flex-direction: column;
     gap: 10px;
     padding: 10px;
   }
 
-  .pagination-btn {
+  .TK_pagination-btn {
     width: 100%;
     text-align: center;
   }

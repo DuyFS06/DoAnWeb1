@@ -6,34 +6,27 @@
   min-height: calc(100vh - 60px);
   box-sizing: border-box;
 }
-/* =================== KHUNG CHUNG =================== */
-/* #QLSP_quanLySanPham {
-  display: none;
-  padding: 20px;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
-} */
 
-/* =================== HEADER =================== */
-.QLSP_page-header {
+/* Tiêu đề trang */
+.thinh_page-header {
   margin-bottom: 20px;
 }
-.QLSP_page-header h3 {
+
+.thinh_page-header h3 {
   font-size: 22px;
   font-weight: 700;
   color: #2e3a59;
   margin-bottom: 6px;
 }
 
-.QLSP_page-header p {
+.thinh_page-header p {
   color: #666;
   font-size: 14px;
   margin: 0;
 }
 
-/* =================== BỘ LỌC =================== */
-.QLSP_boLoc {
+/* Bộ lọc tìm kiếm */
+.thinh_boLoc {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -45,19 +38,22 @@
   width: 100%;
   max-width: 1050px;
 }
-#QLSP_btnThemMoiSP {
+
+#thinh_btnThemMoiSP {
   margin-left: 400px;
 }
-.QLSP_boLoc select,
-.QLSP_boLoc input[type="text"],
-.QLSP_boLoc input[type="button"] {
+
+.thinh_boLoc select,
+.thinh_boLoc input[type="text"],
+.thinh_boLoc input[type="button"] {
   border: 1px solid #ccc;
   border-radius: 6px;
   height: 34px;
   padding: 0 10px;
   font-size: 14px;
 }
-.QLSP_boLoc input[type="button"] {
+
+.thinh_boLoc input[type="button"] {
   cursor: pointer;
   background-color: #5062b5;
   color: white;
@@ -65,84 +61,82 @@
   transition: 0.2s;
 }
 
-#QLSP_btnThemMoiSP:hover {
+.thinh_boLoc input[type="button"]:hover {
   background-color: #3c4aa3;
 }
 
-/* =================== BẢNG DỮ LIỆU =================== */
-/* Đảm bảo table-header và table-content đồng bộ */
-.QLSP_table-header,
-.QLSP_table-content {
+/* Bảng sản phẩm */
+.thinh_table-header,
+.thinh_table-content {
   width: 100%;
-  max-width: 1100px; /* Giới hạn chiều rộng tối đa để đồng bộ với boLoc */
-  margin: 0 auto; /* Căn giữa */
+  max-width: 1100px;
+  margin: 0 auto;
   box-sizing: border-box;
 }
-/* Table trong table-header */
-.QLSP_table-header table {
+
+.thinh_table-header table {
   width: 100%;
   border-collapse: collapse;
   background-color: #f0f2f8;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   border-radius: 8px 8px 0 0;
 }
-/* Table trong table-content */
-.QLSP_table-content table {
+
+.thinh_table-content table {
   width: 100%;
   border-collapse: collapse;
   border-radius: 0 0 8px 8px;
   margin-top: -1px;
 }
-/* Đồng bộ th và td */
-.QLSP_table-header th,
-.QLSP_table-content td {
+
+.thinh_table-header th,
+.thinh_table-content td {
   padding: 10px 8px;
   text-align: center;
   font-size: 14px;
   box-sizing: border-box;
 }
 
-/* Đảm bảo các cột có chiều rộng cố định */
-.QLSP_table-header th:nth-child(1),
-.QLSP_table-content td:nth-child(1) {
+/* Cố định cột */
+.thinh_table-header th:nth-child(1),
+.thinh_table-content td:nth-child(1) {
   width: 5%;
 }
-.QLSP_table-header th:nth-child(2),
-.QLSP_table-content td:nth-child(2) {
+.thinh_table-header th:nth-child(2),
+.thinh_table-content td:nth-child(2) {
   width: 12%;
 }
-.QLSP_table-header th:nth-child(3),
-.QLSP_table-content td:nth-child(3) {
+.thinh_table-header th:nth-child(3),
+.thinh_table-content td:nth-child(3) {
   width: 20%;
 }
-.QLSP_table-header th:nth-child(4),
-.QLSP_table-content td:nth-child(4) {
+.thinh_table-header th:nth-child(4),
+.thinh_table-content td:nth-child(4) {
   width: 15%;
 }
-.QLSP_table-header th:nth-child(5),
-.QLSP_table-content td:nth-child(5) {
+.thinh_table-header th:nth-child(5),
+.thinh_table-content td:nth-child(5) {
   width: 20%;
 }
-.QLSP_table-header th:nth-child(6),
-.QLSP_table-content td:nth-child(6) {
+.thinh_table-header th:nth-child(6),
+.thinh_table-content td:nth-child(6) {
   width: 10%;
 }
-.QLSP_table-header th:nth-child(7),
-.QLSP_table-content td:nth-child(7) {
+.thinh_table-header th:nth-child(7),
+.thinh_table-content td:nth-child(7) {
   width: 10%;
 }
-.QLSP_table-header th:nth-child(8),
-.QLSP_table-content td:nth-child(8) {
+.thinh_table-header th:nth-child(8),
+.thinh_table-content td:nth-child(8) {
   width: 8%;
 }
 
-/* Loại bỏ khoảng cách thừa */
-.QLSP_table-content {
+.thinh_table-content {
   margin-top: 0;
 }
 
-/* Bảng dữ liệu sản phẩm */
-.QLSP_admin-table {
+/* Bảng dữ liệu */
+.admin-table {
   width: 100%;
   border-collapse: collapse;
   border-radius: 8px;
@@ -151,7 +145,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-.QLSP_admin-table th {
+.admin-table th {
   background-color: #f0f2f8;
   color: #333;
   font-weight: 600;
@@ -159,55 +153,22 @@
   text-align: center;
   font-size: 14px;
 }
-.QLSP_admin-table td {
+
+.admin-table td {
   border-top: 1px solid #eee;
   padding: 10px 8px;
   text-align: center;
   color: #333;
   font-size: 13px;
 }
-.QLSP_admin-table tbody tr:hover {
+
+.admin-table tbody tr:hover {
   background-color: #f9faff;
 }
-.QLSP_tick-visible {
-  display: inline-block;
-  width: 22px;
-  height: 22px;
-  background-color: #d6f5d6;
-  border: 2px solid #b2e0b2;
-  border-radius: 6px;
-  text-align: center;
-  line-height: 18px;
-  color: #1f6b1f;
-  font-weight: bold;
-  font-size: 14px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-.QLSP_tick-hidden {
-  display: inline-block;
-  width: 22px;
-  height: 22px;
-  border: 2px solid #ccc;
-  border-radius: 6px;
-  background-color: #f9f9f9;
-}
 
-.QLSP_tick-visible:hover {
-  background-color: #bcecbf; /* xanh sáng hơn */
-  color: #155b15;
-  transform: translateY(-1px); /* nổi nhẹ */
-  cursor: pointer;
-}
-
-.QLSP_tick-hidden:hover {
-  background-color: #e9e9eb; /* xám sáng hơn */
-  color: #333;
-  transform: translateY(-1px);
-  cursor: pointer;
-}
 /* Các nút thao tác */
-.QLSP_btn-sua,
-.QLSP_btn-xoa {
+.thinh_btn-sua,
+.thinh_btn-xoa {
   border: none;
   border-radius: 6px;
   padding: 5px 10px;
@@ -216,27 +177,26 @@
   transition: 0.2s;
 }
 
-.QLSP_btn-sua {
+.thinh_btn-sua {
   background-color: #d8e5ff;
   color: #2e3a59;
 }
 
-.QLSP_btn-xoa {
+.thinh_btn-xoa {
   background-color: #ffdede;
   color: #a12c2c;
 }
 
-.QLSP_btn-sua:hover {
+.thinh_btn-sua:hover {
   background-color: #b9d1ff;
 }
 
-.QLSP_btn-xoa:hover {
+.thinh_btn-xoa:hover {
   background-color: #ffbaba;
 }
 
 /* ======= PHÂN TRANG ======= */
-/* Phân trang - Cập nhật để dài ngang bảng */
-.QLSP_pagi {
+.thinh_pagi {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -246,18 +206,18 @@
   margin-top: 30px;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  width: 100%; /* Trải dài ngang bằng bảng */
-  max-width: 1100px; /* Đồng bộ với bảng */
+  width: 100%;
+  max-width: 1100px;
   margin-left: auto;
   margin-right: auto;
   transition: box-shadow 0.3s ease;
 }
 
-.QLSP_pagi:hover {
+.thinh_pagi:hover {
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
 }
 
-.QLSP_pagination-btn {
+.thinh_pagination-btn {
   border: 1px solid #5062b5;
   border-radius: 6px;
   background-color: #ffffff;
@@ -269,45 +229,43 @@
   transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
 }
 
-.QLSP_pagination-btn:hover {
+.thinh_pagination-btn:hover {
   background-color: #5062b5;
   color: #ffffff;
   transform: translateY(-1px);
 }
 
-.QLSP_pagination-btn:disabled {
+.thinh_pagination-btn:disabled {
   border-color: #cbd5e1;
   color: #cbd5e1;
   cursor: not-allowed;
   background-color: #f8fafc;
 }
 
-.QLSP_pagi span {
+.thinh_pagi span {
   color: #1e293b;
   font-weight: 600;
   font-size: 14px;
   line-height: 1.5;
 }
 
-/* Responsive Design cho phân trang */
+/* Responsive */
 @media (max-width: 768px) {
-  .QLSP_pagi {
-    flex-direction: column; /* Chuyển sang dạng cột trên màn hình nhỏ */
+  .thinh_pagi {
+    flex-direction: column;
     gap: 10px;
     padding: 10px;
   }
 
-  .QLSP_pagination-btn {
-    width: 100%; /* Nút chiếm toàn bộ chiều rộng trên mobile */
+  .thinh_pagination-btn {
+    width: 100%;
     text-align: center;
   }
 }
 
-/* ====================== FORM / MODAL THÊM SẢN PHẨM ====================== */
-
-/* Nền mờ */
-.QLSP_modal {
-  display: none; /* Ẩn mặc định */
+/* ====================== MODAL ====================== */
+.thinh_modal {
+  display: none;
   position: fixed;
   z-index: 1000;
   top: 0;
@@ -319,8 +277,7 @@
   align-items: center;
 }
 
-/* Khung nội dung chính */
-.QLSP_modal-content {
+.thinh_modal-content {
   background: #fff;
   width: 500px;
   max-height: 90vh;
@@ -332,21 +289,20 @@
   font-family: "Segoe UI", sans-serif;
 }
 
-/* Tiêu đề và nút đóng */
-.QLSP_modal-header {
+.thinh_modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 15px;
 }
 
-.QLSP_modal-header h2 {
+.thinh_modal-header h2 {
   font-size: 20px;
   font-weight: 600;
   color: #3948a5;
 }
 
-.QLSP_close-btn {
+.thinh_close-btn {
   cursor: pointer;
   font-size: 24px;
   font-weight: bold;
@@ -354,21 +310,20 @@
   transition: 0.2s;
 }
 
-.QLSP_close-btn:hover {
+.thinh_close-btn:hover {
   color: #e74c3c;
 }
 
-/* Nhãn và input */
-.QLSP_modal-content label {
+.thinh_modal-content label {
   display: block;
   margin-top: 15px;
   font-weight: 600;
   color: #333;
 }
 
-.QLSP_modal-content input,
-.QLSP_modal-content select,
-.QLSP_modal-content textarea {
+.thinh_modal-content input,
+.thinh_modal-content select,
+.thinh_modal-content textarea {
   width: 100%;
   margin-top: 5px;
   padding: 10px;
@@ -378,21 +333,20 @@
   transition: 0.2s;
 }
 
-.QLSP_modal-content input:focus,
-.QLSP_modal-content select:focus,
-.QLSP_modal-content textarea:focus {
+.thinh_modal-content input:focus,
+.thinh_modal-content select:focus,
+.thinh_modal-content textarea:focus {
   outline: none;
   border-color: #5062b5;
   box-shadow: 0 0 4px rgba(80, 98, 181, 0.4);
 }
 
-/* Ảnh xem trước */
-.QLSP_preview-image {
+.thinh_preview-image {
   margin-top: 10px;
   text-align: center;
 }
 
-.QLSP_preview-image img {
+.thinh_preview-image img {
   width: 100%;
   max-height: 220px;
   border-radius: 10px;
@@ -401,26 +355,14 @@
   border: 1px solid #ddd;
   padding: 6px;
 }
-/* ====== FIX ẢNH BỊ PHÓNG TO TRONG BẢNG SẢN PHẨM ====== */
-.QLSP_admin-table td img {
-  width: 60px !important; /* Cố định chiều rộng */
-  height: 60px !important; /* Cố định chiều cao */
-  object-fit: cover !important; /* Cắt ảnh gọn trong khung */
-  border-radius: 6px;
-  background-color: #f4f4f4;
-  border: 1px solid #ddd;
-  display: block;
-  margin: 0 auto;
-}
 
-/* Nút hành động */
-.QLSP_modal-buttons {
+.thinh_modal-buttons {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
 }
 
-.QLSP_modal-buttons button {
+.thinh_modal-buttons button {
   flex: 1;
   margin: 5px;
   border: none;
@@ -433,21 +375,20 @@
   transition: 0.2s;
 }
 
-.QLSP_modal-buttons button:hover {
+.thinh_modal-buttons button:hover {
   background-color: #3a4dc4;
 }
 
-/* Nút Hủy */
-.QLSP_modal-buttons .QLSP_cancel-btn {
+.thinh_modal-buttons .thinh_cancel-btn {
   background-color: #ccc;
   color: #333;
 }
 
-.QLSP_modal-buttons .QLSP_cancel-btn:hover {
+.thinh_modal-buttons .thinh_cancel-btn:hover {
   background-color: #bbb;
 }
 
-/* Hiệu ứng xuất hiện */
+/* Animation */
 @keyframes fadeIn {
   from {
     opacity: 0;
