@@ -14,7 +14,7 @@ function saveLocalProducts(data) {
 function removeLocalProducts() {
   localStorage.removeItem("productsLocal");
 }
-
+// hhh
 // database/products.js
 const products = [
   //BABY-G
