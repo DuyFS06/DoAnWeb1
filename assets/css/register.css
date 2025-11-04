@@ -1,16 +1,22 @@
-body {
+/* Chỉ áp dụng khi body là trang đăng ký riêng (không phải trong index.html) */
+body:not(:has(header)):not(:has(footer)) {
     font-family: Roboto, "Segoe UI", Arial, sans-serif;
     background: #f8fafc;
     margin: 0;
     padding: 0;
 }
 
-header {
-    background: linear-gradient(90deg, #4f46e5, #6366f1);
-    color: white;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+/* Page section styles - để sections hoạt động trong index.html */
+.page-section {
+    min-height: calc(100vh - 200px);
+    padding: 40px 20px;
+    background: #f8fafc;
 }
 
+.page-section .main-content {
+    margin-top: 0;
+    margin-bottom: 0;
+}
 nav {
     display: flex;
     justify-content: center;
@@ -129,7 +135,7 @@ textarea:focus {
     box-shadow: 0 0 4px #6366f1;
 }
 
-button {
+#nutdky {
     width: 100%;
     background: #4f46e5;
     color: white;
@@ -141,7 +147,7 @@ button {
     transition: all 0.3s;
 }
 
-button:hover {
+#nutdky:hover {
     background: #4338ca;
 }
 

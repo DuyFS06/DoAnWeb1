@@ -1,0 +1,134 @@
+
+button:hover {
+  filter: brightness(1.2);
+  transform: scale(1.05); 
+}
+.swal2-container {
+  z-index: 50001; 
+}
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+#indexGioHang button {
+  text-decoration: none;
+}
+#conten {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  
+  background-color: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  
+  display: flex;
+  justify-content: flex-end; 
+
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+}
+ #conten.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+#indexGioHang #bim-left {
+  flex: 1; 
+}
+#conten-giohang {
+  width: 400px; 
+  height: 100%;
+  background-color: white; 
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+  
+  display: flex;
+  flex-direction: column; 
+}
+
+#indexGioHang #giohang {
+  flex: 1; 
+  padding: 20px;
+  overflow-y: auto; 
+}
+
+#indexGioHang #giohang h2 {
+  margin-top: 0; 
+}
+
+#indexGioHang #nut {
+  height: auto;
+  padding: 20px;
+  border-top: 1px solid #eee; 
+}
+
+#indexGioHang #ToiGioHang {
+  display: block; 
+  width: 100%;
+  background-color: black;
+  height: 40px; 
+  line-height: 40px;
+  border-radius: 30px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+#indexGioHang #ToiGioHang button {
+  color: white;
+}
+
+
+.cart-item-modal{
+  margin-bottom: 10px;
+  width: 100%;
+  display: flex;
+  background-color: #f9f9f9;
+}
+
+#Item-img{
+  border: 2px solid whitesmoke;
+  width: 50px;
+  height: 50px;
+}
+.item-info{
+  margin-left: 10px;
+  padding: 10px;
+}
+.item-quantity-controls button{
+  width: 20px;
+  background:none;
+  cursor: pointer;
+  font-size: 16px;
+  
+}
+.item-quantity-controls{
+  display: flex;
+}
+.item-price{
+  color: red;
+}
+
+#remove button:hover{
+  filter: brightness(1.2);
+  transform: scale(1.05); 
+}
+#remove button{
+  cursor: pointer;
+  color: red;
+  border: none;
+  background: none;
+  border-radius: 100%;
+
+}
+#all-car{
+  width: 95%;
+  display: flex;
+}
+
+.SumCart{
+  color: red;
+  padding-bottom: 10px;
+  text-align: end;
+}

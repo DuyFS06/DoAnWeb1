@@ -1,0 +1,51 @@
+/* ============================================= */
+/* CSS TRANG LỊCH SỬ MUA HÀNG
+/* (Dán vào ck.css hoặc file CSS chung)
+/* ============================================= */
+#LichSuMuaHang {
+    display: none; /* Ẩn ban đầu */
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 20px;
+    font-family: 'Times New Roman', Times, serif; 
+}
+
+#LichSuMuaHang #all-element {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Khoảng cách giữa các đơn hàng */
+}
+
+/* Khung bọc 1 đơn hàng (code JS của bạn dùng ID này) */
+#element {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    padding: 15px 20px;
+}
+
+/* Phần Header (Mã ĐH, Ngày mua) */
+#Ma {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap; 
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 14px;
+    color: #555;
+    gap: 10px;
+}
+#Ma #font-bold {
+    color: #000;
+    font-weight: bold;
+}
+
+/* Từng sản phẩm tóm tắt */
+#lichSusp {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 0;
+    border-bottom: 1px solid #f0f0f0;
+}

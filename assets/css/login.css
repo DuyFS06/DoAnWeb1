@@ -1,4 +1,19 @@
-body {
+/* Page section styles - để sections hoạt động trong index.html */
+.page-section {
+    min-height: calc(100vh - 200px);
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #e0e7ff, #eef2ff);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.page-section .login-box {
+    margin: 0 auto;
+}
+
+/* Chỉ áp dụng khi body là trang đăng nhập riêng (không phải trong index.html) */
+body:not(:has(header)):not(:has(footer)) {
     font-family: Roboto, "Segoe UI", Arial, sans-serif;
     background: linear-gradient(135deg, #e0e7ff, #eef2ff);
     display: flex;
@@ -64,23 +79,65 @@ input:focus {
 }
 
 /* Checkbox custom */
-.remember {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin: 10px 0 25px;
-    font-size: 14px;
-    color: #444;
-}
-
 .remember input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
-    accent-color: #4f46e5;
-    cursor: pointer;
+  display: none;
 }
 
-button {
+/* 2. Căn chỉnh container .remember */
+.remember {
+  display: block;
+  position: relative;
+  padding-left: 30px; 
+  margin: 15px 0;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  user-select: none;
+}
+
+/* 3. Tạo cái hộp "giả" (CHỈ cho label bên trong .remember) */
+.remember label::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+/* 4. Tạo dấu check "giả" (CHỈ cho label bên trong .remember) */
+.remember label::after {
+  content: '✔';
+  position: absolute;
+  left: 3px;
+  top: 50%;
+  transform: translateY(-50%) scale(0.9);
+  font-size: 14px;
+  color: white;
+  opacity: 0; /* Ẩn đi khi chưa check */
+  transition: opacity 0.2s ease;
+}
+
+/* 5. Hiện dấu check (CHỈ khi checkbox bên trong .remember được check) */
+.remember input[type="checkbox"]:checked + label::before {
+  background-color: #007BFF;
+  border-color: #007BFF;
+}
+
+.remember input[type="checkbox"]:checked + label::after {
+  opacity: 1; /* Hiện dấu check */
+}
+
+/* 6. Thêm hiệu ứng focus (CHỈ cho cái bên trong .remember) */
+.remember input[type="checkbox"]:focus + label::before {
+  box-shadow: 0 0 0 3px rgba(0,123,255,0.3);
+}
+#nutdnhap{
     width: 100%;
     background-color: #4f46e5;
     color: white;
@@ -98,7 +155,8 @@ button:active {
 }
 
 button:hover {
-    background-color: #4338ca;
+  filter: brightness(1.2);
+  transform: scale(1.05); 
 }
 
 label.required::after {

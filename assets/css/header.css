@@ -4,7 +4,7 @@ header {
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 9999;
+    z-index: 0;
 
     background: rgba(255, 255, 255, 0.75); /* hơi mờ */
     backdrop-filter: blur(10px); /* tạo hiệu ứng kính */
@@ -20,6 +20,8 @@ header {
     align-items: center;
     justify-content: space-between;
     padding: 12px 60px;
+        z-index: 0;
+
 }
 
 .logo {
@@ -68,7 +70,16 @@ header {
     height: 36px;
     border-radius: 50%;
     object-fit: cover;
+    border: 2px solid #4f46e5;
+    transition: transform 0.2s;
+    display: block;
+    background-color: #f0f0f0;
 }
+
+.user-avatar:hover img {
+    transform: scale(1.1);
+}
+
 .menu a {
     margin-left: 25px;
     text-decoration: none;
@@ -79,19 +90,6 @@ header {
 
 .menu a:hover {
     color: #4f46e5;
-}
-
-.user-avatar {
-    position: relative;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-}
-
-.user-avatar img {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
 }
 
 .dropdown {
