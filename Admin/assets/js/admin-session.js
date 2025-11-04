@@ -197,10 +197,10 @@ class AdminSession {
         document.head.appendChild(style);
         document.body.appendChild(notification);
 
-        // Prevent background scrolling / scrollbar interaction while notification is visible
+        // Ngăn cuộn nền khi thông báo hiển thị
         document.body.classList.add('no-scroll');
 
-        // Attach handlers to buttons so we remove the no-scroll class before navigating
+        // Gán các trình xử lý cho các nút để chúng tôi xóa lớp no-scroll trước khi điều hướng
         const loginBtn = notification.querySelector('.btn-login');
         const cancelBtn = notification.querySelector('.btn-cancel');
 

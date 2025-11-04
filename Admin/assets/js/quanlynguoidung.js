@@ -78,11 +78,11 @@ const sampleCustomers = [{
     }
 ];
 
-// Read users stored by taikhoan.js (key: userList) and map to customers shape
+// Đọc danh sách khách hàng từ localStorage hoặc dữ liệu mẫu
 function getCustomersFromStorage() {
     const raw = JSON.parse(localStorage.getItem('userList')) || null;
     if (raw && Array.isArray(raw) && raw.length) {
-        // map to expected customer shape
+        // Bảng dữ liệu userList có tồn tại, ánh xạ sang định dạng khách hàng
         return raw.map((u, idx) => ({
             id: u.id || idx + 1,
             name: u.userName || u.name || u.email || 'Người dùng',
@@ -93,12 +93,12 @@ function getCustomersFromStorage() {
         }));
     }
 
-    // fallback to legacy 'customers' key or sample
+    // Không có userList, kiểm tra khóa 'customers' có sẵn
     const legacy = JSON.parse(localStorage.getItem('customers')) || sampleCustomers;
     return legacy;
 }
 
-// Helper to persist changes back into raw userList (try to match by email or username)
+// Ghi lại danh sách khách hàng vào localStorage (cập nhật userList nếu có)
 function writeBackToUserList(updatedCustomers) {
     const raw = JSON.parse(localStorage.getItem('userList')) || [];
     if (!Array.isArray(raw) || raw.length === 0) {
@@ -124,7 +124,7 @@ function writeBackToUserList(updatedCustomers) {
 
 // Load danh sách khách hàng
 function loadCustomers() {
-    // Prefer loading from taikhoan.js userList in localStorage, fall back to 'customers' or sample
+    // Ưu tiên tải từ taikhoan.js userList trong localStorage, nếu không có thì sử dụng 'customers' hoặc dữ liệu mẫu
     let customers = getCustomersFromStorage();
 
     const section = document.getElementById('page-customers');
@@ -156,20 +156,10 @@ function createCustomerRow(customer) {
         <td>
             <div class="action-buttons">
                 <button class="btn-icon btn-reset" onclick="resetPassword(${customer.id})" title="Reset mật khẩu">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
-                        <path d="M21 3v5h-5"></path>
-                        <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
-                        <path d="M3 21v-5h5"></path>
-                    </svg>
+                    <i class="fa-solid fa-key" aria-hidden="true"></i>
                 </button>
                 <button class="btn-icon btn-toggle" onclick="toggleCustomerStatus(${customer.id})" title="${customer.status === 'active' ? 'Khóa tài khoản' : 'Mở khóa tài khoản'}">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        ${customer.status === 'active' ? 
-                            '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path>' :
-                            '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><circle cx="12" cy="16" r="1"></circle><path d="M7 11V7a5 5 0 0 1 9.9-1"></path>'
-                        }
-                    </svg>
+                    ${customer.status === 'active' ? '<i class="fa-solid fa-lock" aria-hidden="true"></i>' : '<i class="fa-solid fa-lock-open" aria-hidden="true"></i>'}
                 </button>
             </div>
         </td>
@@ -226,12 +216,12 @@ function resetPassword(id) {
             // Tạo mật khẩu mới ngẫu nhiên
             const newPassword = generateRandomPassword();
 
-            // Lưu mật khẩu mới (trong thực tế sẽ gửi email cho khách hàng)
+            // Lưu mật khẩu mới tạm thời vào thuộc tính tempPassword (chỉ để hiển thị, không an toàn)
             customers[customerIndex].tempPassword = newPassword;
             customers[customerIndex].passwordReset = true;
             customers[customerIndex].resetDate = new Date().toISOString();
 
-            // persist back to userList if present, otherwise legacy key
+            // Hiển thị thông báo cho quản trị viên
             writeBackToUserList(customers);
 
             if (typeof AdminDashboard !== 'undefined') {
@@ -255,7 +245,7 @@ function toggleCustomerStatus(id) {
             customers[customerIndex].status = newStatus;
             customers[customerIndex].statusChangedDate = new Date().toISOString();
 
-            // persist and refresh
+            // Hiển thị thông báo cho quản trị viên
             writeBackToUserList(customers);
             loadCustomers();
 
