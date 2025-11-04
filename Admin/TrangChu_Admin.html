@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="vi">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Trang chủ Admin - Dashboard</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
     <link rel="stylesheet" href="assets/css/admin.css" />
     <link rel="stylesheet" href="assets/css/DangNhap_Admin.css" />
     <link rel="stylesheet" href="assets/css/admin-spa.css" />
@@ -17,336 +15,338 @@
     <link rel="stylesheet" href="assets/css/QuanLyGiaBan.css" />
     <link rel="stylesheet" href="assets/css/QuanLyDonHang.css" />
     <link rel="stylesheet" href="assets/css/BaoCaoDoanhThu.css" />
-  </head>
+</head>
 
-  <body>
+<body>
     <!-- Header Admin -->
     <header class="admin-header">
-      <div class="header-content">
-        <div class="header-left">
-          <div class="logo">
-            <h1>Admin Dashboard</h1>
-          </div>
-        </div>
-        <div class="header-right">
-          <div class="admin-info">
-            <span class="admin-name" id="adminName">Admin</span>
-            <div class="admin-avatar">
-              <i class="fa-solid fa-user"></i>
+        <div class="header-content">
+            <div class="header-left">
+                <div class="logo">
+                    <h1>Admin Dashboard</h1>
+                </div>
             </div>
-          </div>
-          <button
-            class="logout-btn"
-            onclick="adminSession.logout(); adminSession.redirectToLogin();"
-          >
+            <div class="header-right">
+                <div class="admin-info">
+                    <span class="admin-name" id="adminName">Admin</span>
+                    <div class="admin-avatar">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                </div>
+                <button class="logout-btn" onclick="adminSession.logout(); adminSession.redirectToLogin();">
             <i class="fa-solid fa-right-from-bracket"></i>
             Đăng xuất
           </button>
+            </div>
         </div>
-      </div>
     </header>
 
     <div class="admin-container">
-      <!-- Sidebar -->
-      <aside class="admin-sidebar">
-        <nav class="sidebar-nav">
-          <div class="nav-section">
-            <h3>Tổng quan</h3>
-            <ul>
-              <li class="menu-item active">
-                <a href="#" data-route="/" class="nav-link">
-                  <i class="fa-solid fa-house"></i> Dashboard
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <div class="nav-section">
-            <h3>Quản lý khách hàng</h3>
-            <ul>
-              <li class="menu-item">
-                <a href="#" data-route="/customers" class="nav-link">
-                  <i class="fa-solid fa-users"></i> Quản lý khách hàng
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <div class="nav-section">
-            <h3>Quản lý sản phẩm</h3>
-            <ul>
-              <li class="menu-item">
-                <a href="#" data-route="/categories" class="nav-link">
-                  <i class="fa-solid fa-tags"></i> Quản lý loại sản phẩm
-                </a>
-              </li>
-              <li class="menu-item">
-                <a href="#" data-route="/products" class="nav-link">
-                  <i class="fa-solid fa-box"></i> Quản lý sản phẩm
-                </a>
-              </li>
-              <li class="menu-item">
-                <a href="#" data-route="/import" class="nav-link">
-                  <i class="fa-solid fa-file-import"></i> Quản lý nhập hàng
-                </a>
-              </li>
-              <li class="menu-item">
-                <a href="#" data-route="/inventory" class="nav-link">
-                  <i class="fa-solid fa-warehouse"></i> Quản lý tồn kho
-                </a>
-              </li>
-              <li class="menu-item">
-                <a href="#" data-route="/prices" class="nav-link">
-                  <i class="fa-solid fa-tags"></i> Quản lý giá bán
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <div class="nav-section">
-            <h3>Quản lý đơn hàng</h3>
-            <ul>
-              <li class="menu-item">
-                <a href="#" data-route="/orders" class="nav-link">
-                  <i class="fa-solid fa-clipboard-list"></i> Quản lý đơn hàng
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <div class="nav-section">
-            <h3>Báo cáo</h3>
-            <ul>
-              <li class="menu-item">
-                <a href="#" data-route="/reports" class="nav-link">
-                  <i class="fa-solid fa-chart-bar"></i> Báo cáo doanh thu
-                </a>
-              </li>
-            </ul>
-          </div>
-        </nav>
-      </aside>
-
-      <!-- Main Content -->
-      <main class="admin-main">
-        <div id="content">
-          <!-- Embedded admin pages as SPA sections -->
-
-          <section id="page-dashboard" class="spa-page">
-            <div class="dashboard-header">
-              <h1>Dashboard</h1>
-              <p>Chào mừng bạn đến với hệ thống quản trị</p>
-            </div>
-
-            <!-- Stats Cards -->
-            <div class="stats-grid">
-              <div class="stat-card">
-                <div class="stat-icon customers">
-                  <i class="fa-solid fa-users"></i>
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <h3>Tổng quan</h3>
+                    <ul>
+                        <li class="menu-item active">
+                            <a href="#" data-route="/" class="nav-link">
+                                <i class="fa-solid fa-house"></i> Dashboard
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-                <div class="stat-content">
-                  <h3>1,234</h3>
-                  <p>Khách hàng</p>
+
+                <div class="nav-section">
+                    <h3>Quản lý khách hàng</h3>
+                    <ul>
+                        <li class="menu-item">
+                            <a href="#" data-route="/customers" class="nav-link">
+                                <i class="fa-solid fa-users"></i> Quản lý khách hàng
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-              </div>
 
-              <div class="stat-card">
-                <div class="stat-icon products">
-                  <i class="fa-solid fa-box"></i>
+                <div class="nav-section">
+                    <h3>Quản lý sản phẩm</h3>
+                    <ul>
+                        <li class="menu-item">
+                            <a href="#" data-route="/categories" class="nav-link">
+                                <i class="fa-solid fa-tags"></i> Quản lý loại sản phẩm
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="#" data-route="/products" class="nav-link">
+                                <i class="fa-solid fa-box"></i> Quản lý sản phẩm
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="#" data-route="/import" class="nav-link">
+                                <i class="fa-solid fa-file-import"></i> Quản lý nhập hàng
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="#" data-route="/inventory" class="nav-link">
+                                <i class="fa-solid fa-warehouse"></i> Quản lý tồn kho
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="#" data-route="/prices" class="nav-link">
+                                <i class="fa-solid fa-tags"></i> Quản lý giá bán
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-                <div class="stat-content">
-                  <h3>567</h3>
-                  <p>Sản phẩm</p>
+
+                <div class="nav-section">
+                    <h3>Quản lý đơn hàng</h3>
+                    <ul>
+                        <li class="menu-item">
+                            <a href="#" data-route="/orders" class="nav-link">
+                                <i class="fa-solid fa-clipboard-list"></i> Quản lý đơn hàng
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-              </div>
 
-              <div class="stat-card">
-                <div class="stat-icon orders">
-                  <i class="fa-solid fa-clipboard-list"></i>
+                <div class="nav-section">
+                    <h3>Báo cáo</h3>
+                    <ul>
+                        <li class="menu-item">
+                            <a href="#" data-route="/reports" class="nav-link">
+                                <i class="fa-solid fa-chart-bar"></i> Báo cáo doanh thu
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-                <div class="stat-content">
-                  <h3>89</h3>
-                  <p>Đơn hàng</p>
-                </div>
-              </div>
+            </nav>
+        </aside>
 
-              <div class="stat-card">
-                <div class="stat-icon revenue">
-                  <i class="fa-solid fa-money-bill"></i>
-                </div>
-                <div class="stat-content">
-                  <h3>₫12.5M</h3>
-                  <p>Doanh thu</p>
-                </div>
-              </div>
-            </div>
+        <!-- Main Content -->
+        <main class="admin-main">
+            <div id="content">
+                <!-- Embedded admin pages as SPA sections -->
 
-            <!-- Quick Actions -->
-            <div class="quick-actions">
-              <h2>Thao tác nhanh</h2>
-              <div class="actions-grid">
-                <a href="#" data-route="/customers" class="action-card">
-                  <div class="action-icon">
-                    <i class="fa-solid fa-users fa-2x"></i>
-                  </div>
-                  <h3>Quản lý khách hàng</h3>
-                  <p>Xem và quản lý thông tin khách hàng</p>
-                </a>
+                <section id="page-dashboard" class="spa-page">
+                    <div class="dashboard-header">
+                        <h1>Dashboard</h1>
+                        <p>Chào mừng bạn đến với hệ thống quản trị</p>
+                    </div>
 
-                <a href="#" data-route="/products" class="action-card">
-                  <div class="action-icon">
-                    <i class="fa-solid fa-box fa-2x"></i>
-                  </div>
-                  <h3>Quản lý sản phẩm</h3>
-                  <p>Thêm, sửa, xóa sản phẩm</p>
-                </a>
+                    <!-- Stats Cards -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon customers">
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="dashboardCustomersCount">1,234</h3>
+                                <p>Khách hàng</p>
+                            </div>
+                        </div>
 
-                <a href="#" data-route="/orders" class="action-card">
-                  <div class="action-icon">
-                    <i class="fa-solid fa-clipboard-list fa-2x"></i>
-                  </div>
-                  <h3>Quản lý đơn hàng</h3>
-                  <p>Xử lý và theo dõi đơn hàng</p>
-                </a>
+                        <div class="stat-card">
+                            <div class="stat-icon products">
+                                <i class="fa-solid fa-box"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="dashboardProductsCount">567</h3>
+                                <p>Sản phẩm</p>
+                            </div>
+                        </div>
 
-                <a href="#" data-route="/reports" class="action-card">
-                  <div class="action-icon">
-                    <i class="fa-solid fa-chart-bar fa-2x"></i>
-                  </div>
-                  <h3>Báo cáo doanh thu</h3>
-                  <p>Xem báo cáo và thống kê</p>
-                </a>
-              </div>
-            </div>
-          </section>
+                        <div class="stat-card">
+                            <div class="stat-icon orders">
+                                <i class="fa-solid fa-clipboard-list"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="dashboardOrdersCount">89</h3>
+                                <p>Đơn hàng</p>
+                            </div>
+                        </div>
 
-          <section id="page-customers" class="spa-page">
-            <!-- Content from QuanLyKhachHang.html (main) -->
-            <div class="page-header">
-              <h1>Quản lý khách hàng</h1>
-              <p>
-                Quản lý tài khoản khách hàng, reset mật khẩu và khóa/mở khóa tài
-                khoản
-              </p>
-            </div>
-            <div class="action-bar">
-              <div class="action-right">
-                <div class="search-box">
-                  <input
-                    type="text"
-                    placeholder="Tìm kiếm khách hàng..."
-                    id="searchInput"
-                  />
-                  <button onclick="searchCustomers()">
+                        <div class="stat-card">
+                            <div class="stat-icon revenue">
+                                <i class="fa-solid fa-money-bill"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="dashboardRevenueAmount">₫12.5M</h3>
+                                <p>Doanh thu</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="quick-actions">
+                        <h2>Thao tác nhanh</h2>
+                        <div class="actions-grid">
+                            <a href="#" data-route="/customers" class="action-card">
+                                <div class="action-icon">
+                                    <i class="fa-solid fa-users fa-2x"></i>
+                                </div>
+                                <h3>Quản lý khách hàng</h3>
+                                <p>Xem và quản lý thông tin khách hàng</p>
+                            </a>
+
+                            <a href="#" data-route="/products" class="action-card">
+                                <div class="action-icon">
+                                    <i class="fa-solid fa-box fa-2x"></i>
+                                </div>
+                                <h3>Quản lý sản phẩm</h3>
+                                <p>Thêm, sửa, xóa sản phẩm</p>
+                            </a>
+
+                            <a href="#" data-route="/orders" class="action-card">
+                                <div class="action-icon">
+                                    <i class="fa-solid fa-clipboard-list fa-2x"></i>
+                                </div>
+                                <h3>Quản lý đơn hàng</h3>
+                                <p>Xử lý và theo dõi đơn hàng</p>
+                            </a>
+
+                            <a href="#" data-route="/reports" class="action-card">
+                                <div class="action-icon">
+                                    <i class="fa-solid fa-chart-bar fa-2x"></i>
+                                </div>
+                                <h3>Báo cáo doanh thu</h3>
+                                <p>Xem báo cáo và thống kê</p>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="page-customers" class="spa-page">
+                    <!-- Content from QuanLyKhachHang.html (main) -->
+                    <div class="page-header">
+                        <h1>Quản lý khách hàng</h1>
+                        <p>
+                            Quản lý tài khoản khách hàng, reset mật khẩu và khóa/mở khóa tài khoản
+                        </p>
+                    </div>
+                    <div class="action-bar">
+                        <div class="action-right">
+                            <div class="search-box">
+                                <input type="text" placeholder="Tìm kiếm khách hàng..." id="searchInput-customers" />
+                                <button onclick="searchCustomers()">
                     <i class="fa-solid fa-search"></i>
                   </button>
-                </div>
-              </div>
-            </div>
-          </section>
+                            </div>
+                        </div>
+                    </div>
 
-          <section id="page-categories" class="spa-page">
-            <!-- Content from QuanLyLoaiSanPham.html (main) -->
-            <div class="page-header">
-              <h1>Quản lý loại sản phẩm</h1>
-              <p>
-                Quản lý danh mục loại sản phẩm, thêm/sửa/xóa/ẩn loại sản phẩm
-              </p>
-            </div>
-            <div class="action-bar">
-              <div class="action-left">
-                <button
-                  class="btn btn-primary"
-                  onclick="showAddCategoryModal()"
-                >
+                    <!-- Bảng danh sách khách hàng -->
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Họ tên</th>
+                                    <th>Email</th>
+                                    <th>Điện thoại</th>
+                                    <th>Trạng thái</th>
+                                    <th>Ngày tạo</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="customersTableBody">
+                                <!-- Dữ liệu sẽ được thêm qua JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section id="page-categories" class="spa-page">
+                    <!-- Content from QuanLyLoaiSanPham.html (main) -->
+                    <div class="page-header">
+                        <h1>Quản lý loại sản phẩm</h1>
+                        <p>
+                            Quản lý danh mục loại sản phẩm, thêm/sửa/xóa/ẩn loại sản phẩm
+                        </p>
+                    </div>
+                    <div class="action-bar">
+                        <div class="action-left">
+                            <button class="btn btn-primary" onclick="showAddCategoryModal()">
                   Thêm loại sản phẩm
                 </button>
-              </div>
-              <div class="action-right">
-                <div class="search-box">
-                  <input
-                    type="text"
-                    placeholder="Tìm kiếm loại sản phẩm..."
-                    id="searchInput"
-                  />
-                  <button><i class="fa-solid fa-search"></i></button>
-                </div>
-              </div>
-            </div>
+                        </div>
+                        <div class="action-right">
+                            <div class="search-box">
+                                <input type="text" placeholder="Tìm kiếm loại sản phẩm..." id="searchInput-categories" />
+                                <button><i class="fa-solid fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
 
-            <!-- Modal thêm/sửa loại sản phẩm -->
-            <div id="categoryModal" class="modal">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h2 id="modalTitle">Thêm loại sản phẩm</h2>
-                  <button class="close-btn" onclick="closeCategoryModal()">
+                    <!-- Modal thêm/sửa loại sản phẩm -->
+                    <div id="categoryModal" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h2 id="modalTitle">Thêm loại sản phẩm</h2>
+                                <button class="close-btn" onclick="closeCategoryModal()">
                     &times;
                   </button>
-                </div>
-                <div class="modal-body">
-                  <form id="categoryForm">
-                    <div class="form-group">
-                      <label for="categoryName">Tên loại sản phẩm</label>
-                      <input type="text" id="categoryName" required />
-                    </div>
-                    <div class="form-group">
-                      <label for="categoryDescription">Mô tả</label>
-                      <textarea id="categoryDescription" rows="3"></textarea>
-                    </div>
-                    <div class="form-group">
-                      <label for="categoryStatus">Trạng thái</label>
-                      <select id="categoryStatus">
+                            </div>
+                            <div class="modal-body">
+                                <form id="categoryForm">
+                                    <div class="form-group">
+                                        <label for="categoryName">Tên loại sản phẩm</label>
+                                        <input type="text" id="categoryName" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="categoryDescription">Mô tả</label>
+                                        <textarea id="categoryDescription" rows="3"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="categoryStatus">Trạng thái</label>
+                                        <select id="categoryStatus">
                         <option value="active">Hiển thị</option>
                         <option value="hidden">Ẩn</option>
                       </select>
-                    </div>
-                  </form>
-                </div>
-                <div class="modal-footer">
-                  <button
-                    class="btn btn-secondary"
-                    onclick="closeCategoryModal()"
-                  >
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" onclick="closeCategoryModal()">
                     Hủy
                   </button>
-                  <button class="btn btn-primary" onclick="saveCategory()">
+                                <button class="btn btn-primary" onclick="saveCategory()">
                     Lưu
                   </button>
-                </div>
-              </div>
-            </div>
+                            </div>
+                        </div>
+                    </div>
 
-            <!-- Bảng danh sách loại sản phẩm -->
-            <div class="table-responsive">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Tên loại</th>
-                    <th>Mô tả</th>
-                    <th>Số sản phẩm</th>
-                    <th>Trạng thái</th>
-                    <th>Ngày tạo</th>
-                    <th>Thao tác</th>
-                  </tr>
-                </thead>
-                <tbody id="categoriesTableBody">
-                  <!-- Dữ liệu sẽ được thêm qua JavaScript -->
-                </tbody>
-              </table>
-            </div>
-          </section>
+                    <!-- Bảng danh sách loại sản phẩm -->
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Tên loại</th>
+                                    <th>Mô tả</th>
+                                    <th>Số sản phẩm</th>
+                                    <th>Trạng thái</th>
+                                    <th>Ngày tạo</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="categoriesTableBody">
+                                <!-- Dữ liệu sẽ được thêm qua JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
 
-          <section id="page-products" class="spa-page">
-            <!-- Content from QuanLySanPham.html (main) -->
-            <div class="QLSP_page-header">
-              <h3>Quản lý sản phẩm</h3>
-              <p>Quản lý danh mục sản phẩm, thêm/sửa/xóa sản phẩm</p>
-            </div>
+                <section id="page-products" class="spa-page">
+                    <!-- Content from QuanLySanPham.html (main) -->
+                    <div class="QLSP_page-header">
+                        <h3>Quản lý sản phẩm</h3>
+                        <p>Quản lý danh mục sản phẩm, thêm/sửa/xóa sản phẩm</p>
+                    </div>
 
-            <!-- Bộ lọc -->
-            <div class="QLSP_boLoc">
-              <select id="QLSP_locDanhMuc">
+                    <!-- Bộ lọc -->
+                    <div class="QLSP_boLoc">
+                        <select id="QLSP_locDanhMuc">
                 <option value="all">Tất cả</option>
                 <option value="BABY-G">Baby-G</option>
                 <option value="EDIFICE">Edifice</option>
@@ -354,57 +354,47 @@
                 <option value="PRO-TREK">Pro-Trek</option>
                 <option value="SHEEN">Sheen</option>
               </select>
-              <input
-                type="text"
-                id="QLSP_timId"
-                placeholder="Tìm kiếm theo ID..."
-                autocomplete="off"
-              />
-              <input
-                type="button"
-                id="QLSP_btnThemMoiSP"
-                value="Thêm mới sản phẩm"
-              />
-            </div>
+                        <input type="text" id="QLSP_timId" placeholder="Tìm kiếm theo ID..." autocomplete="off" />
+                        <input type="button" id="QLSP_btnThemMoiSP" value="Thêm mới sản phẩm" />
+                    </div>
 
-            <!-- Tiêu đề bảng -->
-            <div class="QLSP_table-header">
-              <table class="QLSP_table-header">
-                <tr>
-                  <th style="width: 5%">Stt</th>
-                  <th style="width: 12%">Mã</th>
-                  <th style="width: 20%">Tên</th>
-                  <th style="width: 15%">Danh mục</th>
-                  <th style="width: 20%">Mô tả</th>
-                  <th style="width: 10%">Ảnh</th>
-                  <th style="width: 10%">Hiển thị</th>
-                  <th style="width: 8%">Tác vụ</th>
-                </tr>
-              </table>
-            </div>
+                    <!-- Tiêu đề bảng -->
+                    <div class="QLSP_table-header">
+                        <table class="QLSP_table-header">
+                            <tr>
+                                <th style="width: 5%">Stt</th>
+                                <th style="width: 12%">Mã</th>
+                                <th style="width: 20%">Tên</th>
+                                <th style="width: 15%">Danh mục</th>
+                                <th style="width: 20%">Mô tả</th>
+                                <th style="width: 10%">Ảnh</th>
+                                <th style="width: 10%">Hiển thị</th>
+                                <th style="width: 8%">Tác vụ</th>
+                            </tr>
+                        </table>
+                    </div>
 
-            <!-- Nội dung bảng -->
-            <div class="QLSP_table-content"></div>
+                    <!-- Nội dung bảng -->
+                    <div class="QLSP_table-content"></div>
 
-            <div id="product-container" class="QLSP_product-container"></div>
-            <!-- Phân trang -->
-            <div class="QLSP_pagi">
-              <button id="QLSP_prevPage" class="QLSP_pagination-btn">
+                    <div id="product-container" class="QLSP_product-container"></div>
+                    <!-- Phân trang -->
+                    <div class="QLSP_pagi">
+                        <button id="QLSP_prevPage" class="QLSP_pagination-btn">
                 Trước
               </button>
-              <span id="QLSP_pageInfo">Trang 1 / 1</span>
-              <button id="QLSP_nextPage" class="QLSP_pagination-btn">
+                        <span id="QLSP_pageInfo">Trang 1 / 1</span>
+                        <button id="QLSP_nextPage" class="QLSP_pagination-btn">
                 Sau
               </button>
-            </div>
+                    </div>
 
-            <!-- Modal Thêm Sản Phẩm -->
-            <div id="QLSP_modalThemSP" class="QLSP_modal">
-              <div class="QLSP_modal-content">
-                <div class="QLSP_modal-header">
-                  <h3>Thêm mới sản phẩm</h3>
-                  <span class="QLSP_close-btn" id="QLSP_btnCloseModal"
-                    >&times;</span
+                    <!-- Modal Thêm Sản Phẩm -->
+                    <div id="QLSP_modalThemSP" class="QLSP_modal">
+                        <div class="QLSP_modal-content">
+                            <div class="QLSP_modal-header">
+                                <h3>Thêm mới sản phẩm</h3>
+                                <span class="QLSP_close-btn" id="QLSP_btnCloseModal">&times;</span
                   >
                 </div>
                 <hr />
@@ -660,39 +650,38 @@
                   <p class="QLNH_ngay-nhap">
                     Ngày nhập:
                     <span id="QLNH_chiTietNgayNhap">--/--/----</span>
-                  </p>
+                                </p>
 
-                  <table class="QLNH_chitiet-table">
-                    <thead>
-                      <tr>
-                        <th>STT</th>
-                        <th>Mã sản phẩm</th>
-                        <th>Tên sản phẩm</th>
-                        <th>Số lượng</th>
-                        <th>Đơn giá</th>
-                        <th>Thành tiền</th>
-                      </tr>
-                    </thead>
-                    <tbody id="QLNH_chiTietPhieuBody">
-                      <!-- Dữ liệu sẽ được thêm bằng JS -->
-                    </tbody>
-                  </table>
+                                <table class="QLNH_chitiet-table">
+                                    <thead>
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>Mã sản phẩm</th>
+                                            <th>Tên sản phẩm</th>
+                                            <th>Số lượng</th>
+                                            <th>Đơn giá</th>
+                                            <th>Thành tiền</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="QLNH_chiTietPhieuBody">
+                                        <!-- Dữ liệu sẽ được thêm bằng JS -->
+                                    </tbody>
+                                </table>
 
-                  <div class="QLNH_tong-tien">
-                    <strong>Tổng tiền:</strong>
-                    <span id="QLNH_chiTietTongTien">0 ₫</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+                                <div class="QLNH_tong-tien">
+                                    <strong>Tổng tiền:</strong>
+                                    <span id="QLNH_chiTietTongTien">0 ₫</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-            <!-- Modal thêm phiếu nhập -->
-            <div id="QLNH_modalThemPhieuNhap" class="QLNH_modal">
-              <div class="QLNH_modal-content QLNH_modal-themphieu">
-                <div class="QLNH_modal-header">
-                  <h2>THÊM PHIẾU NHẬP MỚI</h2>
-                  <span class="QLNH_close-btn" id="QLNH_closeModalThemPhieu"
-                    >&times;</span
+                    <!-- Modal thêm phiếu nhập -->
+                    <div id="QLNH_modalThemPhieuNhap" class="QLNH_modal">
+                        <div class="QLNH_modal-content QLNH_modal-themphieu">
+                            <div class="QLNH_modal-header">
+                                <h2>THÊM PHIẾU NHẬP MỚI</h2>
+                                <span class="QLNH_close-btn" id="QLNH_closeModalThemPhieu">&times;</span
                   >
                 </div>
 
@@ -737,43 +726,43 @@
                     <div class="QLNH_tong-tien">
                       <strong>Tổng tiền:</strong>
                       <span id="QLNH_tongTien">0₫</span>
-                    </div>
-                  </div>
+                            </div>
+                        </div>
 
-                  <div class="QLNH_form-footer">
-                    <button id="QLNH_btnLuuPhieuMoi" class="QLNH_btn-luu">
+                        <div class="QLNH_form-footer">
+                            <button id="QLNH_btnLuuPhieuMoi" class="QLNH_btn-luu">
                       Lưu phiếu
                     </button>
-                    <button id="QLNH_btnHuyPhieuMoi" class="QLNH_btn-huy">
+                            <button id="QLNH_btnHuyPhieuMoi" class="QLNH_btn-huy">
                       Hủy
                     </button>
-                  </div>
-                </div>
-              </div>
+                        </div>
+                    </div>
             </div>
+    </div>
 
-            <!-- Phân trang -->
-            <div class="QLNH_pagi">
-              <button id="QLNH_prevPage" class="QLNH_pagination-btn">
+    <!-- Phân trang -->
+    <div class="QLNH_pagi">
+        <button id="QLNH_prevPage" class="QLNH_pagination-btn">
                 Trước
               </button>
-              <span id="QLNH_pageInfo">Trang 1 / 1</span>
-              <button id="QLNH_nextPage" class="QLNH_pagination-btn">
+        <span id="QLNH_pageInfo">Trang 1 / 1</span>
+        <button id="QLNH_nextPage" class="QLNH_pagination-btn">
                 Sau
               </button>
-            </div>
-          </section>
+    </div>
+    </section>
 
-          <section id="page-inventory" class="spa-page">
-            <div class="TK_page-header">
-              <h3>Quản lý tồn kho</h3>
-              <p>
+    <section id="page-inventory" class="spa-page">
+        <div class="TK_page-header">
+            <h3>Quản lý tồn kho</h3>
+            <p>
                 Theo dõi tình trạng hàng hóa, số lượng tồn và giá trị tồn kho
-              </p>
-            </div>
+            </p>
+        </div>
 
-            <div class="TK_boLoc">
-              <select name="locDanhMuc" id="TK_locDanhMuc">
+        <div class="TK_boLoc">
+            <select name="locDanhMuc" id="TK_locDanhMuc">
                 <option value="all">Tất cả</option>
                 <option value="Baby-G">Baby-G</option>
                 <option value="Edifice">Edifice</option>
@@ -781,83 +770,83 @@
                 <option value="Pro-Trek">Pro-Trek</option>
                 <option value="Sheen">Sheen</option>
               </select>
-              <input type="text" placeholder="Tìm kiếm theo id..." />
-            </div>
+            <input type="text" placeholder="Tìm kiếm theo id..." />
+        </div>
 
-            <!-- Bộ chọn loại hàng -->
-            <div class="TK_tab-status">
-              <button class="TK_active" data-type="all">Tất cả</button>
-              <button data-type="binhThuong">Bình thường</button>
-              <button data-type="sapHetHang">Sắp hết hàng</button>
-              <button data-type="hetHang">Hết hàng</button>
-            </div>
+        <!-- Bộ chọn loại hàng -->
+        <div class="TK_tab-status">
+            <button class="TK_active" data-type="all">Tất cả</button>
+            <button data-type="binhThuong">Bình thường</button>
+            <button data-type="sapHetHang">Sắp hết hàng</button>
+            <button data-type="hetHang">Hết hàng</button>
+        </div>
 
-            <!-- Tiêu đề bảng -->
-            <div class="TK_table-header">
-              <table class="TK_admin-table">
+        <!-- Tiêu đề bảng -->
+        <div class="TK_table-header">
+            <table class="TK_admin-table">
                 <thead>
-                  <tr>
-                    <th style="width: 5%">STT</th>
-                    <th style="width: 15%">Mã</th>
-                    <th style="width: 10%">Ảnh</th>
-                    <th style="width: 15%">Tên sản phẩm</th>
-                    <th style="width: 10%">Tồn kho</th>
-                    <th style="width: 12%">Giá vốn</th>
-                    <th style="width: 13%">Giá bán</th>
-                    <th style="width: 18%">Giá trị tồn kho</th>
-                  </tr>
+                    <tr>
+                        <th style="width: 5%">STT</th>
+                        <th style="width: 15%">Mã</th>
+                        <th style="width: 10%">Ảnh</th>
+                        <th style="width: 15%">Tên sản phẩm</th>
+                        <th style="width: 10%">Tồn kho</th>
+                        <th style="width: 12%">Giá vốn</th>
+                        <th style="width: 13%">Giá bán</th>
+                        <th style="width: 18%">Giá trị tồn kho</th>
+                    </tr>
                 </thead>
                 <tbody id="TK_table-content"></tbody>
-              </table>
-            </div>
-
-            <div id="TK_product-container" class="TK_product-container"></div>
-
-            <!-- Phân trang -->
-            <div class="TK_pagi">
-              <button id="TK_prevPage" class="TK_pagination-btn">Trước</button>
-              <span id="TK_pageInfo">Trang 1 / 1</span>
-              <button id="TK_nextPage" class="TK_pagination-btn">Sau</button>
-            </div>
-          </section>
-
-          <section id="page-prices" class="spa-page">
-            <!-- Nội dung sẽ được JS (QuanLyGiaBan.js) render -->
-          </section>
-
-          <section id="page-orders" class="spa-page">
-            <!-- Nội dung sẽ được JS (quanlydonhang.js) render -->
-          </section>
-
-          <section id="page-reports" class="spa-page">
-            <!-- Nội dung sẽ được JS (doanhthu.js) render -->
-          </section>
-
-          <section id="page-order-detail" class="spa-page">
-            <!-- Content from ChiTietDonHang.html (main) -->
-            <main>
-              <h1>Chi tiết đơn hàng (Admin)</h1>
-              <p>File: Chi tiết đơn hàng (Admin)</p>
-            </main>
-          </section>
-
-          <section id="page-orders-list" class="spa-page">
-            <!-- Content from DanhSachDonHang.html (main) -->
-            <main>
-              <h1>Danh sách đơn hàng (Admin)</h1>
-              <p>Đây là trang mẫu: Danh sách đơn hàng (Admin)</p>
-            </main>
-          </section>
-
-          <section id="page-customers-list" class="spa-page">
-            <!-- Content from DanhSachKhachHang.html (main) -->
-            <main>
-              <h1>Thống kê theo khách hàng</h1>
-              <p>File: Thống kê theo khách hàng</p>
-            </main>
-          </section>
+            </table>
         </div>
-      </main>
+
+        <div id="TK_product-container" class="TK_product-container"></div>
+
+        <!-- Phân trang -->
+        <div class="TK_pagi">
+            <button id="TK_prevPage" class="TK_pagination-btn">Trước</button>
+            <span id="TK_pageInfo">Trang 1 / 1</span>
+            <button id="TK_nextPage" class="TK_pagination-btn">Sau</button>
+        </div>
+    </section>
+
+    <section id="page-prices" class="spa-page">
+        <!-- Nội dung sẽ được JS (QuanLyGiaBan.js) render -->
+    </section>
+
+    <section id="page-orders" class="spa-page">
+        <!-- Nội dung sẽ được JS (quanlydonhang.js) render -->
+    </section>
+
+    <section id="page-reports" class="spa-page">
+        <!-- Nội dung sẽ được JS (doanhthu.js) render -->
+    </section>
+
+    <section id="page-order-detail" class="spa-page">
+        <!-- Content from ChiTietDonHang.html (main) -->
+        <main>
+            <h1>Chi tiết đơn hàng (Admin)</h1>
+            <p>File: Chi tiết đơn hàng (Admin)</p>
+        </main>
+    </section>
+
+    <section id="page-orders-list" class="spa-page">
+        <!-- Content from DanhSachDonHang.html (main) -->
+        <main>
+            <h1>Danh sách đơn hàng (Admin)</h1>
+            <p>Đây là trang mẫu: Danh sách đơn hàng (Admin)</p>
+        </main>
+    </section>
+
+    <section id="page-customers-list" class="spa-page">
+        <!-- Content from DanhSachKhachHang.html (main) -->
+        <main>
+            <h1>Thống kê theo khách hàng</h1>
+            <p>File: Thống kê theo khách hàng</p>
+        </main>
+    </section>
+    </div>
+    </main>
     </div>
 
     <!-- Load core admin scripts (no API calls) -->
@@ -878,5 +867,6 @@
 
     <!-- SPA navigation (hash/query-based; works with file:// and http://) -->
     <script src="assets/js/admin-spa-nav.js"></script>
-  </body>
+</body>
+
 </html>

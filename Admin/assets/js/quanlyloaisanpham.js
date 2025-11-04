@@ -1,5 +1,14 @@
 // Quản lý loại sản phẩm JavaScript
-document.addEventListener('DOMContentLoaded', function() {
+// Ensure initialization runs whether DOMContentLoaded already fired or not
+function onReady(fn) {
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', fn);
+    } else {
+        fn();
+    }
+}
+
+onReady(function() {
     // Khởi tạo trang quản lý loại sản phẩm
     initializeCategoryManagement();
 
@@ -74,7 +83,9 @@ function loadCategories() {
     // Lấy dữ liệu từ localStorage hoặc sử dụng dữ liệu mẫu
     let categories = JSON.parse(localStorage.getItem('categories')) || sampleCategories;
 
-    const tbody = document.getElementById('categoriesTableBody');
+    // scope tbody to the categories page section so duplicate IDs elsewhere won't interfere
+    const section = document.getElementById('page-categories');
+    const tbody = section ? section.querySelector('#categoriesTableBody') : document.getElementById('categoriesTableBody');
     if (!tbody) return;
 
     tbody.innerHTML = '';
@@ -130,19 +141,24 @@ function createCategoryRow(category) {
 
 // Khởi tạo các sự kiện
 function initializeCategoryEvents() {
-    // Sự kiện tìm kiếm
-    const searchInput = document.getElementById('searchInput');
+    // Sự kiện tìm kiếm - scope to page so other pages' search inputs don't collide
+    const section = document.getElementById('page-categories');
+    const searchInput = section ? section.querySelector('#searchInput-categories') : document.getElementById('searchInput-categories');
     if (searchInput) {
         searchInput.addEventListener('input', function() {
             searchCategories();
         });
     }
+
+    // If categoriesTableBody exists we might want to re-render on certain events in future
 }
 
 // Tìm kiếm loại sản phẩm
 function searchCategories() {
-    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-    const tbody = document.getElementById('categoriesTableBody');
+    const section = document.getElementById('page-categories');
+    const searchInput = section ? section.querySelector('#searchInput-categories') : document.getElementById('searchInput-categories');
+    const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
+    const tbody = section ? section.querySelector('#categoriesTableBody') : document.getElementById('categoriesTableBody');
 
     if (!tbody) return;
 
@@ -171,13 +187,18 @@ function showAddCategoryModal() {
     form.dataset.mode = 'add';
     form.dataset.id = '';
 
+    // show modal with smooth transition
     modal.style.display = 'flex';
+    // allow layout then add show class to start animation
+    setTimeout(() => modal.classList.add('show'), 10);
 }
 
 // Đóng modal
 function closeCategoryModal() {
     const modal = document.getElementById('categoryModal');
-    modal.style.display = 'none';
+    // remove show class to animate out, then hide after transition
+    modal.classList.remove('show');
+    setTimeout(() => { modal.style.display = 'none'; }, 300);
 }
 
 // Sửa loại sản phẩm
@@ -201,6 +222,7 @@ function editCategory(id) {
     document.getElementById('categoryStatus').value = category.status;
 
     modal.style.display = 'flex';
+    setTimeout(() => modal.classList.add('show'), 10);
 }
 
 // Lưu loại sản phẩm
@@ -224,7 +246,7 @@ function saveCategory() {
 
     if (mode === 'add') {
         // Thêm mới
-        const newId = Math.max(...categories.map(cat => cat.id)) + 1;
+        const newId = categories.length ? Math.max(...categories.map(cat => cat.id)) + 1 : 1;
         const newCategory = {
             id: newId,
             name: name,

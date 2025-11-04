@@ -1,5 +1,14 @@
 // Quản lý người dùng JavaScript
-document.addEventListener('DOMContentLoaded', function() {
+// Run initialization immediately if DOM is ready, otherwise on DOMContentLoaded
+function onReady(fn) {
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', fn);
+    } else {
+        fn();
+    }
+}
+
+onReady(function() {
     // Khởi tạo trang quản lý người dùng
     initializeCustomerManagement();
 
@@ -26,7 +35,7 @@ function initializeCustomerManagement() {
     }
 }
 
-// Dữ liệu mẫu khách hàng
+// Dữ liệu mẫu khách hàng (fallback)
 const sampleCustomers = [{
         id: 1,
         name: 'Nguyễn Văn An',
@@ -69,12 +78,57 @@ const sampleCustomers = [{
     }
 ];
 
+// Read users stored by taikhoan.js (key: userList) and map to customers shape
+function getCustomersFromStorage() {
+    const raw = JSON.parse(localStorage.getItem('userList')) || null;
+    if (raw && Array.isArray(raw) && raw.length) {
+        // map to expected customer shape
+        return raw.map((u, idx) => ({
+            id: u.id || idx + 1,
+            name: u.userName || u.name || u.email || 'Người dùng',
+            email: u.email || '',
+            phone: u.phone || u.phoneNumber || '',
+            status: u.status || 'active',
+            createdAt: u.createdAt || (u.registeredAt || new Date().toISOString().split('T')[0])
+        }));
+    }
+
+    // fallback to legacy 'customers' key or sample
+    const legacy = JSON.parse(localStorage.getItem('customers')) || sampleCustomers;
+    return legacy;
+}
+
+// Helper to persist changes back into raw userList (try to match by email or username)
+function writeBackToUserList(updatedCustomers) {
+    const raw = JSON.parse(localStorage.getItem('userList')) || [];
+    if (!Array.isArray(raw) || raw.length === 0) {
+        // if no raw userList, write customers into 'customers' key (legacy)
+        localStorage.setItem('customers', JSON.stringify(updatedCustomers));
+        return;
+    }
+
+    const mapped = raw.map(u => {
+        const match = updatedCustomers.find(c => (c.email && u.email && c.email.toLowerCase() === u.email.toLowerCase()) || (c.name && u.userName && c.name === u.userName));
+        if (match) {
+            return Object.assign({}, u, {
+                phone: u.phone || match.phone || '',
+                status: match.status || u.status,
+                createdAt: u.createdAt || match.createdAt || new Date().toISOString().split('T')[0]
+            });
+        }
+        return u;
+    });
+
+    localStorage.setItem('userList', JSON.stringify(mapped));
+}
+
 // Load danh sách khách hàng
 function loadCustomers() {
-    // Lấy dữ liệu từ localStorage hoặc sử dụng dữ liệu mẫu
-    let customers = JSON.parse(localStorage.getItem('customers')) || sampleCustomers;
+    // Prefer loading from taikhoan.js userList in localStorage, fall back to 'customers' or sample
+    let customers = getCustomersFromStorage();
 
-    const tbody = document.getElementById('customersTableBody');
+    const section = document.getElementById('page-customers');
+    const tbody = section ? section.querySelector('#customersTableBody') : document.getElementById('customersTableBody');
     if (!tbody) return;
 
     tbody.innerHTML = '';
@@ -126,19 +180,24 @@ function createCustomerRow(customer) {
 
 // Khởi tạo các sự kiện
 function initializeCustomerEvents() {
-    // Sự kiện tìm kiếm
-    const searchInput = document.getElementById('searchInput');
+    // Sự kiện tìm kiếm - scope to customer page
+    const section = document.getElementById('page-customers');
+    const searchInput = section ? section.querySelector('#searchInput-customers') : document.getElementById('searchInput-customers');
     if (searchInput) {
         searchInput.addEventListener('input', function() {
             searchCustomers();
         });
     }
+
+    // Pagination or other UI events can be initialized here
 }
 
 // Tìm kiếm khách hàng
 function searchCustomers() {
-    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-    const tbody = document.getElementById('customersTableBody');
+    const section = document.getElementById('page-customers');
+    const searchInput = section ? section.querySelector('#searchInput-customers') : document.getElementById('searchInput-customers');
+    const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
+    const tbody = section ? section.querySelector('#customersTableBody') : document.getElementById('customersTableBody');
 
     if (!tbody) return;
 
@@ -160,7 +219,7 @@ function searchCustomers() {
 // Reset mật khẩu khách hàng
 function resetPassword(id) {
     if (confirm('Bạn có chắc chắn muốn reset mật khẩu cho khách hàng này?')) {
-        const customers = JSON.parse(localStorage.getItem('customers')) || sampleCustomers;
+        const customers = getCustomersFromStorage();
         const customerIndex = customers.findIndex(customer => customer.id === id);
 
         if (customerIndex !== -1) {
@@ -172,7 +231,8 @@ function resetPassword(id) {
             customers[customerIndex].passwordReset = true;
             customers[customerIndex].resetDate = new Date().toISOString();
 
-            localStorage.setItem('customers', JSON.stringify(customers));
+            // persist back to userList if present, otherwise legacy key
+            writeBackToUserList(customers);
 
             if (typeof AdminDashboard !== 'undefined') {
                 AdminDashboard.showNotification(`Đã reset mật khẩu. Mật khẩu mới: ${newPassword}`, 'success');
@@ -183,7 +243,7 @@ function resetPassword(id) {
 
 // Toggle trạng thái khóa/mở khóa tài khoản
 function toggleCustomerStatus(id) {
-    const customers = JSON.parse(localStorage.getItem('customers')) || sampleCustomers;
+    const customers = getCustomersFromStorage();
     const customerIndex = customers.findIndex(customer => customer.id === id);
 
     if (customerIndex !== -1) {
@@ -195,7 +255,8 @@ function toggleCustomerStatus(id) {
             customers[customerIndex].status = newStatus;
             customers[customerIndex].statusChangedDate = new Date().toISOString();
 
-            localStorage.setItem('customers', JSON.stringify(customers));
+            // persist and refresh
+            writeBackToUserList(customers);
             loadCustomers();
 
             if (typeof AdminDashboard !== 'undefined') {
