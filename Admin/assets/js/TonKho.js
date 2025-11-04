@@ -14,6 +14,13 @@ document.addEventListener("DOMContentLoaded", function () {
   TK_veBangTonKho(TK_mangDaLoc);
 });
 
+// tự reaload lại dữ liệu khi nghe thấy thay đổi
+window.addEventListener("productsUpdated", () => {
+  TK_productsLocal = getLocalProducts();
+  TK_mangDaLoc = TK_productsLocal;
+  TK_veBangTonKho(TK_mangDaLoc);
+});
+
 // ======== HÀM KHỞI TẠO =========
 function TK_khoiTaoTrang() {
   console.log("Category Management initialized");
@@ -203,3 +210,10 @@ function TK_timTheoMa() {
   TK_veBangTonKho(TK_mangDaLoc);
   searchInput.focus();
 }
+
+// Nghe thay đổi localStorage từ tab khác
+window.addEventListener("storage", (event) => {
+  if (event.key === "productsLocal") {
+    window.dispatchEvent(new Event("productsUpdated"));
+  }
+});

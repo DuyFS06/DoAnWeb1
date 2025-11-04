@@ -11,9 +11,13 @@ document.addEventListener("DOMContentLoaded", function () {
   QLSP_khoiTaoTrang();
   QLSP_veBangSanPham(QLSP_productsLocal);
   QLSP_ganSuKien();
-  removeLocalProducts();
 });
 
+// tự reaload lại dữ liệu khi nghe thấy thay đổi
+window.addEventListener("productsUpdated", () => {
+  QLSP_productsLocal = getLocalProducts();
+  QLSP_mangDaLoc = QLSP_productsLocal;
+});
 // ======== HÀM KHỞI TẠO =========
 function QLSP_khoiTaoTrang() {
   console.log("Quản lý sản phẩm đã khởi tạo");
@@ -172,7 +176,7 @@ QLSP_inputImage.addEventListener("input", () => {
 });
 
 // ================== THÊM SẢN PHẨM ==================
-QLSP_form.addEventListener("submit", function (e) {
+QLSP_formThemSP.addEventListener("submit", function (e) {
   e.preventDefault();
   let dsSanPham = getLocalProducts();
   const id = document.getElementById("QLSP_spId").value.trim();
@@ -198,14 +202,14 @@ QLSP_form.addEventListener("submit", function (e) {
     visibility: "visible",
     glass: document.getElementById("QLSP_spGlass").value,
     strap: document.getElementById("QLSP_spStrap").value,
-    movement: "",
-    size: "",
-    thickness: "",
-    weight: "",
-    origin: "",
-    shape: "",
-    waterRes: "",
-    description: "",
+    movement: document.getElementById("QLSP_spMovement").value.trim(),
+    size: document.getElementById("QLSP_spSize").value.trim(),
+    thickness: document.getElementById("QLSP_spThickness").value.trim(),
+    weight: document.getElementById("QLSP_spWeight").value.trim(),
+    origin: document.getElementById("QLSP_spOrigin").value.trim(),
+    shape: document.getElementById("QLSP_spShape").value.trim(),
+    waterRes: document.getElementById("QLSP_spWaterRes").value.trim(),
+    description: document.getElementById("QLSP_spDescription").value.trim(),
   };
 
   dsSanPham.push(spMoi);
@@ -362,3 +366,19 @@ function QLSP_timTheoMa() {
   QLSP_veBangSanPham(QLSP_mangDaLoc);
   document.getElementById("QLSP_timId").value = "";
 }
+
+// ==================== ĐỒNG BỘ GIỮA CÁC TAB ====================
+window.addEventListener("storage", (event) => {
+  if (event.key === "productsLocal") {
+    QLSP_productsLocal = getLocalProducts();
+    QLSP_mangDaLoc = QLSP_productsLocal;
+    QLSP_veBangSanPham(QLSP_mangDaLoc);
+  }
+});
+
+// Nghe thay đổi localStorage từ tab khác
+window.addEventListener("storage", (event) => {
+  if (event.key === "productsLocal") {
+    window.dispatchEvent(new Event("productsUpdated"));
+  }
+});

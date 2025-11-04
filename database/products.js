@@ -10,6 +10,7 @@ function getLocalProducts() {
 }
 function saveLocalProducts(data) {
   localStorage.setItem("productsLocal", JSON.stringify(data));
+  window.dispatchEvent(new Event("productsUpdated"));
 }
 function removeLocalProducts() {
   localStorage.removeItem("productsLocal");

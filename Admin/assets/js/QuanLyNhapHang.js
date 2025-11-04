@@ -17,6 +17,11 @@ document.addEventListener("DOMContentLoaded", function () {
   QLNH_ganSuKien();
 });
 
+// tự reaload lại dữ liệu khi nghe thấy thay đổi
+window.addEventListener("productsUpdated", () => {
+  QLNH_productsLocal = getLocalProducts();
+  QLNH_mangDaLocSanPham = QLNH_productsLocal;
+});
 // ======== HÀM KHỞI TẠO =========
 function QLNH_khoiTaoTrang() {
   if (typeof adminSession !== "undefined" && adminSession.isLoggedIn()) {
@@ -49,6 +54,9 @@ function getLocalPhieuNhap() {
 }
 function saveLocalPhieuNhap(data) {
   localStorage.setItem("phieuNhapLocal", JSON.stringify(data));
+}
+function removeLocalPhieuNhap() {
+  localStorage.removeItem("phieuNhapLocal");
 }
 
 // ======== HÀM XỬ LÍ SỰ KIỆN =========
@@ -561,3 +569,10 @@ function QLNH_xoaPhieuNhap(maPhieu) {
   QLNH_veBangPhieuNhap(QLNH_phieuNhapLocal);
   alert("Đã xóa phiếu nhập!");
 }
+
+// Nghe thay đổi localStorage từ tab khác
+window.addEventListener("storage", (event) => {
+  if (event.key === "productsLocal") {
+    window.dispatchEvent(new Event("productsUpdated"));
+  }
+});
