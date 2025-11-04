@@ -1,4 +1,4 @@
-// Simple SPA show/hide navigation for admin pages
+// Ẩn hiện các trang SPA trong trang quản trị và xử lý điều hướng giữa chúng
 (function() {
     const routeToId = {
         '/': 'page-dashboard',
@@ -34,11 +34,11 @@
         const el = document.getElementById(id);
         if (el) el.classList.add('active');
         setActiveMenu(route);
-        // update hash for bookmarking/back
+        // Cập nhật hash cho việc đánh dấu/bắt lại trang hiện tại
         if (location.hash !== route) {
             location.hash = route;
         }
-        // If dashboard is shown, refresh its metrics (if available)
+        // Nếu trang tổng quan được hiển thị, làm mới các chỉ số của nó (nếu có)
         if ((route === '/' || route === '') && window.AdminDashboard && typeof window.AdminDashboard.updateMetrics === 'function') {
             try { window.AdminDashboard.updateMetrics(); } catch (e) { console.warn('updateMetrics failed', e); }
         }
@@ -60,8 +60,8 @@
     });
 
     document.addEventListener('DOMContentLoaded', function() {
-        // initial route detection - support both file:// and http://
-        // Priority: hash (#/route) -> query param (?page=/route) -> default '/'
+        // Xác định trang ban đầu từ hash hoặc tham số truy vấn
+        // Nếu không có, mặc định là trang tổng quan
         const fromHash = location.hash ? location.hash.slice(1) : null;
         const params = new URLSearchParams(location.search);
         const fromQuery = params.get('page');
@@ -70,7 +70,7 @@
         showRoute(initial);
     });
 
-    // Expose for debugging
+    // export các hàm ra bên ngoài nếu cần
     window.adminSpa = {
         showRoute,
         routeToId
