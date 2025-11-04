@@ -14,6 +14,32 @@ document.addEventListener("DOMContentLoaded", function () {
   TK_veBangTonKho(TK_mangDaLoc);
 });
 
+// Tự động đồng bộ khi dữ liệu sản phẩm thay đổi hoặc quay lại tab
+window.addEventListener("storage", (e) => {
+  if (e.key === "productsLocal") {
+    TK_productsLocal = getLocalProducts();
+    TK_mangDaLoc = TK_productsLocal;
+    currentPage = 1;
+    TK_veBangTonKho(TK_mangDaLoc);
+  }
+});
+
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden) {
+    TK_productsLocal = getLocalProducts();
+    TK_mangDaLoc = TK_productsLocal;
+    TK_veBangTonKho(TK_mangDaLoc);
+  }
+});
+
+// Đồng bộ ngay khi quản lý giá phát sự kiện cập nhật trong cùng tab
+window.addEventListener("productsUpdated", () => {
+  TK_productsLocal = getLocalProducts();
+  TK_mangDaLoc = TK_productsLocal;
+  currentPage = 1;
+  TK_veBangTonKho(TK_mangDaLoc);
+});
+
 // ======== HÀM KHỞI TẠO =========
 function TK_khoiTaoTrang() {
   console.log("Category Management initialized");
