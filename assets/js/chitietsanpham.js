@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
   const params = new URLSearchParams(window.location.search);
   const productId = params.get("id");
-  
-  const product = products.find(p => p.id === productId);
+  const list = typeof getLocalProducts === 'function' ? getLocalProducts() : (window.products || []);
+  const product = list.find(p => p.id === productId);
   const container = document.getElementById("product-detail");
 
   if (!product) {
@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Thêm vào giỏ và chuyển đến trang giỏ hàng (tùy bạn làm sau)
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
     cart.push({ ...product, quantity: 1 });
-    localStorage.setItem("cart", JSON.stringifys(cart));
+    localStorage.setItem("cart", JSON.stringify(cart));
     window.location.href = "giohang.html";
   });
 });

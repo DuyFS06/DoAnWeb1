@@ -38,6 +38,10 @@
         if (location.hash !== route) {
             location.hash = route;
         }
+        // If dashboard is shown, refresh its metrics (if available)
+        if ((route === '/' || route === '') && window.AdminDashboard && typeof window.AdminDashboard.updateMetrics === 'function') {
+            try { window.AdminDashboard.updateMetrics(); } catch (e) { console.warn('updateMetrics failed', e); }
+        }
     }
 
     function handleLinkClick(e) {

@@ -206,6 +206,87 @@
 }
 
 
+/* Specific styles for categories table to add spacing and visual polish */
+
+#page-categories .table-responsive {
+    margin-top: 16px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(12, 32, 63, 0.04);
+    overflow: hidden;
+}
+
+#page-categories .table {
+    width: 100%;
+    border-collapse: separate;
+    /* allow row spacing */
+    border-spacing: 0 8px;
+    /* vertical gap between rows */
+}
+
+#page-categories .table thead tr th {
+    padding: 12px 16px;
+    text-align: left;
+    background: transparent;
+    color: #34495e;
+    font-weight: 600;
+}
+
+#page-categories .table tbody tr {
+    background-color: #ffffff;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02);
+    transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+#page-categories .table tbody tr td {
+    padding: 14px 16px;
+    vertical-align: middle;
+    border: none;
+    /* remove default borders to use spacing */
+}
+
+#page-categories .table tbody tr:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(16, 40, 80, 0.06);
+}
+
+#page-categories .action-buttons {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+#page-categories .status-badge {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 13px;
+    color: #fff;
+}
+
+#page-categories .status-active {
+    background-color: #28a745;
+}
+
+#page-categories .status-hidden {
+    background-color: #6c757d;
+}
+
+
+/* Responsive: reduce padding on small screens */
+
+@media (max-width: 720px) {
+    #page-categories .table thead tr th,
+    #page-categories .table tbody tr td {
+        padding: 10px 8px;
+        font-size: 14px;
+    }
+    #page-categories .table {
+        border-spacing: 0 6px;
+    }
+}
+
+
 /* Button styles */
 
 .btn-primary,
@@ -236,6 +317,82 @@
 
 .btn-secondary:hover {
     background-color: #5a6268;
+}
+
+
+/* Mirror categories visual style for customers table */
+
+#page-customers .table-responsive {
+    margin-top: 16px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(12, 32, 63, 0.04);
+    overflow: hidden;
+}
+
+#page-customers .table {
+    width: 100%;
+    border-collapse: separate;
+    /* allow row spacing */
+    border-spacing: 0 8px;
+}
+
+#page-customers .table thead tr th {
+    padding: 12px 16px;
+    text-align: left;
+    background: transparent;
+    color: #34495e;
+    font-weight: 600;
+}
+
+#page-customers .table tbody tr {
+    background-color: #ffffff;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02);
+    transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+#page-customers .table tbody tr td {
+    padding: 14px 16px;
+    vertical-align: middle;
+    border: none;
+}
+
+#page-customers .table tbody tr:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(16, 40, 80, 0.06);
+}
+
+#page-customers .action-buttons {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+#page-customers .status-badge {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 13px;
+    color: #fff;
+}
+
+#page-customers .status-active {
+    background-color: #28a745;
+}
+
+#page-customers .status-blocked {
+    background-color: #dc3545;
+}
+
+@media (max-width: 720px) {
+    #page-customers .table thead tr th,
+    #page-customers .table tbody tr td {
+        padding: 10px 8px;
+        font-size: 14px;
+    }
+    #page-customers .table {
+        border-spacing: 0 6px;
+    }
 }
 
 

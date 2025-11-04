@@ -1,85 +1,140 @@
 // Admin Dashboard JavaScript
-document.addEventListener("DOMContentLoaded", function () {
-  // Khởi tạo dashboard
-  initializeDashboard();
+document.addEventListener("DOMContentLoaded", function() {
+    // Khởi tạo dashboard
+    initializeDashboard();
 
-  // Cập nhật thông tin admin
-  updateAdminInfo();
+    // Cập nhật thông tin admin
+    updateAdminInfo();
 
-  // Khởi tạo các sự kiện
-  initializeEvents();
+    // Khởi tạo các sự kiện
+    initializeEvents();
 });
 
 // Khởi tạo dashboard
 function initializeDashboard() {
-  console.log("Admin Dashboard initialized");
+    console.log("Admin Dashboard initialized");
 
-  // Kiểm tra session
-  if (typeof adminSession !== "undefined" && adminSession.isLoggedIn()) {
-    console.log("Admin is logged in");
-  } else {
-    console.log("Admin not logged in");
-  }
+    // Kiểm tra session
+    if (typeof adminSession !== "undefined" && adminSession.isLoggedIn()) {
+        console.log("Admin is logged in");
+    } else {
+        console.log("Admin not logged in");
+    }
+}
+
+// Compute and render dashboard metrics (customers, products, orders, revenue)
+function updateDashboardMetrics() {
+    try {
+        // Customers
+        let customersCount = 0;
+        if (typeof getCustomersFromStorage === 'function') {
+            customersCount = getCustomersFromStorage().length;
+        } else if (localStorage.getItem('userList')) {
+            customersCount = JSON.parse(localStorage.getItem('userList')).length || 0;
+        }
+
+        // Products
+        let productsCount = 0;
+        if (typeof getLocalProducts === 'function') {
+            productsCount = getLocalProducts().length;
+        } else if (typeof products !== 'undefined' && Array.isArray(products)) {
+            productsCount = products.length;
+        } else if (localStorage.getItem('productsLocal')) {
+            productsCount = JSON.parse(localStorage.getItem('productsLocal')).length || 0;
+        }
+
+        // Orders
+        let ordersCount = 0;
+        if (typeof getLocalOrders === 'function') {
+            ordersCount = getLocalOrders().length;
+        } else if (localStorage.getItem('ordersLocal')) {
+            ordersCount = JSON.parse(localStorage.getItem('ordersLocal')).length || 0;
+        }
+
+        // Revenue: prefer phieuNhapHang receipts (dsPhieuNhapHang) or sum orders
+        let revenue = 0;
+        if (typeof dsPhieuNhapHang !== 'undefined' && Array.isArray(dsPhieuNhapHang)) {
+            revenue = dsPhieuNhapHang.reduce((s, r) => s + (Number(r.tongTien) || 0), 0);
+        } else if (typeof getLocalOrders === 'function') {
+            revenue = getLocalOrders().reduce((s, o) => s + (Number(o.total) || 0), 0);
+        } else if (localStorage.getItem('ordersLocal')) {
+            const ol = JSON.parse(localStorage.getItem('ordersLocal')) || [];
+            revenue = ol.reduce((s, o) => s + (Number(o.total) || 0), 0);
+        }
+
+        // Update DOM (if elements exist)
+        const cEl = document.getElementById('dashboardCustomersCount');
+        if (cEl) cEl.textContent = formatNumber(customersCount);
+
+        const pEl = document.getElementById('dashboardProductsCount');
+        if (pEl) pEl.textContent = formatNumber(productsCount);
+
+        const oEl = document.getElementById('dashboardOrdersCount');
+        if (oEl) oEl.textContent = formatNumber(ordersCount);
+
+        const rEl = document.getElementById('dashboardRevenueAmount');
+        if (rEl) rEl.textContent = formatCurrency(revenue);
+
+        return { customersCount, productsCount, ordersCount, revenue };
+    } catch (err) {
+        console.error('updateDashboardMetrics error', err);
+        return null;
+    }
 }
 
 // Cập nhật thông tin admin
 function updateAdminInfo() {
-  if (typeof adminSession !== "undefined" && adminSession.isLoggedIn()) {
-    const adminInfo = adminSession.getCurrentAdmin();
-    if (adminInfo && adminInfo.username) {
-      const adminNameElement = document.getElementById("adminName");
-      if (adminNameElement) {
-        adminNameElement.textContent = adminInfo.username;
-      }
+    if (typeof adminSession !== "undefined" && adminSession.isLoggedIn()) {
+        const adminInfo = adminSession.getCurrentAdmin();
+        if (adminInfo && adminInfo.username) {
+            const adminNameElement = document.getElementById("adminName");
+            if (adminNameElement) {
+                adminNameElement.textContent = adminInfo.username;
+            }
+        }
     }
-  }
 }
 
 // Khởi tạo các sự kiện
 function initializeEvents() {
-  // Sự kiện cho sidebar
-  initializeSidebar();
+    // Sự kiện cho sidebar
+    initializeSidebar();
 
-  // Sự kiện cho responsive
-  initializeResponsive();
+    // Sự kiện cho responsive
+    initializeResponsive();
 
-  // Sự kiện cho stats cards
-  initializeStatsCards();
+    // Sự kiện cho stats cards
+    initializeStatsCards();
 }
 
 // Khởi tạo sidebar
 function initializeSidebar() {
-  const navLinks = document.querySelectorAll(".nav-link");
+    const navLinks = document.querySelectorAll(".nav-link");
 
-  navLinks.forEach((link) => {
-    link.addEventListener("click", function (e) {
-      // Xóa active class từ tất cả nav items
-      document.querySelectorAll(".nav-item").forEach((item) => {
-        item.classList.remove("active");
-      });
+    navLinks.forEach((link) => {
+        link.addEventListener("click", function(e) {
+            // Xóa active class từ tất cả nav items
+            document.querySelectorAll(".nav-item").forEach((item) => {
+                item.classList.remove("active");
+            });
 
-      // Thêm active class cho nav item hiện tại
-      this.closest(".nav-item").classList.add("active");
+            // Thêm active class cho nav item hiện tại
+            this.closest(".nav-item").classList.add("active");
+        });
     });
-  });
 }
 
 // Khởi tạo responsive
 function initializeResponsive() {
-  // Toggle sidebar trên mobile
-  const sidebarToggle = document.createElement("button");
-  sidebarToggle.className = "sidebar-toggle";
-  sidebarToggle.innerHTML = `
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <line x1="3" y1="12" x2="21" y2="12"></line>
-            <line x1="3" y1="18" x2="21" y2="18"></line>
-        </svg>
-    `;
+    // Toggle sidebar trên mobile
+    const sidebarToggle = document.createElement("button");
+    sidebarToggle.className = "sidebar-toggle";
+    // Use Font Awesome bars icon for the sidebar toggle
+    sidebarToggle.innerHTML = `<i class="fa-solid fa-bars" aria-hidden="true"></i>`;
 
-  // Thêm CSS cho toggle button
-  const style = document.createElement("style");
-  style.textContent = `
+    // Thêm CSS cho toggle button
+    const style = document.createElement("style");
+    style.textContent = `
         .sidebar-toggle {
             display: none;
             position: fixed;
@@ -101,94 +156,97 @@ function initializeResponsive() {
         }
     `;
 
-  document.head.appendChild(style);
-  document.body.appendChild(sidebarToggle);
+    // Make sure the FA icon sits nicely inside the button
+    const faStyle = document.createElement('style');
+    faStyle.textContent = `.sidebar-toggle i { font-size: 18px; color: #333; }`;
+    document.head.appendChild(faStyle);
 
-  sidebarToggle.addEventListener("click", function () {
-    const sidebar = document.querySelector(".admin-sidebar");
-    sidebar.classList.toggle("open");
-  });
+    document.head.appendChild(style);
+    document.body.appendChild(sidebarToggle);
 
-  // Đóng sidebar khi click bên ngoài
-  document.addEventListener("click", function (e) {
-    const sidebar = document.querySelector(".admin-sidebar");
-    const toggle = document.querySelector(".sidebar-toggle");
+    sidebarToggle.addEventListener("click", function() {
+        const sidebar = document.querySelector(".admin-sidebar");
+        sidebar.classList.toggle("open");
+    });
 
-    if (
-      window.innerWidth <= 768 &&
-      !sidebar.contains(e.target) &&
-      !toggle.contains(e.target)
-    ) {
-      sidebar.classList.remove("open");
-    }
-  });
+    // Đóng sidebar khi click bên ngoài
+    document.addEventListener("click", function(e) {
+        const sidebar = document.querySelector(".admin-sidebar");
+        const toggle = document.querySelector(".sidebar-toggle");
+
+        if (
+            window.innerWidth <= 768 &&
+            !sidebar.contains(e.target) &&
+            !toggle.contains(e.target)
+        ) {
+            sidebar.classList.remove("open");
+        }
+    });
 }
 
 // Khởi tạo stats cards
 function initializeStatsCards() {
-  const statCards = document.querySelectorAll(".stat-card");
+    const statCards = document.querySelectorAll(".stat-card");
 
-  statCards.forEach((card) => {
-    card.addEventListener("mouseenter", function () {
-      this.style.transform = "translateY(-4px)";
-    });
+    statCards.forEach((card) => {
+        card.addEventListener("mouseenter", function() {
+            this.style.transform = "translateY(-4px)";
+        });
 
-    card.addEventListener("mouseleave", function () {
-      this.style.transform = "translateY(0)";
+        card.addEventListener("mouseleave", function() {
+            this.style.transform = "translateY(0)";
+        });
     });
-  });
 }
 
 // Hàm utility để format số
 function formatNumber(num) {
-  return new Intl.NumberFormat("vi-VN").format(num);
+    return new Intl.NumberFormat("vi-VN").format(num);
 }
 
 // Hàm utility để format tiền tệ
 function formatCurrency(amount) {
-  return new Intl.NumberFormat("vi-VN", {
-    style: "currency",
-    currency: "VND",
-  }).format(amount);
+    return new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND",
+    }).format(amount);
 }
 
 // Hàm utility để format ngày
 function formatDate(date) {
-  return new Intl.DateTimeFormat("vi-VN", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  }).format(new Date(date));
+    return new Intl.DateTimeFormat("vi-VN", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    }).format(new Date(date));
 }
 
 // Hàm hiển thị thông báo
 function showNotification(message, type = "info") {
-  const notification = document.createElement("div");
-  notification.className = `admin-notification admin-notification-${type}`;
-  notification.innerHTML = `
+    const notification = document.createElement("div");
+    notification.className = `admin-notification admin-notification-${type}`;
+
+    // choose Font Awesome icon html for each type
+    const iconHtml =
+        type === "success" ?
+        '<i class="fa-solid fa-circle-check" aria-hidden="true"></i>' :
+        type === "error" ?
+        '<i class="fa-solid fa-circle-xmark" aria-hidden="true"></i>' :
+        type === "warning" ?
+        '<i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>' :
+        '<i class="fa-solid fa-circle-info" aria-hidden="true"></i>';
+
+    notification.innerHTML = `
             <div class="admin-notification-content">
-            <div class="admin-notification-icon">
-                ${
-                  type === "success"
-                    ? "✓"
-                    : type === "error"
-                    ? "✗"
-                    : type === "warning"
-                    ? "⚠"
-                    : "ℹ"
-                }
-            </div>
+            <div class="admin-notification-icon">${iconHtml}</div>
             <div class="admin-notification-message">${message}</div>
             <button class="admin-notification-close" aria-label="Đóng">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
             </button>
             </div>
     `; // Thêm CSS cho notification
-  const style = document.createElement("style");
-  style.textContent = `
+    const style = document.createElement("style");
+    style.textContent = `
         .admin-notification {
             position: fixed;
             top: 80px;
@@ -289,55 +347,55 @@ function showNotification(message, type = "info") {
         }
     `;
 
-  if (!document.querySelector("style[data-notification]")) {
-    style.setAttribute("data-notification", "true");
-    document.head.appendChild(style);
-  }
+    if (!document.querySelector("style[data-notification]")) {
+        style.setAttribute("data-notification", "true");
+        document.head.appendChild(style);
+    }
 
-  // Remove any existing notifications
-  const existingNotification = document.querySelector(".admin-notification");
-  if (existingNotification) {
-    existingNotification.remove();
-  }
+    // Remove any existing notifications
+    const existingNotification = document.querySelector(".admin-notification");
+    if (existingNotification) {
+        existingNotification.remove();
+    }
 
-  document.body.appendChild(notification);
+    document.body.appendChild(notification);
 
-  // Add close button handler
-  const closeBtn = notification.querySelector(".admin-notification-close");
-  if (closeBtn) {
-    closeBtn.addEventListener("click", () => {
-      notification.style.animation = "slideOutRight 0.3s ease";
-      setTimeout(() => {
-        if (notification.parentNode) {
-          notification.parentNode.removeChild(notification);
-        }
-      }, 300);
-    });
-  }
+    // Add close button handler
+    const closeBtn = notification.querySelector(".admin-notification-close");
+    if (closeBtn) {
+        closeBtn.addEventListener("click", () => {
+            notification.style.animation = "slideOutRight 0.3s ease";
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 300);
+        });
+    }
 }
 
 // Hàm loading
 function showLoading(element) {
-  if (typeof element === "string") {
-    element = document.querySelector(element);
-  }
+    if (typeof element === "string") {
+        element = document.querySelector(element);
+    }
 
-  if (element) {
-    element.style.position = "relative";
-    element.style.pointerEvents = "none";
+    if (element) {
+        element.style.position = "relative";
+        element.style.pointerEvents = "none";
 
-    const loader = document.createElement("div");
-    loader.className = "loading-overlay";
-    loader.innerHTML = `
+        const loader = document.createElement("div");
+        loader.className = "loading-overlay";
+        loader.innerHTML = `
             <div class="loading-spinner">
                 <div class="spinner"></div>
                 <div class="loading-text">Đang tải...</div>
             </div>
         `;
 
-    // Thêm CSS cho loading
-    const style = document.createElement("style");
-    style.textContent = `
+        // Thêm CSS cho loading
+        const style = document.createElement("style");
+        style.textContent = `
             .loading-overlay {
                 position: absolute;
                 top: 0;
@@ -376,35 +434,36 @@ function showLoading(element) {
             }
         `;
 
-    if (!document.querySelector("style[data-loading]")) {
-      style.setAttribute("data-loading", "true");
-      document.head.appendChild(style);
-    }
+        if (!document.querySelector("style[data-loading]")) {
+            style.setAttribute("data-loading", "true");
+            document.head.appendChild(style);
+        }
 
-    element.appendChild(loader);
-  }
+        element.appendChild(loader);
+    }
 }
 
 function hideLoading(element) {
-  if (typeof element === "string") {
-    element = document.querySelector(element);
-  }
-
-  if (element) {
-    const loader = element.querySelector(".loading-overlay");
-    if (loader) {
-      loader.remove();
+    if (typeof element === "string") {
+        element = document.querySelector(element);
     }
-    element.style.pointerEvents = "auto";
-  }
+
+    if (element) {
+        const loader = element.querySelector(".loading-overlay");
+        if (loader) {
+            loader.remove();
+        }
+        element.style.pointerEvents = "auto";
+    }
 }
 
 // Export functions để sử dụng trong các file khác
 window.AdminDashboard = {
-  showNotification,
-  showLoading,
-  hideLoading,
-  formatNumber,
-  formatCurrency,
-  formatDate,
+    showNotification,
+    showLoading,
+    hideLoading,
+    formatNumber,
+    formatCurrency,
+    formatDate,
+    updateMetrics: updateDashboardMetrics
 };
