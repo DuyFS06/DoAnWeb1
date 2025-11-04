@@ -819,27 +819,185 @@
           </section>
 
           <section id="page-prices" class="spa-page">
-            <!-- Placeholder for QuanLyGiaBan (empty file) -->
             <div class="page-header">
               <h1>Quản lý giá bán</h1>
-              <p>Nội dung quản lý giá bán sẽ được đưa vào đây.</p>
+              <p>Thiết lập % lợi nhuận và tra cứu giá vốn, % LN, giá bán</p>
+            </div>
+
+            <div class="action-bar">
+              <div class="action-left">
+                <label for="PR_marginGlobal">% lợi nhuận mặc định:</label>
+                <input type="number" id="PR_marginGlobal" min="0" max="500" step="1" placeholder="VD: 25" />
+                <button class="btn btn-primary" id="PR_btnApplyGlobal">Áp dụng toàn bộ</button>
+              </div>
+              <div class="action-right">
+                <div class="search-box">
+                  <input type="text" id="PR_search" placeholder="Tìm theo mã/tên..." />
+                  <button id="PR_btnSearch"><i class="fa-solid fa-search"></i></button>
+                </div>
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table" id="PR_table">
+                <thead>
+                  <tr>
+                    <th>Mã</th>
+                    <th>Tên</th>
+                    <th>Giá vốn</th>
+                    <th>% LN</th>
+                    <th>Giá bán</th>
+                    <th>Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody id="PR_tbody"></tbody>
+              </table>
             </div>
           </section>
 
           <section id="page-orders" class="spa-page">
-            <!-- Content from QuanLyDonHang.html (main) -->
             <div class="page-header">
               <h1>Quản lý đơn hàng</h1>
-              <p>Quản lý đơn hàng (đánh dấu/trạng thái/lọc)</p>
+              <p>Tra cứu theo ngày & tình trạng, xem chi tiết & cập nhật trạng thái</p>
+            </div>
+
+            <div class="action-bar">
+              <div class="action-left">
+                <label>Từ ngày</label>
+                <input type="date" id="OD_from" />
+                <label>Đến ngày</label>
+                <input type="date" id="OD_to" />
+                <select id="OD_status">
+                  <option value="all">Tất cả</option>
+                  <option value="new">Mới đặt</option>
+                  <option value="processing">Đã xử lý</option>
+                  <option value="shipped">Đã giao</option>
+                  <option value="cancelled">Hủy</option>
+                </select>
+                <button class="btn btn-primary" id="OD_btnFilter">Lọc</button>
+              </div>
+              <div class="action-right">
+                <div class="search-box">
+                  <input type="text" id="OD_search" placeholder="Tìm theo mã đơn/khách..." />
+                  <button id="OD_btnSearch"><i class="fa-solid fa-search"></i></button>
+                </div>
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table" id="OD_table">
+                <thead>
+                  <tr>
+                    <th>Mã đơn</th>
+                    <th>Ngày đặt</th>
+                    <th>Khách hàng</th>
+                    <th>Tổng tiền</th>
+                    <th>Trạng thái</th>
+                    <th>Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody id="OD_tbody"></tbody>
+              </table>
+            </div>
+
+            <div id="OD_modal" class="modal" style="display:none;">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2>Chi tiết đơn hàng</h2>
+                  <button class="close-btn" id="OD_close">&times;</button>
+                </div>
+                <div class="modal-body">
+                  <div id="OD_detailInfo"></div>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Mã SP</th>
+                        <th>Tên</th>
+                        <th>SL</th>
+                        <th>Giá bán</th>
+                        <th>Thành tiền</th>
+                      </tr>
+                    </thead>
+                    <tbody id="OD_detailBody"></tbody>
+                  </table>
+                  <div class="form-group">
+                    <label for="OD_updateStatus">Cập nhật trạng thái</label>
+                    <select id="OD_updateStatus">
+                      <option value="new">Mới đặt</option>
+                      <option value="processing">Đã xử lý</option>
+                      <option value="shipped">Đã giao</option>
+                      <option value="cancelled">Hủy</option>
+                    </select>
+                    <button class="btn btn-primary" id="OD_saveStatus">Lưu</button>
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
 
           <section id="page-reports" class="spa-page">
-            <!-- Content from BaoCaoDoanhThu.html (main) -->
-            <main>
-              <h1>Báo cáo tổng thu &amp; mặt hàng bán chạy</h1>
-              <p>File: Báo cáo tổng thu &amp; mặt hàng bán chạy</p>
-            </main>
+            <div class="page-header">
+              <h1>Báo cáo doanh thu</h1>
+              <p>Thống kê doanh thu, đơn hàng, lợi nhuận theo thời gian</p>
+            </div>
+
+            <div class="action-bar">
+              <div class="action-left">
+                <label>Từ ngày</label>
+                <input type="date" id="RP_from" />
+                <label>Đến ngày</label>
+                <input type="date" id="RP_to" />
+                <select id="RP_groupBy">
+                  <option value="day">Theo ngày</option>
+                  <option value="month">Theo tháng</option>
+                </select>
+                <button class="btn btn-primary" id="RP_btnRun">Xem báo cáo</button>
+              </div>
+            </div>
+
+            <div class="stats-grid" id="RP_kpis">
+              <div class="stat-card">
+                <div class="stat-icon revenue"><i class="fa-solid fa-sack-dollar"></i></div>
+                <div class="stat-content"><h3 id="RP_totalRevenue">₫0</h3><p>Tổng doanh thu</p></div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon orders"><i class="fa-solid fa-clipboard-list"></i></div>
+                <div class="stat-content"><h3 id="RP_totalOrders">0</h3><p>Tổng đơn hàng</p></div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon products"><i class="fa-solid fa-tags"></i></div>
+                <div class="stat-content"><h3 id="RP_totalProfit">₫0</h3><p>Tổng lợi nhuận</p></div>
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table" id="RP_table">
+                <thead>
+                  <tr>
+                    <th>Mốc thời gian</th>
+                    <th>Doanh thu</th>
+                    <th>Đơn hàng</th>
+                    <th>Lợi nhuận</th>
+                  </tr>
+                </thead>
+                <tbody id="RP_tbody"></tbody>
+              </table>
+            </div>
+
+            <div class="table-responsive">
+              <h3>Sản phẩm bán chạy</h3>
+              <table class="table" id="RP_topProducts">
+                <thead>
+                  <tr>
+                    <th>Mã SP</th>
+                    <th>Tên</th>
+                    <th>SL bán</th>
+                    <th>Doanh thu</th>
+                  </tr>
+                </thead>
+                <tbody id="RP_topBody"></tbody>
+              </table>
+            </div>
           </section>
 
           <section id="page-order-detail" class="spa-page">
@@ -869,22 +1027,21 @@
       </main>
     </div>
 
-    <!-- Load core admin scripts (no API calls) -->
     <script src="assets/js/admin-session.js"></script>
     <script src="assets/js/admin.js"></script>
 
     <script src="../database/products.js"></script>
     <script src="../database/phieuNhapHang.js"></script>
-    <!-- Per-page scripts (kept client-side, no API) -->
+
     <script src="assets/js/doanhthu.js"></script>
     <script src="assets/js/quanlydonhang.js"></script>
+    <script src="assets/js/QuanLyGiaBan.js"></script>
     <script src="assets/js/quanlyloaisanpham.js"></script>
     <script src="assets/js/quanlynguoidung.js"></script>
     <script src="assets/js/QuanLyNhapHang.js"></script>
     <script src="assets/js/QuanLySanPham.js"></script>
     <script src="assets/js/TonKho.js"></script>
 
-    <!-- SPA navigation (hash/query-based; works with file:// and http://) -->
     <script src="assets/js/admin-spa-nav.js"></script>
   </body>
 </html>
