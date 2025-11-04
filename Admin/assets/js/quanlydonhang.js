@@ -65,7 +65,8 @@
       </div>
 
       <div class="QLDH_filters">
-        <input type="date" id="QLDH_filterDate" />
+        <label>Từ ngày: <input type="date" id="QLDH_filterDateFrom" /></label>
+        <label>Đến ngày: <input type="date" id="QLDH_filterDateTo" /></label>
         <select id="QLDH_filterStatus">
           <option value="all">Tất cả trạng thái</option>
           <option value="moiDat">Mới đặt</option>
@@ -161,12 +162,24 @@
   }
 
   function filterOrders(list) {
-    const dateVal = document.getElementById("QLDH_filterDate").value;
+    const dateFrom = document.getElementById("QLDH_filterDateFrom").value;
+    const dateTo = document.getElementById("QLDH_filterDateTo").value;
     const stVal = document.getElementById("QLDH_filterStatus").value;
     const idText = document.getElementById("QLDH_searchId").value.trim().toLowerCase();
 
     return list.filter((o) => {
-      const okDate = !dateVal || new Date(o.date).toISOString().slice(0, 10) === dateVal;
+      // Lọc theo khoảng ngày
+      let okDate = true;
+      if (dateFrom || dateTo) {
+        const orderDate = new Date(o.date).toISOString().slice(0, 10);
+        if (dateFrom && dateTo) {
+          okDate = orderDate >= dateFrom && orderDate <= dateTo;
+        } else if (dateFrom) {
+          okDate = orderDate >= dateFrom;
+        } else if (dateTo) {
+          okDate = orderDate <= dateTo;
+        }
+      }
       const okStatus = stVal === "all" || o.status === stVal;
       const okId = !idText || (o.id || "").toLowerCase().includes(idText);
       return okDate && okStatus && okId;
@@ -191,63 +204,6 @@
       tr.innerHTML = `<td>${i + 1}</td><td>${it.productId}</td><td>${it.name || ""}</td><td>${it.qty} <small>(còn: ${remaining})</small></td><td>${currency(it.price)}</td><td>${currency(tt)}</td>`;
       tbody.appendChild(tr);
     });
-    // render return controls
-    const bodyEl = document.querySelector(`#${SECTION_ID} .QLDH_modal-body`);
-    const oldControls = bodyEl.querySelector('.QLDH_return_controls');
-    if (oldControls) oldControls.remove();
-    const controls = document.createElement('div');
-    controls.className = 'QLDH_return_controls';
-    controls.innerHTML = `
-      <h4>Trả hàng từng món</h4>
-      <table class="QLDH_md_table"><thead>
-        <tr><th>#</th><th>Mã SP</th><th>Tên</th><th>SL gốc</th><th>Đã trả</th><th>Trả thêm</th><th>Thực hiện</th></tr>
-      </thead><tbody id="QLDH_rt_tbody"></tbody></table>
-    `;
-    bodyEl.appendChild(controls);
-
-    const rtBody = controls.querySelector('#QLDH_rt_tbody');
-    rtBody.innerHTML = '';
-    o.items.forEach((it, i) => {
-      const returned = it.returned || 0;
-      const remaining = Math.max(0, it.qty - returned);
-      const row = document.createElement('tr');
-      row.innerHTML = `
-        <td>${i + 1}</td>
-        <td>${it.productId}</td>
-        <td>${it.name || ''}</td>
-        <td>${it.qty}</td>
-        <td>${returned}</td>
-        <td><input type="number" min="1" max="${remaining}" value="${remaining ? 1 : 0}" class="QLDH_rt_input" data-idx="${i}"></td>
-        <td><button class="QLDH_rt_btn" data-idx="${i}">Trả</button></td>
-      `;
-      rtBody.appendChild(row);
-    });
-
-    rtBody.querySelectorAll('.QLDH_rt_btn').forEach((btn) =>
-      btn.addEventListener('click', () => {
-        const idx = Number(btn.dataset.idx);
-        const input = rtBody.querySelector(`.QLDH_rt_input[data-idx="${idx}"]`);
-        const qty = Math.max(0, Math.round(Number(input.value) || 0));
-        const it = o.items[idx];
-        const returned = it.returned || 0;
-        const remaining = Math.max(0, it.qty - returned);
-        if (qty <= 0 || qty > remaining) {
-          alert('Số lượng trả không hợp lệ');
-          return;
-        }
-        it.returned = returned + qty;
-        o.total = o.items.reduce((s, x) => s + Math.max(0, (x.qty - (x.returned || 0))) * x.price, 0);
-        const list = getLocalOrders();
-        const oi = list.findIndex((x) => x.id === o.id);
-        if (oi !== -1) {
-          list[oi] = o;
-          saveLocalOrders(list);
-        }
-        renderTable(filterOrders(getLocalOrders()));
-        openDetail(o.id);
-        alert('Đã cập nhật trả hàng.');
-      })
-    );
 
     document.getElementById("QLDH_md_total").textContent = currency(o.total);
     document.getElementById("QLDH_modal").style.display = "flex";
@@ -269,7 +225,10 @@
       const list = filterOrders(getLocalOrders());
       renderTable(list);
     });
-    document.getElementById("QLDH_filterDate").addEventListener("change", () => {
+    document.getElementById("QLDH_filterDateFrom").addEventListener("change", () => {
+      renderTable(filterOrders(getLocalOrders()));
+    });
+    document.getElementById("QLDH_filterDateTo").addEventListener("change", () => {
       renderTable(filterOrders(getLocalOrders()));
     });
     document.getElementById("QLDH_filterStatus").addEventListener("change", () => {
@@ -299,5 +258,6 @@
   // re-render when route changes
   window.addEventListener("hashchange", ensureMounted);
   document.addEventListener("DOMContentLoaded", ensureMounted);
-})();
+}
+)();
 
