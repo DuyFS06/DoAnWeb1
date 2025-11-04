@@ -1,35 +1,919 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trang chủ - Cửa hàng đồng hồ</title>
-    <link rel="stylesheet" href="./assets/css/home.css">
-    <link rel="stylesheet" href="./assets/css/footer.css">
-    <link rel="stylesheet" href="./assets/css/header.css">
-    <link rel="stylesheet" href="./assets/css/banner.css">
-    <script src="./assets/js/taikhoan.js" defer></script>
-    <script src="database/products.js" defer></script>
-    <script src="./assets/js/include.js" defer></script>
-    <script src="./assets/js/header.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cửa hàng đồng hồ Casio</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="./assets/css/indexGIoHang.css">
+  <link rel="stylesheet" href="./assets/css/GioHang.css">
+  <link rel="stylesheet" href="./assets/css/ThanhToan.css">
+  <link rel="stylesheet" href="./assets/css/TrangThaiThanhToan.css">
+  <link rel="stylesheet" href="./assets/css/TrangHienThi.css">
+  <link rel="stylesheet" href="./assets/css/LichSuMuaHang.css">
+  <link rel="stylesheet" href="./assets/css/home.css" />
+  <link rel="stylesheet" href="./assets/css/banner.css" />
+  <link rel="stylesheet" href="./assets/css/products.css" />
+  <link rel="stylesheet" href="./assets/css/chitietsanpham.css" />
+  <link rel="stylesheet" href="./assets/css/footer.css" />
+  <link rel="stylesheet" href="./assets/css/header.css" />
+  <link rel="stylesheet" href="./assets/css/login.css" />
+  <link rel="stylesheet" href="./assets/css/register.css" />
+  <link rel="stylesheet" href="./assets/css/profile.css" />
+  <link rel="stylesheet" href="./assets/css/fix.css" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- JS -->
+  <script src="./assets/js/giohang.js"></script>
+  <script src="./assets/js/thanhtoan.js"></script>
+    <script src="./assets/js/indexGioHang.js" defer></script>
+    <script src="./assets/js/chitietsanpham.js" defer></script>
+    <script src="./assets/js/LichSuMuaHang.js"></script>
+  <script src="./assets/js/taikhoan.js" defer></script>
+  <script src="./assets/js/header.js" defer></script>
+  <script src="./database/products.js" defer></script>
+  <script src="./assets/js/chitietsanpham.js" defer></script>
+  <script src="./assets/js/router.js" defer></script>
+  <script src="./assets/js/register.js" defer></script>
+  <script src="./assets/js/login.js" defer></script>
+  <script src="./assets/js/hoso.js" defer></script>
+  <script src="./assets/js/thongtincanhan.js" defer></script>
+  <script src="./assets/js/diachi.js" defer></script>
+  <script src="./assets/js/doimatkhau.js" defer></script>
+
 </head>
 
-<body>
-  <div id="header-html"></div>
-     <main class="detail-container">
-    <section id="product-detail"></section>
-  </main>
-  <div id="banner-html"></div>  
-   
-  <section class="product-section">
-    <h2>Sản phẩm nổi bật</h2>
-    <div class="product-grid" id="product-grid">
-      <!-- Sản phẩm sẽ được JS thêm vào đây -->
+<body style="margin: 0; padding: 0; padding-top: 75px;">
+  <!-- ===== HEADER ===== -->
+  <header style="display: block !important;">
+    <div class="top-nav">
+      <div class="logo">CASIO STORE</div>
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm..." onkeyup="searchProducts()">
+      </div>
+      <div class="menu">
+        <a href="#" class="nav-home" data-route="home">Trang chủ</a>
+        <a href="#" class="nav-login" data-route="login">Đăng nhập</a>
+        <a href="#" id="open-cart-btn">Giỏ hàng</a>
+        <a href="#" id="LichSuMuaHangBTN">Lịch sử</a>
+        <div class="user-avatar" id="userAvatar" style="display: none;">
+          <img src="./assets/img/Avatar/avtuser.jpg" alt="avatar">
+          <div class="dropdown" id="avatarDropdown">
+            <a href="#" data-route="hoso"><p>Tài khoản: <b id="usernameDisplay"></b></p></a>
+            <button id="logoutBtn">Đăng xuất</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+<div id="chitietsanpham-banner-index">
+  <!-- ===== BANNER ===== -->
+  <section class="banner">
+    <video class="banner-video" autoplay muted loop playsinline>
+      <source src="./assets/filemp4/MUDMASTER-GWG-2000-CASIO-G-SHOCK.mp4" type="video/mp4">
+    </video>
+    <div class="banner-overlay"></div>
+    <div class="banner-content">
+      <h1>CASIO MUDMASTER GWG-2000</h1>
+      <p>Đẳng cấp bền bỉ, thiết kế mạnh mẽ cho mọi thử thách</p>
     </div>
   </section>
 
-  <div id="footer-html"></div>
+  <!-- ===== CHI TIẾT SẢN PHẨM ===== -->
+  <main class="detail-container">
+    <section id="product-detail" style="display: none;">
+      <!-- Nội dung chi tiết sản phẩm sẽ được JS render -->
+    </section>
+  </main>
 
+  <!-- ===== DANH SÁCH SẢN PHẨM ===== -->
+  <div class="main-wrapper" id="product-list-wrapper">
+    <main>
+      <aside class="filter-sidebar">
+        <h3>Chọn sản phẩm theo yêu cầu</h3>
+        <div class="filter-group">
+          <label>Khoảng giá</label>
+          <select id="priceFilter" onchange="filterProducts()">
+            <option value="">Tất cả</option>
+            <option value="duoi3">Dưới 3.000.000₫</option>
+            <option value="3-5">3.000.000₫ - 5.000.000₫</option>
+            <option value="5-7">5.000.000₫ - 7.000.000₫</option>
+            <option value="7-10">7.000.000₫ - 10.000.000₫</option>
+            <option value="tren10">Trên 10.000.000₫</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Màu sắc</label>
+          <select id="colorFilter" onchange="filterProducts()">
+            <option value="">Tất cả</option>
+            <option value="đen">Đen</option>
+            <option value="trắng">Trắng</option>
+            <option value="vàng">Vàng</option>
+            <option value="bạc">Bạc</option>
+            <option value="hồng">Hồng</option>
+            <option value="xanh lá">Xanh lá</option>
+            <option value="xanh dương">Xanh dương</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Mặt kính</label>
+          <select id="glassFilter" onchange="filterProducts()">
+            <option value="">Tất cả</option>
+            <option value="khoáng">Khoáng</option>
+            <option value="sapphire">Sapphire</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Dây đeo</label>
+          <select id="strapFilter" onchange="filterProducts()">
+            <option value="">Tất cả</option>
+            <option value="da">Da</option>
+            <option value="kim loại">Kim loại</option>
+            <option value="nhựa">Nhựa</option>
+            <option value="vải">Vải</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Giới tính</label>
+          <select id="genderFilter" onchange="filterProducts()">
+            <option value="">Tất cả</option>
+            <option value="nam">Nam</option>
+            <option value="nữ">Nữ</option>
+          </select>
+        </div>
+      </aside>
+
+      <section class="product-section">
+        <div class="product-grid" id="product-grid">
+          <!-- JS sẽ thêm sản phẩm -->
+        </div>
+        <div id="pagination" class="pagination"></div>
+      </section>
+    </main>
+  </div>
+</div>  
+
+
+
+
+
+
+
+
+
+
+
+<div id="Code-Quest-3-4">
+
+ <!-- Giỏ hàng modal  -->
+  <div id="indexGioHang">
+    <div id="conten">
+      <div id="bim-left"></div>
+      <div id="conten-giohang">
+        <div id="giohang" class="giohang_index">
+          <h2>Giỏ Hàng Của Bạn 🛒</h2>
+          <div class="danhsach"></div>
+        </div>
+        <div id="nut">
+          <div class="SumCart"></div>
+          <div id="ToiGioHang"><button class="ToiGioHangBtn">Danh sách sản phẩm</button></div>
+          <div class="tienhanhthanhtoan"><button class="tienhanhthanhtoanBtn">Thanh toán</button></div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+    <!-- div indexGiohang -->
+  </div>
+
+  <div id="GioHang">
+    <div id="content_center_menu_shop">
+      <h2>
+        <button class="active_menu_center">Giỏ Hàng</button> >
+        <button class="tienhanhthanhtoanBtn Menu_Center">Đặt hàng</button> >
+        <button class="Menu_Center" class="Succes">Hoàn thành</button>
+        <h2>
+    </div>
+    <div class="continute"><a class="indexgiohangBTN" href="./index.html"> ←Tiếp tục xem sản phẩm </a></div>
+    <div id="element_center_shop">
+      <div id="element_center_left">
+        <div class="element_center_left">
+          <div class="element_sp">Sản phẩm</div>
+          <div class="element_cost">Giá</div>
+          <div class="element_num">Số Lượng</div>
+        </div>
+        <div class="danhsach"></div>
+
+
+      </div>
+
+      <div class="element_center_right">
+        <div class="element_sum">Tổng cộng giỏ hàng</div>
+        <div id="element_ship">
+          <div class="ship">Vận chuyển</div>
+          <div id="display-flex">Đồng giá:
+            <div id="font-color-red"> 30.000VND</div>
+          </div>
+        </div>
+        <div id="element_sum">
+          <div>Tổng:</div>
+          <div class="SumCart">0đ</div>
+        </div>
+        <div class="tienhanhthanhtoan"><button class="tienhanhthanhtoanBtn">Thanh toán</button></div>
+
+        <div class="end_menu_center">
+          <img id="" src=".\assets\img\ATM.png" alt="">
+          <img id="" src=".\assets\img\bank Transfer.png" alt="">
+          <img id="" src=".\assets\img\CASH ON DELIVERY.png" alt="">
+          <img id="" src=".\assets\img\JCB.png" alt="">
+          <img id="" src=".\assets\img\mastercard.png" alt="">
+          <img id="" src=".\assets\img\VISA.png" alt="">
+        </div>
+      </div>
+    </div>
+    <!-- Div GioHang -->
+  </div>
+
+  <div id="ThanhToan">
+    <div id="content_center_menu_shop">
+      <h2>
+        <button class="ToiGioHangBtn Menu_Center">Giỏ hàng</button> >
+        <button class="active_menu_center">Đặt Hàng</button> >
+        <button class="Menu_Center Succes">Hoàn thành</button>
+        <h2>
+    </div>
+
+    <div id="element_center_shop">
+
+      <div id="all_left-thanhtoan">
+        <div id="ThanhToan_element_center_left">
+          <div class="ThongTinThanhToan">Thông Tin thanh toán</div>
+          <div class="element-name">
+            <div class="temp-name">
+              <div class="box-ten">Tên*</div>
+              <input type="text" name="" placeholder="Nhập Tên " class="nhapname Name-Chu">
+            </div>
+            <div class="temp-name">
+              <div class="box-ten">Họ*</div>
+              <input type="text" name="" placeholder="Nhập Họ " class="nhapname Ho-Chu">
+            </div>
+          </div>
+          <div>
+            <div class="font-bold">Quốc Gia/Khu Vực*</div>
+            <div class="font-bold">Việt Nam</div>
+          </div>
+          <div class="font-bold">Địa chỉ*</div>
+          <input type="text" placeholder="Nhập địa chỉ" class="Nhapin4 Dia-Chi-Chu">
+          <div class="font-bold">Thị Trấn/Thành Phố*</div>
+          <input type="text" placeholder="Nhập thành phố" class="Nhapin4 City-Chu">
+          <div class="font-bold">Số điện thoại</div>
+          <input type="number" placeholder="Nhập số điện thoại" class="Nhapin4 SDT-Chu">
+          <div class="font-bold">địa chỉ gmail</div>
+          <input type="text" placeholder="Nhập địa chỉ gmail" class="Nhapin4 Gmail-Chu">
+          <div>
+            <input type="checkbox" id="ifCheckBox"> Giao địa chỉ khác
+
+            <div class="HienThiThem">
+
+              <div class="element-name">
+                <div class="temp-name">
+                  <div class="box-ten">Tên*</div>
+                  <input type="text" name="" placeholder="Nhập Tên " class="nhapname Name-Nhan">
+                </div>
+                <div class="temp-name">
+                  <div class="box-ten">Họ*</div>
+                  <input type="text" name="" placeholder="Nhập Họ " class="nhapname Ho-Nhan">
+                </div>
+              </div>
+              <div>
+                <div class="font-bold">Quốc Gia/Khu Vực*</div>
+                <div class="font-bold">Việt Nam</div>
+              </div>
+              <div class="font-bold">Địa chỉ*</div>
+              <input type="text" placeholder="Nhập địa chỉ" class="Nhapin4 Dia-Chi-Nhan">
+              <div class="font-bold">Thị Trấn/Thành Phố*</div>
+              <input type="text" placeholder="Nhập thành phố" class="Nhapin4 City-Nhan">
+              <div class="font-bold">Số điện thoại</div>
+              <input type="text" placeholder="Nhập số điện thoại" class="Nhapin4 SDT-Nhan">
+              <div class="font-bold">địa chỉ gmail</div>
+              <input type="text" placeholder="Nhập địa chỉ gmail" class="Nhapin4 Gmail-Nhan">
+            </div>
+            <div> Ghi chú đơn hàng(tùy chọn)</div>
+            <input type="text" id="note" placeholder="Ghi chú về đơn hàng">
+          </div>
+        </div>
+
+      </div>
+
+      <div id="all-right-thanhtoan">
+        <div id="element_center_right-thanhtoan">
+          <div class="checkout-product-list"></div>
+          <div class="Tongtien_thanhtoan">Tổng: <span class="SumCart SumCart-thanhtoan_tong"></span></div>
+
+          <input type="radio" name="phuong-thuc-tt" id="cod" class="payment-radio-hidden" checked>
+          <input type="radio" name="phuong-thuc-tt" id="paybank" class="payment-radio-hidden">
+          <input type="radio" name="phuong-thuc-tt" id="inshop" class="payment-radio-hidden">
+
+          <div class="payment-option payment-option-cod">
+            <label for="cod" class="border-label">Thanh toán khi nhận hàng</label>
+
+            <div id="in4cod">
+              Quý khách hàng xem và kiểm tra hàng thoải mái trước khi quyết định thanh toán. Chúng tôi khuyến khích
+              khách
+              hàng vui lòng bóc kiện hàng, xem và kiểm tra hàng trước khi thanh toán ( một số trường hợp quý khách để lộ
+              thông tin đặt hàng trên bài post fanpage facebook hoặc tại một số trang giả mạo, họ sẽ gửi hàng nhái, hàng
+              giả tới địa chỉ nhận hàng của quý khách hàng mà không cho xem hàng).
+            </div>
+          </div>
+
+          <div class="payment-option payment-option-paybank">
+            <label for="paybank" class="border-label">Thanh toán chuyển khoản</label>
+
+            <div id="in4paybank">
+              Bạn ở Hà Nội và muốn tặng quà cho bạn bè hoặc người thân của mình tại TP HCM, bạn ở Huế và muốn tặng quà
+              bạn
+              mình ở Đà Nẵng, bạn muốn bên trong quà tặng của bạn có 1 tấm thiệp ghi những lời chúc tốt đẹp nhất của bạn
+              tới người thân! Rất đơn giản, chúng tôi có giải pháp cho bạn, hãy nhấn ” ĐẶT HÀNG” , chúng tôi sẽ liên hệ
+              lại với bạn ngay sau khi nhận được thông tin đơn hàng, Thông tin tài khoản chuyển khoản sẽ hiển thị sau
+              khi
+              bạn ” ĐẶT HÀNG”
+            </div>
+          </div>
+
+          <div class="payment-option payment-option-inshop">
+            <label for="inshop" class="border-label">Nhận hàng và thanh toán tại cửa hàng</label>
+
+            <div id="in4inshop">
+              Quý khách hàng muốn xem và nhận sản phẩm tại cửa hàng vui lòng ghi chú địa chỉ cửa hàng muốn nhận sản phẩm
+              tại phần ghi chú sau
+              <div>Cổng trước đại học sài gòn đường An Dương Vương</div>
+              <div>Cổng trước đại học sài gòn đường Nguyễn Trải</div>
+              <div>Cổng trước đại học hoạc liên hệ hotline 0xxxxxx </div>
+            </div>
+          </div>
+          <div id="dathangck">
+            <button class="CK_BTN chuyenqua_chuyenkhoan">đặt hàng</button>
+          </div>
+          <div id="dathangCod">
+            <button class="TM_BTN chuyenqua_tienmat">đặt hàng</button>
+          </div>
+          <div id="dathangch">
+            <button class="CH_BTN chuyenqua_cuahang">đặt hàng</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  
+  <div class="KtLogin">
+    <div id="KtLogin-model">
+      <h2>[ERRO] ĐĂNG NHẬP</h2>
+      <p> Bạn cần đăng nhập để Đặt hàng</p>
+      <div id="ButtonLogin"><a href="#login">OK</a></div>
+      <!-- chỗ nàyyyyyyyyyyyyyyyyy -->
+    </div>
+  </div>
+  <!-- div phần thanhtoan -->
+  </div>
+
+  <div id="ThanhToan_TienMat">
+
+    <div id="content_center_menu_shop">
+      <h2>
+        <button class="Menu_Center">Giỏ hàng</button> >
+        <button class="Menu_Center">Đặt Hàng</button> >
+        <button class="Succes active_menu_center">Hoàn thành</button>
+        <h2>
+    </div>
+    <div class="conten-center-cod">
+      <div class="all-left-cod">
+        <div class="checkout-product-list"></div>
+        <div id="ptcod">
+
+        </div>
+      </div>
+      <div id="all-right-ck-end">
+        <div id="righ-center-conten">
+          <div class="ThongTinMuaHang-html"></div>
+        </div>
+      </div>
+    </div>
+    <div class="KetThuc_cod">
+      <div class="ck-success"><button class="PayBank_Succes chuyenqua_giaodich_thanhcong">xem đơn hóa đơn</button></div>
+      <div class="nut-home"><a href="index.html" class="Home">Quay về</a></div>
+    </div>
+
+    <!-- div cod -->
+  </div>
+
+  <div id="ThanhToan_ChuyenKhoan">
+    <div id="content_center_menu_shop">
+      <h2>
+        <button class="Menu_Center">Giỏ hàng</button> >
+        <button class="Menu_Center">Đặt Hàng</button> >
+        <button class="Succes active_menu_center">Hoàn thành</button>
+        <h2>
+    </div>
+    <div id="Conten1">
+      <div class="all-left-center">
+        <div>
+          <div class="display-flex">
+            <div class="all-left">
+              <div class="display-flex">
+                <div class="font-bold">Bước 1:</div>
+                <div>Mở ví điện tử/Ngân hàng</div>
+              </div>
+              <div class="display-flex">
+                <div class="font-bold">Bước 2:</div>
+                <div>quét QR và chuyển khoảng</div>
+              </div>
+              <div>
+                <img src="./assets/img/QR.jpg" id="QR" alt="">
+              </div>
+              <div class="display-flex">
+                <div class="font-bold">bước 3: </div>
+                <div>xác nhận chuyển khoản</div>
+              </div>
+            </div>
+
+            <div class="all-right">
+              <div class="thongtin">THÔNG TIN CHUYỂN KHOẢN</div>
+              <div class="display-flex">
+                <div> ●Ngân hàng: </div>
+                <div class="font-bold"> Ngân hàng quân đội-MB</div>
+              </div>
+              <div class="display-flex">
+                <div>●Số tài khoản: </div>
+                <div class="font-bold"> xxxxxxxxxxx</div>
+              </div>
+              <div class="display-flex">
+                <div>●Chủ tài khoản: </div>
+                <div class="font-bold"> nhóm 10 web thầy sang</div>
+              </div>
+              <div class="display-flex">
+                <div>●số tiền: </div>
+                <div id="font-bold">
+                  <div class="color-red">
+                    <div class="SumCart"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="display-flex">
+                <div>●Nội dung : </div>
+                <div class="font-bold">
+                  <div id="color-red-madh"> in mã đơn </div>
+                </div>
+              </div>
+              <div class="in4">
+                Thanh toán trực tiếp qua tài khoản ngân hàng của chúng tôi.hãy nhập đúng
+                thông tin đơn hàng và kiểm tra số tài khoảng và chủ tài khoản thật kĩ rồi hãy chuyển khoản
+                chuyển khoản xog hãy ấn vào đặt đơn thành công sẽ có người liên hệ với bạn để xác nhận lại đơn hàng.
+                Mọi thắc mắt hay sự cố vui lòng liên hệ hót like:xxxxxxxx hoặc gặp trực tiếp NGUYỄN ĐÌNH CHƯƠNG
+                nhóm 10 web thầy sang
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div id="allck">
+
+          <div class="ck-success"><button class="PayBank_Succes chuyenqua_giaodich_thanhcong">Đã hoàn tất chuyển
+              khoản</button></div>
+          <div class="ck-faile"><button class="HuyThaoTac chuyenqua_giaodich_thatbai">Hủy thao tác chuyển khoản</button>
+          </div>
+        </div>
+      </div>
+      <div class="all-righ-center">
+        <div id="Conten-right ">
+          <div class="chuyen-khoan-checkout checkout-product-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- div chuyển khoản -->
+  </div>
+
+
+
+
+  <div id="ThanhToan_CuaHang">
+    <div>
+
+
+      <div id="content_center_menu_shop">
+        <h2>
+          <button class="Menu_Center">Giỏ hàng</button> >
+          <button class="Menu_Center">Đặt Hàng</button> >
+          <button class="Succes active_menu_center">Hoàn thành</button>
+          <h2>
+      </div>
+      <div class="conten-center">
+        <div id="all-left-ch">
+          <div id="temp">
+            <div>
+              Đã ghi nhận thông tin đặt hàng của bạn.sẽ có người liên hệ lại với bạn
+              trong 1h.Nếu có thắt mắt gì xin liên hệ NGUYỄN ĐÌNH CHƯƠNG : 0354109892
+
+            </div>
+            <div class="font-bold">Địa chỉ nhận hàng: Đại học sài gon (SGU) </div>
+          </div>
+          <div class="checkout-product-list"></div>
+          <div id="ptcod">
+
+          </div>
+        </div>
+        <div id="all-right-ch">
+          <div id="righ-center-conten">
+
+            <div class="ThongTinMuaHang-html"></div>
+          </div>
+        </div>
+      </div>
+      <div class="KetThuc_cod">
+        <div class="ck-success"><button class="PayBank_Succes chuyenqua_giaodich_thanhcong">xem hóa đơn</button></div>
+        <div class="nut-home"><a href="index.html" class="Home">Quay về</a></div>
+      </div>
+      <!-- div thanh toan cua hang -->
+    </div>
+
+
+  </div>
+
+
+
+  <div id="ThanhToan_ThanhCong">
+
+    <div id="tt_success">
+
+      <div id="tick">
+        <div>✔</div>
+        <div> Chúc mừng bạn đã mua hàng thành công</div>
+      </div>
+      <h2>Hóa đơn của bạn</h2>
+      <div class="from-don-hang"></div>
+      <div class="checkout-product-list"></div>
+      <div id="text-center">
+
+        <div> Cảm ơn quý khách đã tin tưởng và sử dụng</div>
+        <div id="nut"><a href="index.html">Quay về</a></div>
+      </div>
+    </div>
+
+
+    <!-- div thanh toan succes -->
+  </div>
+
+
+
+
+  <div id="ThanhToan_ThatBai">
+    <div id="tt_failed">
+      <div id="text-failed">
+        <div id="opss">☹</div>
+        <div> Thật đáng tiếc thanh toán thất bại </div>
+        <div id="nut"><a href="index.html">Quay về</a></div>
+      </div>
+    </div>
+
+    <!-- div thanh toan failed -->
+
+  </div>
+
+
+<div id="LichSuMuaHang">
+  <div id="all-element">
+      </div>
+
+  </div>
+
+
+</div>
+
+
+
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <h4>Showroom</h4>
+        <ul>
+          <li>📍 170 Xã Đàn, Đống Đa, TP. Hà Nội <br>☎️ <span>0943.72.3388</span></li>
+          <li>📍 04 Trần Đăng Ninh, Cầu Giấy, TP. Hà Nội <br>☎️ <span>0941.82.3388</span></li>
+          <li>📍 10 Bế Văn Đàn, Thanh Khê, TP. Đà Nẵng <br>☎️ <span>0942.27.3388</span></li>
+          <li>📍 431 Cách Mạng Tháng 8, Quận 10, TP.HCM <br>☎️ <span>0941.82.3388</span></li>
+          <li>📍 274 Chu Văn An, Bình Thạnh, TP.HCM <br>☎️ <span>0941.82.3388</span></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Hỗ trợ – Chính sách</h4>
+        <ul>
+          <li>Chính sách giao hàng</li>
+          <li>Chính sách kiểm hàng</li>
+          <li>Chính sách đổi hàng</li>
+          <li>Chính sách thanh toán</li>
+          <li>Chính sách bảo hành</li>
+          <li>Chính sách bảo mật</li>
+          <li>Cửa hàng trực tuyến</li>
+          <li>Mua hàng trả góp</li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Danh mục sản phẩm</h4>
+        <ul id="catalog-list">
+          <li data-catalog="G-SHOCK">CASIO G-SHOCK</li>
+          <li data-catalog="BABY-G">CASIO BABY-G</li>
+          <li data-catalog="EDIFICE">CASIO EDIFICE</li>
+          <li data-catalog="SHEEN">CASIO SHEEN</li>
+          <li data-catalog="PRO-TREK">CASIO PRO-TREK</li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Kết nối với chúng tôi</h4>
+        <p>G-STORE® CASIO Official Online Website</p>
+        <p>Kết nối qua Facebook / cập nhật sản phẩm mới nhất</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== SECTIONS - ĐĂNG NHẬP, ĐĂNG KÝ, PROFILE ===== -->
+  
+  <!-- Section Đăng nhập -->
+  <section id="section-login" class="page-section" style="display: none;">
+    <div class="login-box">
+      <h2>ĐĂNG NHẬP</h2>
+      <p class="sub">Vui lòng nhập thông tin đăng nhập</p>
+
+      <form action="#" method="post" id="login-form"> 
+        <div class="input-group">
+          <label for="input-identifier-login" class="required">Tên đăng nhập / Email</label>
+          <input type="text" id="input-identifier-login" name="input-identifier" required /> 
+          <span class="error-message"></span>
+        </div>
+
+        <div class="input-group">
+          <label for="password-login" class="required">Mật khẩu</label>
+          <input type="password" id="password-login" name="password" required />
+          <span class="error-message"></span>
+        </div>
+
+        <div class="remember">
+          <input type="checkbox" id="remember-login" />
+          <label for="remember-login">Ghi nhớ đăng nhập</label>
+        </div>
+
+        <button id="nutdnhap" type="submit">ĐĂNG NHẬP</button>
+
+          <a href="#">Quên mật khẩu?</a>
+        </div>
+        <div class="register">
+          <p>Bạn chưa có tài khoản?
+            <a href="#" data-route="register">Đăng ký ngay</a>
+          </p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Section Đăng ký -->
+  <section id="section-register" class="page-section" style="display: none;">
+    <div class="main-content">
+      <div class="form-container">
+        <h2>ĐĂNG KÝ - KHÁCH HÀNG MỚI</h2>
+        <form action="#" method="post" class="form-login" id="register-form">
+          <div class="input-group">
+            <label for="username-register" class="required">Tên đăng nhập</label>
+            <input type="text" id="username-register" name="username" placeholder="Nhập họ và tên" required />
+            <span class="error-message" id="username-error"></span>
+          </div>
+          <div class="input-group">
+            <label for="email-register" class="required">Email</label>
+            <input type="email" id="email-register" name="email" placeholder="Nhập email" required />
+            <span class="error-message" id="email-error"></span>
+          </div>
+          <div class="input-group">
+            <label for="phone-register" class="required">Số điện thoại</label>
+            <input type="phone" name="phone" id="phone-register" placeholder="Nhập số điện thoại" required>
+            <span class="error-message" id="phone-error"></span>
+          </div>
+          <div class="input-group">
+            <label for="password-register" class="required">Mật khẩu</label>
+            <input type="password" id="password-register" name="password" placeholder="Nhập mật khẩu" required />
+            <span class="error-message" id="password-error"></span>
+          </div>
+          <div class="input-group">
+            <label for="confirmPassword-register" class="required">Nhập lại mật khẩu</label>
+            <input type="password" id="confirmPassword-register" name="confirmPassword" placeholder="Nhập lại mật khẩu"
+              required />
+            <span class="error-message" id="confirmPassword-error"></span>
+          </div>
+          <div class="input-group">
+            <label for="address-register" class="required">Địa chỉ</label>
+            <textarea id="address-register" name="address" rows="3" placeholder="Nhập địa chỉ" required></textarea>
+            <span class="error-message" id="address-error"></span>
+          </div>
+
+          <div class="input-group">
+            <button id="nutdky" type="submit">ĐĂNG KÝ</button>
+          </div>
+
+          <div class="login-link">
+            Bạn đã có tài khoản? <a href="#" data-route="login">Đăng nhập</a>
+          </div>
+        </form>
+      </div>
+
+      <div class="image-side"></div>
+    </div>
+  </section>
+
+  <!-- Section Hồ sơ -->
+  <section id="section-hoso" class="page-section" style="display: none;">
+    <div class="profile-layout">
+      <aside class="profile-sidebar">
+        <div class="user-info">
+          <img id="sideAvatar-hoso" src="./assets/img/Avatar/avtuser.jpg" alt="avatar">
+          <h4 id="sideUsername-hoso">Người dùng</h4>
+        </div>
+        <ul class="sidebar-menu">
+          <li class="active"><a href="#" data-route="hoso">Hồ Sơ</a></li>
+          <li><a href="#" data-route="diachi">Địa Chỉ Giao Hàng</a></li>
+          <li><a href="#" data-route="thongtincanhan">Thông Tin Cá Nhân</a></li>
+          <li><a href="#" data-route="doimatkhau">Đổi Mật Khẩu</a></li>
+        </ul>
+      </aside>
+
+      <section class="profile-content single-column">
+        <h2>Thông tin tài khoản của tôi</h2>
+        <div class="info-box">
+          <div class="info-row"><label>Tên đăng nhập:</label> <span id="usernameDisplay-hoso"></span></div>
+          <div class="info-row"><label>Email:</label> <span id="emailDisplay-hoso"></span></div>
+          <div class="info-row"><label>Số điện thoại:</label><span id="phoneDisplay-hoso"></span></div>
+          <div class="info-row"><label>Địa chỉ hiện tại:</label> <span id="addressDisplay-hoso"></span></div>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <!-- Section Địa chỉ giao hàng -->
+  <section id="section-diachi" class="page-section" style="display: none;">
+    <div class="profile-layout">
+      <aside class="profile-sidebar">
+        <div class="user-info">
+          <img id="sideAvatar-diachi" src="./assets/img/Avatar/avtuser.jpg" alt="avatar">
+          <h4 id="sideUsername-diachi">Người dùng</h4>
+        </div>
+        <ul class="sidebar-menu">
+          <li><a href="#" data-route="hoso">Hồ Sơ</a></li>
+          <li class="active"><a href="#" data-route="diachi">Địa Chỉ</a></li>
+          <li><a href="#" data-route="thongtincanhan">Thông Tin Cá Nhân</a></li>
+          <li><a href="#" data-route="doimatkhau">Đổi Mật Khẩu</a></li>
+        </ul>
+      </aside>
+
+      <section class="profile-content single-column">
+        <div class="address-header">
+          <h2>Địa chỉ của tôi</h2>
+          <button id="addAddressBtn" class="add-btn">+ Thêm địa chỉ mới</button>
+        </div>
+
+        <div id="addressList" class="address-list"></div>
+
+        <!-- Form thêm / sửa -->
+        <div id="addressFormWrap" class="address-form-wrap hidden">
+          <form id="addressForm" class="address-form">
+            <h3 id="addressFormTitle">Thêm địa chỉ</h3>
+
+            <div class="form-group">
+              <label>Người nhận</label>
+              <input type="text" id="addrName" required>
+            </div>
+            <div class="form-group">
+              <label>Số điện thoại</label>
+              <input type="text" id="addrPhone" required>
+            </div>
+            <div class="form-group">
+              <label>Địa chỉ (một dòng)</label>
+              <input type="text" id="addrLine" placeholder="Số nhà, đường, phường, thành phố" required>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="save-btn">Lưu</button>
+              <button type="button" id="cancelAddr" class="cancel-btn">Hủy</button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <!-- Section Thông tin cá nhân -->
+  <section id="section-thongtincanhan" class="page-section" style="display: none;">
+    <div class="profile-layout">
+      <aside class="profile-sidebar">
+        <div class="user-info">
+          <img id="sideAvatar-thongtin" src="./assets/img/Avatar/avtuser.jpg" alt="avatar">
+          <h4 id="sideUsername-thongtin">Người dùng</h4>
+        </div>
+        <ul class="sidebar-menu">
+          <li><a href="#" data-route="hoso">Hồ Sơ</a></li>
+          <li><a href="#" data-route="diachi">Địa Chỉ</a></li>
+          <li class="active"><a href="#" data-route="thongtincanhan">Thông Tin Cá Nhân</a></li>
+          <li><a href="#" data-route="doimatkhau">Đổi Mật Khẩu</a></li>
+        </ul>
+      </aside>
+
+      <section class="profile-content single-column">
+        <div class="profile-header">
+          <h2>Thông tin cá nhân</h2>
+          <button id="editProfileBtn" class="edit-btn">Cập nhật thông tin</button>
+        </div>
+        <p class="subtitle">Bạn có thể chỉnh sửa tên, số điện thoại, địa chỉ</p>
+
+        <form id="profileForm" class="profile-form">
+          <div class="form-group">
+            <label>Tên hiển thị</label>
+            <input type="text" id="nameInput" readonly>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="emailInput" readonly>
+          </div>
+          <div class="form-group">
+            <label>Số điện thoại</label>
+            <input type="text" id="phoneInput" placeholder="Nhập số điện thoại" readonly>
+          </div>
+
+          <div class="form-group">
+            <label>Địa chỉ</label>
+            <input type="text" id="addressInput" placeholder="Số nhà, đường, phường, thành phố" readonly>
+          </div>
+          <div class="form-actions hidden" id="profileFormActions">
+            <button type="submit" class="save-btn">Lưu</button>
+            <button type="button" id="cancelProfileBtn" class="cancel-btn">Hủy</button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </section>
+
+  <!-- Section Đổi mật khẩu -->
+ <section id="section-doimatkhau" class="page-section" style="display: none;">
+    <div class="profile-layout">
+      <aside class="profile-sidebar">
+        <div class="user-info">
+          <img id="sideAvatar-doimatkhau" src="./assets/img/Avatar/avtuser.jpg" alt="avatar">
+          <h4 id="sideUsername-doimatkhau">Người dùng</h4>
+        </div>
+        <ul class="sidebar-menu">
+          <li><a href="#" data-route="hoso">Hồ Sơ</a></li>
+          <li><a href="#" data-route="diachi">Địa Chỉ</a></li>
+          <li><a href="#" data-route="thongtincanhan">Thông Tin Cá Nhân</a></li>
+          <li class="active"><a href="#" data-route="doimatkhau">Đổi Mật Khẩu</a></li>
+        </ul>
+      </aside>
+
+      <section class="profile-content single-column">
+        <h2>Đổi mật khẩu</h2>
+        <p class="subtitle">Thay đổi mật khẩu của bạn</p>
+        <form id="changePasswordForm" class="profile-form">
+          <div class="form-group">
+            <label>Mật khẩu hiện tại</label>
+            <input type="password" id="currentPassword" required>
+          </div>
+          <div class="form-group">
+            <label>Mật khẩu mới</label>
+            <input type="password" id="newPassword" required>
+          </div>
+          <div class="form-group">
+            <label>Xác nhận mật khẩu mới</label>
+            <input type="password" id="confirmNewPassword" required>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="save-btn">Đổi mật khẩu</button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </section>
+
+
+</body>
 </html>
-
