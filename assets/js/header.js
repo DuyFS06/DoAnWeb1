@@ -1,49 +1,151 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  const DEFAULT_AVATAR = "./assets/img/Avatar/avtuser.jpg";
+// --- Hàm cập nhật header dựa trên trạng thái đăng nhập ---
+function updateHeaderUI() {
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    const DEFAULT_AVATAR = "./assets/img/Avatar/avtuser.jpg";
 
-  // Chờ đến khi header được include xong
-  const waitForHeader = setInterval(() => {
     const navLogin = document.querySelector(".nav-login");
-    const navCart = document.querySelector(".nav-cart");
-    const navHistory = document.querySelector(".nav-history");
+    const navCart = document.getElementById("open-cart-btn");
+    const navHistory = document.getElementById("LichSuMuaHangBTN");
     const userAvatar = document.getElementById("userAvatar");
     const usernameDisplay = document.getElementById("usernameDisplay");
     const avatarDropdown = document.getElementById("avatarDropdown");
-    const logoutBtn = document.getElementById("logoutBtn");
 
-    // Nếu header chưa gắn vào DOM thì tiếp tục chờ
-    if (!userAvatar || !navLogin || !logoutBtn) return;
-
-    clearInterval(waitForHeader); // header đã load
-
-    const avatarImg = userAvatar.querySelector("img");
+    if (!userAvatar || !navLogin) return;
 
     if (currentUser) {
-      // --- Đã đăng nhập ---
-      navLogin.style.display = "none";
-      navCart.style.display = "inline-block";
-      navHistory.style.display = "inline-block";
-      userAvatar.style.display = "inline-flex";
-      usernameDisplay.textContent = currentUser.userName;
-      avatarImg.src = currentUser.avatar || DEFAULT_AVATAR;
+        // --- Người dùng đã đăng nhập ---
+        navLogin.style.display = "none";
+        if (navCart) navCart.style.display = "inline-block";
+        if (navHistory) navHistory.style.display = "inline-block";
 
-      // Toggle dropdown
-      userAvatar.addEventListener("click", () => {
-        avatarDropdown.classList.toggle("show");
-      });
+        userAvatar.style.display = "inline-flex";
+        usernameDisplay.textContent = currentUser.userName || "Người dùng";
 
-      // Đăng xuất
-      logoutBtn.addEventListener("click", () => {
-        localStorage.removeItem("currentUser");
-        window.location.href = "./index.html";
-      });
+        const avatarImg = userAvatar.querySelector("img");
+        if (avatarImg) {
+            avatarImg.src = currentUser.avatar || DEFAULT_AVATAR;
+            avatarImg.style.display = "block";
+            avatarImg.alt = currentUser.userName || "Avatar";
+        }
+
+        if (avatarDropdown) avatarDropdown.classList.remove("show");
+
     } else {
-      // --- Chưa đăng nhập ---
-      navLogin.style.display = "inline-block";
-      navCart.style.display = "none";
-      navHistory.style.display = "none";
-      userAvatar.style.display = "none";
+        // --- Chưa đăng nhập ---
+        navLogin.style.display = "inline-block";
+        if (navCart) navCart.style.display = "inline-block";
+        if (navHistory) navHistory.style.display = "inline-block";
+
+        userAvatar.style.display = "none";
+        if (avatarDropdown) avatarDropdown.classList.remove("show");
+        if (usernameDisplay) usernameDisplay.textContent = "";
     }
-  }, 120);
+}
+
+// --- Hàm xử lý logout ---
+function handleLogout() {
+    if (typeof Swal !== "undefined") {
+        Swal.fire({
+            title: "Đăng xuất",
+            text: "Bạn có chắc chắn muốn đăng xuất?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#4f46e5",
+            cancelButtonColor: "#6b7280",
+            confirmButtonText: "Đăng xuất",
+            cancelButtonText: "Hủy",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                localStorage.removeItem("currentUser");
+                updateHeaderUI();
+                if (typeof window.navigateTo === "function") {
+                    window.navigateTo("home");
+                } else {
+                    window.location.href = "./index.html";
+                }
+                Swal.fire({
+                    icon: "success",
+                    title: "Đã đăng xuất",
+                    text: "Bạn đã đăng xuất thành công!",
+                    timer: 1200,
+                    showConfirmButton: false
+                });
+            }
+        });
+    } else {
+        if (confirm("Bạn có chắc chắn muốn đăng xuất?")) {
+            localStorage.removeItem("currentUser");
+            updateHeaderUI();
+            if (typeof window.navigateTo === "function") {
+                window.navigateTo("home");
+            } else {
+                window.location.href = "./index.html";
+            }
+        }
+    }
+}
+
+// --- Event listener DOMContentLoaded ---
+document.addEventListener("DOMContentLoaded", () => {
+    updateHeaderUI();
+
+    const userAvatar = document.getElementById("userAvatar");
+    const avatarDropdown = document.getElementById("avatarDropdown");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    // Hiển thị/ẩn dropdown
+    if (userAvatar && avatarDropdown) {
+        userAvatar.addEventListener("click", (e) => {
+            avatarDropdown.classList.toggle("show");
+        });
+
+        // Ẩn dropdown khi click ngoài
+        document.addEventListener("click", (e) => {
+            if (!userAvatar.contains(e.target) && avatarDropdown.classList.contains("show")) {
+                avatarDropdown.classList.remove("show");
+            }
+        });
+    }
+
+    // Gán sự kiện logout
+    if (logoutBtn) {
+        logoutBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            handleLogout();
+        });
+    }
+
+    // Chặn các chức năng khi chưa login
+    document.addEventListener("click", (e) => {
+        const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+        const target = e.target.closest("#open-cart-btn, #LichSuMuaHangBTN");
+        if (target && !currentUser) {
+            e.preventDefault();
+            if (typeof Swal !== "undefined") {
+                Swal.fire({
+                    icon: "info",
+                    title: "Chưa đăng nhập",
+                    text: "Vui lòng đăng nhập để sử dụng chức năng này!",
+                    confirmButtonText: "Đăng nhập"
+                }).then(() => {
+                    if (typeof window.navigateTo === "function") {
+                        window.navigateTo("login");
+                    } else {
+                        window.location.hash = "login";
+                    }
+                });
+            } else {
+                alert("Bạn cần đăng nhập để sử dụng chức năng này!");
+                if (typeof window.navigateTo === "function") {
+                    window.navigateTo("login");
+                } else {
+                    window.location.hash = "login";
+                }
+            }
+        }
+    });
 });
+
+// Export
+window.updateHeaderUI = updateHeaderUI;
+window.handleLogout = handleLogout;

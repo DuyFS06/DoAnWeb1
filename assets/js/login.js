@@ -1,129 +1,79 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Lấy form đăng nhập từ DOM
     const form = document.getElementById("login-form");
+    if (!form) return;
 
-    // Lấy các trường input. ID đã được thay đổi trong HTML
-    const identifierInput = document.getElementById("input-identifier"); 
-    const passwordInput = document.getElementById("password");
-    
+    const identifierInput = document.getElementById("input-identifier-login");
+    const passwordInput = document.getElementById("password-login");
 
-    /**
-     * Hàm hiển thị popup SweetAlert2. (Giống DangKy.js)
-     */
     const showPopup = (icon, title, text, callback = null) => {
         Swal.fire({
             icon: icon,
             title: title,
             text: text,
             showConfirmButton: false,
-            timer: 1200, 
+            timer: 1200,
             timerProgressBar: true,
-            didClose: () => {
-                if (callback) callback();
-            },
+            didClose: () => { if (callback) callback(); },
         });
     };
-    
 
-    /**
-     * Hiển thị thông báo lỗi ngay dưới trường input.
-     */
-    const showError = (input, message) => {
-        const errorEl = input.parentElement.querySelector(".error-message"); 
-        
-        if (errorEl) {
-            errorEl.textContent = message;
-            errorEl.style.display = "block";
-        }
-        input.classList.add("input-error"); 
+    const showError = (input, msg) => {
+        const errEl = input.parentElement.querySelector(".error-message");
+        if (errEl) { errEl.textContent = msg; errEl.style.display = "block"; }
+        input.classList.add("input-error");
         input.classList.remove("input-success");
     };
 
-    /**
-     * Xóa thông báo lỗi và đặt lại viền input.
-     */
     const clearError = (input) => {
-        const errorEl = input.parentElement.querySelector(".error-message");
-        if (errorEl) {
-             errorEl.textContent = "";
-             errorEl.style.display = "none";
-        }
-        // Xóa class lỗi
-        input.classList.remove("input-error"); 
+        const errEl = input.parentElement.querySelector(".error-message");
+        if (errEl) { errEl.textContent = ""; errEl.style.display = "none"; }
+        input.classList.remove("input-error");
         input.classList.remove("input-success");
     };
 
-    /**
-     * Kiểm tra xem người dùng có tồn tại và mật khẩu có khớp không.
-     */
-    const authenticateUser = (inputIdentifier, password) => {
+    const authenticateUser = (identifier, password) => {
         const userList = JSON.parse(localStorage.getItem("userList")) || [];
-        
-        // Tìm người dùng theo email HOẶC username
-        const user = userList.find(
-            (u) => u.email === inputIdentifier || u.userName === inputIdentifier
-        );
-
-        if (user && user.password === password) {
-            return user; // Đăng nhập thành công
-        }
-        return null; // Thất bại
+        return userList.find(u => (u.email === identifier || u.userName === identifier) && u.password === password) || null;
     };
 
-    // --- EVENT LISTENERS ---
-
-    // 1. Xử lý sự kiện gửi form
     form.addEventListener("submit", (e) => {
-        e.preventDefault(); 
-
-        // Xóa tất cả lỗi cũ
+        e.preventDefault();
         clearError(identifierInput);
         clearError(passwordInput);
 
-        const emailOrUsername = identifierInput.value.trim();
-        const password = passwordInput.value;
-        let isValid = true;
+        const id = identifierInput.value.trim();
+        const pwd = passwordInput.value;
+        if (!id) { showError(identifierInput, "Vui lòng nhập tên đăng nhập hoặc email."); return; }
+        if (!pwd) { showError(passwordInput, "Vui lòng nhập mật khẩu."); return; }
 
-        // Validation cơ bản
-        if (emailOrUsername === "") {
-            showError(identifierInput, "Vui lòng nhập tên đăng nhập hoặc email.");
-            isValid = false;
-        }
+        const user = authenticateUser(id, pwd);
+        if (user) {
+            // Lưu currentUser
+            const currentUser = {
+                userName: user.userName,
+                email: user.email,
+                password: user.password,
+                avatar: user.avatar || "./assets/img/Avatar/avtuser.jpg",
+                address: user.address || "",
+                phone: user.phone || ""
+            };
+            localStorage.setItem("currentUser", JSON.stringify(currentUser));
 
-        if (password === "") {
-            showError(passwordInput, "Vui lòng nhập mật khẩu.");
-            isValid = false;
-        }
+            showPopup("success", "Đăng nhập thành công!", "Chào mừng " + user.userName, () => {
+                // Cập nhật header ngay lập tức
+                if (typeof window.updateHeaderUI === "function") window.updateHeaderUI();
+                if (typeof window.navigateTo === "function") window.navigateTo("home");
+            });
 
-        if (!isValid) return;
-
-        // 2. Xác thực người dùng
-        const user = authenticateUser(emailOrUsername, password);
-
-      if (user) {
-    // Lưu thông tin đăng nhập
-    localStorage.setItem("currentUser", JSON.stringify({
-        userName: user.userName,
-        email: user.email,
-        avatar: user.avatar || "./assets/img/Avatar/avtuser.jpg"
-    }));
-
-    showPopup("success", "Đăng nhập thành công!", "Chào mừng " + user.userName + "...", () => {
-        window.location.href = form.action; // về trang chủ
-    });
-
-    form.reset();
+            form.reset();
         } else {
-            // Hiển thị lỗi chung cho cả 2 trường
-            const errorMessage = "Tên đăng nhập/Email hoặc mật khẩu không đúng.";
-            showError(identifierInput, errorMessage);
-            showError(passwordInput, errorMessage);
-
+            const msg = "Tên đăng nhập/Email hoặc mật khẩu không đúng.";
+            showError(identifierInput, msg);
+            showError(passwordInput, msg);
             showPopup("error", "Đăng nhập thất bại!", "Vui lòng kiểm tra lại thông tin.");
         }
     });
 
-    // 2. Xóa lỗi khi người dùng bắt đầu nhập lại
     identifierInput.addEventListener("input", () => clearError(identifierInput));
     passwordInput.addEventListener("input", () => clearError(passwordInput));
 });

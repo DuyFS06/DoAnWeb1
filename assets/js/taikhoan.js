@@ -6,7 +6,7 @@
   // Nếu cần reset data khi version thay đổi, uncomment dòng dưới
   // if (savedVersion !== DATA_VERSION) { localStorage.removeItem("userList"); localStorage.setItem("dataVersion", DATA_VERSION); }
 
-  const DEFAULT_AVATAR = "/DoAnWeb1/assets/img/Avatar/avtuser.jpg";
+  const DEFAULT_AVATAR = "./assets/img/Avatar/avtuser.jpg";
 
   const defaultUsers = [
     {
