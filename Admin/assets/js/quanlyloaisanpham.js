@@ -102,7 +102,7 @@ function loadCategories() {
         products.forEach(p => {
             const c = (p.catalog || '').toString();
             if (!c) return;
-            catalogCounts[c] = (catalogCounts[c] || 0) + 1;
+            catalogCounts[c] = (catalogCounts[c] || 0) + (p.quantity || 0);
         });
 
         const stored = JSON.parse(localStorage.getItem('categories')) || [];

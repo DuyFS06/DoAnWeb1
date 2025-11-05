@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", function() {
 window.addEventListener("productsUpdated", () => {
     TK_productsLocal = getLocalProducts();
     TK_mangDaLoc = TK_productsLocal;
+    TK_ganSuKien(); // Cập nhật lại danh mục và số lượng
     TK_veBangTonKho(TK_mangDaLoc);
 });
 
@@ -175,6 +176,25 @@ function TK_ganSuKien() {
     // Lọc danh mục
     const locDanhMucSelect = document.getElementById("TK_locDanhMuc");
     if (locDanhMucSelect) {
+        // Xóa tất cả options cũ
+        locDanhMucSelect.innerHTML = '<option value="all">Tất cả sản phẩm</option>';
+
+        // Tạo map để đếm số lượng theo danh mục
+        const categoryCount = new Map();
+        TK_productsLocal.forEach(product => {
+            const catalog = product.catalog;
+            const count = categoryCount.get(catalog) || 0;
+            categoryCount.set(catalog, count + product.quantity);
+        });
+
+        // Thêm options mới với số lượng tồn kho
+        categoryCount.forEach((quantity, catalog) => {
+            const option = document.createElement('option');
+            option.value = catalog;
+            option.textContent = `${catalog} (${quantity} sản phẩm)`;
+            locDanhMucSelect.appendChild(option);
+        });
+
         locDanhMucSelect.addEventListener("change", TK_locTheoDanhMuc);
     }
 
