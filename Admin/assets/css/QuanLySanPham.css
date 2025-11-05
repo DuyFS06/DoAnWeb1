@@ -5,6 +5,7 @@
   background-color: #f6f7fb;
   min-height: calc(100vh - 60px);
   box-sizing: border-box;
+  overflow-x: hidden;
 }
 /* =================== KHUNG CHUNG =================== */
 /* #QLSP_quanLySanPham {
@@ -46,7 +47,6 @@
   max-width: 1050px;
 }
 #QLSP_btnThemMoiSP {
-  margin-left: 400px;
 }
 .QLSP_boLoc select,
 .QLSP_boLoc input[type="text"],
@@ -63,6 +63,17 @@
   color: white;
   border: none;
   transition: 0.2s;
+}
+/* Nhãn ngày lọc */
+.QLNH_boLoc label {
+  font-size: 14px;
+  color: #444;
+  font-weight: 500;
+  margin-left: 8px;
+}
+/* Input ngày */
+.QLNH_boLoc input[type="date"] {
+  min-width: 120px;
 }
 
 #QLSP_btnThemMoiSP:hover {
@@ -457,4 +468,58 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Hộp gợi ý */
+.QLSP_goiY {
+  position: absolute;
+  top: 100%; /* ngay dưới input */
+  left: 0;
+  width: 100%;
+  background: var(--bg-light, #ffffff);
+  border: 1px solid #ddd;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  overflow-y: auto;
+  max-height: 240px;
+  z-index: 1000;
+  display: none;
+  font-family: inherit; /* kế thừa font toàn trang */
+  font-size: 14px; /* đồng bộ với input */
+  color: var(--text-color, #333); /* màu chữ chung */
+  /* Ẩn hoàn toàn thanh cuộn */
+  -ms-overflow-style: none; /* IE và Edge */
+  scrollbar-width: none;
+}
+/* Từng dòng gợi ý */
+.QLSP_goiY div {
+  padding: 10px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+/* Hover */
+.QLSP_goiY div:hover {
+  background: var(--hover-bg, #f5f7fa);
+  color: var(--primary-color, #007bff);
+}
+/* Khi danh sách trống */
+.QLSP_goiY-empty {
+  padding: 10px 12px;
+  color: #999;
+  font-style: italic;
+  text-align: center;
+  background: #fafafa;
+}
+/* Scrollbar tinh tế */
+.QLSP_goiY::-webkit-scrollbar {
+  display: none;
+}
+.QLSP_goiY::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 3px;
+}
+.QLSP_goiY::-webkit-scrollbar-thumb:hover {
+  background: #aaa;
 }
