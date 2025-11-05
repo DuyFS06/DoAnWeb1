@@ -130,4 +130,3 @@ window.addEventListener("storage", (event) => {
     window.dispatchEvent(new Event("productsUpdated"));
   }
 });
-}
