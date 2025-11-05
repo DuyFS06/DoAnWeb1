@@ -439,7 +439,7 @@ function loadCategoriesIntoDropdowns() {
         const dropdowns = ['QLSP_locDanhMuc', 'QLSP_spCatalog', 'QLSP_editCatalog'];
 
         dropdowns.forEach(id => {
-            const select = document.getElementById(id);
+            let select = document.getElementById(id);
             if (!select) {
                 console.log(`Dropdown ${id} not found`);
                 return;
