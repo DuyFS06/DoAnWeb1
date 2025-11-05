@@ -184,30 +184,16 @@ function QLNH_ganSuKienNutHanhDong() {
   document.querySelectorAll(".QLNH_btn-xoa").forEach((btn) =>
     btn.addEventListener("click", () => {
       const ma = btn.dataset.ma;
-      if (confirm("Bạn có chắc muốn xóa phiếu này?")) {
-        QLNH_phieuNhapLocal = QLNH_phieuNhapLocal.filter(
-          (p) => p.maPhieuNhap !== ma
-        );
-        saveLocalPhieuNhap(QLNH_phieuNhapLocal);
-        QLNH_mangDaLocPhieu = QLNH_phieuNhapLocal;
-        QLNH_veBangPhieuNhap(QLNH_phieuNhapLocal);
-      }
+      QLNH_xoaPhieuNhap(ma);
     })
   );
 
-  document.querySelectorAll(".QLNH_btn-hoan-thanh").forEach((btn) =>
+  document.querySelectorAll(".QLNH_btn-hoan-thanh").forEach((btn) => {
     btn.addEventListener("click", () => {
-      const phieu = QLNH_phieuNhapLocal.find(
-        (p) => p.maPhieuNhap === btn.dataset.ma
-      );
-      if (phieu) {
-        phieu.trangThai = "hoanThanh";
-        saveLocalPhieuNhap(QLNH_phieuNhapLocal);
-        QLNH_veBangPhieuNhap(QLNH_phieuNhapLocal);
-        alert("Đã hoàn thành!");
-      }
-    })
-  );
+      const maPhieu = btn.dataset.ma;
+      QLNH_hoanThanhPhieuNhap(maPhieu);
+    });
+  });
 }
 
 // ==================== XEM CHI TIẾT ====================

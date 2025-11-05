@@ -7,13 +7,17 @@
  * Hiển thị chi tiết sản phẩm và ẩn danh sách sản phẩm.
  * @param {string} productId ID của sản phẩm cần hiển thị
  */
+let CTSP_products = getLocalProducts();
+window.addEventListener("productsUpdated", () => {
+  CTSP_products = getLocalProducts();
+});
 function showProductDetail(productId) {
-  const product = products.find(p => p.id === productId);
+  const product = CTSP_products.find((p) => p.id === productId);
   const detailContainer = document.getElementById("product-detail");
   const listContainer = document.getElementById("product-list-wrapper");
   const bannerContainer = document.querySelector(".banner");
-  const GioHang = document.getElementById('GioHang');
-  const Index=document.querySelector('#chitietsanpham-banner-index');
+  const GioHang = document.getElementById("GioHang");
+  const Index = document.querySelector("#chitietsanpham-banner-index");
 
   if (!product) {
     alert("Không tìm thấy sản phẩm!");
@@ -69,7 +73,7 @@ function showProductDetail(productId) {
   // 3. Giỏ hàng và Mua ngay (Logic cũ của bạn)
   document.getElementById("add-to-cart").addEventListener("click", () => {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const exists = cart.find(item => item.id === product.id);
+    const exists = cart.find((item) => item.id === product.id);
     if (exists) exists.quantity += 1;
     else cart.push({ ...product, quantity: 1 });
     localStorage.setItem("cart", JSON.stringify(cart));
@@ -78,13 +82,13 @@ function showProductDetail(productId) {
 
   document.getElementById("buy-now").addEventListener("click", () => {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const exists = cart.find(item => item.id === product.id);
+    const exists = cart.find((item) => item.id === product.id);
     if (exists) exists.quantity += 1;
     else cart.push({ ...product, quantity: 1 });
     localStorage.setItem("cart", JSON.stringify(cart));
     renderAllCartComponents();
-    if(Index)Index.style.display='none';
-    if(GioHang)GioHang.style.display='block'
+    if (Index) Index.style.display = "none";
+    if (GioHang) GioHang.style.display = "block";
   });
 }
 
@@ -97,7 +101,7 @@ function showProductList() {
   const bannerContainer = document.querySelector(".banner");
 
   // Ẩn/Hiện các khu vực
-  detailContainer.style.display = "none"; 
+  detailContainer.style.display = "none";
   if (listContainer) listContainer.style.display = "block"; // Hiển thị lại danh sách
   if (bannerContainer) bannerContainer.style.display = "block"; // Hiển thị lại banner
 
@@ -105,12 +109,11 @@ function showProductList() {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-
 // Khởi tạo (Nếu có ID trên URL, vẫn hiển thị chi tiết cho việc chia sẻ link)
 document.addEventListener("DOMContentLoaded", () => {
   const params = new URLSearchParams(window.location.search);
   const productId = params.get("id");
-  
+
   if (productId) {
     showProductDetail(productId);
   } else {
@@ -119,5 +122,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const listContainer = document.getElementById("product-list-wrapper");
     if (detailContainer) detailContainer.style.display = "none";
     if (listContainer) listContainer.style.display = "block";
+  }
+});
+
+window.addEventListener("storage", (event) => {
+  if (event.key === "productsLocal") {
+    window.dispatchEvent(new Event("productsUpdated"));
   }
 });
