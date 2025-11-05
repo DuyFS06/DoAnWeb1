@@ -158,7 +158,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             let tonkho=truSoluong();
             if(!tonkho){
-                alert('trong kho không đủ số lượng');
                 return;
             }
             // Lưu đơn hàng CHÍNH THỨC
@@ -191,7 +190,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             let tonkho=truSoluong();
             if(!tonkho){
-                alert('trong kho không đủ số lượng');
                 return;
             }
             if (typeof renderAllCartComponents === 'function') {
@@ -224,7 +222,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             let tonkho=truSoluong();
             if(!tonkho){
-                alert('trong kho không đủ số lượng');
                 return;
             }
 
@@ -359,7 +356,8 @@ nutHoanTatThanhCong.forEach(button => {
 
         if (productInStock.quantity < cartItem.quantity) {
             console.error(`Không đủ hàng: ${cartItem.name}. Tồn kho: ${productInStock.quantity}, Cần: ${cartItem.quantity}`);
-            alert(`Rất tiếc, sản phẩm "${cartItem.name}" không đủ số lượng tồn kho. (Tồn kho: ${productInStock.quantity}, Bạn cần: ${cartItem.quantity})`);
+            alert(`Rất tiếc, sản phẩm "${cartItem.name}" không đủ số lượng tồn kho.`);
+            
             return false;
         }
     }
