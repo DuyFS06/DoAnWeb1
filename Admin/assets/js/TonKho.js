@@ -265,14 +265,15 @@ function TK_timTheoMa() {
 
     TK_mangDaLoc = TK_productsLocal.filter((sp) => {
         const matchId = sp.id.toLowerCase().includes(searchValue);
+        const matchName = sp.name.toLowerCase().includes(searchValue);
         const matchCatalog =
             selectedCatalog === "all" ||
             selectedCatalog === "Danh mục" ||
             sp.catalog.toUpperCase() === selectedCatalog.toUpperCase();
-        return matchId && matchCatalog;
+        return (matchId || matchName) && matchCatalog;
     });
 
-    currentPage = 1;
+    TK_currentPage = 1;
     TK_veBangTonKho(TK_mangDaLoc);
     searchInput.focus();
 }
