@@ -19,6 +19,7 @@
     '#Code-Quest-3-4',
     '#LichSuMuaHang',
     '#ThanhToan',
+    '#GioHang',
     '#ThanhToan_ThatBai',
     '#ThanhToan_ThanhCong',
     '#ThanhToan_CuaHang',

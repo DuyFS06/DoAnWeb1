@@ -194,6 +194,7 @@ function renderAllCartComponents() {
  * Hàm này được gọi từ file 'thanhtoan.js'
  */
 function renderSuccessPage() {
+    let madhckout;
     let orderData;
     let productListContainer;//danh sách đơn hàng sẽ ỉn ra
     let addressContainer;//địa chỉ
@@ -202,7 +203,7 @@ function renderSuccessPage() {
     const ckPage = document.querySelector('#ThanhToan_ChuyenKhoan');
     const codPage = document.querySelector('#ThanhToan_TienMat');
     const shopPage = document.querySelector('#ThanhToan_CuaHang');
-
+    const madhck=document.querySelector('.madhck');
     // 2. Lấy đúng dữ liệu đơn hàng
     if (ckPage && ckPage.style.display === 'block') {
         // 2a. Nếu là trang CK, lấy đơn hàng "TẠM" (currentOrder)
@@ -252,7 +253,7 @@ function renderSuccessPage() {
         `;
         addressContainer.innerHTML = addressHtml;
     }
-
+madhckout=`${orderData.id}`;
     // 5. Render danh sách sản phẩm (cho cả 3 trang ck tm ch)
     if (productListContainer) {
         let checkoutHtml = `
@@ -303,6 +304,8 @@ function renderSuccessPage() {
         `;
 
         productListContainer.innerHTML = checkoutHtml;
+        madhck.innerHTML=madhckout;
+
     }
 }
 

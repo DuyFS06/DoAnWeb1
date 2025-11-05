@@ -209,49 +209,156 @@ function searchCustomers() {
 // Reset mật khẩu khách hàng
 function resetPassword(id) {
     if (confirm('Bạn có chắc chắn muốn reset mật khẩu cho khách hàng này?')) {
-        const customers = getCustomersFromStorage();
-        const customerIndex = customers.findIndex(customer => customer.id === id);
+        try {
+            // Lấy danh sách người dùng thô từ userList
+            const rawUserList = JSON.parse(localStorage.getItem('userList')) || [];
 
-        if (customerIndex !== -1) {
-            // Tạo mật khẩu mới ngẫu nhiên
-            const newPassword = generateRandomPassword();
+            // Thử tìm theo id nếu có
+            let userIndex = rawUserList.findIndex(u => u.id === id || (typeof u.id !== 'undefined' && String(u.id) === String(id)));
 
-            // Lưu mật khẩu mới tạm thời vào thuộc tính tempPassword (chỉ để hiển thị, không an toàn)
-            customers[customerIndex].tempPassword = newPassword;
-            customers[customerIndex].passwordReset = true;
-            customers[customerIndex].resetDate = new Date().toISOString();
+            // Nếu không tìm thấy, ánh xạ id -> email/name qua getCustomersFromStorage()
+            if (userIndex === -1) {
+                const mapped = getCustomersFromStorage();
+                const mappedUser = mapped.find(c => String(c.id) === String(id));
+                if (mappedUser) {
+                    userIndex = rawUserList.findIndex(u => {
+                        return (u.email && mappedUser.email && u.email.toLowerCase() === mappedUser.email.toLowerCase()) ||
+                            (u.userName && mappedUser.name && u.userName === mappedUser.name);
+                    });
+                }
+            }
 
-            // Hiển thị thông báo cho quản trị viên
-            writeBackToUserList(customers);
+            if (userIndex !== -1) {
+                // Tạo mật khẩu mới ngẫu nhiên
+                const newPassword = generateRandomPassword();
 
+                // Cập nhật mật khẩu mới trong raw userList
+                rawUserList[userIndex].password = newPassword;
+                rawUserList[userIndex].passwordReset = true;
+                rawUserList[userIndex].resetDate = new Date().toISOString();
+
+                // Lưu lại vào localStorage
+                localStorage.setItem('userList', JSON.stringify(rawUserList));
+
+                // Hiển thị thông báo cho quản trị viên
+                if (typeof AdminDashboard !== 'undefined') {
+                    AdminDashboard.showNotification(
+                        `Đã reset mật khẩu thành công! Mật khẩu mới: ${newPassword}`,
+                        'success'
+                    );
+                } else {
+                    alert(`Đã reset mật khẩu thành công! Mật khẩu mới: ${newPassword}`);
+                }
+
+                // Cập nhật lại giao diện
+                loadCustomers();
+            } else {
+                // Nếu không tìm thấy trong userList, thử cập nhật vào legacy 'customers'
+                const legacy = JSON.parse(localStorage.getItem('customers')) || [];
+                const legacyIndex = legacy.findIndex(c => String(c.id) === String(id) || (c.email && mappedUser && c.email.toLowerCase() === mappedUser.email.toLowerCase()));
+                if (legacyIndex !== -1) {
+                    // Tạo mật khẩu mới ngẫu nhiên
+                    const newPassword = generateRandomPassword();
+                    legacy[legacyIndex].password = newPassword;
+                    legacy[legacyIndex].passwordReset = true;
+                    legacy[legacyIndex].resetDate = new Date().toISOString();
+                    localStorage.setItem('customers', JSON.stringify(legacy));
+                    if (typeof AdminDashboard !== 'undefined') {
+                        AdminDashboard.showNotification(`Đã reset mật khẩu thành công! Mật khẩu mới: ${newPassword}`, 'success');
+                    } else {
+                        alert(`Đã reset mật khẩu thành công! Mật khẩu mới: ${newPassword}`);
+                    }
+                    loadCustomers();
+                } else {
+                    throw new Error('Không tìm thấy tài khoản!');
+                }
+            }
+        } catch (error) {
+            console.error('Lỗi khi reset mật khẩu:', error);
             if (typeof AdminDashboard !== 'undefined') {
-                AdminDashboard.showNotification(`Đã reset mật khẩu. Mật khẩu mới: ${newPassword}`, 'success');
+                AdminDashboard.showNotification('Không thể reset mật khẩu. Vui lòng thử lại!', 'error');
+            } else {
+                alert('Không thể reset mật khẩu. Vui lòng thử lại!');
             }
         }
     }
 }
 
-// Toggle trạng thái khóa/mở khóa tài khoản
+// Thay đổi trạng thái khóa/mở khóa của khách hàng
 function toggleCustomerStatus(id) {
-    const customers = getCustomersFromStorage();
-    const customerIndex = customers.findIndex(customer => customer.id === id);
+    try {
+        // Lấy danh sách người dùng thô từ userList
+        const rawUserList = JSON.parse(localStorage.getItem('userList')) || [];
 
-    if (customerIndex !== -1) {
-        const currentStatus = customers[customerIndex].status;
-        const newStatus = currentStatus === 'active' ? 'blocked' : 'active';
-        const action = newStatus === 'active' ? 'mở khóa' : 'khóa';
+        // Thử tìm theo id nếu có
+        let userIndex = rawUserList.findIndex(u => u.id === id || (typeof u.id !== 'undefined' && String(u.id) === String(id)));
 
-        if (confirm(`Bạn có chắc chắn muốn ${action} tài khoản này?`)) {
-            customers[customerIndex].status = newStatus;
-            customers[customerIndex].statusChangedDate = new Date().toISOString();
+        // Nếu không tìm thấy, ánh xạ id -> email/name qua getCustomersFromStorage()
+        if (userIndex === -1) {
+            const mapped = getCustomersFromStorage();
+            const mappedUser = mapped.find(c => String(c.id) === String(id));
+            if (mappedUser) {
+                userIndex = rawUserList.findIndex(u => {
+                    return (u.email && mappedUser.email && u.email.toLowerCase() === mappedUser.email.toLowerCase()) ||
+                        (u.userName && mappedUser.name && u.userName === mappedUser.name);
+                });
+            }
+        }
+
+        if (userIndex !== -1) {
+            // Toggle trạng thái: cập nhật cả 'status' (active/blocked) và giữ 'locked' cho backward-compat
+            const currentlyBlocked = rawUserList[userIndex].status === 'blocked' || rawUserList[userIndex].locked === true;
+            const nowBlocked = !currentlyBlocked;
+
+            rawUserList[userIndex].status = nowBlocked ? 'blocked' : 'active';
+            rawUserList[userIndex].locked = nowBlocked;
+
+            // Cập nhật thời gian khóa/mở khóa
+            rawUserList[userIndex].lockDate = nowBlocked ? new Date().toISOString() : null;
+
+            // Lưu lại vào localStorage
+            localStorage.setItem('userList', JSON.stringify(rawUserList));
 
             // Hiển thị thông báo cho quản trị viên
-            writeBackToUserList(customers);
-            loadCustomers();
-
+            const statusMessage = nowBlocked ? 'đã khóa' : 'đã mở khóa';
             if (typeof AdminDashboard !== 'undefined') {
-                AdminDashboard.showNotification(`Đã ${action} tài khoản khách hàng`, 'success');
+                AdminDashboard.showNotification(
+                    `Tài khoản ${statusMessage} thành công!`,
+                    'success'
+                );
+            } else {
+                alert(`Tài khoản ${statusMessage} thành công!`);
             }
+
+            // Cập nhật lại giao diện
+            loadCustomers();
+        } else {
+            // Nếu không có raw userList (legacy), cập nhật vào khóa 'customers'
+            const legacy = JSON.parse(localStorage.getItem('customers')) || [];
+            const legacyIndex = legacy.findIndex(c => String(c.id) === String(id));
+            if (legacyIndex !== -1) {
+                const currentlyBlocked = legacy[legacyIndex].status === 'blocked' || legacy[legacyIndex].locked === true;
+                const nowBlocked = !currentlyBlocked;
+                legacy[legacyIndex].status = nowBlocked ? 'blocked' : 'active';
+                legacy[legacyIndex].locked = nowBlocked;
+                legacy[legacyIndex].lockDate = nowBlocked ? new Date().toISOString() : null;
+                localStorage.setItem('customers', JSON.stringify(legacy));
+                if (typeof AdminDashboard !== 'undefined') {
+                    AdminDashboard.showNotification(`Tài khoản ${nowBlocked ? 'đã khóa' : 'đã mở khóa'} thành công!`, 'success');
+                } else {
+                    alert(`Tài khoản ${nowBlocked ? 'đã khóa' : 'đã mở khóa'} thành công!`);
+                }
+                loadCustomers();
+            } else {
+                throw new Error('Không tìm thấy tài khoản!');
+            }
+        }
+    } catch (error) {
+        console.error('Lỗi khi thay đổi trạng thái tài khoản:', error);
+        if (typeof AdminDashboard !== 'undefined') {
+            AdminDashboard.showNotification('Không thể thay đổi trạng thái tài khoản. Vui lòng thử lại!', 'error');
+        } else {
+            alert('Không thể thay đổi trạng thái tài khoản. Vui lòng thử lại!');
         }
     }
 }

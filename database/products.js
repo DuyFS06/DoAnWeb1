@@ -2,16 +2,29 @@
 //Cách đúng để đồng bộ sản phẩm giữa các file
 //Chỉ cần đảm bảo mọi file đều gọi cùng một hàm getLocalProducts() khi cần.
 function getLocalProducts() {
-  const data = localStorage.getItem("productsLocal");
-  if (data) return JSON.parse(data);
-  // Nếu chưa có thì lưu dữ liệu gốc từ file products.js
-  localStorage.setItem("productsLocal", JSON.stringify(products));
-  return products;
+  try {
+    const data = localStorage.getItem("productsLocal");
+    if (data) {
+      const parsedData = JSON.parse(data);
+      if (Array.isArray(parsedData) && parsedData.length > 0) {
+        return parsedData;
+      }
+    }
+    // Nếu không có dữ liệu hoặc dữ liệu không hợp lệ, sử dụng dữ liệu mẫu
+    console.log("Khởi tạo lại dữ liệu sản phẩm từ mẫu");
+    localStorage.setItem("productsLocal", JSON.stringify(products));
+    return products;
+  } catch (error) {
+    console.error("Lỗi khi lấy dữ liệu sản phẩm:", error);
+    return products; // Trả về dữ liệu mẫu nếu có lỗi
+  }
 }
+
 function saveLocalProducts(data) {
   localStorage.setItem("productsLocal", JSON.stringify(data));
   window.dispatchEvent(new Event("productsUpdated"));
 }
+
 function removeLocalProducts() {
   localStorage.removeItem("productsLocal");
 }
@@ -1568,7 +1581,6 @@ function createProductCard(p) {
   });
   return card;
 }
-
 // Render products với phân trang
 function renderProducts(list, page = 1) {
   if (!list) list = getLocalProducts();

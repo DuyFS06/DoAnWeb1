@@ -156,9 +156,17 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!validateForm(formData)) {
                 return; // Dừng lại nếu form lỗi
             }
-
+            let tonkho=truSoluong();
+            if(!tonkho){
+                alert('trong kho không đủ số lượng');
+                return;
+            }
             // Lưu đơn hàng CHÍNH THỨC
             saveOrderToMainList(formData, "COD");
+            localStorage.removeItem('cart');
+            if (typeof renderAllCartComponents === 'function') {
+                renderAllCartComponents(); // Cập nhật icon giỏ hàng về 0
+            }
 
             // Chuyển trang (hiện trang COD)
             if (ThanhToan) ThanhToan.style.display = "none";
@@ -181,7 +189,14 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!validateForm(formData)) {
                 return;
             }
-
+            let tonkho=truSoluong();
+            if(!tonkho){
+                alert('trong kho không đủ số lượng');
+                return;
+            }
+            if (typeof renderAllCartComponents === 'function') {
+            renderAllCartComponents(); 
+            }
 
             // Lưu đơn hàng CHÍNH THỨC
             saveOrderToMainList(formData, "Tại cửa hàng");
@@ -205,6 +220,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const formData = getFormData();
             if (!validateForm(formData)) {
+                return;
+            }
+            let tonkho=truSoluong();
+            if(!tonkho){
+                alert('trong kho không đủ số lượng');
                 return;
             }
 
@@ -233,53 +253,68 @@ document.addEventListener("DOMContentLoaded", function () {
     // --- XỬ LÝ CÁC NÚT SAU KHI ĐẶT HÀNG ---
 
     // Xử lý nút "Xem hóa đơn" (COD/Cửa hàng) hoặc "Đã hoàn tất CK".
-    nutHoanTatThanhCong.forEach(button => {
-        button.addEventListener('click', function (event) {
-            event.preventDefault();
+nutHoanTatThanhCong.forEach(button => {
+    button.addEventListener('click', function (event) {
+        event.preventDefault();
 
-            // 1. Lấy đơn hàng TẠM (nếu có, từ trang CK)
-            let tempOrder = JSON.parse(localStorage.getItem('currentOrder'));
-            let finalOrderData; // Biến để giữ đơn hàng sẽ render
+        // 1. Lấy user hiện tại
+        const currentUserJSON = localStorage.getItem('currentUser');
+        if (!currentUserJSON) {
+            console.error("Lỗi: Không tìm thấy user khi hoàn tất đơn!");
+            alert("Lỗi: Không tìm thấy người dùng. Vui lòng đăng nhập lại.");
+            return;
+        }
+        const userName = JSON.parse(currentUserJSON).userName;
 
-            // 2. Nếu là từ trang CK, push đơn TẠM vào danh sách CHÍNH THỨC
-            if (tempOrder && tempOrder.paymentMethod === "Chuyển khoản") {
-                let danhSachDonHang = JSON.parse(localStorage.getItem('DanhSachDatHang')) || [];
-                danhSachDonHang.push(tempOrder);
-                localStorage.setItem('DanhSachDatHang', JSON.stringify(danhSachDonHang));
-                finalOrderData = tempOrder;
-            } else {
-                // Nếu là COD/Cửa hàng, lấy đơn hàng cuối cùng từ danh sách CHÍNH THỨC
-                let danhSachDonHang = JSON.parse(localStorage.getItem('DanhSachDatHang')) || [];
-                if (danhSachDonHang.length > 0) {
-                    finalOrderData = danhSachDonHang[danhSachDonHang.length - 1];
-                }
-            }
+        // 2. Lấy đơn hàng TẠM (nếu có, từ trang CK)
+        let tempOrder = JSON.parse(localStorage.getItem('currentOrder'));
 
-            // 3. Dọn dẹp LocalStorage
-            localStorage.removeItem('currentOrder'); // Xóa đơn tạm
-            localStorage.removeItem('cart'); // Xóa giỏ hàng
+        // 3. Nếu là từ trang CK, push đơn TẠM vào danh sách CHÍNH THỨC (theo đúng user)
+        if (tempOrder && tempOrder.paymentMethod === "Chuyển khoản") {
             
-            // 4. Ẩn tất cả các trang
-            if (ThanhToan) ThanhToan.style.display = "none";
-            if (ThanhToan_chuyenkhoan) ThanhToan_chuyenkhoan.style.display = "none";
-            if (ThanhToan_tienmat) ThanhToan_tienmat.style.display = "none";
-            if (ThanhToan_cuahang) ThanhToan_cuahang.style.display = "none";
-            if (ThanhToan_ThatBai) ThanhToan_ThatBai.style.display = "none";
-
-            // 5. Hiển thị trang HÓA ĐƠN CUỐI CÙNG
-            if (ThanhToan_ThanhCong) ThanhToan_ThanhCong.style.display = "block";
-
-            // 6. Gọi hàm render HÓA ĐƠN CUỐI CÙNG (từ giohang.js)
-            if (typeof renderFinalSuccessPage === 'function') {
-                renderFinalSuccessPage();
+            // Lấy TOÀN BỘ lịch sử (dưới dạng object)
+            let allOrders = JSON.parse(localStorage.getItem('DanhSachDatHang')) || {};
+            
+            // Lấy danh sách CỦA RIÊNG USER NÀY (hoặc tạo mảng rỗng nếu chưa có)
+            if (!allOrders[userName]) {
+                allOrders[userName] = [];
             }
+            
+            // Push đơn hàng TẠM vào list CỦA RIÊNG USER NÀY
+            allOrders[userName].push(tempOrder);
+            
+            // Lưu TOÀN BỘ object lịch sử (chứa tất cả user) trở lại
+            localStorage.setItem('DanhSachDatHang', JSON.stringify(allOrders));
+        }
+        // (Nếu là COD/Cửa hàng thì không cần làm gì, vì đơn đã được lưu vào 'DanhSachDatHang' trước đó)
 
-            // 7. Cập nhật icon giỏ hàng (về 0)
-            if (typeof renderAllCartComponents === 'function') {
-                renderAllCartComponents();
-            }
-        });
+        // 4. Dọn dẹp LocalStorage (XÓA GIỎ HÀNG VÀ ĐƠN TẠM)
+        localStorage.removeItem('cart');
+        localStorage.removeItem('currentOrder');
+
+        // 5. Ẩn tất cả các trang
+        if (ThanhToan) ThanhToan.style.display = "none";
+        if (ThanhToan_chuyenkhoan) ThanhToan_chuyenkhoan.style.display = "none";
+        if (ThanhToan_tienmat) ThanhToan_tienmat.style.display = "none";
+        if (ThanhToan_cuahang) ThanhToan_cuahang.style.display = "none";
+        if (ThanhToan_ThatBai) ThanhToan_ThatBai.style.display = "none";
+
+        // 6. Hiển thị trang HÓA ĐƠN CUỐI CÙNG
+        if (ThanhToan_ThanhCong) ThanhToan_ThanhCong.style.display = "block";
+
+        // 7. Gọi hàm render HÓA ĐƠN CUỐI CÙNG (từ giohang.js)
+        // Hàm này bây giờ sẽ đọc được đơn hàng cuối cùng của user
+        if (typeof renderFinalSuccessPage === 'function') {
+            renderFinalSuccessPage();
+        }
+
+        // 8. Cập nhật icon giỏ hàng (về 0)
+        // Hàm này render lại giỏ hàng (bây giờ đã rỗng)
+        if (typeof renderAllCartComponents === 'function') {
+            renderAllCartComponents();
+        }
     });
+});
 
     // Xử lý nút "Hủy thao tác" (ở trang CK).
     if (nutHuyThaoTac) {
@@ -300,5 +335,43 @@ document.addEventListener("DOMContentLoaded", function () {
             if (ThanhToan_ThatBai) ThanhToan_ThatBai.style.display = "block";
         });
     }
+
+
+
+
+    function truSoluong() {
+    let products = JSON.parse(localStorage.getItem('productsLocal'));
+    let cart = JSON.parse(localStorage.getItem('cart'));
+
+    if (!products || !cart || cart.length === 0) {
+        console.error("Lỗi: Không tìm thấy 'productsLocal' hoặc 'cart' để trừ số lượng.");
+        return false; 
+    }
+
+    for (const cartItem of cart) {
+        const productInStock = products.find(p => p.id === cartItem.id);
+        
+        if (!productInStock) {
+            console.warn(`Không tìm thấy SP ${cartItem.id} trong kho (productsLocal)`);
+            alert(`Lỗi: Sản phẩm "${cartItem.name}" không tìm thấy trong kho.`);
+            return false;
+        }
+
+        if (productInStock.quantity < cartItem.quantity) {
+            console.error(`Không đủ hàng: ${cartItem.name}. Tồn kho: ${productInStock.quantity}, Cần: ${cartItem.quantity}`);
+            alert(`Rất tiếc, sản phẩm "${cartItem.name}" không đủ số lượng tồn kho. (Tồn kho: ${productInStock.quantity}, Bạn cần: ${cartItem.quantity})`);
+            return false;
+        }
+    }
+
+    cart.forEach(cartItem => {
+        const productInStock = products.find(p => p.id === cartItem.id);
+        productInStock.quantity -= cartItem.quantity;
+    });
+
+    localStorage.setItem('productsLocal', JSON.stringify(products));
+    console.log("Đã cập nhật số lượng tồn kho.");
+    return true;
+}
 
 }); // <-- Đóng DOMContentLoaded

@@ -51,15 +51,33 @@ function updateDashboardMetrics() {
             ordersCount = JSON.parse(localStorage.getItem('ordersLocal')).length || 0;
         }
 
-        // Revenue: prefer phieuNhapHang receipts (dsPhieuNhapHang) or sum orders
+        // Revenue: prefer actual sales orders (ordersLocal / getLocalOrders) first.
+        // Fallback to phieuNhapHang receipts (dsPhieuNhapHang) only if no orders found.
         let revenue = 0;
-        if (typeof dsPhieuNhapHang !== 'undefined' && Array.isArray(dsPhieuNhapHang)) {
-            revenue = dsPhieuNhapHang.reduce((s, r) => s + (Number(r.tongTien) || 0), 0);
-        } else if (typeof getLocalOrders === 'function') {
-            revenue = getLocalOrders().reduce((s, o) => s + (Number(o.total) || 0), 0);
-        } else if (localStorage.getItem('ordersLocal')) {
-            const ol = JSON.parse(localStorage.getItem('ordersLocal')) || [];
-            revenue = ol.reduce((s, o) => s + (Number(o.total) || 0), 0);
+
+        // helper to safely parse numeric values (strip currency symbols/commas)
+        const toNumber = (v) => {
+            if (v == null) return 0;
+            if (typeof v === 'number') return v;
+            const cleaned = String(v).replace(/[^0-9.-]+/g, '');
+            const n = Number(cleaned);
+            return isFinite(n) ? n : 0;
+        };
+
+        // Try orders from API/helper or localStorage first
+        let orders = [];
+        if (typeof getLocalOrders === 'function') {
+            try { orders = getLocalOrders() || []; } catch (e) { orders = []; }
+        }
+        if ((!orders || orders.length === 0) && localStorage.getItem('ordersLocal')) {
+            try { orders = JSON.parse(localStorage.getItem('ordersLocal')) || []; } catch (e) { orders = []; }
+        }
+
+        if (orders && orders.length) {
+            revenue = orders.reduce((s, o) => s + toNumber(o.total), 0);
+        } else if (typeof dsPhieuNhapHang !== 'undefined' && Array.isArray(dsPhieuNhapHang)) {
+            // fallback: sum purchase receipts (tongTien)
+            revenue = dsPhieuNhapHang.reduce((s, r) => s + toNumber(r.tongTien), 0);
         }
 
         // Update DOM (if elements exist)

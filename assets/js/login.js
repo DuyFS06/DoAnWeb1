@@ -19,21 +19,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const showError = (input, msg) => {
         const errEl = input.parentElement.querySelector(".error-message");
-        if (errEl) { errEl.textContent = msg; errEl.style.display = "block"; }
+        if (errEl) { errEl.textContent = msg;
+            errEl.style.display = "block"; }
         input.classList.add("input-error");
         input.classList.remove("input-success");
     };
 
     const clearError = (input) => {
         const errEl = input.parentElement.querySelector(".error-message");
-        if (errEl) { errEl.textContent = ""; errEl.style.display = "none"; }
+        if (errEl) { errEl.textContent = "";
+            errEl.style.display = "none"; }
         input.classList.remove("input-error");
         input.classList.remove("input-success");
     };
 
     const authenticateUser = (identifier, password) => {
         const userList = JSON.parse(localStorage.getItem("userList")) || [];
-        return userList.find(u => (u.email === identifier || u.userName === identifier) && u.password === password) || null;
+        // Try to find matching user by email or userName
+        const matched = userList.find(u => (u.email === identifier || u.userName === identifier) && u.password === password) || null;
+        // If not found in userList, try legacy 'customers'
+        if (!matched) {
+            const legacy = JSON.parse(localStorage.getItem('customers')) || [];
+            return legacy.find(u => (u.email === identifier || u.userName === identifier) && u.password === password) || null;
+        }
+        return matched;
     };
 
     form.addEventListener("submit", (e) => {
@@ -48,6 +57,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const user = authenticateUser(id, pwd);
         if (user) {
+            // Block login if account locked/blocked
+            const isLocked = user.locked === true || user.status === 'blocked';
+            if (isLocked) {
+                showPopup('warning', 'Tài khoản bị khóa', 'Tài khoản của bạn đã bị khóa. Vui lòng liên hệ quản trị để mở khóa.');
+                return;
+            }
             // Lưu currentUser
             const currentUser = {
                 userName: user.userName,
