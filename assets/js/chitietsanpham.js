@@ -26,7 +26,6 @@ function showProductDetail(productId) {
 
   // 1. Render chi tiết sản phẩm (Đã thêm nút "Quay lại")
   detailContainer.innerHTML = `
-    <button class="back-button" onclick="showProductList()"><i>← Quay lại danh sách</i></button>
     <div class="product-info">
       <div class="left">
         <img src="${product.image}" alt="${product.name}">
@@ -70,7 +69,8 @@ function showProductDetail(productId) {
   // Cuộn lên đầu trang
   window.scrollTo({ top: 0, behavior: "smooth" });
 
-  // 3. Giỏ hàng và Mua ngay (Logic cũ của bạn)
+
+// 3. Giỏ hàng và Mua ngay (Logic cũ của bạn)
   document.getElementById("add-to-cart").addEventListener("click", () => {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
     const exists = cart.find((item) => item.id === product.id);
@@ -130,3 +130,4 @@ window.addEventListener("storage", (event) => {
     window.dispatchEvent(new Event("productsUpdated"));
   }
 });
+}
