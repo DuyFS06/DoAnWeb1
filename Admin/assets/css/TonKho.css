@@ -314,3 +314,98 @@
     text-align: center;
   }
 }
+
+/* ============ NGƯỠNG SẮP HẾT HÀNG ============ */
+.nguong-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto; /* Đẩy sang bên phải */
+  font-size: 14px;
+  color: #444;
+  white-space: nowrap;
+}
+
+.nguong-label {
+  font-weight: 600;
+  color: #2e3a59;
+}
+
+.nguong-input {
+  width: 70px;
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.nguong-input:focus {
+  outline: none;
+  border-color: #5062b5;
+  box-shadow: 0 0 0 2px rgba(80, 98, 181, 0.2);
+}
+
+.nguong-donvi {
+  color: #666;
+  font-size: 13px;
+}
+
+/* Responsive: xuống dòng nếu màn hình nhỏ */
+@media (max-width: 768px) {
+  .TK_tab-status {
+    justify-content: center;
+  }
+  .nguong-container {
+    margin-left: 0;
+    margin-top: 10px;
+    justify-content: center;
+  }
+}
+
+/* ============ TÌM KIẾM + GỢI Ý TRONG TỒN KHO ============ */
+.TK_goiY {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  overflow-y: auto;
+  max-height: 240px;
+  z-index: 1000;
+  display: none;
+  font-size: 14px;
+  color: #333;
+  /* Ẩn thanh cuộn */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.TK_goiY::-webkit-scrollbar {
+  display: none;
+}
+
+/* Từng dòng gợi ý */
+.TK_goiY > div {
+  padding: 10px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+  transition: all 0.2s ease;
+}
+.TK_goiY > div:hover {
+  background: #f5f7fa;
+  color: #5062b5;
+  font-weight: 500;
+}
+
+/* Không tìm thấy */
+.TK_goiY-empty {
+  padding: 12px;
+  text-align: center;
+  color: #999;
+  font-style: italic;
+}

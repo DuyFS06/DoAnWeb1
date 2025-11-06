@@ -3,9 +3,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const sectionHoso = document.getElementById("section-hoso");
   if (!sectionHoso) return; // Nếu không có section thì thoát
 
-  // -----------------------------
-  // Helper function: cập nhật sidebar / nội dung hồ sơ
-  // -----------------------------
+
+  // function: cập nhật sidebar / nội dung hồ sơ
   function renderHoso(user) {
   if (!user) return;
 
@@ -20,17 +19,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const usernameDisplay = document.getElementById("usernameDisplay-hoso");
   const emailDisplay = document.getElementById("emailDisplay-hoso");
   const addressDisplay = document.getElementById("addressDisplay-hoso");
-  const phoneDisplay = document.getElementById("phoneDisplay-hoso"); // thêm dòng này
+  const phoneDisplay = document.getElementById("phoneDisplay-hoso"); 
 
   if (usernameDisplay) usernameDisplay.textContent = user.userName || "";
   if (emailDisplay) emailDisplay.textContent = user.email || "";
-  if (phoneDisplay) phoneDisplay.textContent = user.phone || "Chưa có số điện thoại"; // thêm
+  if (phoneDisplay) phoneDisplay.textContent = user.phone || "Chưa có số điện thoại"; 
   if (addressDisplay) addressDisplay.textContent = user.address || "Chưa có địa chỉ";
 }
 
-  // -----------------------------
+
   // Header - update UI
-  // -----------------------------
   const waitForHeader = setInterval(() => {
     const navCart = document.querySelector(".nav-cart");
     const navHistory = document.querySelector(".nav-history");
@@ -88,9 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }, 100);
 
-  // -----------------------------
   // Khi người dùng muốn vào hồ sơ, kiểm tra login
-  // -----------------------------
   window.showHosoSection = function () {
     // Lấy trực tiếp currentUser khi muốn render hồ sơ
     const user = JSON.parse(localStorage.getItem("currentUser"));
@@ -115,9 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
     renderHoso(user);
   };
 
-  // -----------------------------
   // Tự động render hồ sơ khi vừa đăng nhập xong
-  // -----------------------------
   const autoRender = () => {
     const user = JSON.parse(localStorage.getItem("currentUser"));
     if (user) renderHoso(user);

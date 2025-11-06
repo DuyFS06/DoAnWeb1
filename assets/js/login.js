@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
             title: title,
             text: text,
             showConfirmButton: false,
-            timer: 1200,
+            timer: 900,
             timerProgressBar: true,
             didClose: () => { if (callback) callback(); },
         });
@@ -35,9 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const authenticateUser = (identifier, password) => {
         const userList = JSON.parse(localStorage.getItem("userList")) || [];
-        // Try to find matching user by email or userName
         const matched = userList.find(u => (u.email === identifier || u.userName === identifier) && u.password === password) || null;
-        // If not found in userList, try legacy 'customers'
         if (!matched) {
             const legacy = JSON.parse(localStorage.getItem('customers')) || [];
             return legacy.find(u => (u.email === identifier || u.userName === identifier) && u.password === password) || null;
@@ -57,7 +55,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const user = authenticateUser(id, pwd);
         if (user) {
-            // Block login if account locked/blocked
             const isLocked = user.locked === true || user.status === 'blocked';
             if (isLocked) {
                 showPopup('warning', 'Tài khoản bị khóa', 'Tài khoản của bạn đã bị khóa. Vui lòng liên hệ quản trị để mở khóa.');

@@ -1,8 +1,4 @@
-/* =========================
-   CSS Profile Tổng Hợp (Rút gọn & hiện đại)
-========================= */
-
-/* === Layout chung === */
+/*  Layout chung */
 .profile-layout {
   width: 90%;
   margin: 95px auto;
@@ -75,7 +71,7 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
-/* === Tiêu đề section === */
+/* Tiêu đề section */
 .profile-content h2 {
   color: #0073e6;
   font-size: 20px;
@@ -90,7 +86,7 @@
   margin-bottom: 16px;
 }
 
-/* === Form chung === */
+/*  Form chung */
 .profile-form .form-group {
   margin-bottom: 16px;
 }
@@ -120,7 +116,7 @@
   background: #fff;
 }
 
-/* === Nút Lưu / Hủy / Thêm / Sửa (ĐÃ RÚT GỌN) === */
+/* Nút Lưu / Hủy / Thêm / Sửa */
 .save-btn,
 #addAddressBtn,
 #editProfileBtn,
@@ -162,7 +158,7 @@
   background: #e0e0e0;
 }
 
-/* === Info box cho Hồ Sơ === */
+/*Info box cho Hồ Sơ */
 .info-box {
   background: #f9f9f9;
   border: 1px solid #ddd;
@@ -194,7 +190,7 @@
   font-size: 14px;
 }
 
-/* === Section Hồ Sơ, Thông Tin Cá Nhân, Đổi Mật Khẩu chung === */
+/* Section Hồ Sơ, Thông Tin Cá Nhân, Đổi Mật Khẩu chung */
 #section-thongtin .profile-header,
 #section-doimatkhau .profile-header {
   display: flex;
@@ -240,9 +236,25 @@
   flex: 1;
 }
 
+/* Thêm phần hiển thị label rõ ràng */
+.address-left .addr-name,
+.address-left .addr-phone,
+.address-left .addr-email,
+.address-left .addr-address {
+  font-size: 13px;
+  color: #333;
+  margin-bottom: 3px;
+}
+
+.address-left strong {
+  color: #000;
+  font-weight: 600;
+  margin-right: 4px;
+}
+
+/*  phần cũ vẫn giữ nguyên */
 .address-left .addr-name {
   font-weight: 600;
-  color: #0073e6;
   font-size: 14px;
 }
 
@@ -294,7 +306,7 @@
   background: #ffd6d6;
 }
 
-/* === Message Box chung === */
+/* Message Box chung  */
 #message-box {
   position: fixed;
   top: 20px;
@@ -316,7 +328,7 @@
   background-color: #e63946;
 }
 
-/* === Responsive === */
+/* Responsive */
 @media(max-width: 900px) {
   .profile-layout {
     display: block;
@@ -360,6 +372,12 @@
     display: flex;
     justify-content: flex-end;
     gap: 6px;
+  }
+
+  .addr-email {
+    font-size: 13px;
+    color: #555;
+    margin: 2px 0;
   }
 
   #section-thongtin .profile-header {

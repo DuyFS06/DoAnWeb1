@@ -1,4 +1,4 @@
-// --- Hàm cập nhật header dựa trên trạng thái đăng nhập ---
+// Hàm cập nhật header dựa trên trạng thái đăng nhập 
 function updateHeaderUI() {
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
     const DEFAULT_AVATAR = "./assets/img/Avatar/avtuser.jpg";
@@ -13,7 +13,7 @@ function updateHeaderUI() {
     if (!userAvatar || !navLogin) return;
 
     if (currentUser) {
-        // --- Người dùng đã đăng nhập ---
+        // Người dùng đã đăng nhập 
         navLogin.style.display = "none";
         if (navCart) navCart.style.display = "inline-block";
         if (navHistory) navHistory.style.display = "inline-block";
@@ -31,7 +31,7 @@ function updateHeaderUI() {
         if (avatarDropdown) avatarDropdown.classList.remove("show");
 
     } else {
-        // --- Chưa đăng nhập ---
+        // Chưa đăng nhập
         navLogin.style.display = "inline-block";
         if (navCart) navCart.style.display = "inline-block";
         if (navHistory) navHistory.style.display = "inline-block";
@@ -42,7 +42,7 @@ function updateHeaderUI() {
     }
 }
 
-// --- Hàm xử lý logout ---
+//Hàm xử lý logout 
 function handleLogout() {
     if (typeof Swal !== "undefined") {
         Swal.fire({
@@ -85,7 +85,7 @@ function handleLogout() {
     }
 }
 
-// --- Event listener DOMContentLoaded ---
+// Event listener DOMContentLoaded
 document.addEventListener("DOMContentLoaded", () => {
     updateHeaderUI();
 
@@ -146,6 +146,5 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-// Export
 window.updateHeaderUI = updateHeaderUI;
 window.handleLogout = handleLogout;

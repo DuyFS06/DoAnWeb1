@@ -1,13 +1,11 @@
-// ==============================
-// 🔹 QUẢN LÝ TRANG THÔNG TIN CÁ NHÂN
-// ==============================
+
+//  QUẢN LÝ TRANG THÔNG TIN CÁ NHÂN
 document.addEventListener("DOMContentLoaded", () => {
   const sectionThongTin = document.getElementById("section-thongtincanhan");
   if (!sectionThongTin) return;
 
-  // ==============================
-  // 🔹 KHỞI TẠO SIDEBAR NGƯỜI DÙNG
-  // ==============================
+
+  // KHỞI TẠO SIDEBAR NGƯỜI DÙNG
   const sideAvatar = document.getElementById("sideAvatar-thongtin");
   const sideUsername = document.getElementById("sideUsername-thongtin");
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -19,9 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
       sideUsername.textContent = currentUser.userName || "Người dùng";
   }
 
-  // ==============================
-  // 🔹 LẤY CÁC TRƯỜNG TRONG FORM
-  // ==============================
+  // LẤY CÁC TRƯỜNG TRONG FORM
   const nameInput = document.getElementById("nameInput");
   const emailInput = document.getElementById("emailInput");
   const phoneInput = document.getElementById("phoneInput");
@@ -32,9 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const cancelBtn = document.getElementById("cancelProfileBtn");
   const profileForm = document.getElementById("profileForm");
 
-  // ==============================
-  // 🔹 HÀM ĐIỀN DỮ LIỆU VÀO FORM
-  // ==============================
+  // HÀM ĐIỀN DỮ LIỆU VÀO FORM
   function fillForm(user) {
     if (!user) return;
     nameInput.value = user.userName || "";
@@ -43,9 +37,8 @@ document.addEventListener("DOMContentLoaded", () => {
     addressInput.value = user.address || "";
   }
 
-  // ==============================
-  // 🔹 HIỂN THỊ FORM THÔNG TIN CÁ NHÂN
-  // ==============================
+
+  // HIỂN THỊ FORM THÔNG TIN CÁ NHÂN
   window.showThongTinCaNhan = function () {
     const user = JSON.parse(localStorage.getItem("currentUser"));
     if (!user) {
@@ -65,9 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
     fillForm(user);
   };
 
-  // ==============================
-  // 🔹 CHO PHÉP CHỈNH SỬA FORM
-  // ==============================
+  // CHO PHÉP CHỈNH SỬA FORM
   function enableEdit() {
     [nameInput, emailInput, phoneInput, addressInput].forEach((i) =>
       i.removeAttribute("readonly")
@@ -76,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
     editBtn.style.display = "none";
   }
 
-  // 🔹 KHÓA LẠI FORM (chỉ xem)
+  // KHÓA LẠI FORM (chỉ xem)
   function disableEdit() {
     [nameInput, emailInput, phoneInput, addressInput].forEach((i) =>
       i.setAttribute("readonly", true)
@@ -85,9 +76,8 @@ document.addEventListener("DOMContentLoaded", () => {
     editBtn.style.display = "inline-block";
   }
 
-  // ==============================
-  // 🔹 XỬ LÝ NÚT SỬA VÀ HỦY
-  // ==============================
+ 
+  //  XỬ LÝ NÚT SỬA VÀ HỦY
   editBtn.addEventListener("click", enableEdit);
   cancelBtn.addEventListener("click", () => {
     const user = JSON.parse(localStorage.getItem("currentUser"));
@@ -95,9 +85,8 @@ document.addEventListener("DOMContentLoaded", () => {
     disableEdit();
   });
 
-  // ==============================
-  // 🔹 LƯU DỮ LIỆU SAU KHI CHỈNH
-  // ==============================
+
+  // LƯU DỮ LIỆU SAU KHI CHỈNH
   function saveUser() {
     const user = JSON.parse(localStorage.getItem("currentUser"));
     if (!user) return;
@@ -117,9 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("userList", JSON.stringify(userList));
   }
 
-  // ==============================
-  // 🔹 KHI NHẤN NÚT “LƯU”
-  // ==============================
+  // KHI NHẤN NÚT “LƯU”
   profileForm.addEventListener("submit", (e) => {
     e.preventDefault();
     saveUser();
@@ -131,9 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
     disableEdit();
   });
 
-  // ==============================
-  // 🔹 KHI LOAD TRANG
-  // ==============================
+  // KHI LOAD TRANG
   const user = JSON.parse(localStorage.getItem("currentUser"));
   if (user) fillForm(user);
 });

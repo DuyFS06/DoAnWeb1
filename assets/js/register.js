@@ -50,7 +50,6 @@ document.addEventListener("DOMContentLoaded", () => {
         inputElement.classList.remove("input-success");
         errorSpan.textContent = message;
         errorSpan.style.display = "block";
-        // reset confirm color if it's confirm span
         if (errorSpan === errorSpans.confirmPassword) errorSpan.style.color = "";
     };
 

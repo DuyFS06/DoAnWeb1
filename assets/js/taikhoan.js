@@ -14,6 +14,7 @@
       email: "admin@example.com",
       password: "Admin123",
       address: "Hà Nội",
+      phone: "0909000001",
       avatar: "./assets/img/Avatar/ava1.jpg",
       isLoggedIn: false,
     },
@@ -22,6 +23,7 @@
       email: "demo@example.com",
       password: "Demo1234",
       address: "TP. Hồ Chí Minh",
+      phone: "0909000002",
       avatar: "./assets/img/Avatar/ava2.jpg",
       isLoggedIn: false,
     },
@@ -30,14 +32,13 @@
       email: "john@example.com",
       password: "John1234",
       address: "Đà Nẵng",
+      phone: "0909000003",
       avatar: "./assets/img/Avatar/ava3.jpg",
       isLoggedIn: false,
     },
   ];
 
-
   let userList = JSON.parse(localStorage.getItem("userList")) || [];
-
 
   defaultUsers.forEach((du) => {
     const exists = userList.some(
@@ -46,7 +47,6 @@
         (u.userName && du.userName && u.userName === du.userName)
     );
     if (!exists) {
-      // nếu default user không khai avatar => gán mặc định
       const toAdd = { ...du, avatar: du.avatar || DEFAULT_AVATAR };
       userList.push(toAdd);
     }
@@ -58,6 +58,7 @@
   }));
 
   localStorage.setItem("userList", JSON.stringify(userList));
-  // Lưu version để về sau dễ reset nếu cần
-  if (!localStorage.getItem("dataVersion")) localStorage.setItem("dataVersion", DATA_VERSION);
+
+  if (!localStorage.getItem("dataVersion"))
+    localStorage.setItem("dataVersion", DATA_VERSION);
 })();

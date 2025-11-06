@@ -46,6 +46,7 @@ const products = [
     image: "assets/img/Baby-G/BA-110AH-6A.jpg",
     importPrice: 3315000, // 75% của 4420000
     quantity: 250,
+    soldQuantity: 0,
     visibility: "hidden",
     description: `
       Mềm mại và tinh tế, nhưng vẫn táo bạo và phong cách. Chúng tôi bắt đầu với chiếc BA-110 đặc trưng 
@@ -77,6 +78,7 @@ const products = [
     image: "assets/img/Baby-G/BG-169U-3.jpg",
     importPrice: 2096000, // 80% của 2620000
     quantity: 9,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
       Dòng BG-169 được trang bị với gờ bảo vệ phía trước dạng tròn tăng khả năng chống va đập. 
@@ -104,6 +106,7 @@ const products = [
     image: "assets/img/Baby-G/BGA-280TD-7A.jpg",
     importPrice: 2816000, // 80% của 3520000
     quantity: 300,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
       Mang đến nét vui tươi cho phong cách của bạn, với BABY-G có kiểu nhuộm loang nhẹ nhàng. 
@@ -135,16 +138,17 @@ const products = [
     image: "assets/img/Baby-G/BGA-290-1A.png",
     importPrice: 2362500, // 75% của 3150000
     quantity: 180,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
-      Chiếc đồng hồ công phu bằng kim loại vừa tinh tế lại nổi bật tạo cho bạn một vẻ ngoài đầy phong cách.
-      Chiếc đồng hồ BABY-G này có độ bền chắc như bạn mong đợi với phong cách thiết kế mỏng, nhẹ, có vỏ tròn, 
-      đơn giản và mặt đồng hồ rộng giúp bạn dễ đọc hơn. Nổi bật với các vạch chỉ giờ bằng số La Mã tạo 
-      nên điểm nhấn thanh lịch, trong khi kim đồng hồ, vạch chỉ giờ và đường gờ đều được xử lý bằng 
-      phương pháp lắng đọng hơi nước màu vàng hồng tạo thành lớp kim loại bóng mịn đẹp mắt.
-      Cấu trúc chống va đập bền chắc và khả năng chống nước ở độ sâu 100 mét trong một thiết kế vừa sành điệu 
-      vừa thoải mái, giúp bạn luôn sẵn sàng đối mặt với bất cứ điều gì xảy ra
-    `,
+    Chiếc đồng hồ công phu bằng kim loại vừa tinh tế lại nổi bật tạo cho bạn một vẻ ngoài đầy phong cách.
+    Chiếc đồng hồ BABY-G này có độ bền chắc như bạn mong đợi với phong cách thiết kế mỏng, nhẹ, có vỏ tròn, 
+    đơn giản và mặt đồng hồ rộng giúp bạn dễ đọc hơn. Nổi bật với các vạch chỉ giờ bằng số La Mã tạo 
+    nên điểm nhấn thanh lịch, trong khi kim đồng hồ, vạch chỉ giờ và đường gờ đều được xử lý bằng 
+    phương pháp lắng đọng hơi nước màu vàng hồng tạo thành lớp kim loại bóng mịn đẹp mắt.
+    Cấu trúc chống va đập bền chắc và khả năng chống nước ở độ sâu 100 mét trong một thiết kế vừa sành điệu 
+    vừa thoải mái, giúp bạn luôn sẵn sàng đối mặt với bất cứ điều gì xảy ra
+  `,
     movement: "Solar (Năng lượng ánh sáng)",
     size: "42.8mm",
     thickness: "7.5mm",
@@ -167,16 +171,17 @@ const products = [
     image: "assets/img/Baby-G/BGA-310C-1A.jpg",
     importPrice: 3424000, // 80% của 4280000
     quantity: 400,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
-      Thỏa sức ngao du ngoài trời với mẫu đồng hồ BGA-310 sành điệu và 
-      mạnh mẽ. Đồng hồ BABY-G có nhiều chất liệu khác nhau giúp bạn thể hiện tình yêu 
-      với thiên nhiên, trong đó có dây đeo bằng vải làm từ chai nhựa tái chế thân thiện với môi trường. 
-      Chiếc đồng hồ có phần vấu nối dây đeo vừa vặn phù hợp với mọi chuyển động. Màu đen linh hoạt, 
-      tuy cổ điển nhưng luôn hợp thời. Mặt đồng hồ tròn và rộng kết hợp dây đeo lớn và vạch chỉ giờ nổi 
-      làm tôn lên vẻ ngoài nghịch ngợm và giúp bạn dễ đọc. Dây đeo màu sáng giúp hiển thị giờ rõ ràng 
-      ngay cả trong bóng tối để bạn xem nhanh hơn.
-    `,
+    Thỏa sức ngao du ngoài trời với mẫu đồng hồ BGA-310 sành điệu và 
+    mạnh mẽ. Đồng hồ BABY-G có nhiều chất liệu khác nhau giúp bạn thể hiện tình yêu 
+    với thiên nhiên, trong đó có dây đeo bằng vải làm từ chai nhựa tái chế thân thiện với môi trường. 
+    Chiếc đồng hồ có phần vấu nối dây đeo vừa vặn phù hợp với mọi chuyển động. Màu đen linh hoạt, 
+    tuy cổ điển nhưng luôn hợp thời. Mặt đồng hồ tròn và rộng kết hợp dây đeo lớn và vạch chỉ giờ nổi 
+    làm tôn lên vẻ ngoài nghịch ngợm và giúp bạn dễ đọc. Dây đeo màu sáng giúp hiển thị giờ rõ ràng 
+    ngay cả trong bóng tối để bạn xem nhanh hơn.
+  `,
     movement: "Tough Solar (Chạy bằng năng lượng mặt trời)",
     size: "51.9mm",
     thickness: "15.8mm",
@@ -199,14 +204,15 @@ const products = [
     image: "assets/img/Baby-G/BGD-570BC-3.png",
     importPrice: 2887500, // 75% của 3850000
     quantity: 5,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
-      Chiếc BGD-570 tiêu chuẩn với màu xanh pastel và hồng pastel. 
-      Các màu này vốn được ưa chuộng vào những năm 1980 và thể hiện tinh thần tự do thời bấy giờ. 
-      Mặt đồng hồ được trang trí bằng hình ảnh cây cọ và cảnh hoàng hôn trên biển với các màu pastel 
-      hoài cổ, trong khi thiết kế tổng thể mang đến cảm giác hoài niệm về niềm vui mùa hè hoặc các cảnh đẹp 
-      trong những tháng thời tiết ấm áp.
-    `,
+    Chiếc BGD-570 tiêu chuẩn với màu xanh pastel và hồng pastel. 
+    Các màu này vốn được ưa chuộng vào những năm 1980 và thể hiện tinh thần tự do thời bấy giờ. 
+    Mặt đồng hồ được trang trí bằng hình ảnh cây cọ và cảnh hoàng hôn trên biển với các màu pastel 
+    hoài cổ, trong khi thiết kế tổng thể mang đến cảm giác hoài niệm về niềm vui mùa hè hoặc các cảnh đẹp 
+    trong những tháng thời tiết ấm áp.
+  `,
     movement: "Pin / Quartz",
     size: "51.7mm",
     thickness: "15.8mm",
@@ -230,13 +236,14 @@ const products = [
     visibility: "visible",
     importPrice: 4224500, // 85% của 4970000
     quantity: 320,
+    soldQuantity: 0,
     description: `
-      Đặc điểm nổi bật của mẫu này là họa tiết ngựa vằn trên chất liệu nhựa màu đen 
-      bán trong suốt. Ngựa vằn là họa tiết phổ biến trong những năm 90, là lựa chọn hoàn hảo 
-      cho mẫu hợp tác kỷ niệm giai đoạn bắt đầu của BABY-G và X-girl.
-      Vòng dây đeo và mặt đồng hồ tôn lên logo của X-girl trong khi nắp sau làm nổi bật logo 
-      do đạo diễn phim và video âm nhạc Mike Mills thiết kế.
-    `,
+    Đặc điểm nổi bật của mẫu này là họa tiết ngựa vằn trên chất liệu nhựa màu đen 
+    bán trong suốt. Ngựa vằn là họa tiết phổ biến trong những năm 90, là lựa chọn hoàn hảo 
+    cho mẫu hợp tác kỷ niệm giai đoạn bắt đầu của BABY-G và X-girl.
+    Vòng dây đeo và mặt đồng hồ tôn tôn lên logo của X-girl trong khi nắp sau làm nổi bật logo 
+    do đạo diễn phim và video âm nhạc Mike Mills thiết kế.
+  `,
     movement: "Solar (Năng lượng ánh sáng)",
     size: "28mm",
     thickness: "6.4mm",
@@ -259,16 +266,17 @@ const products = [
     image: "assets/img/Baby-G/LOV-20A-7A-b.png",
     importPrice: 4416000, // 80% của 5520000
     quantity: 200,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
-      Các mẫu đôi trong bộ sưu tập G PRESENTS LOVER 2020 với motif hoa hồng 
-      tượng trưng cho tình yêu vĩnh cửu.
-      Các mẫu cơ bản GA-120 và BA-130 được khoác lớp áo màu trắng cơ bản đại diện 
-      cho tình yêu thuần khiết, và được tô điểm bằng các điểm nhấn màu vàng hồng.
-      Trục kim đồng hồ được trang trí bằng một hoa hồng duy nhất, vì vậy khi mẫu đồng hồ này được đeo 
-      theo cặp, chúng sẽ mang đến thông điệp “Cả thế giới này chỉ có đôi ta.”
-      Nắp sau của các mẫu này được in hình thiên thần và ác quỷ cùng với năm 2020.
-    `,
+    Các mẫu đôi trong bộ sưu tập G PRESENTS LOVER 2020 với motif hoa hồng 
+    tượng trưng cho tình yêu vĩnh cửu.
+    Các mẫu cơ bản GA-120 và BA-130 được khoác lớp áo màu trắng cơ bản đại diện 
+    cho tình yêu thuần khiết, và được tô điểm bằng các điểm nhấn màu vàng hồng.
+    Trục kim đồng hồ được trang trí bằng một hoa hồng duy nhất, vì vậy khi mẫu đồng hồ này được đeo 
+    theo cặp, chúng sẽ mang đến thông điệp “Cả thế giới này chỉ có đôi ta.”
+    Nắp sau của các mẫu này được in hình thiên thần và ác quỷ cùng với năm 2020.
+  `,
     movement: "Pin / Quartz",
     size: "44.4mm",
     thickness: "16.1mm",
@@ -291,14 +299,15 @@ const products = [
     image: "assets/img/Baby-G/MSG-S200D-7A.png",
     importPrice: 5000000, // 80% của 6250000
     quantity: 150,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
-      Từ dòng đồng hồ BABY-G G-MS dành cho phái nữ hiện đại năng động và tinh tế ngày nay, 
-      một bộ sưu tập mẫu đồng hồ sành điệu mới sở hữu thiết kế kim loại nhỏ gọn dựa trên mẫu đồng hồ 
-      hoàn toàn bằng kim loại MSG-S200 đã ra đời. Vỏ, gờ và dây đeo đều được làm bằng kim loại rắn và vạch 
-      giờ cũng có sắc ánh kim làm tôn thêm vẻ sắc sảo của thiết kế. Vỏ, gờ và dây đeo của mẫu này có màu bạc nữ tính 
-      hoặc vàng hồng. Cả hai màu sắc này đều kết hợp hài hòa với nhiều phong cách khác nhau.
-    `,
+    Từ dòng đồng hồ BABY-G G-MS dành cho phái nữ hiện đại năng động và tinh tế ngày nay, 
+    một bộ sưu tập mẫu đồng hồ sành điệu mới sở hữu thiết kế kim loại nhỏ gọn dựa trên mẫu đồng hồ 
+    hoàn toàn bằng kim loại MSG-S200 đã ra đời. Vỏ, gờ và dây đeo đều được làm bằng kim loại rắn và vạch 
+    giờ cũng có sắc ánh kim làm tôn thêm vẻ sắc sảo của thiết kế. Vỏ, gờ và dây đeo của mẫu này có màu bạc nữ tính 
+    hoặc vàng hồng. Cả hai màu sắc này đều kết hợp hài hòa với nhiều phong cách khác nhau.
+  `,
     movement: "Tough Solar (Chạy bằng năng lượng mặt trời)",
     size: "51.9mm",
     thickness: "13.4mm",
@@ -321,14 +330,15 @@ const products = [
     image: "assets/img/Baby-G/MSG-S500CD-7A.png",
     importPrice: 5584000, // 80% của 6980000
     quantity: 280,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
-      Phần viền mỏng và sắc nét, vạch chỉ giờ hình tam giác, nút điều chỉnh bát giác cùng nhiều chi tiết 
-      khác, tất cả đã tạo nên một kiệt tác hiện đại không thể cưỡng lại. Dây đeo được làm từ chất liệu kim loại 
-      và nhựa composite mới.
-      Mẫu đồng hồ sở hữu thiết kế vỏ mỏng phù hợp với mọi hoàn cảnh, ba kim chỉ thời gian và hiển thị ngày, 
-      hoạt động bằng năng lượng mặt trời và khả năng chống nước tới 100m.
-    `,
+    Phần viền mỏng và sắc nét, vạch chỉ giờ hình tam giác, nút điều chỉnh bát giác cùng nhiều chi tiết 
+    khác, tất cả đã tạo nên một kiệt tác hiện đại không thể cưỡng lại. Dây đeo được làm từ chất liệu kim loại 
+    và nhựa composite mới.
+    Mẫu đồng hồ sở hữu thiết kế vỏ mỏng phù hợp với mọi hoàn cảnh, ba kim chỉ thời gian và hiển thị ngày, 
+    hoạt động bằng năng lượng mặt trời và khả năng chống nước tới 100m.
+  `,
     movement: "Solar (Năng lượng ánh sáng)",
     size: "45.9mm",
     thickness: "7.5mm",
@@ -338,7 +348,7 @@ const products = [
     waterRes: "100M",
   },
 
-  //EDIFICE
+  // EDIFICE
   {
     id: "EFV-650D-2BV",
     catalog: "EDIFICE",
@@ -353,12 +363,13 @@ const products = [
     image: "assets/img/Edifice/EFV-650D-2BV.jpg",
     importPrice: 2865000, // 75% của 3820000
     quantity: 230,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
-      Đánh đúng nhịp với đồng hồ ghi thời gian EDIFICE cổ điển cỡ trung. 
-      Sự kết hợp tinh tế giữa chi tiết tinh xảo và thiết kế nổi bật với gờ mỏng tạo điểm nhấn bằng 
-      mặt số rộng tạo nên phong cách nổi bật, thanh lịch.
-    `,
+    Đánh đúng nhịp với đồng hồ ghi thời gian EDIFICE cổ điển cỡ trung. 
+    Sự kết hợp tinh tế giữa chi tiết tinh xảo và thiết kế nổi bật với gờ mỏng tạo điểm nhấn bằng 
+    mặt số rộng tạo nên phong cách nổi bật, thanh lịch.
+  `,
     movement: "Pin / Quartz",
     size: "39.9mm",
     thickness: "15.8mm",
@@ -381,15 +392,16 @@ const products = [
     image: "assets/img/Edifice/EQS-940NL-1AV.jpg",
     importPrice: 4352000, // 85% của 5120000
     quantity: 350,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
-      chiếc đồng hồ EDIFICE được thiết kế để nắm bắt cảm giác lái xe vào ban đêm,
-      được thiết kế phù hợp cho những người đam mê ô tô. Cảm giác hào hứng khi lái xe 
-      trên đường phố vào đêm khuya được thể hiện bằng hiệu ứng chuyển màu rực rỡ trên đường gờ — bầu trời đêm 
-      trên cao được tái tạo bằng lớp mạ ion màu xanh dương và ánh sáng rực rỡ của đèn đường phía dưới 
-      được thể hiện bằng màu bạc từ quá trình gia công titan cacbua. Hiệu ứng chuyển màu giữa hai màu này tạo nên 
-      một đường gờ tuyệt đẹp với độ sáng bóng tinh tế cũng được phản ánh trên các chi tiết của mặt số. 
-    `,
+    chiếc đồng hồ EDIFICE được thiết kế để nắm bắt cảm giác lái xe vào ban đêm,
+    được thiết kế phù hợp cho những người đam mê ô tô. Cảm giác hào hứng khi lái xe 
+    trên đường phố vào đêm khuya được thể hiện bằng hiệu ứng chuyển màu rực rỡ trên đường gờ — bầu trời đêm 
+    trên cao được tái tạo bằng lớp mạ ion màu xanh dương và ánh sáng rực rỡ của đèn đường phía dưới 
+    được thể hiện bằng màu bạc từ quá trình gia công titan cacbua. Hiệu ứng chuyển màu giữa hai màu này tạo nên 
+    một đường gờ tuyệt đẹp với độ sáng bóng tinh tế cũng được phản ánh trên các chi tiết của mặt số. 
+  `,
     movement: "Solar (Năng lượng ánh sáng)",
     size: "43.4mm",
     thickness: "6.4mm",
@@ -412,6 +424,7 @@ const products = [
     image: "assets/img/Edifice/EFV-C120L-8A.jpg",
     importPrice: 2235000, // 75% của 2980000
     quantity: 2,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
       Giải phóng bản thân để tập trung tận hưởng cuộc sống. 
@@ -523,6 +536,7 @@ const products = [
     image: "assets/img/Edifice/EFB-730D-2BV.jpg",
     importPrice: 5338000, // 85% của 6280000
     quantity: 220,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
       Giới thiệu mẫu đồng hồ thể thao bấm giờ EDIFICE lấy cảm hứng từ chiếc xe thể thao cổ điển. 
@@ -552,6 +566,7 @@ const products = [
     image: "assets/img/Edifice/EFB-710D-7AV.jpg",
     importPrice: 4896000, // 80% của 6120000
     quantity: 260,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
       Mẫu đồng hồ công phu, táo bạo có vẻ ngoài gợi lại cảm giác và diện mạo sang trọng
@@ -582,6 +597,7 @@ const products = [
     image: "assets/img/Edifice/ECB-2200HTR-1A.jpg",
     importPrice: 6077500, // 85% của 7150000
     quantity: 340,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
       Chuyển sang “cảm giác” đua xe, chiếc đồng hồ này cho bạn cảm giác gần giống
@@ -648,6 +664,7 @@ const products = [
     image: "assets/img/G-Shock/GST-B600D-1A.jpg",
     importPrice: 6600000, // 80% của 8250000
     quantity: 0,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
       Xin giới thiệu GST-B600 — chiếc đồng hồ G-SHOCK nhỏ gọn hơn nữa 
@@ -678,6 +695,7 @@ const products = [
     image: "assets/img/G-Shock/GMW-B5000SS-2.jpg",
     importPrice: 10965000, // 85% của 12900000
     quantity: 450,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
       Giới thiệu chiếc đồng hồ kỷ niệm 50 năm thành lập đồng hồ Casio 
@@ -710,6 +728,7 @@ const products = [
     image: "assets/img/G-Shock/GMA-S120SA-7A2.jpg",
     importPrice: 3150000, // 75% của 4200000
     quantity: 130,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
       Biến phong cách của bạn trở nên sành điệu, hiện đại và thể thao, 
@@ -740,6 +759,7 @@ const products = [
     image: "assets/img/G-Shock/GMA-P2125W-6A.jpg",
     importPrice: 3320000, // 80% của 4150000
     quantity: 160,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
       Chiếc đồng hồ đáng nhớ này có màu tím nhạt dễ thương, 
@@ -772,6 +792,7 @@ const products = [
     image: "assets/img/G-Shock/GMA-P2100PC-4A.jpg",
     importPrice: 3480000, // 80% của 4350000
     quantity: 240,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
       Làm bừng sáng phong cách năng động của bạn với đồng hồ GMA-P2100 có mặt số màu phân cực. 
@@ -802,6 +823,7 @@ const products = [
     image: "assets/img/G-Shock/GM-S2110B-8A.jpg",
     importPrice: 5235000, // 75% của 6980000
     quantity: 300,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
       Mạnh mẽ, cứng cáp, sành điệu — Phủ kim loại, giờ đây có những sắc thái rực rỡ với màu sắc trang nhã. Chiếc GM-S2110 hình bát giác 
@@ -831,6 +853,7 @@ const products = [
     image: "assets/img/G-Shock/GM-B2100SD-1A.jpg",
     importPrice: 8840000, // 85% của 10400000
     quantity: 400,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
       Xin giới thiệu chiếc đồng hồ hoàn toàn bằng kim loại mới nhất 
@@ -865,6 +888,7 @@ const products = [
     image: "assets/img/G-Shock/GM-2110D-2A.jpg",
     importPrice: 6280000, // 80% của 7850000
     quantity: 210,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
       Xin giới thiệu GM-2110D — mẫu đồng hồ G-STEEL kết hợp kim-số 
@@ -894,6 +918,7 @@ const products = [
     image: "assets/img/G-Shock/GA-700BBR-1A.jpg",
     importPrice: 2985000, // 75% của 3980000
     quantity: 170,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
       Trở nên táo bạo, bền bỉ và mãnh liệt với bộ sưu tập đen và đỏ của G-SHOCK.
@@ -922,6 +947,7 @@ const products = [
     image: "assets/img/G-Shock/GM-2110D-2B.jpg",
     importPrice: 7012500, // 85% của 8250000
     quantity: 360,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
       Xin giới thiệu GM-2110D — mẫu đồng hồ G-STEEL kết hợp kim-số dựa trên GA-2100, 
@@ -954,6 +980,7 @@ const products = [
     image: "assets/img/Pro-Trek/PRG-340L-5.jpg",
     importPrice: 7424000, // 80% của 9280000
     quantity: 280,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
       Thiết bị hoạt động ngoài trời thông thường-sành điệu dành cho 
@@ -988,6 +1015,7 @@ const products = [
     image: "assets/img/Pro-Trek/PRJ-B001B-1.jpg",
     importPrice: 8240000, // 80% của 10300000
     quantity: 320,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
       Hãy bước ra khỏi con đường mòn và tiến xa hơn nữa với PRO TREK nhẹ nhất*, người bạn đồng hành hoàn hảo 
@@ -1110,6 +1138,7 @@ const products = [
     image: "assets/img/Pro-Trek/PRW-35-7.jpg",
     importPrice: 6525000, // 75% của 8700000
     quantity: 180,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
       Chiếc đồng hồ này thực sự là sản phẩm hoàn thiện nhất với các chức năng ngoài trời 
@@ -1176,6 +1205,7 @@ const products = [
     image: "assets/img/Pro-Trek/PRW-3500SYT-1.jpg",
     importPrice: 11600000, // 80% của 14500000
     quantity: 460,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
       Những mẫu này là mẫu bổ sung mới nhất vào dòng đồng hồ PRW Climber Line 
@@ -1205,6 +1235,7 @@ const products = [
     image: "assets/img/Pro-Trek/PRW-6000SC-7.jpg",
     importPrice: 9375000, // 75% của 12500000
     quantity: 390,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
       Khoáng thủy tinh
@@ -1238,6 +1269,7 @@ const products = [
     image: "assets/img/Pro-Trek/PRW-S3100-1.jpg",
     importPrice: 8330000, // 85% của 9800000
     quantity: 330,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
       Chức năng tiếp nhận sóng vô tuyến: nhận tín hiệu tự động (tối đa 6 lần một ngày 
@@ -1268,6 +1300,7 @@ const products = [
     image: "assets/img/Sheen/SHE-3517L-1A.jpg",
     importPrice: 2587500, // 75% của 3450000
     quantity: 110,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
       Chiếc đồng hồ thanh lịch, bóng bẩy và lung linh với thiết kế màn hình
@@ -1422,6 +1455,7 @@ const products = [
     image: "assets/img/Sheen/SHE-4539BGM-1A.jpg",
     importPrice: 4960000, // 80% của 6200000
     quantity: 300,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
       Tạo phong cách trang nhã với tông màu đen và vàng nhạt tuyệt đẹp. 
@@ -1453,6 +1487,7 @@ const products = [
     image: "assets/img/Sheen/SHE-4540D-7A.jpg",
     importPrice: 3735000, // 75% của 4980000
     quantity: 190,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
       Thể hiện bản thân bằng sự sang trọng thanh lịch của chiếc đồng hồ 
@@ -1484,6 +1519,7 @@ const products = [
     image: "assets/img/Sheen/SHE-4558G-9A.jpg",
     importPrice: 5763000, // 85% của 6780000
     quantity: 250,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
       Mang đến chút ánh sáng cho đời với mẫu đồng hồ kim loại lấy cảm hứng 
@@ -1515,6 +1551,7 @@ const products = [
     image: "assets/img/Sheen/SHE-4562M-2A.jpg",
     importPrice: 4272000, // 80% của 5340000
     quantity: 230,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
       Đồng hồ kim thời trang có mặt số với màu sắc hiện đại và 
@@ -1545,6 +1582,7 @@ const products = [
     image: "assets/img/Sheen/SHE-4562PGL-4A.jpg",
     importPrice: 4087500, // 75% của 5450000
     quantity: 200,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
       Đồng hồ kim thời trang có mặt số với màu sắc hiện đại và 
@@ -1653,8 +1691,7 @@ function openProductPopup(product) {
 
   popup.style.display = "flex";
 
-
-    document.getElementById("add-to-cart").addEventListener("click", () => {
+  document.getElementById("add-to-cart").addEventListener("click", () => {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
     const exists = cart.find((item) => item.id === product.id);
     if (exists) exists.quantity += 1;
@@ -1670,12 +1707,12 @@ function openProductPopup(product) {
     else cart.push({ ...product, quantity: 1 });
     localStorage.setItem("cart", JSON.stringify(cart));
     renderAllCartComponents();
-    document.getElementById("chitietsanpham-banner-index").style.display='none';
+    document.getElementById("chitietsanpham-banner-index").style.display =
+      "none";
     document.getElementById("product-popup").style.display = "none";
-    document.getElementById("GioHang").style.display='block';
+    document.getElementById("GioHang").style.display = "block";
     if (Index) Index.style.display = "none";
   });
-
 }
 
 // Đóng pop-up
