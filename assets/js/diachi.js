@@ -5,41 +5,38 @@ document.addEventListener("DOMContentLoaded", () => {
   const sideAvatar = document.getElementById("sideAvatar-diachi");
   const sideUsername = document.getElementById("sideUsername-diachi");
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-if(currentUser){
-    if(sideAvatar) sideAvatar.src = currentUser.avatar || "./assets/img/Avatar/avtuser.jpg";
-    if(sideUsername) sideUsername.textContent = currentUser.userName || "Người dùng";
-}
+  const DEFAULT_AVATAR = "./assets/img/Avatar/avtuser.jpg";
+
+  if (currentUser) {
+    if (sideAvatar) sideAvatar.src = currentUser.avatar || DEFAULT_AVATAR;
+    if (sideUsername) sideUsername.textContent = currentUser.userName || "Người dùng";
+  }
+
   const addressListEl = document.getElementById("addressList");
   const addBtn = document.getElementById("addAddressBtn");
   const addressFormWrap = document.getElementById("addressFormWrap");
   const addressForm = document.getElementById("addressForm");
   const cancelAddr = document.getElementById("cancelAddr");
+
+  const addEmail = document.getElementById("addEmail");
   const addrName = document.getElementById("addrName");
   const addrPhone = document.getElementById("addrPhone");
-  const addrLine = document.getElementById("addrLine");
+  const addrAddress = document.getElementById("addAddress"); // ✅ TÊN THỐNG NHẤT
   const addressFormTitle = document.getElementById("addressFormTitle");
 
   let user = JSON.parse(localStorage.getItem("currentUser")) || null;
   let editIndex = -1;
-  const DEFAULT_AVATAR = "./assets/img/Avatar/avtuser.jpg";
 
   // -----------------------------
-  // Render addresses
+  // Render danh sách địa chỉ
   // -----------------------------
   const render = () => {
     if (!user) return;
-
     if (!Array.isArray(user.addresses)) user.addresses = [];
 
     // Sidebar
     if (sideAvatar) sideAvatar.src = user.avatar || DEFAULT_AVATAR;
     if (sideUsername) sideUsername.textContent = user.userName || "";
-
-    // Đồng bộ sidebar hồ sơ
-    const hosoAvatar = document.getElementById("sideAvatar-hoso");
-    const hosoUsername = document.getElementById("sideUsername-hoso");
-    if (hosoAvatar) hosoAvatar.src = user.avatar || DEFAULT_AVATAR;
-    if (hosoUsername) hosoUsername.textContent = user.userName || "Người dùng";
 
     addressListEl.innerHTML = "";
     if (user.addresses.length === 0) {
@@ -55,17 +52,19 @@ if(currentUser){
       left.className = "address-left";
       left.innerHTML = `
         <div class="addr-name">${a.name} <span class="muted">(${a.phone})</span></div>
-        <div class="addr-line">${a.line}</div>
+        <div class="addr-address">${a.address}</div>
       `;
 
       const right = document.createElement("div");
       right.className = "address-right";
-      right.innerHTML = a.default ? `<div class="addr-badge">Mặc định</div>` : `<div style="height:18px;"></div>`;
+      right.innerHTML = a.default
+        ? `<div class="addr-badge">Mặc định</div>`
+        : `<div style="height:18px;"></div>`;
 
       const btns = document.createElement("div");
       btns.style.marginTop = "8px";
       btns.innerHTML = `
-        <button class="save-btn set-default-btn" data-idx="${idx}">Thiết lập mặc định</button>
+        ${a.default ? "" : `<button class="save-btn set-default-btn" data-idx="${idx}">Thiết lập mặc định</button>`}
         <button class="cancel-btn edit-btn" data-idx="${idx}">Cập nhật</button>
         <button class="cancel-btn del-btn" data-idx="${idx}">Xóa</button>
       `;
@@ -74,37 +73,43 @@ if(currentUser){
       card.appendChild(left);
       card.appendChild(right);
 
+      // 👉 Click chọn địa chỉ
       left.addEventListener("click", () => {
         localStorage.setItem("selectedAddress", JSON.stringify(a));
-        alert("Đã chọn địa chỉ: " + a.line);
+        alert("Đã chọn địa chỉ: " + a.address);
       });
 
       addressListEl.appendChild(card);
     });
 
-    // Events
+    // 👉 Thiết lập mặc định
     document.querySelectorAll(".set-default-btn").forEach(btn => {
-      btn.addEventListener("click", (e) => {
+      btn.addEventListener("click", e => {
         const i = Number(e.currentTarget.dataset.idx);
         user.addresses = user.addresses.map((ad, j) => ({ ...ad, default: j === i }));
+        const selected = user.addresses[i];
+        localStorage.setItem("selectedAddress", JSON.stringify(selected)); // ✅ lưu địa chỉ mặc định
         saveAndRender();
       });
     });
 
+    // 👉 Cập nhật
     document.querySelectorAll(".edit-btn").forEach(btn => {
-      btn.addEventListener("click", (e) => {
+      btn.addEventListener("click", e => {
         editIndex = Number(e.currentTarget.dataset.idx);
         const a = user.addresses[editIndex];
         addressFormWrap.classList.remove("hidden");
         addressFormTitle.textContent = "Cập nhật địa chỉ";
         addrName.value = a.name;
         addrPhone.value = a.phone;
-        addrLine.value = a.line;
+        addEmail.value = a.email;
+        addrAddress.value = a.address;
       });
     });
 
+    // 👉 Xóa
     document.querySelectorAll(".del-btn").forEach(btn => {
-      btn.addEventListener("click", (e) => {
+      btn.addEventListener("click", e => {
         const i = Number(e.currentTarget.dataset.idx);
         if (!confirm("Bạn có chắc muốn xóa địa chỉ này?")) return;
         user.addresses.splice(i, 1);
@@ -116,6 +121,9 @@ if(currentUser){
     });
   };
 
+  // -----------------------------
+  // Save và Render lại
+  // -----------------------------
   const saveAndRender = () => {
     localStorage.setItem("currentUser", JSON.stringify(user));
     const users = JSON.parse(localStorage.getItem("userList")) || [];
@@ -127,7 +135,9 @@ if(currentUser){
     render();
   };
 
-  // ---- Nút thêm địa chỉ ----
+  // -----------------------------
+  // Nút Thêm địa chỉ
+  // -----------------------------
   addBtn.addEventListener("click", () => {
     if (!user) {
       Swal.fire({
@@ -143,28 +153,32 @@ if(currentUser){
 
     editIndex = -1;
     addressFormTitle.textContent = "Thêm địa chỉ";
-    addrName.value = "";
-    addrPhone.value = "";
-    addrLine.value = "";
+    addressForm.reset();
     addressFormWrap.classList.remove("hidden");
-    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
   });
 
-  // ---- Nút hủy ----
+  // -----------------------------
+  // Nút Hủy
+  // -----------------------------
   cancelAddr.addEventListener("click", () => {
+    addressForm.reset();
     addressFormWrap.classList.add("hidden");
   });
 
-  // ---- Submit form ----
-  addressForm.addEventListener("submit", (e) => {
+  // -----------------------------
+  // Submit form
+  // -----------------------------
+  addressForm.addEventListener("submit", e => {
     e.preventDefault();
     if (!user) return;
 
     const name = addrName.value.trim();
     const phone = addrPhone.value.trim();
-    const line = addrLine.value.trim();
+    const email = addEmail.value.trim();
+    const address = addrAddress.value.trim();
 
-    if (!name || !phone || !line) {
+    if (!name || !phone || !email || !address) {
       alert("Vui lòng điền đầy đủ thông tin.");
       return;
     }
@@ -172,17 +186,20 @@ if(currentUser){
     if (!Array.isArray(user.addresses)) user.addresses = [];
 
     if (editIndex === -1) {
-      const newAddr = { name, phone, line, default: user.addresses.length === 0 };
+      const newAddr = { name, phone, email, address, default: user.addresses.length === 0 };
       user.addresses.push(newAddr);
     } else {
-      user.addresses[editIndex] = { ...user.addresses[editIndex], name, phone, line };
+      user.addresses[editIndex] = { ...user.addresses[editIndex], name, phone, email, address };
     }
 
     saveAndRender();
+    addressForm.reset();
     addressFormWrap.classList.add("hidden");
   });
 
-  // ---- Show section ----
+  // -----------------------------
+  // Hiển thị section
+  // -----------------------------
   window.showDiaChiSection = function () {
     user = JSON.parse(localStorage.getItem("currentUser"));
     if (!user) {

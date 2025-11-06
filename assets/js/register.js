@@ -9,9 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const confirmInput = document.getElementById("confirmPassword-register");
     const addressInput = document.getElementById("address-register");
     const ruleLength = document.getElementById("rule-length");
-    const ruleLower = document.getElementById("rule-lower");
-    const ruleUpper = document.getElementById("rule-upper");
-    const ruleNumber = document.getElementById("rule-number");
     const passwordRules = document.getElementById("password-rules");
 
     const errorSpans = {
@@ -68,6 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // validators
     const validateUsername = (username) => {
+        if(userList.some((u) => u.username === username)) return "Tên đăng ký đã tồn tại!";
         if (!username) return "Tên đăng nhập không được để trống.";
         if (username.length < 3) return "Tên đăng nhập phải có ít nhất 3 ký tự.";
         if (userList.some((u) => u.userName === username)) return "Tên đăng nhập đã tồn tại!";
@@ -76,25 +74,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const validateEmail = (email) => {
         if (!email) return "Email không được để trống.";
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) return "Định dạng email không hợp lệ.";
         if (userList.some((u) => u.email === email)) return "Email đã tồn tại!";
         return null;
     };
-
     const validatePhone = (phone) => {
-        if (!phone) return "Số điện thoại không được để trống.";
-        const phoneRegex = /^0\d{9}$/;
-        if (!phoneRegex.test(phone)) return "Số điện thoại phải gồm 10 chữ số và bắt đầu bằng 0.";
-        if (userList.some((u) => u.phone === phone)) return "Số điện thoại đã được đăng ký!";
-        return null;
+    if (!phone) return "Số điện thoại không được để trống.";
+
+    if (isNaN(phone)) return "Số điện thoại chỉ được chứa các chữ số.";
+
+    if (!phone.startsWith("0") || phone.length !== 10)
+        return "Số điện thoại phải gồm 10 chữ số và bắt đầu bằng 0.";
+
+    if (userList.some(u => u.phone === phone)) return "Số điện thoại đã được đăng ký!";
+
+    return null;
     };
+
 
     const validatePassword = (password) => {
         if (!password) return "Mật khẩu không được để trống.";
         if (password.length < 8) return "Mật khẩu phải có ít nhất 8 ký tự.";
-        const strongRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/;
-        if (!strongRegex.test(password)) return "Mật khẩu phải chứa chữ hoa, chữ thường và số.";
         return null;
     };
 
@@ -123,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
         else clearError(phoneInput, errorSpans.phone);
     });
 
-    // clear on focus (fix id mismatch using idMap)
+    // clear on focus 
     [usernameInput, emailInput, phoneInput, passwordInput, confirmInput, addressInput].forEach(input => {
         if (!input) return;
         input.addEventListener('focus', () => {
@@ -211,9 +210,6 @@ document.addEventListener("DOMContentLoaded", () => {
             passwordRules.style.display = "block";
             const conditions = [
                 { valid: password.length >= 8, element: ruleLength },
-                { valid: /[a-z]/.test(password), element: ruleLower },
-                { valid: /[A-Z]/.test(password), element: ruleUpper },
-                { valid: /[0-9]/.test(password), element: ruleNumber },
             ];
             conditions.forEach(({ valid, element }) => {
                 if (!element) return;
