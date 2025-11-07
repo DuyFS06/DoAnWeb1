@@ -57,6 +57,7 @@ function handleLogout() {
         }).then((result) => {
             if (result.isConfirmed) {
                 localStorage.removeItem("currentUser");
+                localStorage.removeItem("selectedAddress");
                 updateHeaderUI();
                 if (typeof window.navigateTo === "function") {
                     window.navigateTo("home");
@@ -75,6 +76,7 @@ function handleLogout() {
     } else {
         if (confirm("Bạn có chắc chắn muốn đăng xuất?")) {
             localStorage.removeItem("currentUser");
+            localStorage.removeItem("selectedAddress");
             updateHeaderUI();
             if (typeof window.navigateTo === "function") {
                 window.navigateTo("home");

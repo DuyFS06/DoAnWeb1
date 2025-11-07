@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
             title,
             text,
             showConfirmButton: false,
-            timer: 1000,
+            timer: 900,
             timerProgressBar: true,
             didClose: () => { if (callback) callback(); }
         });
