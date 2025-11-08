@@ -46,6 +46,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Lấy trực tiếp currentUser từ localStorage
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    console.log(currentUser);
+    
 
     if (currentUser) {
       // Đã đăng nhập

@@ -4,13 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const sideAvatar = document.getElementById("sideAvatar-diachi");
   const sideUsername = document.getElementById("sideUsername-diachi");
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   const DEFAULT_AVATAR = "./assets/img/Avatar/avtuser.jpg";
-
-  if (currentUser) {
-    if (sideAvatar) sideAvatar.src = currentUser.avatar || DEFAULT_AVATAR;
-    if (sideUsername) sideUsername.textContent = currentUser.userName || "Người dùng";
-  }
 
   const addressListEl = document.getElementById("addressList");
   const addBtn = document.getElementById("addAddressBtn");
@@ -18,25 +12,30 @@ document.addEventListener("DOMContentLoaded", () => {
   const addressForm = document.getElementById("addressForm");
   const cancelAddr = document.getElementById("cancelAddr");
 
-  const addEmail = document.getElementById("addEmail");
   const addrName = document.getElementById("addrName");
   const addrPhone = document.getElementById("addrPhone");
-  const addrAddress = document.getElementById("addAddress"); 
+  const addEmail = document.getElementById("addEmail");
+  const addrAddress = document.getElementById("addAddress");
   const addressFormTitle = document.getElementById("addressFormTitle");
 
   let user = JSON.parse(localStorage.getItem("currentUser")) || null;
   let editIndex = -1;
 
-  // Render danh sách địa chỉ
+  // =============== HIỂN THỊ DANH SÁCH ĐỊA CHỈ ===============
   const render = () => {
+    console.log(localStorage.getItem("selectedAddress"));
+    
+    console.log(user);
+    
     if (!user) return;
     if (!Array.isArray(user.addresses)) user.addresses = [];
 
-    // Sidebar
+    // Cập nhật sidebar
     if (sideAvatar) sideAvatar.src = user.avatar || DEFAULT_AVATAR;
-    if (sideUsername) sideUsername.textContent = user.userName || "";
+    if (sideUsername) sideUsername.textContent = user.userName || "Người dùng";
 
     addressListEl.innerHTML = "";
+
     if (user.addresses.length === 0) {
       addressListEl.innerHTML = `<div class="empty-note">Bạn chưa có địa chỉ nào. Nhấn "Thêm địa chỉ mới" để bắt đầu.</div>`;
       return;
@@ -49,10 +48,10 @@ document.addEventListener("DOMContentLoaded", () => {
       const left = document.createElement("div");
       left.className = "address-left";
       left.innerHTML = `
-      <div class="addr-name"><strong>Người nhận:</strong> ${a.name}</div>
-      <div class="addr-phone"><strong>Số điện thoại:</strong> ${a.phone}</div>
-      <div class="addr-email"><strong>Email:</strong> ${a.email || ""}</div>
-      <div class="addr-address"><strong>Địa chỉ:</strong> ${a.address}</div>
+        <div><strong>Người nhận:</strong> ${a.name}</div>
+        <div><strong>Số điện thoại:</strong> ${a.phone}</div>
+        <div><strong>Email:</strong> ${a.email}</div>
+        <div><strong>Địa chỉ:</strong> ${a.address}</div>
       `;
 
       const right = document.createElement("div");
@@ -73,27 +72,33 @@ document.addEventListener("DOMContentLoaded", () => {
       card.appendChild(left);
       card.appendChild(right);
 
-      //  Click chọn địa chỉ
+      // Khi click chọn địa chỉ → lưu selectedAddress
       left.addEventListener("click", () => {
         localStorage.setItem("selectedAddress", JSON.stringify(a));
-        alert("Đã chọn địa chỉ: " + a.address);
+        Swal.fire({
+          icon: "success",
+          title: "Đã chọn địa chỉ!",
+          text: `${a.address}`,
+          timer: 1200,
+          showConfirmButton: false
+        });
       });
 
       addressListEl.appendChild(card);
     });
 
-    //  Thiết lập mặc định
+    // === Nút Thiết lập mặc định ===
     document.querySelectorAll(".set-default-btn").forEach(btn => {
       btn.addEventListener("click", e => {
         const i = Number(e.currentTarget.dataset.idx);
         user.addresses = user.addresses.map((ad, j) => ({ ...ad, default: j === i }));
         const selected = user.addresses[i];
-        localStorage.setItem("selectedAddress", JSON.stringify(selected)); 
+        localStorage.setItem("selectedAddress", JSON.stringify(selected));
         saveAndRender();
       });
     });
 
-    //  Cập nhật
+    // === Nút Cập nhật ===
     document.querySelectorAll(".edit-btn").forEach(btn => {
       btn.addEventListener("click", e => {
         editIndex = Number(e.currentTarget.dataset.idx);
@@ -107,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-    //  Xóa
+    // === Nút Xóa ===
     document.querySelectorAll(".del-btn").forEach(btn => {
       btn.addEventListener("click", e => {
         const i = Number(e.currentTarget.dataset.idx);
@@ -121,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  // Save và Render lại
+  // =============== LƯU USER & RENDER LẠI ===============
   const saveAndRender = () => {
     localStorage.setItem("currentUser", JSON.stringify(user));
     const users = JSON.parse(localStorage.getItem("userList")) || [];
@@ -133,8 +138,7 @@ document.addEventListener("DOMContentLoaded", () => {
     render();
   };
 
-
-  // Nút Thêm địa chỉ
+  // =============== THÊM ĐỊA CHỈ ===============
   addBtn.addEventListener("click", () => {
     if (!user) {
       Swal.fire({
@@ -155,13 +159,13 @@ document.addEventListener("DOMContentLoaded", () => {
     window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
   });
 
-  // Nút Hủy
+  // =============== HỦY FORM ===============
   cancelAddr.addEventListener("click", () => {
     addressForm.reset();
     addressFormWrap.classList.add("hidden");
   });
 
-  // Submit form
+  // =============== SUBMIT FORM ===============
   addressForm.addEventListener("submit", e => {
     e.preventDefault();
     if (!user) return;
@@ -179,8 +183,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!Array.isArray(user.addresses)) user.addresses = [];
 
     if (editIndex === -1) {
-      const newAddr = { name, phone, email, address};
-      user.addresses.push(newAddr);
+      const newAddr = { name, phone, email, address };
+      user.addresses.push(newAddr); 
     } else {
       user.addresses[editIndex] = { ...user.addresses[editIndex], name, phone, email, address };
     }
@@ -190,8 +194,7 @@ document.addEventListener("DOMContentLoaded", () => {
     addressFormWrap.classList.add("hidden");
   });
 
-
-  // Hiển thị section  
+  // =============== HIỂN THỊ KHI MỞ TRANG ===============
   window.showDiaChiSection = function () {
     user = JSON.parse(localStorage.getItem("currentUser"));
     if (!user) {
@@ -209,4 +212,7 @@ document.addEventListener("DOMContentLoaded", () => {
     sectionDiaChi.style.display = "block";
     render();
   };
+
+  // Gọi tự động nếu đang trong trang địa chỉ
+  if (sectionDiaChi) render();
 });

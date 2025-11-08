@@ -67,6 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 password: user.password,
                 avatar: user.avatar || "./assets/img/Avatar/avtuser.jpg",
                 address: user.address || "",
+                addresses: user.addresses || [],
                 phone: user.phone || ""
             };
             localStorage.setItem("currentUser", JSON.stringify(currentUser));
