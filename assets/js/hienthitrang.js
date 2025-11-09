@@ -176,7 +176,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelector('.more_address').addEventListener('click', function () {
         window.navigateTo("diachi");
     })
-    function getlogin() {
+    window.getlogin=function() {
         return JSON.parse(localStorage.getItem("currentUser")) || [];
     }
     function ktlogin() {

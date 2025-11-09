@@ -2,12 +2,15 @@ document.addEventListener("DOMContentLoaded",function(){
     window.lichsumuahang=function(){
 
         const danhsach=window.getDanhSachDatHang();
+        const userlogin=window.getlogin();
         let LichSuHTML='';
+        
         if(danhsach.length===0){
             
             LichSuHTML=`<h2>Bạn chưa đặt đơn hàng nào hết</h2>`;
         }else{
             for(var i=danhsach.length-1;i>=0;i--){
+                if(userlogin.userName===danhsach[i].user.userName){
                     LichSuHTML+=`<div class="cart_LichSu">
                         <div class="maLichSu">
                             <div>mã đơn hàng:<span>${danhsach[i].id}</span></div>
@@ -72,6 +75,7 @@ document.addEventListener("DOMContentLoaded",function(){
                         `;
                     }
                 }
+            }
             document.querySelector('.lichsumuahanglist').innerHTML=LichSuHTML; 
         document.querySelectorAll(".xemthembtn").forEach(btn=>{
             btn.addEventListener("click",function(){
