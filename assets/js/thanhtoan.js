@@ -46,30 +46,32 @@ document.addEventListener('DOMContentLoaded',function(){
         });
     }
 
-    function ktsoluong(){
+    window.ktsoluong=function(){
         const product=getproduct();
         const cart=getcart();
+        let isValid = true; 
         cart.forEach(element => {
-           item=product.find(p=>p.id===element);
-           if(!item) return;
-           if(cart.length===0){
-            aler('vui lòng ko để trống giỏ hàng trước khi thanh toán');
-            return false;
-           }
-           else{
-            var quantity=item.quantity-element.quantity;
-            if(quantity<0){
-                alert(`Rất tiếc, sản phẩm "${cartItem.name}" không đủ số lượng tồn kho.`);
-                return false;
-            }
-            else{
-                item.quantity-=element.quantity;
-                return true;
-            }
-           } 
+           const item=product.find(p=>p.id===element.id);
+            if(item.quantity<element.quantity){
+                alert(`Rất tiếc, sản phẩm "${element.name}" không đủ số lượng tồn kho.`);
+                isValid=false;
+                return; 
+        } 
+    });
+    return isValid;
+    }
+    window.trusoluong=function(){
+        const product = getproduct();
+        const cart = getcart();
+        cart.forEach(el=>{
+            item=product.find(p=>p.id===el.id);
+            item.quantity-=el.quantity;
         });
+        localStorage.setItem("productsLocal", JSON.stringify(product));
     }
     window.thanhtoan=function(paymentfs){
+        
+           
         const danhsach=getDanhSachDatHang();
         const userLogin=getlogin();
         const address=getaddres();
@@ -97,6 +99,7 @@ document.addEventListener('DOMContentLoaded',function(){
         danhsach.push(neworder);
         if(paymentfs=="PayBank"){
             localStorage.setItem('CurrDanhSachDatHang',JSON.stringify(danhsach)); 
+            ktsoluong();
             window.SumCartEnd(1);
         }        
         else{localStorage.setItem('DanhSachDatHang',JSON.stringify(danhsach)); 

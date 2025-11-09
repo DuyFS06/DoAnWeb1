@@ -69,6 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
         btn.addEventListener('click', function () {
             const cur=getCurrDanhsach();
             if(cur.length!==0){
+                window.trusoluong();
                 window.SumCartEnd(1);
                 localStorage.setItem('DanhSachDatHang',JSON.stringify(cur)); 
                 localStorage.removeItem('CurrDanhSachDatHang');
@@ -104,6 +105,9 @@ document.addEventListener("DOMContentLoaded", function () {
         thanhtoan_ch.style.display = 'none';
     });
     document.querySelector(".CH_BTN").addEventListener('click', function () {
+        const kt=window.ktsoluong();
+        if(!kt)return;
+        else window.trusoluong();
         window.thanhtoan("Shop");
         renderallcart();
         indexgiohang.style.display = 'none';
@@ -120,6 +124,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     });
     document.querySelector(".TM_BTN").addEventListener('click', function () {
+        const kt=window.ktsoluong();
+        if(!kt)return; 
+        else window.trusoluong();
         window.thanhtoan("COD");
         renderallcart();
         indexgiohang.style.display = 'none';
@@ -135,6 +142,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 1500);
     });
     document.querySelector(".CK_BTN").addEventListener('click', function () {
+        const kt=window.ktsoluong();
+        if(!kt)return;
         window.thanhtoan("PayBank");
         renderallcart();
         indexgiohang.style.display = 'none';
