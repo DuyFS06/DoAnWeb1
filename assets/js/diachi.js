@@ -21,12 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let user = JSON.parse(localStorage.getItem("currentUser")) || null;
   let editIndex = -1;
 
-  // =============== HIỂN THỊ DANH SÁCH ĐỊA CHỈ ===============
+  // HIỂN THỊ DANH SÁCH ĐỊA CHỈ 
   const render = () => {
-    console.log(localStorage.getItem("selectedAddress"));
-    
-    console.log(user);
-    
     if (!user) return;
     if (!Array.isArray(user.addresses)) user.addresses = [];
 
@@ -72,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
       card.appendChild(left);
       card.appendChild(right);
 
-      // Khi click chọn địa chỉ → lưu selectedAddress
+      // Khi click chọn địa chỉ.lưu selectedAddress
       left.addEventListener("click", () => {
         localStorage.setItem("selectedAddress", JSON.stringify(a));
         Swal.fire({
@@ -87,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
       addressListEl.appendChild(card);
     });
 
-    // === Nút Thiết lập mặc định ===
+    // Nút Thiết lập mặc định 
     document.querySelectorAll(".set-default-btn").forEach(btn => {
       btn.addEventListener("click", e => {
         const i = Number(e.currentTarget.dataset.idx);
@@ -98,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-    // === Nút Cập nhật ===
+    // Nút Cập nhật
     document.querySelectorAll(".edit-btn").forEach(btn => {
       btn.addEventListener("click", e => {
         editIndex = Number(e.currentTarget.dataset.idx);
@@ -112,7 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-    // === Nút Xóa ===
+    // Nút Xóa
     document.querySelectorAll(".del-btn").forEach(btn => {
       btn.addEventListener("click", e => {
         const i = Number(e.currentTarget.dataset.idx);
@@ -126,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  // =============== LƯU USER & RENDER LẠI ===============
+  // LƯU USER & RENDER LẠI 
   const saveAndRender = () => {
     localStorage.setItem("currentUser", JSON.stringify(user));
     const users = JSON.parse(localStorage.getItem("userList")) || [];
@@ -138,7 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
     render();
   };
 
-  // =============== THÊM ĐỊA CHỈ ===============
+  // THÊM ĐỊA CHỈ
   addBtn.addEventListener("click", () => {
     if (!user) {
       Swal.fire({
@@ -159,13 +155,13 @@ document.addEventListener("DOMContentLoaded", () => {
     window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
   });
 
-  // =============== HỦY FORM ===============
+  // HỦY FORM
   cancelAddr.addEventListener("click", () => {
     addressForm.reset();
     addressFormWrap.classList.add("hidden");
   });
 
-  // =============== SUBMIT FORM ===============
+  //SUBMIT FORM
   addressForm.addEventListener("submit", e => {
     e.preventDefault();
     if (!user) return;
@@ -194,7 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
     addressFormWrap.classList.add("hidden");
   });
 
-  // =============== HIỂN THỊ KHI MỞ TRANG ===============
+  // HIỂN THỊ KHI MỞ TRANG
   window.showDiaChiSection = function () {
     user = JSON.parse(localStorage.getItem("currentUser"));
     if (!user) {
