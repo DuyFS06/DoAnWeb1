@@ -1,140 +1,94 @@
+document.addEventListener("DOMContentLoaded",function(){
+    window.lichsumuahang=function(){
 
-document.addEventListener('DOMContentLoaded', function() {
-
-    const LichSuMuaHang = document.querySelector("#LichSuMuaHang");
-    const GioHang = document.getElementById('GioHang');
-    const ThanhToan = document.getElementById('ThanhToan');
-    const ThanhToan_chuyenkhoan = document.querySelector("#ThanhToan_ChuyenKhoan");
-    const ThanhToan_tienmat = document.querySelector("#ThanhToan_TienMat");
-    const ThanhToan_cuahang = document.querySelector("#ThanhToan_CuaHang");
-    const ThanhToan_ThanhCong = document.querySelector("#ThanhToan_ThanhCong");
-    const ThanhToan_ThatBai = document.querySelector("#ThanhToan_ThatBai");
-    const Index = document.querySelector('#chitietsanpham-banner-index');
-
-    document.body.addEventListener("click", function(event) {
+        const danhsach=window.getDanhSachDatHang();
+        const userlogin=window.getlogin();
+        let LichSuHTML='';
         
-        const clickedButton = event.target.closest('#LichSuMuaHangBTN');
-
-        if (clickedButton) {
-            event.preventDefault(); 
-            console.log("Nút Lịch Sử Đã Được Click!");
-
-            // --- 1. Ẩn tất cả các trang khác ---
-            if (GioHang) GioHang.style.display = 'none';
-            if (ThanhToan) ThanhToan.style.display = 'none';
-            if (ThanhToan_chuyenkhoan) ThanhToan_chuyenkhoan.style.display = 'none';
-            if (ThanhToan_tienmat) ThanhToan_tienmat.style.display = 'none';
-            if (ThanhToan_cuahang) ThanhToan_cuahang.style.display = 'none';
-            if (ThanhToan_ThanhCong) ThanhToan_ThanhCong.style.display = 'none';
-            if (ThanhToan_ThatBai) ThanhToan_ThatBai.style.display = 'none';
-            if (Index) Index.style.display = 'none';
-
-            // --- 2. Bắt đầu render Lịch sử ---
+        if(danhsach.length===0){
             
-            const container = document.getElementById('all-element');
-            if (!container) {
-                console.error("Không tìm thấy container #all-element!");
-                return;
-            }
-
-            const currentUserJSON = localStorage.getItem('currentUser');
-            if (!currentUserJSON) {
-                // Nếu chưa đăng nhập, yêu cầu đăng nhập
-                container.innerHTML = '<div id="element" style="padding: 20px; text-align: center;">Bạn cần đăng nhập để xem lịch sử mua hàng.</div>';
-                if (LichSuMuaHang) LichSuMuaHang.style.display = 'block';
-                return; // Dừng lại
-            }
-            const currentUser = JSON.parse(currentUserJSON);
-            const userName = currentUser.userName; // Lấy userName làm key
-
-            const allOrders = JSON.parse(localStorage.getItem('DanhSachDatHang')) || {};
-
-            const orderList = allOrders[userName] || []; // Lấy mảng của user, hoặc mảng rỗng
-
-
-            //  Xử lý trường hợp không có đơn hàng nào
-            if (orderList.length === 0) {
-                container.innerHTML = '<div id="element" style="padding: 20px; text-align: center;">Bạn chưa có đơn hàng nào.</div>';
-                if (LichSuMuaHang) LichSuMuaHang.style.display = 'block'; 
-                return; 
-            }
-
-            // Xóa nội dung cũ
-            container.innerHTML = ''; 
-
-            // Lặp qua danh sách đơn hàng CỦA RIÊNG USER NÀY
-            orderList.slice().reverse().forEach(order => {
-                
-                // Tạo HTML cho sản phẩm bên trong đơn hàng
-                let productsHTML = '';
-                order.products.forEach(product => {
-                    const itemPrice = (product.price || '0').replace(/[.đ]/g, '');
-                    const itemTotal = (parseInt(itemPrice, 10) * product.quantity).toLocaleString('vi-VN') + 'đ';
-
-                    productsHTML += `
-                        <div id="lichSusp">
-                            <img src="${product.image}" alt="${product.name}" style="width:50px; height:50px; object-fit:cover; border-radius: 4px; margin-right: 10px;">
-                            <div style="flex: 1;">${product.name} (x${product.quantity})</div>
-                            <div style="font-weight: bold;">${itemTotal}</div>
+            LichSuHTML=`<h2>Bạn chưa đặt đơn hàng nào hết</h2>`;
+        }else{
+            for(var i=danhsach.length-1;i>=0;i--){
+                if(userlogin.userName===danhsach[i].user.userName){
+                    LichSuHTML+=`<div class="cart_LichSu">
+                        <div class="maLichSu">
+                            <div>mã đơn hàng:<span>${danhsach[i].id}</span></div>
+                            <div>ngày đặt:<span>
+                            ${new Date(Number(danhsach[i].id.replace("DH", ""))).toLocaleDateString('vi-VN')}
+                            </span></div>
+                            <div> trạng thái: <span> chờ xác nhận</span></div>
                         </div>
+                        <div>
                     `;
-                });
-
-                // Tạo HTML cho thẻ (card) của đơn hàng
-                const orderCard = document.createElement('div');
-                orderCard.id = 'element'; 
-                
-                const shippingCost = (order.paymentMethod === "Tại cửa hàng" || order.products.length === 0) ? 0 : 30000;
-                const formattedTotal = (order.totalPrice + shippingCost).toLocaleString('vi-VN') + 'đ';
-
-                orderCard.innerHTML = `
-                    <div id="Ma">
-                        <div id="font-bold">Mã đơn hàng:</div>
-                        <div style="margin: 0 10px; color: #555;">${order.id}</div>
-                        <div style="margin-left: auto; color: #777;">${new Date(parseInt(order.id.replace('DH',''))).toLocaleDateString('vi-VN')}</div>
+                    danhsach[i].product.forEach(item => {
+                        LichSuHTML+=`<div class="all-cart">
+                            <img src="${item.image}" alt="${item.name}" class="item-img">
+                            <div class="name-price-quantity">
+                                    <div class="item-name">${item.name}</div>
+                                    <div class="item-price">${item.price}</div>
+                                <div class="item-quantity-all">
+                                <div class="quantity">${item.quantity}</div>
+                                </div>
+                                </div>
+                                </div>
+                                `;
+                    });
+                    LichSuHTML+=`
+                    <div class="color-red" style="text-align:end">tổng: ${danhsach[i].price}</div>
                     </div>
-                    
-                    ${productsHTML} 
-                    
-                    <div style="text-align: right; font-size: 16px; margin-top: 10px;">
-                        <span id="font-bold-mh">Tổng tiền: </span>
-                        <span id="color-red" style="color: red; font-weight: bold;">${formattedTotal}</span>
-                    </div>
-
-                    <input type="checkbox" id="chitiet-${order.id}" class="chitiet-checkbox" style="display: none;">
-                    <label for="chitiet-${order.id}" class="border" style="cursor: pointer; color: #007BFF; margin-top: 10px; display: inline-block;">Xem chi tiết người nhận ▼</label>
-                    
-                    <div class="cthh" style="display: none; margin-top: 15px; border-top: 1px dashed #ccc; padding-top: 10px; background: #f9f9f9; padding: 15px; border-radius: 5px;">
-                        <p><strong>Người nhận:</strong> ${order.ho} ${order.name}</p>
-                        <p><strong>Địa chỉ:</strong> ${order.DiaChi}, ${order.City}</p> <p><strong>SĐT:</strong> ${order.SDT}</p>
-                        <p><strong>PT Thanh toán:</strong> ${order.paymentMethod}</p>
-                    </div>
-                `;
-                
-                // C. Gắn logic Ẩn/Hiện cho nút "Xem chi tiết"
-                const label = orderCard.querySelector(`label[for='chitiet-${order.id}']`);
-                const detailDiv = orderCard.querySelector('.cthh');
-                label.addEventListener('click', function() {
-    
-                // Kiểm tra xem 'display' có phải là 'none' không
-                if (detailDiv.style.display === 'none') {
-                    // Nếu đang ẩn: HIỆN NÓ RA
-                    detailDiv.style.display = 'block';
-                    label.innerHTML = 'Ẩn chi tiết người nhận ▲';
-                } else {
-                    // Nếu đang hiện: ẨN NÓ ĐI
-                    detailDiv.style.display = 'none';
-                    label.innerHTML = 'Xem chi tiết người nhận ▼';
+                    <button class="xemthembtn">Xem thêm</button>
+                    <div class="diachixemthem" style="display:none">
+                        <div class="address_all" disableb>
+                            <div class="nguoi_nhan">
+                                <div>Tên người nhận: </div>
+                                <div>${danhsach[i].info.name}</div>
+                            </div>
+                            <div class="sdt_nhan">
+                                <div>Sdt người nhận:</div>
+                                <div>${danhsach[i].info.phone}</div>
+                            </div>
+                            <div class="gmail_nhan">
+                                <div>Gmail người nhận: </div>
+                                <div>${danhsach[i].info.email}</div>
+                            </div>
+                            <div class="diachi_nhan">
+                                <div>Địa chỉ người nhận: </div>
+                                <div>${danhsach[i].info.address}</div>
+                            </div>
+                            <div class="thanhtoanby">
+                                <div>Phương thức thanh toán:   ${danhsach[i].payment}</div>
+                                
+                            </div>
+                        </div>
+                    <div> trạng thái đơn hàng</div>
+                        <div class="trangThaiDonHang">
+                            <div><span>Đang xác nhận</spand> <spand>=> Đang giao</spand> <spand> => Thành công</span><div>
+                        </div>
+                        </div>
+                        </div>
+                        <div class="dkhuy">
+                            <button class="huyDon"> Hủy đơn hàng</button>
+                        </div>
+                        </div>
+                        </div>
+                        `;
+                    }
                 }
-            });
+            }
+            document.querySelector('.lichsumuahanglist').innerHTML=LichSuHTML; 
+        document.querySelectorAll(".xemthembtn").forEach(btn=>{
+            btn.addEventListener("click",function(){
+                const ndthem=this.nextElementSibling;
+                 if (ndthem.style.display === "none" || ndthem.style.display === "") {
+                    ndthem.style.display = "block"; 
+                    btn.textContent = "Ẩn bớt";     
+                } else {
+                    ndthem.style.display = "none";  
+                    btn.textContent = "Xem thêm";   
+                }
+        });
+        });
+    }
 
-                container.appendChild(orderCard);
-            });
-
-            // --- 3. Hiển thị trang Lịch sử (sau khi đã tạo xong HTML) ---
-            if (LichSuMuaHang) LichSuMuaHang.style.display = 'block';
-        }
-        
-    }); // Đóng sự kiện click của body
-
-}); // Đóng DOMContentLoaded
+});
