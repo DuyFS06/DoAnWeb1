@@ -1701,7 +1701,7 @@ function openProductPopup(product) {
   });
 
   document.getElementById("buy-now").addEventListener("click", () => {
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let cart = JSON.parse(localStorage.getItem("  ")) || [];
     const exists = cart.find((item) => item.id === product.id);
     if (exists) exists.quantity += 1;
     else cart.push({ ...product, quantity: 1 });

@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded',function(){
         });
     }
 
-    function ktsoluong(){
+    window.ktsoluong=function(){
         const product=getproduct();
         const cart=getcart();
         cart.forEach(element => {
@@ -97,9 +97,11 @@ document.addEventListener('DOMContentLoaded',function(){
         danhsach.push(neworder);
         if(paymentfs=="PayBank"){
             localStorage.setItem('CurrDanhSachDatHang',JSON.stringify(danhsach)); 
+            ktsoluong();
             window.SumCartEnd(1);
         }        
         else{localStorage.setItem('DanhSachDatHang',JSON.stringify(danhsach)); 
+        ktsoluong();    
         window.SumCartEnd(0);}
     }
     
