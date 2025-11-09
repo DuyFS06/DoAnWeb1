@@ -226,47 +226,6 @@
     border-bottom: 1px solid #EBEBEB;
 }
 
-#ThanhToan_TienMat .item-info {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-}
-
-#ThanhToan_TienMat .item-name {
-    font-weight: bold;
-    width: 70%;
-}
-
-#ThanhToan_TienMat .item-price {
-    color: red;
-    width: 15%;
-}
-
-#ThanhToan_TienMat.item-quantity {
-    width: 15%;
-    text-align: right;
-}
-
-#ThanhToan_TienMat .cost-ship-thanhtoan {
-    display: flex;
-}
-
-#ThanhToan_TienMat .display-flex-sp {
-    border-bottom: 2px solid #EBEBEB;
-}
-
-#ThanhToan_TienMat .display-flex-tt {
-    border-bottom: 2px solid #EBEBEB;
-}
-
-#ThanhToan_TienMat .item-name {
-    width: 60%;
-}
-
-#ThanhToan_TienMat .SumCart-thanhtoan_tong {
-    width: 0%;
-}
-
 #ThanhToan_TienMat .i4-thanhtoan {
     width: 100%;
     display: flex;
@@ -280,57 +239,6 @@
     justify-items: center;
     width: 100%;
 }
-
-#ThanhToan_CuaHang .item-info {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-}
-
-#ThanhToan_CuaHang .item-name {
-    font-weight: bold;
-    width: 70%;
-}
-
-#ThanhToan_CuaHang .item-price {
-    color: red;
-    width: 15%;
-}
-
-#ThanhToan_CuaHang.item-quantity {
-    width: 15%;
-    text-align: right;
-}
-
-#ThanhToan_CuaHang .cost-ship-thanhtoan {
-    display: flex;
-}
-
-#ThanhToan_CuaHang .display-flex-sp {
-    border-bottom: 2px solid #EBEBEB;
-}
-
-#ThanhToan_CuaHang .display-flex-tt {
-    border-bottom: 2px solid #EBEBEB;
-}
-
-#ThanhToan_CuaHang .item-name {
-    width: 60%;
-}
-
-#ThanhToan_CuaHang .SumCart-thanhtoan_tong {
-    width: 0%;
-}
-
-#ThanhToan_CuaHang .i4-thanhtoan {
-    width: 100%;
-    display: flex;
-}
-
-#ThanhToan_CuaHang .sumend-thanhtoan {
-    width: 70%;
-}
-
 .conten-center {
     display: flex;
 }
@@ -340,7 +248,6 @@
 }
 
 #temp {
-    height: 100px;
     font-size: 20px;
     background-color: #EBEBEB;
     border: 2px solid gray;
@@ -589,41 +496,10 @@
 }
 
 
-/* Từng item sản phẩm */
-
-.item-info-hoadon {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 0;
-    border-bottom: 1px solid #f0f0f0;
-    /* Gạch mờ giữa các SP */
-    background-color: transparent;
-    /* Xóa màu #EBEBEB */
-}
-
-.item-name-hoadon {
-    width: 60%;
-    font-weight: bold;
-    color: #444;
-}
-
-.item-price-hoadon {
-    width: 25%;
-    text-align: right;
-    color: #d90000;
-    /* Màu đỏ cho giá */
-    font-weight: bold;
-}
-
-.item-quantity-hoadon {
-    width: 15%;
-    text-align: right;
-    color: #555;
-}
 
 
-/* --- (3) KHUNG TỔNG TIỀN --- */
+
+
 
 
 /* Tạm tính */
@@ -692,4 +568,71 @@
 .SumCart-hoadon_tong {
     color: #d90000;
     /* Màu đỏ đậm cho tổng cuối */
+}
+
+.list_danhsach .item-img,
+.list_danhsach .add-quantity,
+.list_danhsach .remove_item,
+.list_danhsach .remove-quantity
+{
+    display: none;
+}.list_danhsach .name-price-quantity,
+.list_danhsach .display-flex{
+    display: flex;
+    width: 90%;    
+}.list_danhsach .all-cart{
+    width: 100%;    
+}.list_danhsach .item-info{
+    display: flex;
+    border-bottom: 2px solid #EBEBEB;
+}
+.list_danhsach .item-info div:nth-child(3){
+    width: 15%;
+}
+.list_danhsach .quantity{
+    text-align: end;
+}.list_danhsach .item-info div:nth-child(2){
+    width: 15%;
+
+}
+.list_danhsach .item-price{
+    width: 20%;
+}.list_danhsach .item-info div:nth-child(1){
+    width: 70%;
+
+}
+.list_danhsach .item-name{
+width: 80%;
+}
+.item-quantity-all{
+    width: 10%;
+}
+
+.all-left-cod .Tongtien_thanhtoan{
+    margin-right: 20px;
+}
+.all-left-cod{
+    min-height: 400px;
+    border-right: 2px solid #EBEBEB;
+}
+#ThanhToan_TienMat .danhsach{
+    min-height: 200px;
+    border-bottom: 2px solid #e0e0e0;
+    margin-right: 20px;
+
+}
+#ThanhToan_CuaHang .danhsach{
+    min-height: 200px;
+    border-bottom: 2px solid #e0e0e0;
+    margin-right: 20px;
+
+}
+.allship div:nth-child(1){
+    width: 65%;
+}
+.allship{
+    display: flex;
+    border-bottom: 2px solid #EBEBEB;
+    margin-top: 10px;
+    margin-right: 20px;
 }

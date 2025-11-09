@@ -24,6 +24,7 @@
   <link rel="stylesheet" href="./assets/css/fix.css" />
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <!-- JS -->
+   <script src="./assets/js/hienthitrang.js"></script>
    <script src="./database/products.js" defer></script>
  <script src="./assets/js/login.js" defer></script>
     <script src="./assets/js/chitietsanpham.js" defer></script>
@@ -33,7 +34,6 @@
   <script src="./assets/js/register.js" defer></script>
  <script src="./assets/js/giohang.js"></script>
   <script src="./assets/js/thanhtoan.js"></script>
-    <script src="./assets/js/indexGioHang.js" defer></script>
   <script src="./assets/js/hoso.js" defer></script>
    <script src="./assets/js/LichSuMuaHang.js"></script>
   <script src="./assets/js/thongtincanhan.js" defer></script>
@@ -180,11 +180,13 @@
       <div id="conten-giohang">
         <div id="giohang" class="giohang_index">
           <h2>Giỏ Hàng Của Bạn 🛒</h2>
-          <div class="danhsach"></div>
+            <div class="ThongTin_hinhanh">
+              <div class="danhsach"></div>
+            </div>
         </div>
         <div id="nut">
           <div class="SumCart"></div>
-          <div id="ToiGioHang"><button class="ToiGioHangBtn">Danh sách sản phẩm</button></div>
+          <div id="ToiGioHang"><button class="ToiGioHangBtn">Chi tiết đơn hàng</button></div>
           <div class="tienhanhthanhtoan"><button class="tienhanhthanhtoanBtn">Thanh toán</button></div>
         </div>
       </div>
@@ -202,9 +204,9 @@
 
   <div id="GioHang">
     <div id="content_center_menu_shop">
-      <h2>
+        <h2>
         <button class="active_menu_center">Giỏ Hàng</button> >
-        <button class="tienhanhthanhtoanBtn Menu_Center">Đặt hàng</button> >
+        <button class="Menu_Center tienhanhthanhtoanBtn">Đặt hàng</button> >
         <button class="Menu_Center" class="Succes">Hoàn thành</button>
         <h2>
     </div>
@@ -212,28 +214,26 @@
     <div id="element_center_shop">
       <div id="element_center_left">
         <div class="element_center_left">
-          <div class="element_sp">Sản phẩm</div>
-          <div class="element_cost">Giá</div>
-          <div class="element_num">Số Lượng</div>
+            <div class="font-bold">Chi tiết sản phẩm</div>
         </div>
-        <div class="danhsach"></div>
+          <div class="ThongTin_hinhanh">
+            <div class="danhsach"></div>
+          </div>
 
 
       </div>
 
       <div class="element_center_right">
         <div class="element_sum">Tổng cộng giỏ hàng</div>
-        <div id="element_ship">
-          <div class="ship">Vận chuyển</div>
-          <div id="display-flex">Đồng giá:
-            <div id="font-color-red"> 30.000VND</div>
-          </div>
+        <div id="element_ship" class="font-bold">
+          sản phẩm cam két chính hãng của casio fake đến từ châu âu do nhà thiết kế đồ giả số 1 thế giới Đình Chương với nhiều năm kinh nghiệm bóc
+          lịch trong nhà giam
         </div>
         <div id="element_sum">
           <div>Tổng:</div>
           <div class="SumCart">0đ</div>
         </div>
-        <div class="tienhanhthanhtoan"><button class="tienhanhthanhtoanBtn">Thanh toán</button></div>
+        <div class="tienhanhthanhtoan giohang"><button class="tienhanhthanhtoanBtn giohang">Thanh toán</button></div>
 
         <div class="end_menu_center">
           <img id="" src=".\assets\img\ATM.png" alt="">
@@ -247,6 +247,8 @@
     </div>
     <!-- Div GioHang -->
   </div>
+
+
 
   <div id="ThanhToan">
     <div id="content_center_menu_shop">
@@ -262,58 +264,10 @@
       <div id="all_left-thanhtoan">
         <div id="ThanhToan_element_center_left">
           <div class="ThongTinThanhToan">Thông Tin thanh toán</div>
-          <div class="element-name">
-            <div class="temp-name">
-              <div class="box-ten">Tên*</div>
-              <input type="text" name="" placeholder="Nhập Tên " class="nhapname Name-Chu">
-            </div>
-            <div class="temp-name">
-              <div class="box-ten">Họ*</div>
-              <input type="text" name="" placeholder="Nhập Họ " class="nhapname Ho-Chu">
-            </div>
-          </div>
+          <div class="diachi">địa chỉ</div>
           <div>
-            <div class="font-bold">Quốc Gia/Khu Vực*</div>
-            <div class="font-bold">Việt Nam</div>
-          </div>
-          <div class="font-bold">Địa chỉ*</div>
-          <input type="text" placeholder="Nhập địa chỉ" class="Nhapin4 Dia-Chi-Chu">
-          <div class="font-bold">Thị Trấn/Thành Phố*</div>
-          <input type="text" placeholder="Nhập thành phố" class="Nhapin4 City-Chu">
-          <div class="font-bold">Số điện thoại</div>
-          <input type="number" placeholder="Nhập số điện thoại" class="Nhapin4 SDT-Chu">
-          <div class="font-bold">địa chỉ gmail</div>
-          <input type="text" placeholder="Nhập địa chỉ gmail" class="Nhapin4 Gmail-Chu">
-          <div>
-            <input type="checkbox" id="ifCheckBox"> Giao địa chỉ khác
-
-            <div class="HienThiThem">
-
-              <div class="element-name">
-                <div class="temp-name">
-                  <div class="box-ten">Tên*</div>
-                  <input type="text" name="" placeholder="Nhập Tên " class="nhapname Name-Nhan">
-                </div>
-                <div class="temp-name">
-                  <div class="box-ten">Họ*</div>
-                  <input type="text" name="" placeholder="Nhập Họ " class="nhapname Ho-Nhan">
-                </div>
-              </div>
-              <div>
-                <div class="font-bold">Quốc Gia/Khu Vực*</div>
-                <div class="font-bold">Việt Nam</div>
-              </div>
-              <div class="font-bold">Địa chỉ*</div>
-              <input type="text" placeholder="Nhập địa chỉ" class="Nhapin4 Dia-Chi-Nhan">
-              <div class="font-bold">Thị Trấn/Thành Phố*</div>
-              <input type="text" placeholder="Nhập thành phố" class="Nhapin4 City-Nhan">
-              <div class="font-bold">Số điện thoại</div>
-              <input type="text" placeholder="Nhập số điện thoại" class="Nhapin4 SDT-Nhan">
-              <div class="font-bold">địa chỉ gmail</div>
-              <input type="text" placeholder="Nhập địa chỉ gmail" class="Nhapin4 Gmail-Nhan">
-            </div>
-            <div> Ghi chú đơn hàng(tùy chọn)</div>
-            <input type="text" id="note" placeholder="Ghi chú về đơn hàng">
+            <button class="more_address">Giao địa chỉ khác</button>
+            
           </div>
         </div>
 
@@ -321,7 +275,7 @@
 
       <div id="all-right-thanhtoan">
         <div id="element_center_right-thanhtoan">
-          <div class="checkout-product-list"></div>
+          <div class="list_danhsach danhsach"></div>
           <div class="Tongtien_thanhtoan">Tổng: <span class="SumCart SumCart-thanhtoan_tong"></span></div>
 
           <input type="radio" name="phuong-thuc-tt" id="cod" class="payment-radio-hidden" checked>
@@ -393,14 +347,18 @@
     </div>
     <div class="conten-center-cod">
       <div class="all-left-cod">
-        <div class="checkout-product-list"></div>
-        <div id="ptcod">
-
+        <div class="  list_danhsach danhsach"></div>
+        <div class="allship">
+          <div>Tiền ship</div>
+          <div class="color-red Ship_money"> aaa</div>
         </div>
+        <div class="Tongtien_thanhtoan">Tổng: <span class="SumCartEnd SumCart-thanhtoan_tong"></span></div>
+
       </div>
       <div id="all-right-ck-end">
         <div id="righ-center-conten">
-          <div class="ThongTinMuaHang-html"></div>
+          <h2>Thông tin giao hàng</h2>
+          <div class="diachi"></div>
         </div>
       </div>
     </div>
@@ -491,7 +449,15 @@
       </div>
       <div class="all-righ-center">
         <div id="Conten-right ">
-          <div class="chuyen-khoan-checkout checkout-product-list"></div>
+          <div class="  list_danhsach danhsach"></div>
+          <div class="allship">
+            <div>Tiền ship</div>
+            <div class="color-red Ship_money"> aaa</div>
+          </div>
+          <div class="Tongtien_thanhtoan">Tổng: <span class="SumCartEnd SumCart-thanhtoan_tong"></span></div>
+          <h2>Thông tin giao hàng</h2>
+          <div class="diachi"></div>
+
         </div>
       </div>
     </div>
@@ -516,6 +482,21 @@
       </div>
       <div class="conten-center">
         <div id="all-left-ch">
+
+          <div class="  list_danhsach danhsach"></div>
+           <div class="allship">
+          <div>Tiền ship</div>
+          <div class="color-red Ship_money"> aaa</div>
+        </div>
+        <div class="Tongtien_thanhtoan">Tổng: <span class="SumCartEnd SumCart-thanhtoan_tong"></span></div>
+        
+          <div id="ptcod">
+
+          </div>
+        </div>
+        <div id="all-right-ch">
+          <div id="righ-center-conten">
+
           <div id="temp">
             <div>
               Đã ghi nhận thông tin đặt hàng của bạn.sẽ có người liên hệ lại với bạn
@@ -524,15 +505,6 @@
             </div>
             <div class="font-bold">Địa chỉ nhận hàng: Đại học sài gon (SGU) </div>
           </div>
-          <div class="checkout-product-list"></div>
-          <div id="ptcod">
-
-          </div>
-        </div>
-        <div id="all-right-ch">
-          <div id="righ-center-conten">
-
-            <div class="ThongTinMuaHang-html"></div>
           </div>
         </div>
       </div>
@@ -555,8 +527,15 @@
         <div> Chúc mừng bạn đã mua hàng thành công</div>
       </div>
       <h2>Hóa đơn của bạn</h2>
-      <div class="from-don-hang"></div>
-      <div class="checkout-product-list"></div>
+      <h3 class="color-red madhck"></h3>
+      <div class="diachi"></div>
+      <div class="  list_danhsach danhsach"></div>
+      <div class="allship">
+          <div>Tiền ship</div>
+          <div class="color-red Ship_money"> aaa</div>
+        </div>
+        <div class="Tongtien_thanhtoan">Tổng: <span class="SumCartEnd SumCart-thanhtoan_tong"></span></div>
+        
       <div id="text-center">
 
         <div> Cảm ơn quý khách đã tin tưởng và sử dụng</div>
@@ -586,7 +565,7 @@
 
 
 <div id="LichSuMuaHang">
-  <div id="all-element">
+  <div class="lichsumuahanglist">
       </div>
 
   </div>
