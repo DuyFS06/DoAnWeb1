@@ -28,7 +28,7 @@
                                 break;
                             case 'da-huy':
                                 trangthaiTEXT='đã hủy';
-                                trangthaiclass=" trangthai_cancel ";
+                                trangthaiclass=" trangthai_cancel color-red";
                                 break;
                         }
                         LichSuHTML+=`<div class="cart_LichSu">
@@ -77,7 +77,7 @@
                                     <div>${danhsach[i].info.address}</div>
                                 </div>
                                 <div class="thanhtoanby">
-                                    <div>Phương thức thanh toán:   ${danhsach[i].payment}</div>
+                                    <div>Phương thức thanh toán:${danhsach[i].payment}</div>
                                     
                                 </div>
                             </div>
@@ -85,7 +85,10 @@
                             <div class="trangThaiDonHang">
                                 <div class="track-step"${danhsach[i].trangthai==='cho-xac-nhan'?'style="color:#28a745"':'style="color:#6c757d"'}>Chờ xác nhận</div>
                                 <div class="track-step"${danhsach[i].trangthai==='dang-giao'?'style="color:#28a745"':'style="color:#6c757d"'}>=> dang giao đến bạn</div>
-                                <div class="track-step" id="track-step-${danhsach[i].id}" ${danhsach[i].trangthai==='thanh-cong'?'style="color:#28a745"':'style="color:#6c757d"'}>=> thành công</div>
+                                <div class="track-step" id="track-step-${danhsach[i].id}" 
+                                    style="${danhsach[i].trangthai === 'thanh-cong' ? 'color:#28a745' : (danhsach[i].trangthai === 'da-huy' ? 'color:red; font-weight:bold' : 'color:#6c757d')}">
+                                    ${danhsach[i].trangthai === 'da-huy' ? '=> Đã hủy' : '=> Thành công'}
+                                </div>
                             </div>
                             ${danhsach[i].trangthai === 'cho-xac-nhan' ? 
                                     `<div class="dkhuy">
@@ -97,6 +100,7 @@
                             `;
                         }
                     }
+                    localStorage.setItem('DanhSachDatHang',JSON.stringify(danhsach))
                 }
                 document.querySelector('.lichsumuahanglist').innerHTML=LichSuHTML; 
                     document.querySelectorAll(".xemthembtn").forEach(btn=>{
@@ -130,16 +134,16 @@
                 localStorage.setItem('DanhSachDatHang',JSON.stringify(danhsach));
                 alert('đã hủy đơn thành công');
                 const thanhcong_faile = document.getElementById(`track-step-${donhuyid}`);
-            if (thanhcong_faile) {
-                thanhcong_faile.textContent = "=> Đã hủy"; 
-                thanhcong_faile.style.color = "red";      
-                thanhcong_faile.style.fontWeight = "bold"; 
-            }
+                if (thanhcong_faile) {
+                    thanhcong_faile.textContent = "=> Đã hủy"; 
+                    thanhcong_faile.style.color = "red";      
+                    thanhcong_faile.style.fontWeight = "bold"; 
+                }
+                const nuthuy = document.querySelector(`.huyDon-btn[data-id="${donhuyid}"]`)?.parentElement;
+                if (nuthuy) {
+                    nuthuy.style.display = 'none';
+                }
             
-            const nuthuy = document.querySelector(`.huyDon-btn[data-id="${donhuyid}"]`)?.parentElement;
-            if (nuthuy) {
-                nuthuy.style.display = 'none';
-            }
             }else{
                 alert("không thể hủy đơn do đơn hàng đã giao hoặc đã được vận chuyển.");
             }
