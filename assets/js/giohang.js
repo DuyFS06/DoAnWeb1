@@ -48,7 +48,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const cart = getcart();
         let modalCart = '';
         let sum = 0;
-        console.log('test')
 
         if (cart.length === 0) {
             modalCart = "<p style='text-align: center; padding: 20px;'>Giỏ hàng của bạn đang trống.</p>";
