@@ -19,13 +19,6 @@ if(currentUser){
 
   const DEFAULT_AVATAR = "./assets/img/Avatar/avtuser.jpg";
 
-  function validatePassword(password) {
-    const minLength = 8;
-    const hasUpperCase = /[A-Z]/.test(password);
-    const hasLowerCase = /[a-z]/.test(password);
-    const hasNumbers = /\d/.test(password);
-    return password.length >= minLength && hasUpperCase && hasLowerCase && hasNumbers;
-  }
 
   function updateSidebar(currentUser) {
     if (!currentUser) return;
@@ -83,10 +76,6 @@ if(currentUser){
       return;
     }
 
-    if (!validatePassword(newPassword)) {
-      Swal.fire({ icon: "error", title: "Mật khẩu không hợp lệ!", text: "Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường và số!" });
-      return;
-    }
 
     // Cập nhật currentUser và userList
     currentUser.password = newPassword;

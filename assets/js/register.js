@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const ruleLength = document.getElementById("rule-length");
 
     // DATA 
-    let danhSachNguoiDung = JSON.parse(localStorage.getItem("userList")) || [];
+    let dsUser = JSON.parse(localStorage.getItem("userList")) || [];
 
     // HÀM HỖ TRỢ 
     function hienThiThongBao(icon, tieuDe, noiDung, callback = null) {
@@ -63,19 +63,19 @@ document.addEventListener("DOMContentLoaded", () => {
         username: (value) => {
             if (!value) return "Tên đăng nhập không được để trống.";
             if (value.length < 3) return "Tên đăng nhập phải có ít nhất 3 ký tự.";
-            if (danhSachNguoiDung.some(u => u.userName === value)) return "Tên đăng ký đã tồn tại!";
+            if (dsUser.some(u => u.userName === value)) return "Tên đăng ký đã tồn tại!";
             return null;
         },
         email: (value) => {
             if (!value) return "Email không được để trống.";
-            if (danhSachNguoiDung.some(u => u.email === value)) return "Email đã tồn tại!";
+            if (dsUser.some(u => u.email === value)) return "Email đã tồn tại!";
             return null;
         },
         phone: (value) => {
             if (!value) return "Số điện thoại không được để trống.";
             if (isNaN(value)) return "Số điện thoại chỉ được chứa các chữ số.";
             if (!value.startsWith("0") || value.length !== 10) return "Số điện thoại phải gồm 10 chữ số và bắt đầu bằng 0.";
-            if (danhSachNguoiDung.some(u => u.phone === value)) return "Số điện thoại đã được đăng ký!";
+            if (dsUser.some(u => u.phone === value)) return "Số điện thoại đã được đăng ký!";
             return null;
         },
         password: (value) => {
@@ -237,7 +237,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        const nguoiDungMoi = {
+        const userNew = {
             userName: input.username.value.trim(),
             email: input.email.value.trim(),
             phone: input.phone.value.trim(),
@@ -246,8 +246,8 @@ document.addEventListener("DOMContentLoaded", () => {
             isLoggedIn: false
         };
 
-        danhSachNguoiDung.push(nguoiDungMoi);
-        localStorage.setItem("userList", JSON.stringify(danhSachNguoiDung));
+        dsUser.push(userNew);
+        localStorage.setItem("userList", JSON.stringify(dsUser));
 
         hienThiThongBao("success", "Đăng ký thành công!", "Chuyển đến đăng nhập...", () => {
             if (typeof window.navigateTo === 'function') window.navigateTo('login');

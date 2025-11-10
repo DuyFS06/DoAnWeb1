@@ -208,11 +208,4 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-
-    
 });
-
-
-
-
-
