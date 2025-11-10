@@ -570,7 +570,8 @@
 .QLNH_modal-content {
   background: #fff;
   border-radius: 12px;
-  width: 800px;
+  width: 1200px;
+  max-width: 95vw;
   max-height: 90vh;
   overflow-y: auto;
   box-shadow: 0 5px 25px rgba(0, 0, 0, 0.25);
@@ -607,8 +608,25 @@
 
 /* === BODY === */
 .QLNH_modal-body {
-  padding: 25px;
+  padding: 30px 40px;
   font-family: "Segoe UI", sans-serif;
+}
+
+/* Điều chỉnh layout form thêm phiếu */
+.QLNH_modal-themphieu .QLNH_modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.QLNH_modal-themphieu .QLNH_form-group {
+  margin-bottom: 0;
+}
+
+.QLNH_modal-themphieu .QLNH_bang-san-pham-nhap {
+  flex: 1;
+  margin-top: 0;
+  padding: 25px 30px;
 }
 
 /* === FORM === */
@@ -664,7 +682,15 @@
   border-collapse: collapse;
   border-radius: 8px;
   overflow: hidden;
+  margin: 0 auto;
 }
+
+.QLNH_bangNhap col:nth-child(1) { width: 25%; }  /* Mã SP */
+.QLNH_bangNhap col:nth-child(2) { width: 30%; }  /* Tên SP */
+.QLNH_bangNhap col:nth-child(3) { width: 15%; }  /* Giá nhập */
+.QLNH_bangNhap col:nth-child(4) { width: 12%; }  /* Số lượng */
+.QLNH_bangNhap col:nth-child(5) { width: 13%; }  /* Thành tiền */
+.QLNH_bangNhap col:nth-child(6) { width: 5%; }   /* Nút xóa */
 
 .QLNH_bangNhap th,
 .QLNH_bangNhap td {
@@ -674,6 +700,45 @@
   font-size: 14px;
   color: #333;
   vertical-align: middle;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Select box mã sản phẩm */
+.QLNH_selectSP {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 14px;
+  background-color: #ffffff;
+  transition: all 0.2s ease;
+  min-width: 180px;
+  height: 36px;
+}
+
+.QLNH_selectSP[size] {
+  height: auto !important;
+}
+
+.QLNH_selectSP option {
+  padding: 8px;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Giới hạn hiển thị 5 dòng */
+.QLNH_selectSP {
+  size: 5;
+}
+
+.QLNH_selectSP:focus {
+  border-color: #5062b5;
+  box-shadow: 0 0 0 2px rgba(80, 98, 181, 0.15);
+  outline: none;
 }
 
 .QLNH_bangNhap th {

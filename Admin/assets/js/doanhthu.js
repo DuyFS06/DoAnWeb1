@@ -21,9 +21,20 @@
         <p>Tổng quan doanh thu và mặt hàng bán chạy</p>
       </div>
       <div class="BCDT_filters">
-        <label>Từ ngày <input type="date" id="BCDT_from" /></label>
-        <label>Đến ngày <input type="date" id="BCDT_to" /></label>
-        <button id="BCDT_apply">Áp dụng</button>
+        <div class="BCDT_time-filter">
+          <label>Xem theo:</label>
+          <select id="BCDT_viewType">
+            <option value="day">Ngày</option>
+            <option value="week">Tuần</option>
+            <option value="month">Tháng</option>
+            <option value="year">Năm</option>
+          </select>
+        </div>
+        <div class="BCDT_date-range">
+          <label>Từ ngày <input type="date" id="BCDT_from" /></label>
+          <label>Đến ngày <input type="date" id="BCDT_to" /></label>
+          <button id="BCDT_apply">Áp dụng</button>
+        </div>
       </div>
       <div class="BCDT_cards">
         <div class="BCDT_card"><div class="title">Tổng doanh thu</div><div id="BCDT_total" class="value">0₫</div></div>
@@ -32,7 +43,7 @@
       </div>
       <div class="BCDT_twoCols">
         <div class="BCDT_panel">
-          <h4>Doanh thu theo ngày</h4>
+          <h4 id="BCDT_chartTitle">Doanh thu theo ngày</h4>
           <div id="BCDT_chart" class="BCDT_chart"></div>
         </div>
         <div class="BCDT_panel">
@@ -62,11 +73,35 @@
     const count = filtered.length;
     const avg = count ? Math.round(total / count) : 0;
 
-    // revenue by date (yyyy-mm-dd)
-    const byDate = {};
+    // revenue by selected time period
+    const viewType = document.getElementById("BCDT_viewType").value;
+    const timeData = {};
+    
     filtered.forEach((o) => {
-      const key = new Date(o.date).toISOString().slice(0, 10);
-      byDate[key] = (byDate[key] || 0) + (o.total || 0);
+      const date = new Date(o.date);
+      let key = '';
+      
+      switch(viewType) {
+        case 'day':
+          key = date.toISOString().slice(0, 10); // YYYY-MM-DD
+          break;
+        case 'week':
+          // Get the week number and year
+          const firstDayOfYear = new Date(date.getFullYear(), 0, 1);
+          const weekNumber = Math.ceil((((date - firstDayOfYear) / 86400000) + firstDayOfYear.getDay() + 1) / 7);
+          key = `${date.getFullYear()}-W${weekNumber}`;
+          break;
+        case 'month':
+          key = date.toISOString().slice(0, 7); // YYYY-MM
+          break;
+        case 'year':
+          key = date.getFullYear().toString(); // YYYY
+          break;
+        default:
+          key = date.toISOString().slice(0, 10);
+      }
+      
+      timeData[key] = (timeData[key] || 0) + (o.total || 0);
     });
 
     // top products
@@ -84,7 +119,7 @@
       .sort((a, b) => b.qty - a.qty)
       .slice(0, 8);
 
-    return { total, count, avg, byDate, top };
+    return { total, count, avg, timeData, top };
   }
 
   function render(data) {
@@ -95,14 +130,47 @@
     // chart bars
     const chart = document.getElementById("BCDT_chart");
     chart.innerHTML = "";
-    const entries = Object.entries(data.byDate).sort((a, b) => a[0].localeCompare(b[0]));
+    const viewType = document.getElementById("BCDT_viewType").value;
+    
+    // Update chart title based on view type
+    const chartTitle = document.getElementById("BCDT_chartTitle");
+    chartTitle.textContent = `Doanh thu theo ${
+      viewType === 'day' ? 'ngày' :
+      viewType === 'week' ? 'tuần' :
+      viewType === 'month' ? 'tháng' : 'năm'
+    }`;
+    
+    const entries = Object.entries(data.timeData).sort((a, b) => a[0].localeCompare(b[0]));
     const max = entries.reduce((m, [, v]) => Math.max(m, v), 0) || 1;
+    
     entries.forEach(([d, v]) => {
       const row = document.createElement("div");
       row.className = "BCDT_barRow";
       const label = document.createElement("div");
       label.className = "BCDT_barLabel";
-      label.textContent = d;
+      
+      // Format the label based on view type
+      switch(viewType) {
+        case 'day':
+          // Convert YYYY-MM-DD to DD/MM/YYYY
+          const [y, m, day] = d.split('-');
+          label.textContent = `${day}/${m}/${y}`;
+          break;
+        case 'week':
+          // Format: "Tuần W/YYYY"
+          const [year, week] = d.split('-W');
+          label.textContent = `Tuần ${week}/${year}`;
+          break;
+        case 'month':
+          // Convert YYYY-MM to MM/YYYY
+          const [year2, month] = d.split('-');
+          label.textContent = `${month}/${year2}`;
+          break;
+        case 'year':
+          label.textContent = d;
+          break;
+      }
+      
       const bar = document.createElement("div");
       bar.className = "BCDT_bar";
       bar.style.width = Math.max(4, Math.round((v / max) * 100)) + "%";
@@ -127,6 +195,12 @@
       const from = document.getElementById("BCDT_from").value;
       const to = document.getElementById("BCDT_to").value;
       // always re-pull latest orders from localStorage
+      render(compute(getOrders(), from, to));
+    });
+
+    document.getElementById("BCDT_viewType").addEventListener("change", () => {
+      const from = document.getElementById("BCDT_from").value;
+      const to = document.getElementById("BCDT_to").value;
       render(compute(getOrders(), from, to));
     });
   }

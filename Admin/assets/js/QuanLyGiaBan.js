@@ -70,6 +70,11 @@
         </table>
       </div>
       <div class="QLGB_table-content"></div>
+      <div class="QLGB_pagination">
+        <button id="QLGB_prevPage">Trang trước</button>
+        <span id="QLGB_pageInfo"></span>
+        <button id="QLGB_nextPage">Trang sau</button>
+      </div>
     `;
   }
 
@@ -92,6 +97,10 @@
     p.price = formatPriceValue(sell);
   }
 
+  // Pagination variables
+  let currentPage = 1;
+  const itemsPerPage = 10;
+
   function renderTable(list) {
     const wrap = document.querySelector(`#${SECTION_ID} .QLGB_table-content`);
     wrap.innerHTML = "";
@@ -99,12 +108,29 @@
     table.className = "QLGB_admin-table";
     const tbody = document.createElement("tbody");
 
-    list.forEach((p, i) => {
+    // Calculate pagination
+    const totalPages = Math.ceil(list.length / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = Math.min(startIndex + itemsPerPage, list.length);
+    const pageItems = list.slice(startIndex, endIndex);
+
+    // Update pagination controls
+    const pageInfo = document.getElementById('QLGB_pageInfo');
+    if (pageInfo) {
+      pageInfo.textContent = `Trang ${currentPage}/${totalPages}`;
+    }
+    
+    const prevBtn = document.getElementById('QLGB_prevPage');
+    const nextBtn = document.getElementById('QLGB_nextPage');
+    if (prevBtn) prevBtn.disabled = currentPage === 1;
+    if (nextBtn) nextBtn.disabled = currentPage === totalPages;
+
+    pageItems.forEach((p, i) => {
       const tr = document.createElement("tr");
       tr.dataset.id = p.id;
       const percent = calcPercent(p);
       tr.innerHTML = `
-        <td>${i + 1}</td>
+        <td>${startIndex + i + 1}</td>
         <td>${p.id}</td>
         <td>${p.image ? `<img src="../${p.image}" alt="${p.name}" class="QLGB_img" />` : ""}</td>
         <td>${p.name}</td>
@@ -197,11 +223,31 @@
 
   function bindEvents() {
     document.getElementById("QLGB_locDanhMuc").addEventListener("change", () => {
+      currentPage = 1; // Reset to first page when filter changes
       renderTable(currentFiltered());
     });
     document.getElementById("QLGB_timId").addEventListener("input", () => {
+      currentPage = 1; // Reset to first page when search changes
       renderTable(currentFiltered());
     });
+    
+    // Pagination event handlers
+    document.getElementById("QLGB_prevPage").addEventListener("click", () => {
+      if (currentPage > 1) {
+        currentPage--;
+        renderTable(currentFiltered());
+      }
+    });
+    
+    document.getElementById("QLGB_nextPage").addEventListener("click", () => {
+      const list = currentFiltered();
+      const totalPages = Math.ceil(list.length / itemsPerPage);
+      if (currentPage < totalPages) {
+        currentPage++;
+        renderTable(list);
+      }
+    });
+
     document.getElementById("QLGB_btnApDung").addEventListener("click", () => {
       const val = Number(document.getElementById("QLGB_percentDefault").value || 0);
       if (isNaN(val) || val < 0) return alert("% lợi nhuận không hợp lệ");

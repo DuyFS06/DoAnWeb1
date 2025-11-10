@@ -353,8 +353,9 @@ function QLNH_themDongSanPham() {
   const row = document.createElement("tr");
   row.innerHTML = `
     <td style="position: relative;">
-      <input type="text" class="QLNH_maSP" placeholder="Nhập mã hoặc tên SP" autocomplete="off" />
-      <ul class="QLNH_goiYSP"></ul>
+      <select class="QLNH_selectSP">
+        <option value="">-- Chọn mã sản phẩm --</option>
+      </select>
     </td>
     <td class="QLNH_tenSP"></td>
     <td class="QLNH_giaNhap"></td>
@@ -364,62 +365,55 @@ function QLNH_themDongSanPham() {
   `;
   tbody.appendChild(row);
 
-  const maInput = row.querySelector(".QLNH_maSP");
-  const goiYBox = row.querySelector(".QLNH_goiYSP");
+  const selectEl = row.querySelector(".QLNH_selectSP");
   const soLuongInput = row.querySelector(".QLNH_soLuong");
 
-  // ====== SỰ KIỆN GỢI Ý SẢN PHẨM ======
-  maInput.addEventListener("input", function () {
-    const keyword = maInput.value.trim().toLowerCase();
-    if (!keyword) {
-      goiYBox.style.display = "none";
-      return;
-    }
-    const ketQua = QLNH_productsLocal.filter(
-      (p) =>
-        p.id.toLowerCase().includes(keyword) ||
-        p.name.toLowerCase().includes(keyword)
-    );
+  // Populate select with all products
+  selectEl.setAttribute('size', '5'); // Set size to show 5 options at a time
+  
+  // Add default option
+  const defaultOpt = document.createElement('option');
+  defaultOpt.value = "";
+  defaultOpt.textContent = "-- Chọn mã sản phẩm --";
+  selectEl.appendChild(defaultOpt);
 
-    if (ketQua.length === 0) {
-      goiYBox.style.display = "none";
-      return;
-    }
-    goiYBox.innerHTML = ketQua
-      .map(
-        (p) => `
-        <li data-id="${p.id}">
-          <strong>${p.id}</strong> ||  ${p.name}
-        </li>`
-      )
-      .join("");
-
-    goiYBox.style.display = "block";
+  QLNH_productsLocal.forEach(p => {
+    const opt = document.createElement('option');
+    opt.value = p.id;
+    opt.textContent = `${p.id} || ${p.name}`;
+    selectEl.appendChild(opt);
   });
 
-  // Khi chọn sản phẩm trong danh sách
-  goiYBox.addEventListener("click", function (e) {
-    const li = e.target.closest("li");
-    if (!li) return;
-    const product = QLNH_productsLocal.find((p) => p.id === li.dataset.id);
-    if (!product) return;
+  // Thêm sự kiện khi focus vào select
+  selectEl.addEventListener('focus', function() {
+    this.setAttribute('size', '5');
+  });
 
-    // Gán giá trị vào dòng
-    maInput.value = product.id;
-    row.querySelector(".QLNH_tenSP").textContent = product.name;
-    row.querySelector(".QLNH_giaNhap").textContent =
-      product.importPrice.toLocaleString("vi-VN") + "₫";
+  // Thêm sự kiện khi blur (click ra ngoài)
+  selectEl.addEventListener('blur', function() {
+    this.setAttribute('size', '1');
+  });
 
-    goiYBox.style.display = "none";
+  // Thêm sự kiện khi chọn một option
+  selectEl.addEventListener('change', function() {
+    this.setAttribute('size', '1');
+  });
+
+  // when product selected, fill name & price
+  selectEl.addEventListener('change', function () {
+    const pid = selectEl.value;
+    const product = QLNH_productsLocal.find(p => p.id === pid);
+    if (product) {
+      row.querySelector('.QLNH_tenSP').textContent = product.name;
+      row.querySelector('.QLNH_giaNhap').textContent = product.importPrice.toLocaleString('vi-VN') + '₫';
+    } else {
+      row.querySelector('.QLNH_tenSP').textContent = '';
+      row.querySelector('.QLNH_giaNhap').textContent = '';
+    }
     QLNH_capNhatThanhTien(row);
   });
 
-  // Ẩn gợi ý khi click ra ngoài
-  document.addEventListener("click", function (e) {
-    if (!maInput.contains(e.target) && !goiYBox.contains(e.target)) {
-      goiYBox.style.display = "none";
-    }
-  });
+  // end select behavior
 
   // Cập nhật thành tiền
   soLuongInput.addEventListener("input", () => QLNH_capNhatThanhTien(row));
@@ -433,7 +427,8 @@ function QLNH_themDongSanPham() {
 
 // ====== Cập nhật thành tiền 1 dòng ======
 function QLNH_capNhatThanhTien(row) {
-  const ma = row.querySelector(".QLNH_maSP").value.trim();
+  const maEl = row.querySelector(".QLNH_selectSP") || row.querySelector(".QLNH_maSP");
+  const ma = maEl ? maEl.value.trim() : "";
   const sl = parseInt(row.querySelector(".QLNH_soLuong").value) || 0;
   const product = QLNH_productsLocal.find((p) => p.id === ma);
   const thanhTienCell = row.querySelector(".QLNH_thanhTien");
@@ -453,7 +448,8 @@ function QLNH_capNhatTongTien() {
   let tong = 0;
 
   rows.forEach((r) => {
-    const ma = r.querySelector(".QLNH_maSP").value.trim();
+    const maEl = r.querySelector(".QLNH_selectSP") || r.querySelector(".QLNH_maSP");
+    const ma = maEl ? maEl.value.trim() : "";
     const sl = parseInt(r.querySelector(".QLNH_soLuong").value) || 0;
     const product = QLNH_productsLocal.find((p) => p.id === ma);
     if (product) tong += product.importPrice * sl;
@@ -472,7 +468,8 @@ QLNH_btnLuuPhieuMoi.onclick = () => {
   let tong = 0;
 
   document.querySelectorAll("#QLNH_tableBodyNhap tr").forEach((r) => {
-    const ma = r.querySelector(".QLNH_maSP").value.trim();
+    const maEl = r.querySelector(".QLNH_selectSP") || r.querySelector(".QLNH_maSP");
+    const ma = maEl ? maEl.value.trim() : "";
     const ten = r.querySelector(".QLNH_tenSP").textContent.trim();
     const sl = parseInt(r.querySelector(".QLNH_soLuong").value) || 0;
     const giaText = r
@@ -545,7 +542,11 @@ function QLNH_suaPhieuNhap(maPhieu) {
     const thanhTien = ct.thanhTien.toLocaleString("vi-VN") + "₫";
 
     row.innerHTML = `
-      <td><input type="text" class="QLNH_maSP" value="${ct.maSanPham}" /></td>
+      <td>
+        <select class="QLNH_selectSP">
+          <option value="">-- Chọn mã sản phẩm --</option>
+        </select>
+      </td>
       <td class="QLNH_tenSP">${tenSP}</td>
       <td class="QLNH_giaNhap">${giaNhap}</td>
       <td><input type="number" class="QLNH_soLuong" value="${ct.soLuongNhap}" min="1" /></td>
@@ -554,9 +555,48 @@ function QLNH_suaPhieuNhap(maPhieu) {
     `;
     tbody.appendChild(row);
 
-    row
-      .querySelector(".QLNH_maSP")
-      .addEventListener("input", () => QLNH_capNhatThanhTien(row));
+    // Populate select with all products
+    const selectEl = row.querySelector('.QLNH_selectSP');
+    selectEl.setAttribute('size', '1'); // Start with size 1
+    
+    // Add all products
+    QLNH_productsLocal.forEach(p => {
+      const opt = document.createElement('option');
+      opt.value = p.id;
+      opt.textContent = `${p.id} || ${p.name}`;
+      if (p.id === ct.maSanPham) {
+        opt.selected = true;
+      }
+      selectEl.appendChild(opt);
+    });
+
+    // Thêm sự kiện khi focus vào select
+    selectEl.addEventListener('focus', function() {
+      this.setAttribute('size', '5');
+    });
+
+    // Thêm sự kiện khi blur (click ra ngoài)
+    selectEl.addEventListener('blur', function() {
+      this.setAttribute('size', '1');
+    });
+
+    // Thêm sự kiện khi chọn một option
+    selectEl.addEventListener('change', function() {
+      this.setAttribute('size', '1');
+    });
+    selectEl.addEventListener('change', () => {
+      const pid = selectEl.value;
+      const prod = QLNH_productsLocal.find(p => p.id === pid);
+      if (prod) {
+        row.querySelector('.QLNH_tenSP').textContent = prod.name;
+        row.querySelector('.QLNH_giaNhap').textContent = prod.importPrice.toLocaleString('vi-VN') + '₫';
+      } else {
+        row.querySelector('.QLNH_tenSP').textContent = '';
+        row.querySelector('.QLNH_giaNhap').textContent = '';
+      }
+      QLNH_capNhatThanhTien(row);
+    });
+
     row
       .querySelector(".QLNH_soLuong")
       .addEventListener("input", () => QLNH_capNhatThanhTien(row));
@@ -582,7 +622,8 @@ function QLNH_luuPhieuSua(maPhieu) {
   const chiTiet = [];
   let tong = 0;
   document.querySelectorAll("#QLNH_tableBodyNhap tr").forEach((r) => {
-    const ma = r.querySelector(".QLNH_maSP").value.trim();
+    const maEl = r.querySelector(".QLNH_selectSP") || r.querySelector(".QLNH_maSP");
+    const ma = maEl ? maEl.value.trim() : "";
     const ten = r.querySelector(".QLNH_tenSP").textContent.trim();
     const sl = parseInt(r.querySelector(".QLNH_soLuong").value) || 0;
     const giaText = r

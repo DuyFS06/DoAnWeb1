@@ -18,44 +18,22 @@
   function getLocalOrders() {
     const key = "ordersLocal";
     const raw = localStorage.getItem(key);
-    if (raw) return JSON.parse(raw);
-    // seed demo orders if none
-    const demo = [
-      {
-        id: "DH" + Date.now(),
-        date: new Date().toISOString(),
-        customerName: "Nguyễn Văn A",
-        status: "moiDat",
-        items: [
-          { productId: "BA-110AH-6A", name: "BABY-G BA-110AH-6A", qty: 1, returned: 0, price: 4420000 },
-          { productId: "EFV-650D-2BV", name: "EDIFICE EFV-650D-2BV", qty: 1, returned: 0, price: 3820000 },
-        ],
-      },
-      {
-        id: "DH20251001001",
-        date: new Date(Date.now() - 86400000 * 7).toISOString(),
-        customerName: "Trần Thị B",
-        status: "daXuLy",
-        items: [{ productId: "GMA-S120SA-7A2", name: "G-SHOCK GMA-S120SA-7A2", qty: 2, returned: 0, price: 4200000 }],
-      },
-      {
-        id: "DH20250915002",
-        date: new Date(Date.now() - 86400000 * 30).toISOString(),
-        customerName: "Lê Văn C",
-        status: "daGiao",
-        items: [{ productId: "PRW-30Y-1B", name: "PRO-TREK PRW-30Y-1B", qty: 1, returned: 0, price: 9500000 }],
-      },
-    ].map((o) => ({
-      ...o,
-      total: o.items.reduce((s, it) => s + Math.max(0, (it.qty - (it.returned || 0))) * it.price, 0),
-    }));
-    localStorage.setItem(key, JSON.stringify(demo));
-    return demo;
+    if (raw) {
+      const orders = JSON.parse(raw);
+      // Filter out any sample orders by checking if they have corresponding user orders
+      const userOrders = JSON.parse(localStorage.getItem('DanhSachDatHang') || '[]');
+      const realOrders = orders.filter(order => userOrders.some(uo => uo.id === order.id));
+      return realOrders;
+    }
+    return [];
   }
 
   function saveLocalOrders(list) {
     localStorage.setItem("ordersLocal", JSON.stringify(list));
   }
+
+  const itemsPerPage = 10;
+  let currentPage = 1;
 
   function buildLayout(container) {
     container.innerHTML = `
@@ -82,19 +60,24 @@
         <table class="QLDH_admin-table">
           <thead>
             <tr>
-              <th style="width:6%">STT</th>
-              <th style="width:14%">Mã đơn</th>
-              <th style="width:18%">Ngày</th>
-              <th style="width:18%">Khách</th>
-              <th style="width:14%">Tổng tiền</th>
+              <th style="width:5%">STT</th>
+              <th style="width:12%">Mã đơn</th>
+              <th style="width:15%">Ngày</th>
+              <th>Khách</th>
+              <th style="width:12%">Tổng tiền</th>
               <th style="width:12%">Trạng thái</th>
-              <th style="width:9%">Chi tiết</th>
-              <th style="width:9%">Cập nhật</th>
+              <th style="width:8%">Chi tiết</th>
+              <th style="width:15%">Cập nhật</th>
             </tr>
           </thead>
         </table>
       </div>
       <div class="QLDH_table-content"></div>
+      <div class="QLDH_pagination">
+        <button id="QLDH_prevPage">Trang trước</button>
+        <span id="QLDH_pageInfo"></span>
+        <button id="QLDH_nextPage">Trang sau</button>
+      </div>
 
       <div id="QLDH_modal" class="QLDH_modal" style="display:none">
         <div class="QLDH_modal-content">
@@ -103,9 +86,21 @@
             <span id="QLDH_closeModal" class="QLDH_close">&times;</span>
           </div>
           <div class="QLDH_modal-body">
-            <p><strong>Mã đơn:</strong> <span id="QLDH_md_id"></span></p>
-            <p><strong>Ngày:</strong> <span id="QLDH_md_date"></span></p>
-            <p><strong>Khách:</strong> <span id="QLDH_md_customer"></span></p>
+            <div class="QLDH_md_info">
+              <div class="QLDH_md_col">
+                <p><strong>Mã đơn:</strong> <span id="QLDH_md_id"></span></p>
+                <p><strong>Ngày đặt:</strong> <span id="QLDH_md_date"></span></p>
+                <p><strong>Khách hàng:</strong> <span id="QLDH_md_customer"></span></p>
+                <p><strong>Tài khoản:</strong> <span id="QLDH_md_username"></span></p>
+                <p><strong>Số điện thoại:</strong> <span id="QLDH_md_phone"></span></p>
+              </div>
+              <div class="QLDH_md_col">
+                <p><strong>Địa chỉ giao hàng:</strong></p>
+                <p id="QLDH_md_address" class="QLDH_md_address"></p>
+                <p><strong>Ghi chú:</strong></p>
+                <p id="QLDH_md_note" class="QLDH_md_note"></p>
+              </div>
+            </div>
             <table class="QLDH_md_table">
               <thead>
                 <tr>
@@ -114,11 +109,26 @@
               </thead>
               <tbody id="QLDH_md_tbody"></tbody>
             </table>
-            <div class="QLDH_md_total">Tổng: <span id="QLDH_md_total"></span></div>
+            <div class="QLDH_md_total">Tổng tiền: <span id="QLDH_md_total"></span></div>
           </div>
         </div>
       </div>
     `;
+  }
+
+  function renderPagination(list) {
+    const totalPages = Math.ceil(list.length / itemsPerPage);
+    
+    // Update pagination controls
+    const pageInfo = document.getElementById('QLDH_pageInfo');
+    if (pageInfo) {
+      pageInfo.textContent = `Trang ${currentPage}/${totalPages}`;
+    }
+    
+    const prevBtn = document.getElementById('QLDH_prevPage');
+    const nextBtn = document.getElementById('QLDH_nextPage');
+    if (prevBtn) prevBtn.disabled = currentPage === 1;
+    if (nextBtn) nextBtn.disabled = currentPage === totalPages;
   }
 
   function renderTable(list) {
@@ -128,10 +138,13 @@
     table.className = "QLDH_admin-table";
     const tbody = document.createElement("tbody");
 
-    list.forEach((o, idx) => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const pageItems = list.slice(startIndex, startIndex + itemsPerPage);
+
+    pageItems.forEach((o, idx) => {
       const tr = document.createElement("tr");
       tr.innerHTML = `
-        <td>${idx + 1}</td>
+        <td>${startIndex + idx + 1}</td>
         <td>${o.id}</td>
         <td>${new Date(o.date).toLocaleString("vi-VN")}</td>
         <td>${o.customerName || "--"}</td>
@@ -151,6 +164,8 @@
 
     table.appendChild(tbody);
     wrap.appendChild(table);
+
+    renderPagination(list);
 
     // bind actions
     wrap.querySelectorAll(".QLDH_btn-detail").forEach((b) =>
@@ -191,9 +206,28 @@
     const o = orders.find((x) => x.id === id);
     if (!o) return;
 
+    // Cập nhật thông tin cơ bản
     document.getElementById("QLDH_md_id").textContent = o.id;
     document.getElementById("QLDH_md_date").textContent = new Date(o.date).toLocaleString("vi-VN");
     document.getElementById("QLDH_md_customer").textContent = o.customerName || "--";
+    document.getElementById("QLDH_md_username").textContent = o.userName || "--";
+    document.getElementById("QLDH_md_phone").textContent = o.phone || "--";
+
+    // Cập nhật địa chỉ và ghi chú
+    const addressEl = document.getElementById("QLDH_md_address");
+    if (o.address) {
+      const addr = [];
+      if (o.address.street) addr.push(o.address.street);
+      if (o.address.ward) addr.push(o.address.ward);
+      if (o.address.district) addr.push(o.address.district);
+      if (o.address.city) addr.push(o.address.city);
+      addressEl.textContent = addr.join(", ");
+    } else {
+      addressEl.textContent = "--";
+    }
+    document.getElementById("QLDH_md_note").textContent = o.note || "--";
+
+    // Cập nhật bảng sản phẩm
     const tbody = document.getElementById("QLDH_md_tbody");
     tbody.innerHTML = "";
     o.items.forEach((it, i) => {
@@ -210,28 +244,125 @@
   }
 
   function updateStatus(id, newStatus) {
+    // Cập nhật trạng thái trong admin orders
     const orders = getLocalOrders();
     const idx = orders.findIndex((x) => x.id === id);
     if (idx === -1) return;
-    orders[idx].status = newStatus;
+    
+    const order = orders[idx];
+    const oldStatus = order.status;
+    order.status = newStatus;
+    
+    // Xử lý cập nhật số lượng đã bán khi trạng thái đơn hàng thay đổi
+    if (newStatus === 'daGiao' && oldStatus !== 'daGiao') {
+      // Khi đơn hàng được chuyển sang trạng thái "Đã giao"
+      const products = JSON.parse(localStorage.getItem('productsLocal') || '[]');
+      order.items.forEach(item => {
+        const productIdx = products.findIndex(p => p.id === item.productId);
+        if (productIdx !== -1) {
+          // Khởi tạo soldQuantity nếu chưa có
+          if (!products[productIdx].soldQuantity) {
+            products[productIdx].soldQuantity = 0;
+          }
+          // Cộng dồn số lượng đã bán
+          products[productIdx].soldQuantity += item.qty;
+        }
+      });
+      localStorage.setItem('productsLocal', JSON.stringify(products));
+      // Thông báo cập nhật tồn kho
+      window.dispatchEvent(new Event('productsUpdated'));
+    } else if (oldStatus === 'daGiao' && newStatus !== 'daGiao') {
+      // Khi đơn hàng bị chuyển từ trạng thái "Đã giao" sang trạng thái khác
+      const products = JSON.parse(localStorage.getItem('productsLocal') || '[]');
+      order.items.forEach(item => {
+        const productIdx = products.findIndex(p => p.id === item.productId);
+        if (productIdx !== -1 && products[productIdx].soldQuantity) {
+          // Trừ đi số lượng đã bán
+          products[productIdx].soldQuantity = Math.max(0, products[productIdx].soldQuantity - item.qty);
+        }
+      });
+      localStorage.setItem('productsLocal', JSON.stringify(products));
+      // Thông báo cập nhật tồn kho
+      window.dispatchEvent(new Event('productsUpdated'));
+    }
+    
+    // Lưu cập nhật đơn hàng
     saveLocalOrders(orders);
+
+    // Cập nhật trạng thái trong user orders (đồng bộ sang cấu trúc user-side)
+    const userOrders = JSON.parse(localStorage.getItem('DanhSachDatHang') || '[]');
+    const userOrderIdx = userOrders.findIndex(o => o.id === id);
+    if (userOrderIdx !== -1) {
+        // Lưu trạng thái admin (dành cho back-office) và đồng thời cập nhật trường 'trangthai' để user UI có thể đọc
+        userOrders[userOrderIdx].status = newStatus;
+
+        // Map trạng thái admin -> trạng thái hiển thị ở user
+        let userTrangThai = 'cho-xac-nhan';
+        switch (newStatus) {
+          case 'moiDat':
+            userTrangThai = 'cho-xac-nhan';
+            break;
+          case 'daXuLy':
+            userTrangThai = 'dang-giao';
+            break;
+          case 'daGiao':
+            userTrangThai = 'thanh-cong';
+            break;
+          case 'huy':
+            userTrangThai = 'da-huy';
+            break;
+          default:
+            userTrangThai = 'cho-xac-nhan';
+        }
+
+        userOrders[userOrderIdx].trangthai = userTrangThai;
+        localStorage.setItem('DanhSachDatHang', JSON.stringify(userOrders));
+
+        // Gửi sự kiện để thông báo thay đổi (custom event)
+        const event = new Event('orderStatusChanged');
+        event.orderId = id;
+        event.newStatus = newStatus;
+        window.dispatchEvent(event);
+    }
+
     // re-render with current filters
     const filtered = filterOrders(orders);
     renderTable(filtered);
   }
 
   function attachEvents() {
+    // Pagination event handlers
+    document.getElementById("QLDH_prevPage").addEventListener("click", () => {
+      if (currentPage > 1) {
+        currentPage--;
+        renderTable(filterOrders(getLocalOrders()));
+      }
+    });
+    
+    document.getElementById("QLDH_nextPage").addEventListener("click", () => {
+      const list = filterOrders(getLocalOrders());
+      const totalPages = Math.ceil(list.length / itemsPerPage);
+      if (currentPage < totalPages) {
+        currentPage++;
+        renderTable(list);
+      }
+    });
+
     document.getElementById("QLDH_btnSearch").addEventListener("click", () => {
+      currentPage = 1;
       const list = filterOrders(getLocalOrders());
       renderTable(list);
     });
     document.getElementById("QLDH_filterDateFrom").addEventListener("change", () => {
+      currentPage = 1;
       renderTable(filterOrders(getLocalOrders()));
     });
     document.getElementById("QLDH_filterDateTo").addEventListener("change", () => {
+      currentPage = 1;
       renderTable(filterOrders(getLocalOrders()));
     });
     document.getElementById("QLDH_filterStatus").addEventListener("change", () => {
+      currentPage = 1;
       renderTable(filterOrders(getLocalOrders()));
     });
     document.getElementById("QLDH_closeModal").addEventListener("click", () => {
@@ -255,9 +386,77 @@
     renderTable(filterOrders(getLocalOrders()));
   }
 
+  // Sync with user orders
+  function syncUserOrders() {
+    const userOrders = JSON.parse(localStorage.getItem('DanhSachDatHang') || '[]');
+    const adminOrders = getLocalOrders();
+    
+  // Lấy tất cả đơn hàng từ user-side (bao gồm cả đơn không đăng nhập)
+  const validUserOrders = userOrders.filter(order => order && order.id && order.product && order.product.length);
+    
+    // Find new orders from users
+    const newOrders = validUserOrders.filter(uo => !adminOrders.some(ao => ao.id === uo.id));
+    
+    if (newOrders.length) {
+      // Convert user orders to admin format
+      const formattedOrders = newOrders.map(o => {
+        // try to extract username from different possible shapes
+        const userObj = o.user || {};
+        const extractedUserName =
+          o.userName || userObj.userName || userObj.username || userObj.name || "";
+        const userId = userObj.id || null;
+
+        return {
+          id: o.id,
+          date: o.orderDate || new Date().toISOString(),
+          customerName: o.info && o.info.name ? o.info.name : (extractedUserName || "Khách vãng lai"),
+          phone: o.info && o.info.phone ? o.info.phone : "",
+          address: {
+            street: o.info && o.info.address ? o.info.address : "",
+            email: o.info && o.info.email ? o.info.email : ""
+          },
+          items: (o.product || []).map(p => ({
+            productId: p.id,
+            name: p.name,
+            qty: p.quantity,
+            price: p.priceValue,
+            returned: 0
+          })),
+          total: o.totalPrice,
+          status: 'moiDat',
+          paymentMethod: o.payment,
+          shippingFee: o.priceShip === '30.000đ' ? 30000 : 0,
+          userId: userId,  // Thêm ID người dùng nếu có
+          userName: extractedUserName // tên đăng nhập/hiển thị của người đặt (nếu có)
+        };
+      });
+
+      // Add new orders to admin list
+      saveLocalOrders([...adminOrders, ...formattedOrders]);
+      
+      // Re-render with current filters
+      renderTable(filterOrders(getLocalOrders()));
+    }
+  }
+
+  // Listen for changes in user orders
+  window.addEventListener('storage', (e) => {
+    if (e.key === 'DanhSachDatHang') {
+      syncUserOrders();
+    }
+  });
+
+  // Also listen to a custom event fired from the user checkout flow (same-tab)
+  window.addEventListener('userOrdersUpdated', () => {
+    syncUserOrders();
+  });
+
   // re-render when route changes
   window.addEventListener("hashchange", ensureMounted);
-  document.addEventListener("DOMContentLoaded", ensureMounted);
+  document.addEventListener("DOMContentLoaded", () => {
+    ensureMounted();
+    syncUserOrders(); // Initial sync
+  });
 }
 )();
 

@@ -15,13 +15,26 @@
 
 .BCDT_filters {
     display: flex;
-    gap: 10px;
-    align-items: center;
+    flex-direction: column;
+    gap: 12px;
     margin-bottom: 14px;
     background: #fff;
     padding: 12px;
     border-radius: 16px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+.BCDT_time-filter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.BCDT_date-range {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 .BCDT_cards {
@@ -90,11 +103,18 @@
 
 /* Controls rounding & sizing */
 .BCDT_filters input,
-.BCDT_filters button {
+.BCDT_filters button,
+.BCDT_filters select {
     border-radius: 10px;
     height: 38px;
     padding: 8px 12px;
     border: 1px solid #e5e7eb;
+}
+
+.BCDT_filters select {
+    background: white;
+    cursor: pointer;
+    min-width: 120px;
 }
 
 .BCDT_filters button {
