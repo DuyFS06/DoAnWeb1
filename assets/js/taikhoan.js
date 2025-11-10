@@ -38,6 +38,9 @@
     },
   ];
 
+  // for(var key in defaultUsers) {
+  //   console.log(defaultUsers[key]);
+  // }
   let userList = JSON.parse(localStorage.getItem("userList")) || [];
 
   defaultUsers.forEach((du) => {

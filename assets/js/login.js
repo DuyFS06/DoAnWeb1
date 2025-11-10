@@ -1,15 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const form = document.getElementById("login-form");
-    if (!form) return;
+    const formDangNhap = document.getElementById("login-form");
+    if (!formDangNhap) return;
 
-    const identifierInput = document.getElementById("input-identifier-login");
-    const passwordInput = document.getElementById("password-login");
+    const inputTaiKhoan = document.getElementById("input-identifier-login");
+    const inputMatKhau = document.getElementById("password-login");
 
-    const showPopup = (icon, title, text, callback = null) => {
+    // Hiển thị popup
+    const hienThiPopup = (icon, tieuDe, noiDung, callback = null) => {
         Swal.fire({
-            icon: icon,
-            title: title,
-            text: text,
+            icon,
+            title: tieuDe,
+            text: noiDung,
             showConfirmButton: false,
             timer: 900,
             timerProgressBar: true,
@@ -17,76 +18,72 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     };
 
-    const showError = (input, msg) => {
+    // Hiển thị / xóa lỗi
+    const hienThiLoi = (input, thongBao) => {
         const errEl = input.parentElement.querySelector(".error-message");
-        if (errEl) { errEl.textContent = msg;
-            errEl.style.display = "block"; }
-        input.classList.add("input-error");
-        input.classList.remove("input-success");
-    };
-
-    const clearError = (input) => {
-        const errEl = input.parentElement.querySelector(".error-message");
-        if (errEl) { errEl.textContent = "";
-            errEl.style.display = "none"; }
-        input.classList.remove("input-error");
-        input.classList.remove("input-success");
-    };
-
-    const authenticateUser = (identifier, password) => {
-        const userList = JSON.parse(localStorage.getItem("userList")) || [];
-        const matched = userList.find(u => (u.email === identifier || u.userName === identifier) && u.password === password) || null;
-        if (!matched) {
-            const legacy = JSON.parse(localStorage.getItem('customers')) || [];
-            return legacy.find(u => (u.email === identifier || u.userName === identifier) && u.password === password) || null;
+        if (errEl) {
+            errEl.textContent = thongBao;
+            errEl.style.display = thongBao ? "block" : "none";
         }
-        return matched;
+        input.classList.toggle("input-error", !!thongBao);
+        input.classList.toggle("input-success", !thongBao);
     };
 
-    form.addEventListener("submit", (e) => {
+    // Xác thực người dùng
+    const xacThucUser = (taiKhoan, matKhau) => {
+        const danhSach = [
+            ...(JSON.parse(localStorage.getItem("userList")) || []),
+            ...(JSON.parse(localStorage.getItem("customers")) || [])
+        ];
+        return danhSach.find(u => (u.email === taiKhoan || u.userName === taiKhoan) && u.password === matKhau) || null;
+    };
+
+    // Xử lý submit form
+    formDangNhap.addEventListener("submit", e => {
         e.preventDefault();
-        clearError(identifierInput);
-        clearError(passwordInput);
+        hienThiLoi(inputTaiKhoan, "");
+        hienThiLoi(inputMatKhau, "");
 
-        const id = identifierInput.value.trim();
-        const pwd = passwordInput.value;
-        if (!id) { showError(identifierInput, "Vui lòng nhập tên đăng nhập hoặc email."); return; }
-        if (!pwd) { showError(passwordInput, "Vui lòng nhập mật khẩu."); return; }
+        const taiKhoan = inputTaiKhoan.value.trim();
+        const matKhau = inputMatKhau.value;
 
-        const user = authenticateUser(id, pwd);
+        if (!taiKhoan) { hienThiLoi(inputTaiKhoan, "Vui lòng nhập tên đăng nhập hoặc email."); return; }
+        if (!matKhau) { hienThiLoi(inputMatKhau, "Vui lòng nhập mật khẩu."); return; }
+
+        const user = xacThucUser(taiKhoan, matKhau);
+
         if (user) {
-            const isLocked = user.locked === true || user.status === 'blocked';
-            if (isLocked) {
-                showPopup('warning', 'Tài khoản bị khóa', 'Tài khoản của bạn đã bị khóa. Vui lòng liên hệ quản trị để mở khóa.');
+            const biKhoa = user.locked === true || user.status === 'blocked';
+            if (biKhoa) {
+                hienThiPopup('warning', 'Tài khoản bị khóa', 'Tài khoản của bạn đã bị khóa. Vui lòng liên hệ quản trị.');
                 return;
             }
-            // Lưu currentUser
+
             const currentUser = {
-                userName: user.userName,
-                email: user.email,
-                password: user.password,
+                ...user,
                 avatar: user.avatar || "./assets/img/Avatar/avtuser.jpg",
-                address: user.address || "",
                 addresses: user.addresses || [],
+                address: user.address || "",
                 phone: user.phone || ""
             };
+
             localStorage.setItem("currentUser", JSON.stringify(currentUser));
 
-            showPopup("success", "Đăng nhập thành công!", "Chào mừng " + user.userName, () => {
-                // Cập nhật header ngay lập tức
+            hienThiPopup("success", "Đăng nhập thành công!", `Chào mừng ${user.userName}`, () => {
                 if (typeof window.updateHeaderUI === "function") window.updateHeaderUI();
                 if (typeof window.navigateTo === "function") window.navigateTo("home");
             });
 
-            form.reset();
+            formDangNhap.reset();
         } else {
             const msg = "Tên đăng nhập/Email hoặc mật khẩu không đúng.";
-            showError(identifierInput, msg);
-            showError(passwordInput, msg);
-            showPopup("error", "Đăng nhập thất bại!", "Vui lòng kiểm tra lại thông tin.");
+            hienThiLoi(inputTaiKhoan, msg);
+            hienThiLoi(inputMatKhau, msg);
+            hienThiPopup("error", "Đăng nhập thất bại!", "Vui lòng kiểm tra lại thông tin.");
         }
     });
 
-    identifierInput.addEventListener("input", () => clearError(identifierInput));
-    passwordInput.addEventListener("input", () => clearError(passwordInput));
+    // Xóa lỗi khi nhập
+    inputTaiKhoan.addEventListener("input", () => hienThiLoi(inputTaiKhoan, ""));
+    inputMatKhau.addEventListener("input", () => hienThiLoi(inputMatKhau, ""));
 });

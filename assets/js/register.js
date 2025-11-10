@@ -1,259 +1,265 @@
 document.addEventListener("DOMContentLoaded", () => {
+   
+    //  ELEMENTS 
     const form = document.getElementById("register-form");
     if (!form) return;
 
-    const usernameInput = document.getElementById("username-register");
-    const emailInput = document.getElementById("email-register");
-    const phoneInput = document.getElementById("phone-register");
-    const passwordInput = document.getElementById("password-register");
-    const confirmInput = document.getElementById("confirmPassword-register");
-    const addressInput = document.getElementById("address-register");
-    const ruleLength = document.getElementById("rule-length");
-    const passwordRules = document.getElementById("password-rules");
+    const input = {
+        username: document.getElementById("username-register"),
+        email: document.getElementById("email-register"),
+        phone: document.getElementById("phone-register"),
+        password: document.getElementById("password-register"),
+        confirmPassword: document.getElementById("confirmPassword-register"),
+        address: document.getElementById("address-register")
+    };
 
-    const errorSpans = {
+    const errorSpan = {
         username: document.getElementById("username-error"),
         email: document.getElementById("email-error"),
         phone: document.getElementById("phone-error"),
         password: document.getElementById("password-error"),
         confirmPassword: document.getElementById("confirmPassword-error"),
-        address: document.getElementById("address-error"),
+        address: document.getElementById("address-error")
     };
 
-    // map id input -> key in errorSpans
-    const idMap = {
-        "username-register": "username",
-        "email-register": "email",
-        "phone-register": "phone",
-        "password-register": "password",
-        "confirmPassword-register": "confirmPassword",
-        "address-register": "address"
-    };
+    const passwordRules = document.getElementById("password-rules");
+    const ruleLength = document.getElementById("rule-length");
 
-    let userList = JSON.parse(localStorage.getItem("userList")) || [];
+    // DATA 
+    let danhSachNguoiDung = JSON.parse(localStorage.getItem("userList")) || [];
 
-    const showPopup = (icon, title, text, callback = null) => {
+    // HÀM HỖ TRỢ 
+    function hienThiThongBao(icon, tieuDe, noiDung, callback = null) {
         Swal.fire({
             icon,
-            title,
-            text,
+            title: tieuDe,
+            text: noiDung,
             showConfirmButton: false,
             timer: 900,
             timerProgressBar: true,
             didClose: () => { if (callback) callback(); }
         });
+    }
+
+    function hienThiLoi(inputEl, spanEl, thongBao) {
+        if (!inputEl || !spanEl) return;
+        inputEl.classList.add("input-error");
+        inputEl.classList.remove("input-success");
+        spanEl.textContent = thongBao;
+        spanEl.style.display = "block";
+    }
+
+    function xoaLoi(inputEl, spanEl) {
+        if (!inputEl || !spanEl) return;
+        inputEl.classList.remove("input-error");
+        inputEl.classList.add("input-success");
+        spanEl.textContent = "";
+        spanEl.style.display = "none";
+    }
+
+ 
+    // VALIDATORS
+    const validators = {
+        username: (value) => {
+            if (!value) return "Tên đăng nhập không được để trống.";
+            if (value.length < 3) return "Tên đăng nhập phải có ít nhất 3 ký tự.";
+            if (danhSachNguoiDung.some(u => u.userName === value)) return "Tên đăng ký đã tồn tại!";
+            return null;
+        },
+        email: (value) => {
+            if (!value) return "Email không được để trống.";
+            if (danhSachNguoiDung.some(u => u.email === value)) return "Email đã tồn tại!";
+            return null;
+        },
+        phone: (value) => {
+            if (!value) return "Số điện thoại không được để trống.";
+            if (isNaN(value)) return "Số điện thoại chỉ được chứa các chữ số.";
+            if (!value.startsWith("0") || value.length !== 10) return "Số điện thoại phải gồm 10 chữ số và bắt đầu bằng 0.";
+            if (danhSachNguoiDung.some(u => u.phone === value)) return "Số điện thoại đã được đăng ký!";
+            return null;
+        },
+        password: (value) => {
+            if (!value) return "Mật khẩu không được để trống.";
+            if (value.length < 8) return "Mật khẩu phải có ít nhất 8 ký tự.";
+            return null;
+        },
+        confirmPassword: (value, passwordValue) => {
+            if (!value) return "Vui lòng nhập lại mật khẩu.";
+            if (value !== passwordValue) return "Mật khẩu nhập lại không khớp.";
+            return null;
+        },
+        address: (value) => {
+            if (!value) return "Địa chỉ không được để trống.";
+            if (value.length < 10) return "Vui lòng nhập địa chỉ chi tiết hơn (ít nhất 10 ký tự).";
+            return null;
+        }
     };
 
-    const displayError = (inputElement, errorSpan, message) => {
-        if (!inputElement || !errorSpan) return;
-        inputElement.classList.add("input-error");
-        inputElement.classList.remove("input-success");
-        errorSpan.textContent = message;
-        errorSpan.style.display = "block";
-        if (errorSpan === errorSpans.confirmPassword) errorSpan.style.color = "";
-    };
 
-    const clearError = (inputElement, errorSpan) => {
-        if (!inputElement || !errorSpan) return;
-        inputElement.classList.remove("input-error");
-        inputElement.classList.add("input-success");
-        errorSpan.textContent = "";
-        errorSpan.style.display = "none";
-        errorSpan.style.color = "";
-    };
+    // HÀM XỬ LÝ SỰ KIỆN 
+    function handleBlur(key) {
+        const inputEl = input[key];
+        if (!inputEl) return;
 
-    // validators
-    const validateUsername = (username) => {
-        if(userList.some((u) => u.username === username)) return "Tên đăng ký đã tồn tại!";
-        if (!username) return "Tên đăng nhập không được để trống.";
-        if (username.length < 3) return "Tên đăng nhập phải có ít nhất 3 ký tự.";
-        if (userList.some((u) => u.userName === username)) return "Tên đăng nhập đã tồn tại!";
-        return null;
-    };
+        let thongBao;
+        if (key === "confirmPassword") {
+            thongBao = validators[key](inputEl.value.trim(), input.password.value.trim());
+        } else {
+            thongBao = validators[key](inputEl.value.trim());
+        }
 
-    const validateEmail = (email) => {
-        if (!email) return "Email không được để trống.";
-        if (userList.some((u) => u.email === email)) return "Email đã tồn tại!";
-        return null;
-    };
-    const validatePhone = (phone) => {
-    if (!phone) return "Số điện thoại không được để trống.";
+        if (thongBao) hienThiLoi(inputEl, errorSpan[key], thongBao);
+        else xoaLoi(inputEl, errorSpan[key]);
+    }
 
-    if (isNaN(phone)) return "Số điện thoại chỉ được chứa các chữ số.";
+    function handleFocus(key) {
+        const inputEl = input[key];
+        if (!inputEl) return;
+        xoaLoi(inputEl, errorSpan[key]);
+    }
 
-    if (!phone.startsWith("0") || phone.length !== 10)
-        return "Số điện thoại phải gồm 10 chữ số và bắt đầu bằng 0.";
-
-    if (userList.some(u => u.phone === phone)) return "Số điện thoại đã được đăng ký!";
-
-    return null;
-    };
-
-
-    const validatePassword = (password) => {
-        if (!password) return "Mật khẩu không được để trống.";
-        if (password.length < 8) return "Mật khẩu phải có ít nhất 8 ký tự.";
-        return null;
-    };
-
-    const validateConfirmPassword = (password, confirmPassword) => {
-        if (!confirmPassword) return "Vui lòng nhập lại mật khẩu.";
-        if (password !== confirmPassword) return "Mật khẩu nhập lại không khớp.";
-        return null;
-    };
-
-    const validateAddress = (address) => {
-        if (!address) return "Địa chỉ không được để trống.";
-        if (address.length < 10) return "Vui lòng nhập địa chỉ chi tiết hơn (ít nhất 10 ký tự).";
-        return null;
-    };
-
-    // blur validations
-    emailInput && emailInput.addEventListener("blur", () => {
-        const emailError = validateEmail(emailInput.value.trim());
-        if (emailError) displayError(emailInput, errorSpans.email, emailError);
-        else clearError(emailInput, errorSpans.email);
-    });
-
-    phoneInput && phoneInput.addEventListener("blur", () => {
-        const phoneError = validatePhone(phoneInput.value.trim());
-        if (phoneError) displayError(phoneInput, errorSpans.phone, phoneError);
-        else clearError(phoneInput, errorSpans.phone);
-    });
-
-    // clear on focus 
-    [usernameInput, emailInput, phoneInput, passwordInput, confirmInput, addressInput].forEach(input => {
-        if (!input) return;
-        input.addEventListener('focus', () => {
-            const key = idMap[input.id];
-            if (key && errorSpans[key]) clearError(input, errorSpans[key]);
+    function ganSuKienInput() {
+        Object.keys(input).forEach(key => {
+            const inputEl = input[key];
+            if (!inputEl) return;
+            inputEl.addEventListener("blur", () => handleBlur(key));
+            inputEl.addEventListener("focus", () => handleFocus(key));
         });
-    });
+    }
 
-    // submit
-    form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        userList = JSON.parse(localStorage.getItem("userList")) || [];
+    function kiemTraToanBo() {
+        let hopLe = true;
+        Object.keys(input).forEach(key => {
+            const inputEl = input[key];
+            if (!inputEl) return;
 
-        const username = usernameInput.value.trim();
-        const email = emailInput.value.trim();
-        const phone = phoneInput.value.trim();
-        const password = passwordInput.value.trim();
-        const confirmPassword = confirmInput.value.trim();
-        const address = addressInput.value.trim();
-
-        let isValid = true;
-
-        const checks = [
-            { value: username, validator: validateUsername, input: usernameInput, error: errorSpans.username },
-            { value: email, validator: validateEmail, input: emailInput, error: errorSpans.email },
-            { value: phone, validator: validatePhone, input: phoneInput, error: errorSpans.phone },
-            { value: password, validator: validatePassword, input: passwordInput, error: errorSpans.password },
-            { value: confirmPassword, validator: (v) => validateConfirmPassword(password, v), input: confirmInput, error: errorSpans.confirmPassword },
-            { value: address, validator: validateAddress, input: addressInput, error: errorSpans.address },
-        ];
-
-        checks.forEach(check => {
-            const message = check.validator(check.value);
-            if (message) {
-                displayError(check.input, check.error, message);
-                isValid = false;
+            let thongBao;
+            if (key === "confirmPassword") {
+                thongBao = validators[key](inputEl.value.trim(), input.password.value.trim());
             } else {
-                clearError(check.input, check.error);
+                thongBao = validators[key](inputEl.value.trim());
+            }
+
+            if (thongBao) {
+                hienThiLoi(inputEl, errorSpan[key], thongBao);
+                hopLe = false;
+            } else {
+                xoaLoi(inputEl, errorSpan[key]);
+            }
+        });
+        return hopLe;
+    }
+
+    function resetForm() {
+        form.reset();
+        if (passwordRules) passwordRules.style.display = "none";
+        if (errorSpan.confirmPassword) {
+            errorSpan.confirmPassword.style.color = "";
+            errorSpan.confirmPassword.style.display = "none";
+        }
+        Object.values(input).forEach(i => {
+            if (i) i.classList.remove("input-error", "input-success");
+        });
+    }
+
+    // Password rules live 
+    function handlePasswordInput() {
+        const value = input.password.value;
+        if (!value) {
+            if (passwordRules) passwordRules.style.display = "none";
+            return;
+        }
+        if (passwordRules) passwordRules.style.display = "block";
+
+        const hopLeDoDai = value.length >= 8;
+        if (ruleLength) {
+            const text = ruleLength.textContent.replace("✅ ", "").replace("❌ ", "");
+            ruleLength.textContent = (hopLeDoDai ? "✅ " : "❌ ") + text;
+            ruleLength.classList.toggle("valid", hopLeDoDai);
+        }
+    }
+
+    function ganSuKienPassword() {
+        if (!input.password) return;
+        input.password.addEventListener("input", handlePasswordInput);
+        input.password.addEventListener("blur", () => {
+            if (input.password.value.trim() === "" && passwordRules)
+                passwordRules.style.display = "none";
+        });
+    }
+
+    // Confirm password live 
+    function ganSuKienConfirm() {
+        if (!input.confirmPassword || !input.password) return;
+        const confirmEl = input.confirmPassword;
+        const passEl = input.password;
+
+        confirmEl.addEventListener("focus", () => {
+            if (passEl.value.trim() === "") {
+                hienThiLoi(confirmEl, errorSpan.confirmPassword, "Vui lòng nhập mật khẩu trước.");
+                confirmEl.blur();
             }
         });
 
-        if (!isValid) {
-            showPopup("error", "Lỗi dữ liệu!", "Vui lòng kiểm tra lại các trường bị lỗi.");
+        confirmEl.addEventListener("input", () => {
+            const passVal = passEl.value.trim();
+            const confirmVal = confirmEl.value.trim();
+
+            if (!passVal) return;
+            if (!confirmVal) {
+                errorSpan.confirmPassword.style.display = "none";
+                confirmEl.classList.remove("input-error", "input-success");
+                return;
+            }
+
+            if (passVal === confirmVal) {
+                hienThiLoi(confirmEl, errorSpan.confirmPassword, "✅ Mật khẩu khớp!");
+                errorSpan.confirmPassword.style.color = "green";
+                confirmEl.classList.add("input-success");
+                confirmEl.classList.remove("input-error");
+            } else {
+                hienThiLoi(confirmEl, errorSpan.confirmPassword, "Mật khẩu nhập lại không khớp.");
+                errorSpan.confirmPassword.style.color = "red";
+                confirmEl.classList.add("input-error");
+                confirmEl.classList.remove("input-success");
+            }
+        });
+    }
+
+    
+    //  SUBMIT FORM 
+    function handleSubmit(e) {
+        e.preventDefault();
+        danhSachNguoiDung = JSON.parse(localStorage.getItem("userList")) || [];
+
+        if (!kiemTraToanBo()) {
+            hienThiThongBao("error", "Lỗi dữ liệu!", "Vui lòng kiểm tra lại các trường bị lỗi.");
             return;
         }
 
-        const newUser = {
-            userName: username,
-            email,
-            phone,
-            password,
-            address,
+        const nguoiDungMoi = {
+            userName: input.username.value.trim(),
+            email: input.email.value.trim(),
+            phone: input.phone.value.trim(),
+            password: input.password.value.trim(),
+            address: input.address.value.trim(),
             isLoggedIn: false
         };
 
-        userList.push(newUser);
-        localStorage.setItem("userList", JSON.stringify(userList));
+        danhSachNguoiDung.push(nguoiDungMoi);
+        localStorage.setItem("userList", JSON.stringify(danhSachNguoiDung));
 
-        showPopup("success", "Đăng ký thành công!", "Chuyển hướng đến đăng nhập...", () => {
+        hienThiThongBao("success", "Đăng ký thành công!", "Chuyển đến đăng nhập...", () => {
             if (typeof window.navigateTo === 'function') window.navigateTo('login');
             else window.location.href = "#login";
         });
 
-        form.reset();
-        // ẩn và reset trạng thái password rules & confirm message
-        if (passwordRules) passwordRules.style.display = "none";
-        if (errorSpans.confirmPassword) {
-            errorSpans.confirmPassword.style.color = "";
-            errorSpans.confirmPassword.style.display = "none";
-        }
-        // reset success classes
-        [usernameInput, emailInput, phoneInput, passwordInput, confirmInput, addressInput].forEach(i => {
-            if (i) i.classList.remove("input-success", "input-error");
-        });
-    });
-
-    // password live rules
-    if (passwordInput && passwordRules) {
-        passwordInput.addEventListener("input", () => {
-            const password = passwordInput.value;
-            if (password === "") {
-                passwordRules.style.display = "none";
-                return;
-            }
-            passwordRules.style.display = "block";
-            const conditions = [
-                { valid: password.length >= 8, element: ruleLength },
-            ];
-            conditions.forEach(({ valid, element }) => {
-                if (!element) return;
-                const text = element.textContent.replace("✅ ", "").replace("❌ ", "");
-                element.textContent = (valid ? "✅ " : "❌ ") + text;
-                element.classList.toggle("valid", valid);
-            });
-        });
-
-        passwordInput.addEventListener("blur", () => {
-            if (passwordInput.value.trim() === "") passwordRules.style.display = "none";
-        });
+        resetForm();
     }
+    // --- INIT ---
 
-    // confirm input realtime
-    if (confirmInput) {
-        confirmInput.addEventListener("focus", () => {
-            if (passwordInput.value.trim() === "") {
-                displayError(confirmInput, errorSpans.confirmPassword, "Vui lòng nhập mật khẩu trước.");
-                confirmInput.blur();
-            }
-        });
-
-        confirmInput.addEventListener("input", () => {
-            const password = passwordInput.value.trim();
-            const confirmPassword = confirmInput.value.trim();
-            if (password === "") return;
-            if (confirmPassword === "") {
-                errorSpans.confirmPassword.style.display = "none";
-                confirmInput.classList.remove("input-error", "input-success");
-                return;
-            }
-            if (password === confirmPassword) {
-                errorSpans.confirmPassword.style.display = "block";
-                errorSpans.confirmPassword.textContent = "✅ Mật khẩu khớp!";
-                errorSpans.confirmPassword.style.color = "green";
-                confirmInput.classList.remove("input-error");
-                confirmInput.classList.add("input-success");
-            } else {
-                errorSpans.confirmPassword.style.display = "block";
-                errorSpans.confirmPassword.textContent = "Mật khẩu nhập lại không khớp.";
-                errorSpans.confirmPassword.style.color = "red";
-                confirmInput.classList.add("input-error");
-                confirmInput.classList.remove("input-success");
-            }
-        });
-    }
+    ganSuKienInput();
+    ganSuKienPassword();
+    ganSuKienConfirm();
+    form.addEventListener("submit", handleSubmit);
 });

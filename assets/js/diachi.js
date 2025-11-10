@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
       left.className = "address-left";
       left.innerHTML = `
         <div><strong>Người nhận:</strong> ${a.name}</div>
-        <div><strong>Số điện thoại:</strong> ${a.phone}</div>
+        <div><strong>Số điện thoại:</strong> ${a.phone} </div>
         <div><strong>Email:</strong> ${a.email}</div>
         <div><strong>Địa chỉ:</strong> ${a.address}</div>
       `;
@@ -176,6 +176,22 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    if (!/^[A-Za-zÀ-ỹ\s]+$/.test(name)) {
+    alert("Tên không hợp lệ. Chỉ được nhập chữ cái và khoảng trắng.");
+    return;
+  }
+     // Validate số điện thoại
+    if (!/^[0][0-9]{9}$/.test(phone)) {
+    alert("Số điện thoại không hợp lệ. Vui lòng nhập 10 chữ số, bắt đầu bằng 0.");
+    return;
+  }
+
+  // Validate email
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    alert("Email không hợp lệ.");
+    return;
+  }
+
     if (!Array.isArray(user.addresses)) user.addresses = [];
 
     if (editIndex === -1) {
@@ -211,4 +227,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Gọi tự động nếu đang trong trang địa chỉ
   if (sectionDiaChi) render();
-});
+}); 

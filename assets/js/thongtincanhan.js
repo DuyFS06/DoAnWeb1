@@ -1,23 +1,13 @@
-
-//  QUẢN LÝ TRANG THÔNG TIN CÁ NHÂN
+// QUẢN LÝ TRANG THÔNG TIN CÁ NHÂN
 document.addEventListener("DOMContentLoaded", () => {
   const sectionThongTin = document.getElementById("section-thongtincanhan");
   if (!sectionThongTin) return;
 
-
-  // KHỞI TẠO SIDEBAR NGƯỜI DÙNG
+  // Sidebar
   const sideAvatar = document.getElementById("sideAvatar-thongtin");
   const sideUsername = document.getElementById("sideUsername-thongtin");
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
-  if (currentUser) {
-    if (sideAvatar)
-      sideAvatar.src = currentUser.avatar || "./assets/img/Avatar/avtuser.jpg";
-    if (sideUsername)
-      sideUsername.textContent = currentUser.userName || "Người dùng";
-  }
-
-  // LẤY CÁC TRƯỜNG TRONG FORM
+  // Form
   const nameInput = document.getElementById("nameInput");
   const emailInput = document.getElementById("emailInput");
   const phoneInput = document.getElementById("phoneInput");
@@ -28,17 +18,33 @@ document.addEventListener("DOMContentLoaded", () => {
   const cancelBtn = document.getElementById("cancelProfileBtn");
   const profileForm = document.getElementById("profileForm");
 
-  // HÀM ĐIỀN DỮ LIỆU VÀO FORM
+  // Điền dữ liệu vào form và sidebar
   function fillForm(user) {
     if (!user) return;
     nameInput.value = user.userName || "";
     emailInput.value = user.email || "";
     phoneInput.value = user.phone || "";
     addressInput.value = user.address || "";
+
+    if (sideAvatar) sideAvatar.src = user.avatar || "./assets/img/Avatar/avtuser.jpg";
+    if (sideUsername) sideUsername.textContent = user.userName || "Người dùng";
   }
 
+  // Chỉ cho phép chỉnh sửa
+  function enableEdit() {
+    [nameInput, emailInput, phoneInput, addressInput].forEach(i => i.removeAttribute("readonly"));
+    formActions.classList.remove("hidden");
+    editBtn.style.display = "none";
+  }
 
-  // HIỂN THỊ FORM THÔNG TIN CÁ NHÂN
+  // Khóa form
+  function disableEdit() {
+    [nameInput, emailInput, phoneInput, addressInput].forEach(i => i.setAttribute("readonly", true));
+    formActions.classList.add("hidden");
+    editBtn.style.display = "inline-block";
+  }
+
+  // Hiển thị section thông tin cá nhân
   window.showThongTinCaNhan = function () {
     const user = JSON.parse(localStorage.getItem("currentUser"));
     if (!user) {
@@ -48,45 +54,16 @@ document.addEventListener("DOMContentLoaded", () => {
         text: "Bạn phải đăng nhập để xem thông tin cá nhân.",
         confirmButtonText: "Đăng nhập",
       }).then(() => {
-        if (typeof window.navigateTo === "function")
-          window.navigateTo("login");
+        if (typeof window.navigateTo === "function") window.navigateTo("login");
       });
       return;
     }
-
     sectionThongTin.style.display = "block";
     fillForm(user);
+    disableEdit();
   };
 
-  // CHO PHÉP CHỈNH SỬA FORM
-  function enableEdit() {
-    [nameInput, emailInput, phoneInput, addressInput].forEach((i) =>
-      i.removeAttribute("readonly")
-    );
-    formActions.classList.remove("hidden");
-    editBtn.style.display = "none";
-  }
-
-  // KHÓA LẠI FORM (chỉ xem)
-  function disableEdit() {
-    [nameInput, emailInput, phoneInput, addressInput].forEach((i) =>
-      i.setAttribute("readonly", true)
-    );
-    formActions.classList.add("hidden");
-    editBtn.style.display = "inline-block";
-  }
-
- 
-  //  XỬ LÝ NÚT SỬA VÀ HỦY
-  editBtn.addEventListener("click", enableEdit);
-  cancelBtn.addEventListener("click", () => {
-    const user = JSON.parse(localStorage.getItem("currentUser"));
-    fillForm(user);
-    disableEdit();
-  });
-
-
-  // LƯU DỮ LIỆU SAU KHI CHỈNH
+  // Lưu dữ liệu người dùng
   function saveUser() {
     const user = JSON.parse(localStorage.getItem("currentUser"));
     if (!user) return;
@@ -96,17 +73,24 @@ document.addEventListener("DOMContentLoaded", () => {
     user.phone = phoneInput.value.trim();
     user.address = addressInput.value.trim();
 
-    // Cập nhật currentUser
+    // Lưu vào currentUser
     localStorage.setItem("currentUser", JSON.stringify(user));
 
     // Cập nhật userList
     const userList = JSON.parse(localStorage.getItem("userList")) || [];
-    const idx = userList.findIndex((u) => u.email === user.email);
+    const idx = userList.findIndex(u => u.email === user.email);
     if (idx !== -1) userList[idx] = { ...userList[idx], ...user };
     localStorage.setItem("userList", JSON.stringify(userList));
   }
 
-  // KHI NHẤN NÚT “LƯU”
+  // Xử lý nút
+  editBtn.addEventListener("click", enableEdit);
+  cancelBtn.addEventListener("click", () => {
+    const user = JSON.parse(localStorage.getItem("currentUser"));
+    fillForm(user);
+    disableEdit();
+  });
+
   profileForm.addEventListener("submit", (e) => {
     e.preventDefault();
     saveUser();
@@ -118,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
     disableEdit();
   });
 
-  // KHI LOAD TRANG
+  // Khi load trang, nếu đã đăng nhập thì fill form
   const user = JSON.parse(localStorage.getItem("currentUser"));
   if (user) fillForm(user);
 });

@@ -119,7 +119,6 @@
   // Xử lý click trên các link có data-route
   document.addEventListener('DOMContentLoaded', function() {
     // Lắng nghe click trên tất cả link có data-route
-    // Sử dụng capture phase để xử lý trước các event listeners khác
     document.addEventListener('click', function(e) {
       const link = e.target.closest('[data-route]');
       // Chỉ xử lý nếu là link (<a> tag) hoặc element có data-route
