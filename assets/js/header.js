@@ -116,36 +116,6 @@ document.addEventListener("DOMContentLoaded", () => {
             handleLogout();
         });
     }
-
-    // Chặn các chức năng khi chưa login
-    // document.addEventListener("click", (e) => {
-    //     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    //     const target = e.target.closest("#open-cart-btn, #LichSuMuaHangBTN");
-    //     if (target && !currentUser) {
-    //         e.preventDefault();
-    //         if (typeof Swal !== "undefined") {
-    //             Swal.fire({
-    //                 icon: "info",
-    //                 title: "Chưa đăng nhập",
-    //                 text: "Vui lòng đăng nhập để sử dụng chức năng này!",
-    //                 confirmButtonText: "Đăng nhập"
-    //             }).then(() => {
-    //                 if (typeof window.navigateTo === "function") {
-    //                     window.navigateTo("login");
-    //                 } else {
-    //                     window.location.hash = "login";
-    //                 }
-    //             });
-    //         } else {
-    //             alert("Bạn cần đăng nhập để sử dụng chức năng này!");
-    //             if (typeof window.navigateTo === "function") {
-    //                 window.navigateTo("login");
-    //             } else {
-    //                 window.location.hash = "login";
-    //             }
-    //         }
-    //     }
-    // });
 });
 
 window.updateHeaderUI = updateHeaderUI;

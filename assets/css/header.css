@@ -1,29 +1,33 @@
-/* HEADER */
+/* =========================Header chính
+ */
 header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 0;
-
+    z-index: 1000; /* tăng để nằm trên các phần khác */
+    
     background: rgba(255, 255, 255, 0.75); /* hơi mờ */
-    backdrop-filter: blur(10px); /* tạo hiệu ứng kính */
+    backdrop-filter: blur(10px); /* hiệu ứng kính */
     -webkit-backdrop-filter: blur(10px); /* support Safari */
-
+    
     box-shadow: 0 4px 20px rgba(0,0,0,0.08);
     transition: background 0.3s ease;
 }
 
-
+/* 
+2. Container bên trong header – top-nav
+*/
 .top-nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 12px 60px;
-        z-index: 0;
-
 }
 
+/* 
+3. Logo
+ */
 .logo {
     font-weight: 700;
     font-size: 22px;
@@ -31,6 +35,9 @@ header {
     letter-spacing: 1px;
 }
 
+/* 
+4. Search box
+ */
 .search-box {
     flex: 1;
     margin: 0 40px;
@@ -51,18 +58,36 @@ header {
     border-color: #4f46e5;
     box-shadow: 0 0 5px rgba(79, 70, 229, 0.4);
 }
+
+/* 
+5. Menu chính
+ */
 .menu {
     display: flex;
     align-items: center;
-    gap: 25px;
+    gap: 30px;
 }
 
+.menu a {
+    text-decoration: none;
+    color: #111;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.menu a:hover {
+    color: #4f46e5;
+}
+
+/*
+6. User Avatar
+ */
 .user-avatar {
     position: relative;
     display: flex;
     align-items: center;
     cursor: pointer;
-    margin-left: 10px;
+    margin-left: 20px;
 }
 
 .user-avatar img {
@@ -80,18 +105,9 @@ header {
     transform: scale(1.1);
 }
 
-.menu a {
-    margin-left: 25px;
-    text-decoration: none;
-    color: #111;
-    font-weight: 500;
-    transition: color 0.2s;
-}
-
-.menu a:hover {
-    color: #4f46e5;
-}
-
+/* 
+7. Dropdown avatar
+ */
 .dropdown {
     display: none;
     position: absolute;
@@ -108,6 +124,10 @@ header {
 .dropdown.show {
     display: block;
 }
+
+/* 
+8. Nút Logout
+ */
 #logoutBtn {
     background: #4f46e5;
     color: #fff;
@@ -123,10 +143,36 @@ header {
 
 #logoutBtn:hover {
     background: #4338ca;
-    /* đậm hơn khi hover */
     transform: scale(1.03);
 }
 
 #logoutBtn:active {
     transform: scale(0.98);
+}
+
+/* 
+9. Responsive <900px
+*/
+@media(max-width: 900px) {
+    .top-nav {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 12px 20px;
+        gap: 12px;
+    }
+
+    .search-box {
+        width: 100%;
+        margin: 0;
+    }
+
+    .menu {
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .user-avatar {
+        margin-left: 0;
+    }
 }

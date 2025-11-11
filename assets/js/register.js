@@ -226,7 +226,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    
     //  SUBMIT FORM 
     function handleSubmit(e) {
         e.preventDefault();
