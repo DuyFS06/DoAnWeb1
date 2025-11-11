@@ -345,6 +345,41 @@ QLNH_btnDongThem.onclick = QLNH_btnHuyThem.onclick = () => {
   ).textContent = "THÊM PHIẾU NHẬP MỚI";
 };
 
+// Helper: initialize select behavior so it expands to show 5 items when opened
+function QLNH_initSelectBehavior(selectEl) {
+  try {
+    // ensure initial collapsed state
+    selectEl.size = 1;
+
+    // expand on mousedown (before focus/click) and on focus
+    selectEl.addEventListener('mousedown', function () {
+      this.size = 5;
+    });
+    selectEl.addEventListener('focus', function () {
+      this.size = 5;
+    });
+
+    // collapse on blur or change
+    selectEl.addEventListener('blur', function () {
+      this.size = 1;
+    });
+    selectEl.addEventListener('change', function () {
+      // small timeout to allow click selection to complete
+      setTimeout(() => (this.size = 1), 0);
+    });
+
+    // collapse on Escape key
+    selectEl.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        this.size = 1;
+        this.blur();
+      }
+    });
+  } catch (err) {
+    // silent fallback
+  }
+}
+
 // ====== Thêm dòng sản phẩm ======
 QLNH_btnThemDongSP.addEventListener("click", QLNH_themDongSanPham);
 
@@ -368,15 +403,7 @@ function QLNH_themDongSanPham() {
   const selectEl = row.querySelector(".QLNH_selectSP");
   const soLuongInput = row.querySelector(".QLNH_soLuong");
 
-  // Populate select with all products
-  selectEl.setAttribute('size', '5'); // Set size to show 5 options at a time
-  
-  // Add default option
-  const defaultOpt = document.createElement('option');
-  defaultOpt.value = "";
-  defaultOpt.textContent = "-- Chọn mã sản phẩm --";
-  selectEl.appendChild(defaultOpt);
-
+  // Populate select with all products (use native browser dropdown)
   QLNH_productsLocal.forEach(p => {
     const opt = document.createElement('option');
     opt.value = p.id;
@@ -384,20 +411,8 @@ function QLNH_themDongSanPham() {
     selectEl.appendChild(opt);
   });
 
-  // Thêm sự kiện khi focus vào select
-  selectEl.addEventListener('focus', function() {
-    this.setAttribute('size', '5');
-  });
-
-  // Thêm sự kiện khi blur (click ra ngoài)
-  selectEl.addEventListener('blur', function() {
-    this.setAttribute('size', '1');
-  });
-
-  // Thêm sự kiện khi chọn một option
-  selectEl.addEventListener('change', function() {
-    this.setAttribute('size', '1');
-  });
+  // Attach controlled behavior (show 5 options on open, collapse on close/change)
+  QLNH_initSelectBehavior(selectEl);
 
   // when product selected, fill name & price
   selectEl.addEventListener('change', function () {
@@ -555,10 +570,8 @@ function QLNH_suaPhieuNhap(maPhieu) {
     `;
     tbody.appendChild(row);
 
-    // Populate select with all products
+    // Populate select with all products (use native browser dropdown)
     const selectEl = row.querySelector('.QLNH_selectSP');
-    selectEl.setAttribute('size', '1'); // Start with size 1
-    
     // Add all products
     QLNH_productsLocal.forEach(p => {
       const opt = document.createElement('option');
@@ -569,21 +582,8 @@ function QLNH_suaPhieuNhap(maPhieu) {
       }
       selectEl.appendChild(opt);
     });
-
-    // Thêm sự kiện khi focus vào select
-    selectEl.addEventListener('focus', function() {
-      this.setAttribute('size', '5');
-    });
-
-    // Thêm sự kiện khi blur (click ra ngoài)
-    selectEl.addEventListener('blur', function() {
-      this.setAttribute('size', '1');
-    });
-
-    // Thêm sự kiện khi chọn một option
-    selectEl.addEventListener('change', function() {
-      this.setAttribute('size', '1');
-    });
+    // Attach controlled behavior (show 5 options on open, collapse on close/change)
+    QLNH_initSelectBehavior(selectEl);
     selectEl.addEventListener('change', () => {
       const pid = selectEl.value;
       const prod = QLNH_productsLocal.find(p => p.id === pid);
