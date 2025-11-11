@@ -2,10 +2,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const sectionDiaChi = document.getElementById("section-diachi");
   if (!sectionDiaChi) return;
 
+  //  Các Element
   const sideAvatar = document.getElementById("sideAvatar-diachi");
   const sideUsername = document.getElementById("sideUsername-diachi");
-  const DEFAULT_AVATAR = "./assets/img/Avatar/avtuser.jpg";
-
   const addressListEl = document.getElementById("addressList");
   const addBtn = document.getElementById("addAddressBtn");
   const addressFormWrap = document.getElementById("addressFormWrap");
@@ -18,11 +17,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const addrAddress = document.getElementById("addAddress");
   const addressFormTitle = document.getElementById("addressFormTitle");
 
+  const DEFAULT_AVATAR = "./assets/img/Avatar/avtuser.jpg";
   let user = JSON.parse(localStorage.getItem("currentUser")) || null;
   let editIndex = -1;
 
-  // HIỂN THỊ DANH SÁCH ĐỊA CHỈ 
-  const render = () => {
+
+  /** Hiển thị danh sách địa chỉ */
+  function renderAddresses() {
     if (!user) return;
     if (!Array.isArray(user.addresses)) user.addresses = [];
 
@@ -38,92 +39,120 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     user.addresses.forEach((a, idx) => {
-      const card = document.createElement("div");
-      card.className = "address-card";
-
-      const left = document.createElement("div");
-      left.className = "address-left";
-      left.innerHTML = `
-        <div><strong>Người nhận:</strong> ${a.name}</div>
-        <div><strong>Số điện thoại:</strong> ${a.phone} </div>
-        <div><strong>Email:</strong> ${a.email}</div>
-        <div><strong>Địa chỉ:</strong> ${a.address}</div>
-      `;
-
-      const right = document.createElement("div");
-      right.className = "address-right";
-      right.innerHTML = a.default
-        ? `<div class="addr-badge">Mặc định</div>`
-        : `<div style="height:18px;"></div>`;
-
-      const btns = document.createElement("div");
-      btns.style.marginTop = "8px";
-      btns.innerHTML = `
-        ${a.default ? "" : `<button class="save-btn set-default-btn" data-idx="${idx}">Thiết lập mặc định</button>`}
-        <button class="cancel-btn edit-btn" data-idx="${idx}">Cập nhật</button>
-        <button class="cancel-btn del-btn" data-idx="${idx}">Xóa</button>
-      `;
-
-      right.appendChild(btns);
-      card.appendChild(left);
-      card.appendChild(right);
-
-      // Khi click chọn địa chỉ.lưu selectedAddress
-      left.addEventListener("click", () => {
-        localStorage.setItem("selectedAddress", JSON.stringify(a));
-        Swal.fire({
-          icon: "success",
-          title: "Đã chọn địa chỉ!",
-          text: `${a.address}`,
-          timer: 1200,
-          showConfirmButton: false
-        });
-      });
-
+      const card = createAddressCard(a, idx);
       addressListEl.appendChild(card);
     });
 
-    // Nút Thiết lập mặc định 
+    attachAddressEventHandlers();
+  }
+
+  /** Tạo thẻ hiển thị từng địa chỉ */
+  function createAddressCard(a, idx) {
+    const card = document.createElement("div");
+    card.className = "address-card";
+
+    const left = document.createElement("div");
+    left.className = "address-left";
+    left.innerHTML = `
+      <div><strong>Người nhận:</strong> ${a.name}</div>
+      <div><strong>Số điện thoại:</strong> ${a.phone}</div>
+      <div><strong>Email:</strong> ${a.email}</div>
+      <div><strong>Địa chỉ:</strong> ${a.address}</div>
+    `;
+
+    const right = document.createElement("div");
+    right.className = "address-right";
+    right.innerHTML = a.default
+      ? `<div class="addr-badge">Mặc định</div>`
+      : `<div style="height:18px;"></div>`;
+
+    const btns = document.createElement("div");
+    btns.style.marginTop = "8px";
+    btns.innerHTML = `
+      ${a.default ? "" : `<button class="save-btn set-default-btn" data-idx="${idx}">Thiết lập mặc định</button>`}
+      <button class="cancel-btn edit-btn" data-idx="${idx}">Cập nhật</button>
+      <button class="cancel-btn del-btn" data-idx="${idx}">Xóa</button>
+    `;
+
+    right.appendChild(btns);
+    card.appendChild(left);
+    card.appendChild(right);
+
+    // Click chọn địa chỉ
+    left.addEventListener("click", () => selectAddress(a));
+
+    return card;
+  }
+
+  /** Gắn sự kiện cho các nút (mặc định, sửa, xóa) */
+  function attachAddressEventHandlers() {
+    // Thiết lập mặc định
     document.querySelectorAll(".set-default-btn").forEach(btn => {
       btn.addEventListener("click", e => {
         const i = Number(e.currentTarget.dataset.idx);
-        user.addresses = user.addresses.map((ad, j) => ({ ...ad, default: j === i }));
-        const selected = user.addresses[i];
-        localStorage.setItem("selectedAddress", JSON.stringify(selected));
-        saveAndRender();
+        setDefaultAddress(i);
       });
     });
 
-    // Nút Cập nhật
+    // Cập nhật
     document.querySelectorAll(".edit-btn").forEach(btn => {
       btn.addEventListener("click", e => {
         editIndex = Number(e.currentTarget.dataset.idx);
-        const a = user.addresses[editIndex];
-        addressFormWrap.classList.remove("hidden");
-        addressFormTitle.textContent = "Cập nhật địa chỉ";
-        addrName.value = a.name;
-        addrPhone.value = a.phone;
-        addEmail.value = a.email;
-        addrAddress.value = a.address;
+        editAddress(editIndex);
       });
     });
 
-    // Nút Xóa
+    // Xóa
     document.querySelectorAll(".del-btn").forEach(btn => {
       btn.addEventListener("click", e => {
         const i = Number(e.currentTarget.dataset.idx);
-        if (!confirm("Bạn có chắc muốn xóa địa chỉ này?")) return;
-        user.addresses.splice(i, 1);
-        if (!user.addresses.some(a => a.default) && user.addresses.length > 0) {
-          user.addresses[0].default = true;
-        }
-        saveAndRender();
+        deleteAddress(i);
       });
     });
-  };
+  }
 
-  // LƯU USER & RENDER LẠI 
-  const saveAndRender = () => {
+  /** Chọn địa chỉ (lưu selectedAddress) */
+  function selectAddress(address) {
+    localStorage.setItem("selectedAddress", JSON.stringify(address));
+    Swal.fire({
+      icon: "success",
+      title: "Đã chọn địa chỉ!",
+      text: `${address.address}`,
+      timer: 1200,
+      showConfirmButton: false
+    });
+  }
+
+  /** Thiết lập địa chỉ mặc định */
+  function setDefaultAddress(index) {
+    user.addresses = user.addresses.map((ad, j) => ({ ...ad, default: j === index }));
+    localStorage.setItem("selectedAddress", JSON.stringify(user.addresses[index]));
+    saveUserAndRender();
+  }
+
+  /** Mở form cập nhật địa chỉ */
+  function editAddress(index) {
+    const a = user.addresses[index];
+    addressFormWrap.classList.remove("hidden");
+    addressFormTitle.textContent = "Cập nhật địa chỉ";
+    addrName.value = a.name;
+    addrPhone.value = a.phone;
+    addEmail.value = a.email;
+    addrAddress.value = a.address;
+  }
+
+  /** Xóa địa chỉ */
+  function deleteAddress(index) {
+    if (!confirm("Bạn có chắc muốn xóa địa chỉ này?")) return;
+    user.addresses.splice(index, 1);
+    if (!user.addresses.some(a => a.default) && user.addresses.length > 0) {
+      user.addresses[0].default = true;
+    }
+    saveUserAndRender();
+  }
+
+  /** Lưu thông tin user và render lại */
+  function saveUserAndRender() {
     localStorage.setItem("currentUser", JSON.stringify(user));
     const users = JSON.parse(localStorage.getItem("userList")) || [];
     const idx = users.findIndex(u => u.email === user.email);
@@ -131,11 +160,11 @@ document.addEventListener("DOMContentLoaded", () => {
       users[idx] = { ...users[idx], ...user };
       localStorage.setItem("userList", JSON.stringify(users));
     }
-    render();
-  };
+    renderAddresses();
+  }
 
-  // THÊM ĐỊA CHỈ
-  addBtn.addEventListener("click", () => {
+  /** Mở form thêm mới */
+  function openAddForm() {
     if (!user) {
       Swal.fire({
         icon: "warning",
@@ -153,16 +182,33 @@ document.addEventListener("DOMContentLoaded", () => {
     addressForm.reset();
     addressFormWrap.classList.remove("hidden");
     window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
-  });
+  }
 
-  // HỦY FORM
-  cancelAddr.addEventListener("click", () => {
+  /** Đóng form */
+  function closeForm() {
     addressForm.reset();
     addressFormWrap.classList.add("hidden");
-  });
+  }
 
-  //SUBMIT FORM
-  addressForm.addEventListener("submit", e => {
+  /** Kiểm tra hợp lệ form */
+  function validateForm(name, phone, email, address) {
+    if (!name || !phone || !email || !address) {
+      alert("Vui lòng điền đầy đủ thông tin.");
+      return false;
+    }
+    if (!/^[A-Za-zÀ-ỹ\s]+$/.test(name)) {
+      alert("Tên không hợp lệ. Chỉ được nhập chữ cái và khoảng trắng.");
+      return false;
+    }
+    if (!/^[0][0-9]{9}$/.test(phone)) {
+      alert("Số điện thoại không hợp lệ. Vui lòng nhập 10 chữ số, bắt đầu bằng 0.");
+      return false;
+    }
+    return true;
+  }
+
+  /** Xử lý submit form */
+  function handleFormSubmit(e) {
     e.preventDefault();
     if (!user) return;
 
@@ -171,42 +217,21 @@ document.addEventListener("DOMContentLoaded", () => {
     const email = addEmail.value.trim();
     const address = addrAddress.value.trim();
 
-    if (!name || !phone || !email || !address) {
-      alert("Vui lòng điền đầy đủ thông tin.");
-      return;
-    }
-
-    if (!/^[A-Za-zÀ-ỹ\s]+$/.test(name)) {
-    alert("Tên không hợp lệ. Chỉ được nhập chữ cái và khoảng trắng.");
-    return;
-  }
-     // Validate số điện thoại
-    if (!/^[0][0-9]{9}$/.test(phone)) {
-    alert("Số điện thoại không hợp lệ. Vui lòng nhập 10 chữ số, bắt đầu bằng 0.");
-    return;
-  }
-
-  // Validate email
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    alert("Email không hợp lệ.");
-    return;
-  }
+    if (!validateForm(name, phone, email, address)) return;
 
     if (!Array.isArray(user.addresses)) user.addresses = [];
 
     if (editIndex === -1) {
-      const newAddr = { name, phone, email, address };
-      user.addresses.push(newAddr); 
+      user.addresses.push({ name, phone, email, address });
     } else {
       user.addresses[editIndex] = { ...user.addresses[editIndex], name, phone, email, address };
     }
 
-    saveAndRender();
-    addressForm.reset();
-    addressFormWrap.classList.add("hidden");
-  });
+    saveUserAndRender();
+    closeForm();
+  }
 
-  // HIỂN THỊ KHI MỞ TRANG
+  /** Hiển thị khi mở trang */
   window.showDiaChiSection = function () {
     user = JSON.parse(localStorage.getItem("currentUser"));
     if (!user) {
@@ -220,11 +245,15 @@ document.addEventListener("DOMContentLoaded", () => {
       });
       return;
     }
-
     sectionDiaChi.style.display = "block";
-    render();
+    renderAddresses();
   };
 
-  // Gọi tự động nếu đang trong trang địa chỉ
-  if (sectionDiaChi) render();
-}); 
+  // GẮN SỰ KIỆN
+  addBtn.addEventListener("click", openAddForm);
+  cancelAddr.addEventListener("click", closeForm);
+  addressForm.addEventListener("submit", handleFormSubmit);
+
+  // Tự động hiển thị nếu đang trong trang địa chỉ
+  renderAddresses();
+});

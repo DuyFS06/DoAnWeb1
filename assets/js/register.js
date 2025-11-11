@@ -62,8 +62,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const validators = {
         username: (value) => {
             if (!value) return "Tên đăng nhập không được để trống.";
+            if (!/^[A-Za-zÀ-ỹ\s]+$/.test(value)) return "Tên đăng nhập chỉ được chứa chữ cái, không được chứa số hoặc ký tự đặc biệt.";
             if (value.length < 3) return "Tên đăng nhập phải có ít nhất 3 ký tự.";
-            if (dsUser.some(u => u.userName === value)) return "Tên đăng ký đã tồn tại!";
+            if (dsUser.some(u => u.userName.toLowerCase() === value.toLowerCase())) 
+                return "Tên đăng ký đã tồn tại!";
             return null;
         },
         email: (value) => {
@@ -75,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!value) return "Số điện thoại không được để trống.";
             if (isNaN(value)) return "Số điện thoại chỉ được chứa các chữ số.";
             if (!value.startsWith("0") || value.length !== 10) return "Số điện thoại phải gồm 10 chữ số và bắt đầu bằng 0.";
-            if (dsUser.some(u => u.phone === value)) return "Số điện thoại đã được đăng ký!";
+            if (dsUser.some(u => u.phone.toLowerCase() === value.toLowerCase())) return "Số điện thoại đã được đăng ký!";
             return null;
         },
         password: (value) => {
@@ -255,7 +257,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         resetForm();
     }
-    // --- INIT ---
+    // INIT 
 
     ganSuKienInput();
     ganSuKienPassword();

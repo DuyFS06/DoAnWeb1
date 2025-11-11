@@ -95,15 +95,30 @@ document.addEventListener('DOMContentLoaded',function(){
             price:TongTienString,
             totalPrice:tongtien,
             priceShip:ship,
+            // meta for admin/user sync
+            orderDate: new Date().toISOString(),
+            trangthai: 'cho-xac-nhan'
         }
+        // add order to list
         danhsach.push(neworder);
-        if(paymentfs=="PayBank"){
-            localStorage.setItem('CurrDanhSachDatHang',JSON.stringify(danhsach)); 
+
+        // Always persist to the main orders key so admin panel can pick it up
+        localStorage.setItem('DanhSachDatHang', JSON.stringify(danhsach));
+
+        // Keep the CurrDanhSachDatHang for payment flow (bank redirect) if used
+        if (paymentfs === "PayBank") {
+            localStorage.setItem('CurrDanhSachDatHang', JSON.stringify(danhsach));
             ktsoluong();
             window.SumCartEnd(1);
-        }        
-        else{localStorage.setItem('DanhSachDatHang',JSON.stringify(danhsach)); 
-        window.SumCartEnd(0);}
+        } else {
+            window.SumCartEnd(0);
+        }
+
+        // Notify same-window listeners (admin may be in same SPA route)
+        try {
+            // custom event that admin panel can listen for (works in same tab)
+            window.dispatchEvent(new Event('userOrdersUpdated'));
+        } catch (e) {}
     }
     
     window.SumCartEnd=function(num){

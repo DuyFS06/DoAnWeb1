@@ -109,7 +109,7 @@ function TK_veBangTonKho(data) {
     let tongGiaTri = 0;
     data.forEach((sp) => {
       tongSoLuong += sp.quantity;
-      tongDaBan += sp.soldQuantity;
+      tongDaBan += sp.soldQuantity || 0;
       tongGiaTri += sp.priceValue * sp.quantity;
     });
     const trTong = document.createElement("tr");
@@ -159,7 +159,7 @@ function TK_veBangTonKho(data) {
                }" style="width:50px;height:50px;border-radius:6px;object-fit:cover;"></td>
       <td>${sp.name}</td>
       <td>${sp.quantity}</td>
-      <td><strong>${sp.soldQuantity}</strong></td>
+      <td><strong>${sp.soldQuantity || 0}</strong></td>
       <td>${sp.priceValue.toLocaleString()}₫</td>
       <td>${giaTriTon.toLocaleString()}₫</td>
     `;
