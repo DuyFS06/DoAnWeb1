@@ -1,3 +1,4 @@
+// hoso.js
 document.addEventListener("DOMContentLoaded", () => {
   const sectionHoso = document.getElementById("section-hoso");
   if (!sectionHoso) return;
@@ -6,13 +7,13 @@ document.addEventListener("DOMContentLoaded", () => {
   function hienHoSo(user) {
     if (!user) return;
 
-    // Sidebar 
+    // Sidebar
     const sideAvatar = document.getElementById("sideAvatar-hoso");
     const sideUsername = document.getElementById("sideUsername-hoso");
     if (sideAvatar) sideAvatar.src = user.avatar || "./assets/img/Avatar/avtuser.jpg";
     if (sideUsername) sideUsername.textContent = user.userName || "Người dùng";
 
-    //Nội dung trang hồ sơ
+    // Nội dung trang hồ sơ
     const usernameDisplay = document.getElementById("usernameDisplay-hoso");
     const emailDisplay = document.getElementById("emailDisplay-hoso");
     const phoneDisplay = document.getElementById("phoneDisplay-hoso");
@@ -51,45 +52,15 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /** Chờ header tải xong rồi cập nhật */
-  function doiHeader() {
-    const cho = setInterval(() => {
-      const navLogin = document.querySelector(".nav-login");
-      const userAvatar = document.getElementById("userAvatar");
-      if (!navLogin || !userAvatar) return; // header chưa load
-
-      clearInterval(cho);
-      capNhatHeader();
-    }, 100);
-  }
-
-  /** Cập nhật giao diện header */
-  function capNhatHeader() {
-    const navLogin = document.querySelector(".nav-login");
-    const userAvatar = document.getElementById("userAvatar");
-    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-
-    if (currentUser) {
-      if (navLogin) navLogin.style.display = "none";
-      if (userAvatar) userAvatar.style.display = "inline-block";
-      hienHoSo(currentUser);
-    } else {
-      if (navLogin) navLogin.style.display = "inline-block";
-      if (userAvatar) userAvatar.style.display = "none";
-    }
-  }
-
   /** Tự động hiển thị hồ sơ khi đã đăng nhập */
   function tuDongHoSo() {
     const user = JSON.parse(localStorage.getItem("currentUser"));
     if (user) hienHoSo(user);
   }
 
-
   // Gán global để router có thể gọi
   window.moHoSo = moHoSo;
 
   // Khởi chạy
-  doiHeader();
   tuDongHoSo();
 });

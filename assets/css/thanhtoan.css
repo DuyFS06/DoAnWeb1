@@ -31,19 +31,6 @@
     display: none;
 }
 
-#ifCheckBox {
-  vertical-align: middle; 
-  margin: 0 5px 0 0;      
-  cursor: pointer;
-  
-  width: 15px;
-  height: 15px;
-}
-
-
-#ifCheckBox:checked ~ .HienThiThem{
-    display: block;
-}
 .nhapname{
     height: 30px;
     border: 1px solid #EBEBEB;
@@ -145,16 +132,60 @@
     color: #007BFF;
 }
 #dathangck,#dathangch,#dathangCod{
-    height: 50px;
-    border-radius: 20px;
-    background-color: beige;
-    color: white;
+    height: 56px;
+    border-radius: 28px;
     text-align: center;
-    line-height: 50px;
     text-decoration: none;
     display: none;
-    margin: 20px;
+    margin: 20px auto;
     width: 90%;
+    cursor: pointer;
+    max-width: 400px;
+    padding: 0;
+}
+
+#dathangck button,
+#dathangch button,
+#dathangCod button {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #2563eb 0%, #4338ca 100%);
+    border: none;
+    border-radius: 28px;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+
+#dathangck button:hover,
+#dathangch button:hover,
+#dathangCod button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+    background: linear-gradient(135deg, #1d4ed8 0%, #3730a3 100%);
+}
+
+#dathangck button:active,
+#dathangch button:active,
+#dathangCod button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+}
+
+.CK_BTN.chuyenqua_chuyenkhoan,
+.TM_BTN.chuyenqua_tienmat,
+.CH_BTN.chuyenqua_cuahang {
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    display: block;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 
@@ -328,6 +359,7 @@
     text-align: right;
 }
 .Tongtien_thanhtoan{
+    margin-top: 10px;
     font-weight: bold;
     border-bottom: 2px solid #EBEBEB;
 }
@@ -354,14 +386,103 @@
     cursor: pointer;
     color: white;
     width: 100%;
+    box-sizing: border-box;
+    display: block;
 }
 .TM_BTN .chuyenqua_tienmat button{
     cursor: pointer;
     color: white;
     width: 100%;
+    box-sizing: border-box;
+    display: block;
 }
 .CH_BTN .chuyenqua_cuahang button{
     cursor: pointer;
+    box-sizing: border-box;
+    display: block;
     color: white;
     width: 100%;
+}
+.address_all {
+    background-color: #fff;
+    padding: 20px 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border: 1px solid #eee;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.address_all > div {
+    display: flex;           
+    margin-bottom: 12px;
+    align-items: baseline;   
+    font-size: 15px;
+}
+
+.address_all > div:last-child {
+    margin-bottom: 0;
+}
+
+
+.address_all > div > div:first-child {
+    font-weight: 600;       
+    color: #666;             
+    width: 150px;           
+    min-width: 80px;       
+}
+
+.address_all > div > div:last-child {
+    font-weight: 500;
+    color: #222;            
+    flex: 1;                
+    word-break: break-word;  
+}
+
+
+.address_all.disabled {
+    background-color: #f8f9fa;    
+    border-color: #e9ecef;          
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); 
+    cursor: not-allowed;            
+    user-select: none;
+    pointer-events: none;           
+}
+.address_all.disabled > div > div:first-child,
+.address_all.disabled > div > div:last-child {
+    color: #a0a0a0; 
+}
+.more_address {
+    background-color: #fff;
+    color: #007bff;
+    border: 1px solid #007bff;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    outline: none;
+    display: inline-block;
+    margin-top: 15px;
+}
+
+.more_address:hover {
+    background-color: #007bff;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.25);
+}
+
+.more_address:active {
+    transform: scale(0.98);
+    box-shadow: none;
+}
+
+.more_address:disabled {
+    background-color: #e9ecef;
+    color: #adb5bd;
+    border-color: #dee2e6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
 }

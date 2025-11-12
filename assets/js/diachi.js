@@ -78,8 +78,6 @@ document.addEventListener("DOMContentLoaded", () => {
     card.appendChild(left);
     card.appendChild(right);
 
-    // Click chọn địa chỉ
-    left.addEventListener("click", () => selectAddress(a));
 
     return card;
   }
@@ -108,18 +106,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const i = Number(e.currentTarget.dataset.idx);
         deleteAddress(i);
       });
-    });
-  }
-
-  /** Chọn địa chỉ (lưu selectedAddress) */
-  function selectAddress(address) {
-    localStorage.setItem("selectedAddress", JSON.stringify(address));
-    Swal.fire({
-      icon: "success",
-      title: "Đã chọn địa chỉ!",
-      text: `${address.address}`,
-      timer: 1200,
-      showConfirmButton: false
     });
   }
 
