@@ -83,7 +83,7 @@
     margin: 20px;
 }
 #element_ship{
-    height: 50px;
+    padding-bottom: 10px;
     border-bottom: 1px solid #EBEBEB;
     margin: 20px;
     display: flex   ;
@@ -199,10 +199,11 @@ button{
     border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;
 }
-.tienhanhthanhtoanBtn{
+.tienhanhthanhtoanBtn.giohang{
     background: none;
     border: none;
     color: white;
     font-size: 16px;
+    width: 100%;    
     cursor: pointer;
 }
