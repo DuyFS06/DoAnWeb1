@@ -1815,6 +1815,7 @@ function renderPagination(totalPages, current) {
 
 // ---------- Init: hiển thị trang đầu ----------
 
+let currentCatalog = null; // danh mục hiện tại (null = tất cả)
 function applyAllFilters() {
   // 1. Lấy tất cả giá trị bộ lọc
   const priceValue = document.getElementById("priceFilter").value;
@@ -1831,7 +1832,8 @@ function applyAllFilters() {
 
   // 2. Lọc trên MẢNG GỐC (products)
   const filtered = localproducts.filter(function (p) {
-    // TIÊU CHÍ 1: TÌM KIẾM THEO TÊN
+    // TIÊU CHÍ 1: TÌM KIẾM THEO TÊN VÀ DANH MỤC
+    if (currentCatalog && p.catalog !== currentCatalog) return false; // lọc theo danh mục
     let matchSearch = true;
     if (searchText) {
       // Tên sản phẩm có chứa từ khóa tìm kiếm
@@ -1884,6 +1886,7 @@ function searchProducts() {
 
 // =================== LỌC THEO DANH MỤC ===================
 function renderProductsByCatalog(catalogName) {
+  currentCatalog = catalogName; // <--- gán danh mục hiện tại
   const filtered = localproducts.filter((p) => p.catalog === catalogName);
   renderProducts(filtered, 1); // render trang đầu tiên
   // Làm nổi mục đang chọn
