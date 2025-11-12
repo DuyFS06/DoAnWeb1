@@ -1690,6 +1690,7 @@ function openProductPopup(product) {
   `;
 
   popup.style.display = "flex";
+  document.body.style.overflow = "hidden"; // khóa cuộn nền
 
   document.getElementById("add-to-cart").addEventListener("click", () => {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -1710,6 +1711,7 @@ function openProductPopup(product) {
     document.getElementById("chitietsanpham-banner-index").style.display =
       "none";
     document.getElementById("product-popup").style.display = "none";
+    document.body.style.overflow = "auto";
     document.getElementById("GioHang").style.display = "block";
   });
 }
