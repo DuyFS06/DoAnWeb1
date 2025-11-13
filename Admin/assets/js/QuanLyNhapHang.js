@@ -109,7 +109,7 @@ function QLNH_veBangPhieuNhap(ds) {
 
   dataShow.forEach((phieu, index) => {
     const hoanThanhChecked =
-      phieu.trangThai === "hoanThanh" ? "checked disabled" : "";
+      phieu.trangThai === "hoanThanh" ? "checked disabled" : "disabled";
     let tacVuHTML = "";
 
     const tr = document.createElement("tr");
@@ -179,14 +179,14 @@ function QLNH_ganSuKienNutHanhDong() {
         QLNH_xemChiTietPhieuNhap(btn.dataset.ma)
       )
     );
-  document.querySelectorAll(".QLNH_chkHoanThanh").forEach((chk) => {
-    chk.addEventListener("change", function () {
-      const maPhieu = this.dataset.ma;
-      if (this.checked) {
-        QLNH_hoanThanhPhieuNhap(maPhieu);
-      }
-    });
-  });
+  // document.querySelectorAll(".QLNH_chkHoanThanh").forEach((chk) => {
+  //   chk.addEventListener("change", function () {
+  //     const maPhieu = this.dataset.ma;
+  //     if (this.checked) {
+  //       QLNH_hoanThanhPhieuNhap(maPhieu);
+  //     }
+  //   });
+  // });
 
   document.addEventListener("click", (e) => {
     if (e.target.classList.contains("QLNH_btn-sua"))
@@ -323,9 +323,10 @@ const QLNH_btnHuyThem = document.getElementById("QLNH_btnHuyPhieuMoi");
 const QLNH_btnLuuPhieuMoi = document.getElementById("QLNH_btnLuuPhieuMoi");
 const QLNH_btnThemDongSP = document.getElementById("QLNH_btnThemDong");
 const QLNH_tongTienNhap = document.getElementById("QLNH_tongTien");
-
+var QLNH_dangSuaPhieu = null;
 // ====== Mở modal ======
 QLNH_btnMoThem.onclick = () => {
+  QLNH_dangSuaPhieu = null;
   QLNH_modalThem.style.display = "flex";
   // Gán ngày mặc định = hôm nay
   const today = new Date();
@@ -352,25 +353,25 @@ function QLNH_initSelectBehavior(selectEl) {
     selectEl.size = 1;
 
     // expand on mousedown (before focus/click) and on focus
-    selectEl.addEventListener('mousedown', function () {
+    selectEl.addEventListener("mousedown", function () {
       this.size = 5;
     });
-    selectEl.addEventListener('focus', function () {
+    selectEl.addEventListener("focus", function () {
       this.size = 5;
     });
 
     // collapse on blur or change
-    selectEl.addEventListener('blur', function () {
+    selectEl.addEventListener("blur", function () {
       this.size = 1;
     });
-    selectEl.addEventListener('change', function () {
+    selectEl.addEventListener("change", function () {
       // small timeout to allow click selection to complete
       setTimeout(() => (this.size = 1), 0);
     });
 
     // collapse on Escape key
-    selectEl.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') {
+    selectEl.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") {
         this.size = 1;
         this.blur();
       }
@@ -404,8 +405,8 @@ function QLNH_themDongSanPham() {
   const soLuongInput = row.querySelector(".QLNH_soLuong");
 
   // Populate select with all products (use native browser dropdown)
-  QLNH_productsLocal.forEach(p => {
-    const opt = document.createElement('option');
+  QLNH_productsLocal.forEach((p) => {
+    const opt = document.createElement("option");
     opt.value = p.id;
     opt.textContent = `${p.id} || ${p.name}`;
     selectEl.appendChild(opt);
@@ -415,15 +416,16 @@ function QLNH_themDongSanPham() {
   QLNH_initSelectBehavior(selectEl);
 
   // when product selected, fill name & price
-  selectEl.addEventListener('change', function () {
+  selectEl.addEventListener("change", function () {
     const pid = selectEl.value;
-    const product = QLNH_productsLocal.find(p => p.id === pid);
+    const product = QLNH_productsLocal.find((p) => p.id === pid);
     if (product) {
-      row.querySelector('.QLNH_tenSP').textContent = product.name;
-      row.querySelector('.QLNH_giaNhap').textContent = product.importPrice.toLocaleString('vi-VN') + '₫';
+      row.querySelector(".QLNH_tenSP").textContent = product.name;
+      row.querySelector(".QLNH_giaNhap").textContent =
+        product.importPrice.toLocaleString("vi-VN") + "₫";
     } else {
-      row.querySelector('.QLNH_tenSP').textContent = '';
-      row.querySelector('.QLNH_giaNhap').textContent = '';
+      row.querySelector(".QLNH_tenSP").textContent = "";
+      row.querySelector(".QLNH_giaNhap").textContent = "";
     }
     QLNH_capNhatThanhTien(row);
   });
@@ -442,7 +444,8 @@ function QLNH_themDongSanPham() {
 
 // ====== Cập nhật thành tiền 1 dòng ======
 function QLNH_capNhatThanhTien(row) {
-  const maEl = row.querySelector(".QLNH_selectSP") || row.querySelector(".QLNH_maSP");
+  const maEl =
+    row.querySelector(".QLNH_selectSP") || row.querySelector(".QLNH_maSP");
   const ma = maEl ? maEl.value.trim() : "";
   const sl = parseInt(row.querySelector(".QLNH_soLuong").value) || 0;
   const product = QLNH_productsLocal.find((p) => p.id === ma);
@@ -463,7 +466,8 @@ function QLNH_capNhatTongTien() {
   let tong = 0;
 
   rows.forEach((r) => {
-    const maEl = r.querySelector(".QLNH_selectSP") || r.querySelector(".QLNH_maSP");
+    const maEl =
+      r.querySelector(".QLNH_selectSP") || r.querySelector(".QLNH_maSP");
     const ma = maEl ? maEl.value.trim() : "";
     const sl = parseInt(r.querySelector(".QLNH_soLuong").value) || 0;
     const product = QLNH_productsLocal.find((p) => p.id === ma);
@@ -475,15 +479,22 @@ function QLNH_capNhatTongTien() {
 
 // ====== Lưu phiếu nhập ======
 QLNH_btnLuuPhieuMoi.onclick = () => {
+  if (QLNH_dangSuaPhieu) {
+    QLNH_luuPhieuSua(QLNH_dangSuaPhieu);
+  } else {
+    QLNH_luuPhieuMoi();
+  }
+};
+function QLNH_luuPhieuMoi() {
   const ngayNhap = document.getElementById("QLNH_ngayNhapMoi").value;
   const trangThai = document.getElementById("QLNH_trangThaiPhieu").value;
   if (!ngayNhap) return alert("Vui lòng chọn ngày nhập!");
 
   const chiTiet = [];
   let tong = 0;
-
   document.querySelectorAll("#QLNH_tableBodyNhap tr").forEach((r) => {
-    const maEl = r.querySelector(".QLNH_selectSP") || r.querySelector(".QLNH_maSP");
+    const maEl =
+      r.querySelector(".QLNH_selectSP") || r.querySelector(".QLNH_maSP");
     const ma = maEl ? maEl.value.trim() : "";
     const ten = r.querySelector(".QLNH_tenSP").textContent.trim();
     const sl = parseInt(r.querySelector(".QLNH_soLuong").value) || 0;
@@ -491,12 +502,9 @@ QLNH_btnLuuPhieuMoi.onclick = () => {
       .querySelector(".QLNH_giaNhap")
       .textContent.replace(/[^\d]/g, "");
     const gia = parseFloat(giaText) || 0;
-
     if (!ma || !ten || sl <= 0 || gia <= 0) return;
-
     const thanhTien = sl * gia;
     tong += thanhTien;
-
     chiTiet.push({
       maSanPham: ma,
       tenSanPham: ten,
@@ -507,7 +515,6 @@ QLNH_btnLuuPhieuMoi.onclick = () => {
   });
 
   if (chiTiet.length === 0) return alert("Chưa có sản phẩm hợp lệ!");
-
   if (trangThai === "hoanThanh") QLNH_capNhatTonKhoKhiHoanThanh(chiTiet);
 
   const maPhieu = "PN" + Date.now();
@@ -518,7 +525,6 @@ QLNH_btnLuuPhieuMoi.onclick = () => {
     tongTien: tong,
     trangThai,
   };
-
   QLNH_phieuNhapLocal.push(phieuMoi);
   saveLocalPhieuNhap(QLNH_phieuNhapLocal);
   saveLocalProducts(QLNH_productsLocal);
@@ -528,10 +534,11 @@ QLNH_btnLuuPhieuMoi.onclick = () => {
   document.getElementById("QLNH_tableBodyNhap").innerHTML = "";
   QLNH_tongTienNhap.textContent = "0₫";
   QLNH_veBangPhieuNhap(QLNH_phieuNhapLocal);
-};
+}
 
 /* ======= SỬA PHIẾU NHẬP ======= */
 function QLNH_suaPhieuNhap(maPhieu) {
+  QLNH_dangSuaPhieu = maPhieu;
   const phieu = QLNH_phieuNhapLocal.find((p) => p.maPhieuNhap === maPhieu);
   if (!phieu) return alert("Không tìm thấy phiếu nhập!");
   if (phieu.trangThai === "hoanThanh") return alert("Phiếu đã hoàn thành!");
@@ -571,10 +578,10 @@ function QLNH_suaPhieuNhap(maPhieu) {
     tbody.appendChild(row);
 
     // Populate select with all products (use native browser dropdown)
-    const selectEl = row.querySelector('.QLNH_selectSP');
+    const selectEl = row.querySelector(".QLNH_selectSP");
     // Add all products
-    QLNH_productsLocal.forEach(p => {
-      const opt = document.createElement('option');
+    QLNH_productsLocal.forEach((p) => {
+      const opt = document.createElement("option");
       opt.value = p.id;
       opt.textContent = `${p.id} || ${p.name}`;
       if (p.id === ct.maSanPham) {
@@ -584,15 +591,16 @@ function QLNH_suaPhieuNhap(maPhieu) {
     });
     // Attach controlled behavior (show 5 options on open, collapse on close/change)
     QLNH_initSelectBehavior(selectEl);
-    selectEl.addEventListener('change', () => {
+    selectEl.addEventListener("change", () => {
       const pid = selectEl.value;
-      const prod = QLNH_productsLocal.find(p => p.id === pid);
+      const prod = QLNH_productsLocal.find((p) => p.id === pid);
       if (prod) {
-        row.querySelector('.QLNH_tenSP').textContent = prod.name;
-        row.querySelector('.QLNH_giaNhap').textContent = prod.importPrice.toLocaleString('vi-VN') + '₫';
+        row.querySelector(".QLNH_tenSP").textContent = prod.name;
+        row.querySelector(".QLNH_giaNhap").textContent =
+          prod.importPrice.toLocaleString("vi-VN") + "₫";
       } else {
-        row.querySelector('.QLNH_tenSP').textContent = '';
-        row.querySelector('.QLNH_giaNhap').textContent = '';
+        row.querySelector(".QLNH_tenSP").textContent = "";
+        row.querySelector(".QLNH_giaNhap").textContent = "";
       }
       QLNH_capNhatThanhTien(row);
     });
@@ -622,7 +630,8 @@ function QLNH_luuPhieuSua(maPhieu) {
   const chiTiet = [];
   let tong = 0;
   document.querySelectorAll("#QLNH_tableBodyNhap tr").forEach((r) => {
-    const maEl = r.querySelector(".QLNH_selectSP") || r.querySelector(".QLNH_maSP");
+    const maEl =
+      r.querySelector(".QLNH_selectSP") || r.querySelector(".QLNH_maSP");
     const ma = maEl ? maEl.value.trim() : "";
     const ten = r.querySelector(".QLNH_tenSP").textContent.trim();
     const sl = parseInt(r.querySelector(".QLNH_soLuong").value) || 0;
@@ -664,7 +673,10 @@ function QLNH_luuPhieuSua(maPhieu) {
 function QLNH_capNhatTonKhoKhiHoanThanh(chiTiet) {
   chiTiet.forEach((ct) => {
     const sp = QLNH_productsLocal.find((p) => p.id === ct.maSanPham);
-    if (sp) sp.quantity = (sp.quantity || 0) + ct.soLuongNhap;
+    if (sp) {
+      sp.quantity = (sp.quantity || 0) + ct.soLuongNhap;
+      sp.importQuantity = (sp.importQuantity || 0) + ct.soLuongNhap;
+    }
   });
   saveLocalProducts(QLNH_productsLocal);
 }

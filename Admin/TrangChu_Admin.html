@@ -833,7 +833,7 @@
                 <option value="SHEEN">SHEEN</option>
               </select>
               <div
-                style="position: relative; display: inline-block; width: 100%"
+                style="position: relative; display: inline-block; width: 20%"
               >
                 <input
                   type="text"
@@ -844,6 +844,13 @@
                 />
                 <div id="TK_goiY" class="TK_goiY"></div>
               </div>
+              <label
+                >Từ ngày: <input type="date" id="TK_filterDateFrom"
+              /></label>
+              <label
+                >Đến ngày: <input type="date" id="TK_filterDateTo"
+              /></label>
+              <button id="TK_btnFilter">Lọc dữ liệu</button>
             </div>
 
             <!-- Bộ chọn loại hàng -->
@@ -876,12 +883,13 @@
                 <thead>
                   <tr>
                     <th style="width: 5%">STT</th>
-                    <th style="width: 15%">Mã</th>
+                    <th style="width: 12%">Mã</th>
                     <th style="width: 10%">Ảnh</th>
                     <th style="width: 15%">Tên sản phẩm</th>
                     <th style="width: 10%">Tồn kho</th>
-                    <th style="width: 12%">Đã bán</th>
-                    <th style="width: 13%">Giá bán</th>
+                    <th style="width: 10%">Nhập</th>
+                    <th style="width: 10%">Đã bán</th>
+                    <th style="width: 10%">Giá bán</th>
                     <th style="width: 18%">Giá trị tồn kho</th>
                   </tr>
                 </thead>

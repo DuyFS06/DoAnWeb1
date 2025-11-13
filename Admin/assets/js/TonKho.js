@@ -29,7 +29,6 @@ const TK_itemsPerPage = 10;
 let TK_currentPage = 1;
 let TK_productsLocal = []; // Dữ liệu từ localStorage
 let TK_mangDaLoc = []; // Mảng tạm sau khi lọc
-
 document.addEventListener("DOMContentLoaded", function () {
   try {
     //Ngưỡng sắp hết hàng
@@ -105,10 +104,12 @@ function TK_veBangTonKho(data) {
   // Dòng tổng (chỉ hiện ở trang đầu)
   if (TK_currentPage === 1 && data.length > 0) {
     let tongSoLuong = 0;
+    let tongSoLuongNhap = 0;
     let tongDaBan = 0;
     let tongGiaTri = 0;
     data.forEach((sp) => {
       tongSoLuong += sp.quantity;
+      tongSoLuongNhap += sp.importQuantity || 0;
       tongDaBan += sp.soldQuantity || 0;
       tongGiaTri += sp.priceValue * sp.quantity;
     });
@@ -118,6 +119,7 @@ function TK_veBangTonKho(data) {
       <td><strong>Tổng</strong></td>
       <td colspan="3"></td>
       <td><strong>${tongSoLuong}</strong></td>
+      <td><strong>${tongSoLuongNhap}</strong></td>
       <td><strong>${tongDaBan}</strong></td>
       <td></td>
       <td><strong>${tongGiaTri.toLocaleString()}₫</strong></td>
@@ -159,6 +161,7 @@ function TK_veBangTonKho(data) {
                }" style="width:50px;height:50px;border-radius:6px;object-fit:cover;"></td>
       <td>${sp.name}</td>
       <td>${sp.quantity}</td>
+      <td><strong>${sp.importQuantity || 0}</strong></td>
       <td><strong>${sp.soldQuantity || 0}</strong></td>
       <td>${sp.priceValue.toLocaleString()}₫</td>
       <td>${giaTriTon.toLocaleString()}₫</td>
@@ -379,3 +382,84 @@ window.addEventListener("storage", (event) => {
     window.dispatchEvent(new Event("productsUpdated"));
   }
 });
+
+function toDateOnly(d) {
+  const date = new Date(d);
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+}
+function TK_locTheoNgay_DanhMuc_TuKhoa() {
+  const from = document.getElementById("TK_filterDateFrom").value;
+  const to = document.getElementById("TK_filterDateTo").value;
+  const keyword = document
+    .getElementById("TK_timId")
+    .value.trim()
+    .toLowerCase();
+  const catalog = document.getElementById("TK_locDanhMuc").value;
+
+  const fromDate = from ? toDateOnly(new Date(from)) : null;
+  const toDate = to ? toDateOnly(new Date(to)) : null;
+
+  const phieuNhapLocal =
+    JSON.parse(localStorage.getItem("phieuNhapLocal")) || [];
+  const donHangLocal =
+    JSON.parse(localStorage.getItem("DanhSachDatHang")) || [];
+  const productsLocal = getLocalProducts();
+
+  const importMap = {};
+  phieuNhapLocal.forEach((phieu) => {
+    const ngay = toDateOnly(new Date(phieu.ngayNhap));
+    if (
+      (!fromDate || ngay >= fromDate) &&
+      (!toDate || ngay <= toDate) &&
+      phieu.trangThai === "hoanThanh"
+    ) {
+      phieu.chiTiet.forEach((ct) => {
+        importMap[ct.maSanPham] =
+          (importMap[ct.maSanPham] || 0) + ct.soLuongNhap;
+      });
+    }
+  });
+
+  const saleMap = {};
+  donHangLocal.forEach((don) => {
+    const ngay = toDateOnly(don.orderDate);
+    if (
+      (!fromDate || ngay >= fromDate) &&
+      (!toDate || ngay <= toDate) &&
+      don.trangthai !== "huy"
+    ) {
+      don.product.forEach((sp) => {
+        saleMap[sp.id] = (saleMap[sp.id] || 0) + sp.quantity;
+      });
+    }
+  });
+
+  // Map sản phẩm + lọc chỉ lấy sản phẩm có nhập hoặc bán
+  const danhSach = productsLocal
+    .map((sp) => {
+      const imported = importMap[sp.id] || 0;
+      const sold = saleMap[sp.id] || 0;
+      return { ...sp, importQuantity: imported, soldQuantity: sold };
+    })
+    .filter((sp) => sp.importQuantity > 0 || sp.soldQuantity > 0) // chỉ lấy sản phẩm có dữ liệu
+    .filter((sp) => {
+      const matchID = !keyword || sp.id.toLowerCase().includes(keyword);
+      const matchCatalog =
+        catalog === "all" || sp.catalog.toUpperCase() === catalog.toUpperCase();
+      return matchID && matchCatalog;
+    });
+
+  TK_mangDaLoc = danhSach;
+  TK_currentPage = 1;
+  TK_veBangTonKho(TK_mangDaLoc);
+
+  // Reset filter (nếu muốn)
+  document.getElementById("TK_filterDateFrom").value = "";
+  document.getElementById("TK_filterDateTo").value = "";
+  document.getElementById("TK_timId").value = "";
+  document.getElementById("TK_locDanhMuc").value = "all";
+}
+
+document
+  .getElementById("TK_btnFilter")
+  .addEventListener("click", TK_locTheoNgay_DanhMuc_TuKhoa);

@@ -39,15 +39,18 @@
 
 .TK_boLoc select,
 .TK_boLoc input[type="text"],
-.TK_boLoc input[type="button"] {
+#TK_btnFilter,
+.TK_boLoc input[type="date"] {
   border: 1px solid #ccc;
   border-radius: 6px;
   height: 34px;
   padding: 0 10px;
   font-size: 14px;
 }
-
-.TK_boLoc input[type="button"] {
+.TK_boLoc select {
+  width: 15%;
+}
+#TK_btnFilter {
   cursor: pointer;
   background-color: #5062b5;
   color: white;
@@ -55,7 +58,7 @@
   transition: 0.2s;
 }
 
-.TK_boLoc input[type="button"]:hover {
+#TK_btnFilter:hover {
   background-color: #3c4aa3;
 }
 
