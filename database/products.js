@@ -46,6 +46,7 @@ const products = [
     image: "assets/img/Baby-G/BA-110AH-6A.jpg",
     importPrice: 3315000, // 75% của 4420000
     quantity: 250,
+    importQuantity: 0,
     soldQuantity: 0,
     visibility: "hidden",
     description: `
@@ -78,6 +79,7 @@ const products = [
     image: "assets/img/Baby-G/BG-169U-3.jpg",
     importPrice: 2096000, // 80% của 2620000
     quantity: 9,
+    importQuantity: 0,
     soldQuantity: 0,
     visibility: "visible",
     description: `
@@ -106,6 +108,7 @@ const products = [
     image: "assets/img/Baby-G/BGA-280TD-7A.jpg",
     importPrice: 2816000, // 80% của 3520000
     quantity: 300,
+    importQuantity: 0,
     soldQuantity: 0,
     visibility: "visible",
     description: `
@@ -138,6 +141,7 @@ const products = [
     image: "assets/img/Baby-G/BGA-290-1A.png",
     importPrice: 2362500, // 75% của 3150000
     quantity: 180,
+    importQuantity: 0,
     soldQuantity: 0,
     visibility: "visible",
     description: `
@@ -171,6 +175,7 @@ const products = [
     image: "assets/img/Baby-G/BGA-310C-1A.jpg",
     importPrice: 3424000, // 80% của 4280000
     quantity: 400,
+    importQuantity: 0,
     soldQuantity: 0,
     visibility: "visible",
     description: `
@@ -204,6 +209,7 @@ const products = [
     image: "assets/img/Baby-G/BGD-570BC-3.png",
     importPrice: 2887500, // 75% của 3850000
     quantity: 5,
+    importQuantity: 0,
     soldQuantity: 0,
     visibility: "visible",
     description: `
@@ -236,6 +242,7 @@ const products = [
     visibility: "visible",
     importPrice: 4224500, // 85% của 4970000
     quantity: 320,
+    importQuantity: 0,
     soldQuantity: 0,
     description: `
     Đặc điểm nổi bật của mẫu này là họa tiết ngựa vằn trên chất liệu nhựa màu đen 
@@ -266,6 +273,7 @@ const products = [
     image: "assets/img/Baby-G/LOV-20A-7A-b.png",
     importPrice: 4416000, // 80% của 5520000
     quantity: 200,
+    importQuantity: 0,
     soldQuantity: 0,
     visibility: "visible",
     description: `
@@ -299,6 +307,7 @@ const products = [
     image: "assets/img/Baby-G/MSG-S200D-7A.png",
     importPrice: 5000000, // 80% của 6250000
     quantity: 150,
+    importQuantity: 0,
     soldQuantity: 0,
     visibility: "visible",
     description: `
@@ -330,6 +339,7 @@ const products = [
     image: "assets/img/Baby-G/MSG-S500CD-7A.png",
     importPrice: 5584000, // 80% của 6980000
     quantity: 280,
+    importQuantity: 0,
     soldQuantity: 0,
     visibility: "visible",
     description: `
@@ -363,6 +373,7 @@ const products = [
     image: "assets/img/Edifice/EFV-650D-2BV.jpg",
     importPrice: 2865000, // 75% của 3820000
     quantity: 230,
+    importQuantity: 0,
     soldQuantity: 0,
     visibility: "visible",
     description: `
@@ -392,6 +403,7 @@ const products = [
     image: "assets/img/Edifice/EQS-940NL-1AV.jpg",
     importPrice: 4352000, // 85% của 5120000
     quantity: 350,
+    importQuantity: 0,
     soldQuantity: 0,
     visibility: "visible",
     description: `
@@ -424,6 +436,7 @@ const products = [
     image: "assets/img/Edifice/EFV-C120L-8A.jpg",
     importPrice: 2235000, // 75% của 2980000
     quantity: 2,
+    importQuantity: 0,
     soldQuantity: 0,
     visibility: "visible",
     description: `
@@ -454,6 +467,8 @@ const products = [
     image: "assets/img/Edifice/EFV-550L-2AV.png",
     importPrice: 3024000, // 80% của 3780000
     quantity: 270,
+    importQuantity: 0,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
       Bạn sẽ thích nhiều chức năng khác nhau, bao gồm giờ thế giới, đồng hồ bấm giờ, báo giờ, 
@@ -481,6 +496,8 @@ const products = [
     image: "assets/img/Edifice/EFV-140L-1AV.png",
     importPrice: 3376000, // 80% của 4220000
     quantity: 190,
+    importQuantity: 0,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
       Chào mừng bạn đến với EDIFICE EFV-140 – một chiếc đồng hồ thể thao và 
@@ -508,6 +525,8 @@ const products = [
     image: "assets/img/Edifice/EFR-552GL-7AV.png",
     importPrice: 3885000, // 75% của 5180000
     quantity: 310,
+    importQuantity: 0,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
        Khả năng chống nước ở độ sâu 100 mét, Đồng hồ bấm giờ 
@@ -536,6 +555,7 @@ const products = [
     image: "assets/img/Edifice/EFB-730D-2BV.jpg",
     importPrice: 5338000, // 85% của 6280000
     quantity: 220,
+    importQuantity: 0,
     soldQuantity: 0,
     visibility: "visible",
     description: `
@@ -566,6 +586,7 @@ const products = [
     image: "assets/img/Edifice/EFB-710D-7AV.jpg",
     importPrice: 4896000, // 80% của 6120000
     quantity: 260,
+    importQuantity: 0,
     soldQuantity: 0,
     visibility: "visible",
     description: `
@@ -597,6 +618,7 @@ const products = [
     image: "assets/img/Edifice/ECB-2200HTR-1A.jpg",
     importPrice: 6077500, // 85% của 7150000
     quantity: 340,
+    importQuantity: 0,
     soldQuantity: 0,
     visibility: "visible",
     description: `
@@ -630,6 +652,8 @@ const products = [
     image: "assets/img/Edifice/ECB-900DB-1B.png",
     importPrice: 6937500, // 75% của 9250000
     quantity: 290,
+    importQuantity: 0,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
       Những chiếc đồng hồ này cũng có Đèn chiếu sáng cực mạnh sử dụng chiếu sáng 
@@ -664,6 +688,7 @@ const products = [
     image: "assets/img/G-Shock/GST-B600D-1A.jpg",
     importPrice: 6600000, // 80% của 8250000
     quantity: 0,
+    importQuantity: 0,
     soldQuantity: 0,
     visibility: "visible",
     description: `
@@ -695,6 +720,7 @@ const products = [
     image: "assets/img/G-Shock/GMW-B5000SS-2.jpg",
     importPrice: 10965000, // 85% của 12900000
     quantity: 450,
+    importQuantity: 0,
     soldQuantity: 0,
     visibility: "visible",
     description: `
@@ -728,6 +754,7 @@ const products = [
     image: "assets/img/G-Shock/GMA-S120SA-7A2.jpg",
     importPrice: 3150000, // 75% của 4200000
     quantity: 130,
+    importQuantity: 0,
     soldQuantity: 0,
     visibility: "visible",
     description: `
@@ -759,6 +786,7 @@ const products = [
     image: "assets/img/G-Shock/GMA-P2125W-6A.jpg",
     importPrice: 3320000, // 80% của 4150000
     quantity: 160,
+    importQuantity: 0,
     soldQuantity: 0,
     visibility: "visible",
     description: `
@@ -792,6 +820,7 @@ const products = [
     image: "assets/img/G-Shock/GMA-P2100PC-4A.jpg",
     importPrice: 3480000, // 80% của 4350000
     quantity: 240,
+    importQuantity: 0,
     soldQuantity: 0,
     visibility: "visible",
     description: `
@@ -823,6 +852,7 @@ const products = [
     image: "assets/img/G-Shock/GM-S2110B-8A.jpg",
     importPrice: 5235000, // 75% của 6980000
     quantity: 300,
+    importQuantity: 0,
     soldQuantity: 0,
     visibility: "visible",
     description: `
@@ -853,6 +883,7 @@ const products = [
     image: "assets/img/G-Shock/GM-B2100SD-1A.jpg",
     importPrice: 8840000, // 85% của 10400000
     quantity: 400,
+    importQuantity: 0,
     soldQuantity: 0,
     visibility: "visible",
     description: `
@@ -888,6 +919,7 @@ const products = [
     image: "assets/img/G-Shock/GM-2110D-2A.jpg",
     importPrice: 6280000, // 80% của 7850000
     quantity: 210,
+    importQuantity: 0,
     soldQuantity: 0,
     visibility: "visible",
     description: `
@@ -918,6 +950,7 @@ const products = [
     image: "assets/img/G-Shock/GA-700BBR-1A.jpg",
     importPrice: 2985000, // 75% của 3980000
     quantity: 170,
+    importQuantity: 0,
     soldQuantity: 0,
     visibility: "visible",
     description: `
@@ -947,6 +980,7 @@ const products = [
     image: "assets/img/G-Shock/GM-2110D-2B.jpg",
     importPrice: 7012500, // 85% của 8250000
     quantity: 360,
+    importQuantity: 0,
     soldQuantity: 0,
     visibility: "visible",
     description: `
@@ -980,6 +1014,7 @@ const products = [
     image: "assets/img/Pro-Trek/PRG-340L-5.jpg",
     importPrice: 7424000, // 80% của 9280000
     quantity: 280,
+    importQuantity: 0,
     soldQuantity: 0,
     visibility: "visible",
     description: `
@@ -1015,6 +1050,7 @@ const products = [
     image: "assets/img/Pro-Trek/PRJ-B001B-1.jpg",
     importPrice: 8240000, // 80% của 10300000
     quantity: 320,
+    importQuantity: 0,
     soldQuantity: 0,
     visibility: "visible",
     description: `
@@ -1047,6 +1083,8 @@ const products = [
     image: "assets/img/Pro-Trek/PRT-B50-4.png",
     importPrice: 5850000, // 75% của 7800000
     quantity: 140,
+    importQuantity: 0,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
       PRO TREK với khả năng kết hợp những thành tựu công nghệ xuất sắc nhất 
@@ -1077,6 +1115,8 @@ const products = [
     image: "assets/img/Pro-Trek/PRT-B70-2.png",
     importPrice: 6480000, // 80% của 8100000
     quantity: 250,
+    importQuantity: 0,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
       Bluetooth® cho phép bạn liên kết với ứng dụng PRO TREK Connected trên điện thoại để 
@@ -1108,6 +1148,8 @@ const products = [
     image: "assets/img/Pro-Trek/PRW-30Y-1B.png",
     importPrice: 8075000, // 85% của 9500000
     quantity: 300,
+    importQuantity: 0,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
       Với PRW-30, một dãy các nút kim loại lớn ở bên phải cung cấp khả năng truy cập một chạm vào la bàn, 
@@ -1138,6 +1180,7 @@ const products = [
     image: "assets/img/Pro-Trek/PRW-35-7.jpg",
     importPrice: 6525000, // 75% của 8700000
     quantity: 180,
+    importQuantity: 0,
     soldQuantity: 0,
     visibility: "visible",
     description: `
@@ -1172,6 +1215,8 @@ const products = [
     image: "assets/img/Pro-Trek/PRW-50Y-1A.png",
     importPrice: 9520000, // 85% của 11200000
     quantity: 410,
+    importQuantity: 0,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
       Thiết kế kim giờ, phút và giây rất dễ nhìn, mặt số không bóng giúp 
@@ -1205,6 +1250,7 @@ const products = [
     image: "assets/img/Pro-Trek/PRW-3500SYT-1.jpg",
     importPrice: 11600000, // 80% của 14500000
     quantity: 460,
+    importQuantity: 0,
     soldQuantity: 0,
     visibility: "visible",
     description: `
@@ -1235,6 +1281,7 @@ const products = [
     image: "assets/img/Pro-Trek/PRW-6000SC-7.jpg",
     importPrice: 9375000, // 75% của 12500000
     quantity: 390,
+    importQuantity: 0,
     soldQuantity: 0,
     visibility: "visible",
     description: `
@@ -1269,6 +1316,7 @@ const products = [
     image: "assets/img/Pro-Trek/PRW-S3100-1.jpg",
     importPrice: 8330000, // 85% của 9800000
     quantity: 330,
+    importQuantity: 0,
     soldQuantity: 0,
     visibility: "visible",
     description: `
@@ -1300,6 +1348,7 @@ const products = [
     image: "assets/img/Sheen/SHE-3517L-1A.jpg",
     importPrice: 2587500, // 75% của 3450000
     quantity: 110,
+    importQuantity: 0,
     soldQuantity: 0,
     visibility: "visible",
     description: `
@@ -1332,6 +1381,8 @@ const products = [
     image: "assets/img/Sheen/SHE-4055PG-7A.png",
     importPrice: 4097000, // 85% của 4820000
     quantity: 200,
+    importQuantity: 0,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
       Vạch giờ Swarovski® Crystals lấp lánh
@@ -1362,6 +1413,8 @@ const products = [
     image: "assets/img/Sheen/SHE-4057PGL-7B.png",
     importPrice: 3184000, // 80% của 3980000
     quantity: 150,
+    importQuantity: 0,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
       Dây đeo bằng da thật
@@ -1394,6 +1447,8 @@ const products = [
     image: "assets/img/Sheen/SHE-4532PG-1A.png",
     importPrice: 3840000, // 75% của 5120000
     quantity: 220,
+    importQuantity: 0,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
       Vành bezel bằng Pha lê Swarovski® lấp lánh
@@ -1425,6 +1480,8 @@ const products = [
     image: "assets/img/Sheen/SHE-4538D-7A.png",
     importPrice: 4913000, // 85% của 5780000
     quantity: 270,
+    importQuantity: 0,
+    soldQuantity: 0,
     visibility: "visible",
     description: `
       Vỏ mỏng, Chốt gập 3 chỉ với một lần bấm
@@ -1455,6 +1512,7 @@ const products = [
     image: "assets/img/Sheen/SHE-4539BGM-1A.jpg",
     importPrice: 4960000, // 80% của 6200000
     quantity: 300,
+    importQuantity: 0,
     soldQuantity: 0,
     visibility: "visible",
     description: `
@@ -1487,6 +1545,7 @@ const products = [
     image: "assets/img/Sheen/SHE-4540D-7A.jpg",
     importPrice: 3735000, // 75% của 4980000
     quantity: 190,
+    importQuantity: 0,
     soldQuantity: 0,
     visibility: "visible",
     description: `
@@ -1519,6 +1578,7 @@ const products = [
     image: "assets/img/Sheen/SHE-4558G-9A.jpg",
     importPrice: 5763000, // 85% của 6780000
     quantity: 250,
+    importQuantity: 0,
     soldQuantity: 0,
     visibility: "visible",
     description: `
@@ -1551,6 +1611,7 @@ const products = [
     image: "assets/img/Sheen/SHE-4562M-2A.jpg",
     importPrice: 4272000, // 80% của 5340000
     quantity: 230,
+    importQuantity: 0,
     soldQuantity: 0,
     visibility: "visible",
     description: `
@@ -1582,6 +1643,7 @@ const products = [
     image: "assets/img/Sheen/SHE-4562PGL-4A.jpg",
     importPrice: 4087500, // 75% của 5450000
     quantity: 200,
+    importQuantity: 0,
     soldQuantity: 0,
     visibility: "visible",
     description: `
