@@ -390,6 +390,7 @@ function toDateOnly(d) {
 function TK_locTheoNgay_DanhMuc_TuKhoa() {
   const from = document.getElementById("TK_filterDateFrom").value;
   const to = document.getElementById("TK_filterDateTo").value;
+  if (from == null && to == null) return;
   const keyword = document
     .getElementById("TK_timId")
     .value.trim()
