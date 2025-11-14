@@ -412,6 +412,43 @@
   border: 1px solid #ddd;
   padding: 6px;
 }
+
+/* ================ FILE UPLOAD INPUT ================ */
+.QLSP_file-input {
+  display: none;
+}
+
+.QLSP_file-upload-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #5DADE2 0%, #3498DB 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(93, 173, 226, 0.3);
+}
+
+.QLSP_file-upload-label:hover {
+  filter: brightness(1.05);
+  box-shadow: 0 4px 12px rgba(93, 173, 226, 0.4);
+  transform: translateY(-2px);
+}
+
+.QLSP_file-upload-label:active {
+  transform: translateY(0);
+}
+
+.QLSP_file-upload-label span {
+  pointer-events: none;
+}
+
 /* ====== FIX ẢNH BỊ PHÓNG TO TRONG BẢNG SẢN PHẨM ====== */
 .QLSP_admin-table td img {
   width: 60px !important; /* Cố định chiều rộng */

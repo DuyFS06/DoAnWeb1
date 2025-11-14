@@ -60,14 +60,13 @@
         <table class="QLDH_admin-table">
           <thead>
             <tr>
-              <th style="width:5%">STT</th>
-              <th style="width:12%">Mã đơn</th>
-              <th style="width:15%">Ngày</th>
-              <th>Khách</th>
-              <th style="width:12%">Tổng tiền</th>
-              <th style="width:12%">Trạng thái</th>
-              <th style="width:8%">Chi tiết</th>
-              <th style="width:15%">Cập nhật</th>
+              <th style="width:6%">STT</th>
+              <th style="width:15%">Mã đơn</th>
+              <th style="width:18%">Ngày</th>
+              <th style="width:18%">Khách</th>
+              <th style="width:15%">Tổng tiền</th>
+              <th style="width:15%">Trạng thái</th>
+              <th style="width:13%">Chi tiết</th>
             </tr>
           </thead>
         </table>
@@ -110,6 +109,18 @@
               <tbody id="QLDH_md_tbody"></tbody>
             </table>
             <div class="QLDH_md_total">Tổng tiền: <span id="QLDH_md_total"></span></div>
+            
+            <!-- Phần cập nhật trạng thái -->
+            <div class="QLDH_md_status-update">
+              <label for="QLDH_md_statusSelect"><strong>🔄 Cập nhật trạng thái:</strong></label>
+              <select id="QLDH_md_statusSelect">
+                <option value="moiDat">Mới đặt</option>
+                <option value="daXuLy">Đã xử lý</option>
+                <option value="daGiao">Đã giao</option>
+                <option value="huy">Hủy</option>
+              </select>
+              <button id="QLDH_md_btnUpdate" class="QLDH_md_btnUpdate">Cập nhật</button>
+            </div>
           </div>
         </div>
       </div>
@@ -150,15 +161,7 @@
         <td>${o.customerName || "--"}</td>
         <td>${currency(o.total)}</td>
         <td>${ORDER_STATUS[o.status] || o.status}</td>
-        <td><button class="QLDH_btn-detail" data-id="${o.id}">Xem</button></td>
-        <td>
-          <select class="QLDH_sel-status" data-id="${o.id}">
-            <option value="moiDat" ${o.status === "moiDat" ? "selected" : ""}>Mới đặt</option>
-            <option value="daXuLy" ${o.status === "daXuLy" ? "selected" : ""}>Đã xử lý</option>
-            <option value="daGiao" ${o.status === "daGiao" ? "selected" : ""}>Đã giao</option>
-            <option value="huy" ${o.status === "huy" ? "selected" : ""}>Hủy</option>
-          </select>
-        </td>`;
+        <td><button class="QLDH_btn-detail" data-id="${o.id}">Xem</button></td>`;
       tbody.appendChild(tr);
     });
 
@@ -170,9 +173,6 @@
     // bind actions
     wrap.querySelectorAll(".QLDH_btn-detail").forEach((b) =>
       b.addEventListener("click", () => openDetail(b.dataset.id))
-    );
-    wrap.querySelectorAll(".QLDH_sel-status").forEach((s) =>
-      s.addEventListener("change", (e) => updateStatus(e.target.dataset.id, e.target.value))
     );
   }
 
@@ -240,6 +240,12 @@
     });
 
     document.getElementById("QLDH_md_total").textContent = currency(o.total);
+    
+    // Cập nhật dropdown trạng thái và lưu ID đơn hàng
+    const statusSelect = document.getElementById("QLDH_md_statusSelect");
+    statusSelect.value = o.status;
+    statusSelect.dataset.orderId = id;
+    
     document.getElementById("QLDH_modal").style.display = "flex";
   }
 
@@ -368,6 +374,21 @@
     document.getElementById("QLDH_closeModal").addEventListener("click", () => {
       document.getElementById("QLDH_modal").style.display = "none";
     });
+    
+    // Event listener cho button cập nhật trạng thái trong modal
+    document.getElementById("QLDH_md_btnUpdate").addEventListener("click", () => {
+      const statusSelect = document.getElementById("QLDH_md_statusSelect");
+      const orderId = statusSelect.dataset.orderId;
+      const newStatus = statusSelect.value;
+      if (orderId) {
+        updateStatus(orderId, newStatus);
+        // Đóng modal sau khi cập nhật
+        setTimeout(() => {
+          document.getElementById("QLDH_modal").style.display = "none";
+        }, 500);
+      }
+    });
+    
     window.addEventListener("click", (e) => {
       const modal = document.getElementById("QLDH_modal");
       if (e.target === modal) modal.style.display = "none";
