@@ -511,12 +511,15 @@
                   <label for="QLSP_spDescription">Mô tả chi tiết</label>
                   <textarea id="QLSP_spDescription" rows="3"></textarea>
 
-                  <label for="QLSP_spImage">Link ảnh sản phẩm</label>
-                  <input
-                    type="text"
-                    id="QLSP_spImage"
-                    placeholder="Nhập URL ảnh..."
-                  />
+                  <label class="QLSP_file-upload-label">
+                    <span>📷 Chọn ảnh sản phẩm</span>
+                    <input
+                      type="file"
+                      id="QLSP_spImage"
+                      accept="image/*"
+                      class="QLSP_file-input"
+                    />
+                  </label>
                   <div class="QLSP_preview-image" id="QLSP_previewImage"></div>
 
                   <div class="QLSP_modal-buttons">
@@ -627,8 +630,10 @@
                 <label for="QLSP_editDescription">Mô tả chi tiết</label>
                 <textarea id="QLSP_editDescription" rows="3"></textarea>
 
-                <label for="QLSP_editImage">Link ảnh sản phẩm</label>
-                <input type="text" id="QLSP_editImage" />
+                <label class="QLSP_file-upload-label">
+                  <span>📷 Chọn ảnh sản phẩm</span>
+                  <input type="file" id="QLSP_editImage" accept="image/*" class="QLSP_file-input" />
+                </label>
                 <div class="QLSP_preview-image">
                   <img
                     id="QLSP_previewEditImg"

@@ -207,9 +207,18 @@ function QLSP_closeModal() {
   QLSP_preview.innerHTML = "";
 }
 
-QLSP_inputImage.addEventListener("input", () => {
-  const url = QLSP_inputImage.value.trim();
-  QLSP_preview.innerHTML = url ? `<img src="${url}" alt="Ảnh sản phẩm">` : "";
+// ========== XỬ LÝ UPLOAD ẢNH (THÊM MỚI) ==========
+QLSP_inputImage.addEventListener("change", function() {
+  const file = this.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      QLSP_preview.innerHTML = `<img src="${e.target.result}" alt="Ảnh sản phẩm" style="max-width:100%; max-height:200px;">`;
+      // Lưu base64 vào biến tạm (dùng khi lưu sản phẩm)
+      QLSP_inputImage.dataset.imageData = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
 });
 
 // ================== THÊM SẢN PHẨM ==================
@@ -233,6 +242,14 @@ QLSP_formThemSP.addEventListener("submit", function (e) {
     return;
   }
 
+  // Lấy dữ liệu ảnh từ file upload
+  let imageData = QLSP_inputImage.dataset.imageData || "";
+  if (!imageData) {
+    alert("Vui lòng chọn ảnh sản phẩm!");
+    QLSP_inputImage.focus();
+    return;
+  }
+
   const spMoi = {
     id: idValue,
     catalog: document.getElementById("QLSP_spCatalog").value,
@@ -243,7 +260,7 @@ QLSP_formThemSP.addEventListener("submit", function (e) {
     importPrice: giaNhapValue,
     priceValue: 0,
     quantity: 0,
-    image: document.getElementById("QLSP_spImage").value.trim(),
+    image: imageData, // Lưu base64 của ảnh
     price: "0₫",
     visibility: "visible",
     glass: document.getElementById("QLSP_spGlass").value,
@@ -313,18 +330,29 @@ function QLSP_openEditModal(product) {
   document.getElementById("QLSP_editDescription").value =
     product.description || "";
 
-  let imgSrc = product.image || "";
-  if (imgSrc && !imgSrc.startsWith("http"))
-    imgSrc = "../" + imgSrc.replace(/^(\.\/)*/, "");
-  document.getElementById("QLSP_editImage").value = product.image;
-  document.getElementById("QLSP_previewEditImg").src = imgSrc;
+  // Hiển thị ảnh cũ
+  document.getElementById("QLSP_previewEditImg").src = product.image;
+  
+  // Lưu dữ liệu ảnh cũ vào file input
+  const editImageInput = document.getElementById("QLSP_editImage");
+  editImageInput.dataset.currentImage = product.image;
+  editImageInput.value = ""; // Reset input file
 }
 
+// ========== XỬ LÝ UPLOAD ẢNH (SỬA) ==========
 document
   .getElementById("QLSP_editImage")
-  .addEventListener("input", function () {
-    const link = this.value.trim();
-    document.getElementById("QLSP_previewEditImg").src = link;
+  .addEventListener("change", function() {
+    const file = this.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById("QLSP_previewEditImg").src = e.target.result;
+        // Lưu base64 vào data attribute
+        document.getElementById("QLSP_editImage").dataset.imageData = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
   });
 
 document
@@ -354,6 +382,10 @@ document
       return;
     }
 
+    // Lấy ảnh mới (nếu user chọn file) hoặc ảnh cũ (nếu user không chọn file)
+    const editImageInput = document.getElementById("QLSP_editImage");
+    let imageData = editImageInput.dataset.imageData || dsSanPham[index].image;
+
     dsSanPham[index] = {
       ...dsSanPham[index],
       catalog: document.getElementById("QLSP_editCatalog").value,
@@ -373,7 +405,7 @@ document
       shape: document.getElementById("QLSP_editShape").value.trim(),
       waterRes: document.getElementById("QLSP_editWaterRes").value.trim(),
       description: document.getElementById("QLSP_editDescription").value.trim(),
-      image: document.getElementById("QLSP_editImage").value.trim(),
+      image: imageData,
     };
 
     saveLocalProducts(dsSanPham);
